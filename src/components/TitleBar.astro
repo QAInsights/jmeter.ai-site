@@ -1,0 +1,43 @@
+---
+import { siteConfig } from "../data/products";
+---
+
+<div class="flex items-center justify-between bg-jm-title-bar border-b border-jm-border px-3 py-1.5 select-none shrink-0">
+  <!-- Traffic lights -->
+  <div class="flex items-center gap-4">
+    <div class="flex items-center gap-1.5">
+      <span class="w-3 h-3 rounded-full bg-jm-red/80 border border-jm-red/40 hover:bg-jm-red transition-colors cursor-pointer"></span>
+      <span class="w-3 h-3 rounded-full bg-jm-amber/80 border border-jm-amber/40 hover:bg-jm-amber transition-colors cursor-pointer"></span>
+      <span class="w-3 h-3 rounded-full bg-jm-green/80 border border-jm-green/40 hover:bg-jm-green transition-colors cursor-pointer"></span>
+    </div>
+    <div class="flex items-center gap-2">
+      <svg class="w-4 h-4 text-jm-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/>
+        <path d="m14 7 3 3"/>
+        <path d="M5 6v4"/>
+        <path d="M19 14v4"/>
+        <path d="M10 2v2"/>
+        <path d="M7 8H3"/>
+        <path d="M21 16h-4"/>
+        <path d="M11 3H9"/>
+      </svg>
+      <h1 class="text-sm font-bold tracking-widest" style="font-family: 'Orbitron', sans-serif;">
+        <span class="text-jm-cyan glow-text-cyan">{siteConfig.title}</span>
+        <span class="text-jm-text-muted font-normal ml-1 text-xs tracking-normal" style="font-family: 'JetBrains Mono', monospace;">({siteConfig.version})</span>
+      </h1>
+    </div>
+  </div>
+
+  <!-- Right side: timer + indicators (decorative) -->
+  <div class="flex items-center gap-3 text-xs font-mono text-jm-text-muted">
+    <span class="tracking-wider">00:00:00</span>
+    <span class="flex items-center gap-1">
+      <svg class="w-3.5 h-3.5 text-jm-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      0
+    </span>
+    <span class="flex items-center gap-1">
+      <svg class="w-3.5 h-3.5 text-jm-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+      0/0
+    </span>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+---
+import { siteConfig, products } from "../data/products";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = siteConfig.title, description = siteConfig.description } = Astro.props;
+const fullTitle = title === siteConfig.title ? `${title} — AI-Powered Tools for Apache JMeter` : `${title} | ${siteConfig.title}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteConfig.title,
+  url: siteConfig.url,
+  description: siteConfig.description,
+  author: {
+    "@type": "Organization",
+    name: siteConfig.author,
+    url: siteConfig.authorUrl,
+  },
+  hasPart: products.map((p) => ({
+    "@type": "SoftwareApplication",
+    name: p.name,
+    description: p.description,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Cross-platform",
+    url: p.github,
+    author: {
+      "@type": "Organization",
+      name: siteConfig.author,
+    },
+  })),
+};
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="author" content={siteConfig.author} />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={siteConfig.url} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content={siteConfig.title} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:site" content="@QAInsights" />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Fonts: preconnect for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<!-- Theme color -->
+<meta name="theme-color" content="#0a0e1a" />
+<meta name="color-scheme" content="dark" />
+
+<!-- Canonical -->
+<link rel="canonical" href={siteConfig.url} />

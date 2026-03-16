@@ -1,0 +1,52 @@
+---
+import { products } from "../data/products";
+
+const tabIcons: Record<string, string> = {
+  "wand-sparkles": '<path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/>',
+  "keyboard": '<path d="M10 8h.01"/><path d="M12 12h.01"/><path d="M14 8h.01"/><path d="M16 12h.01"/><path d="M18 8h.01"/><path d="M6 8h.01"/><path d="M7 16h10"/><path d="M8 12h.01"/><rect width="20" height="16" x="2" y="4" rx="2"/>',
+  "palette": '<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
+  "app-window": '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/>',
+};
+---
+
+<div class="flex items-end bg-jm-toolbar-bg border-b border-jm-border px-1 pt-1 select-none shrink-0 overflow-x-auto" role="tablist" aria-label="Products" id="tab-bar">
+  {products.map((product, i) => (
+    <button
+      class:list={[
+        "tab-item group flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-t-lg border border-b-0 transition-all relative cursor-pointer whitespace-nowrap",
+        i === 0
+          ? "bg-jm-tab-active border-jm-border text-jm-text"
+          : "bg-transparent border-transparent text-jm-text-muted hover:text-jm-text-dim hover:bg-jm-tab-hover",
+      ]}
+      role="tab"
+      aria-selected={i === 0 ? "true" : "false"}
+      aria-controls={`panel-${product.id}`}
+      data-tab={product.id}
+      data-color={product.color}
+      id={`tab-${product.id}`}
+    >
+      <svg
+        class="w-3.5 h-3.5 shrink-0"
+        style={i === 0 ? `color: ${product.color}` : undefined}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        set:html={tabIcons[product.icon] || ""}
+      />
+      <span>{product.name}</span>
+      <span class="tab-close ml-1 p-0.5 rounded hover:bg-jm-border-light text-jm-text-muted hover:text-jm-text">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </span>
+      {i === 0 && (
+        <div class="absolute bottom-0 left-0 right-0 h-0.5 rounded-full" style={`background: ${product.color}`} id="tab-indicator" />
+      )}
+    </button>
+  ))}
+  <!-- New tab button -->
+  <button class="flex items-center justify-center w-7 h-7 mb-0.5 ml-1 text-jm-text-muted hover:text-jm-text hover:bg-jm-surface-alt rounded transition-colors" title="Open new tab" aria-label="New tab">
+    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+  </button>
+</div>

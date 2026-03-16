@@ -1,0 +1,15 @@
+---
+import { siteConfig } from "../data/products";
+---
+
+<nav class="flex items-center bg-jm-menu-bg border-b border-jm-border px-2 py-0 select-none shrink-0" role="menubar">
+  {siteConfig.menuItems.map((item) => (
+    <button
+      class="px-3 py-1.5 text-jm-text-dim hover:text-jm-text hover:bg-jm-surface-alt rounded transition-colors cursor-default"
+      style="font-family: 'JetBrains Mono', monospace; font-size: 11px;"
+      role="menuitem"
+    >
+      {item}
+    </button>
+  ))}
+</nav>

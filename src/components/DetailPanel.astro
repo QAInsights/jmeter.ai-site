@@ -1,0 +1,309 @@
+---
+import { products } from "../data/products";
+---
+
+<main class="flex-1 bg-jm-bg overflow-y-auto" id="detail-panel">
+  {products.map((product, pi) => (
+    <div
+      class:list={["product-panels", pi > 0 && "hidden"]}
+      data-panels-product={product.id}
+    >
+      {/* Header bar mimicking JMeter's element name/section header */}
+      <div class="sticky top-0 z-10 bg-jm-surface-alt/95 backdrop-blur-sm border-b border-jm-border px-6 py-2.5">
+        <div class="flex items-center gap-2.5">
+          <span class="text-lg">
+            {product.id === "feather-wand" ? "🪄" : product.id === "super-key" ? "⌨️" : product.id === "jmeter-studio" ? "🎨" : "🚀"}
+          </span>
+          <h2 class="text-sm font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;" data-panel-title={product.id}>
+            {product.name} <span class="text-jm-text-muted font-normal">&mdash;</span> <span class="text-jm-text-dim font-normal" data-panel-section={product.id}>Overview</span>
+          </h2>
+        </div>
+      </div>
+
+      {/* Panel content areas */}
+      {product.treeNodes.map((node, ni) => (
+        <div
+          class:list={[
+            "detail-content p-6 panel-enter",
+            ni > 0 && "hidden",
+          ]}
+          data-detail={`${product.id}-${node.id}`}
+        >
+          {/* ========== OVERVIEW PANEL ========== */}
+          {node.id === "overview" && (
+            <div class="max-w-4xl">
+              {/* Hero card */}
+              <div class="overview-hero mb-6" style={`border-color: ${product.color}25;`}>
+                <h3 class="product-name-gradient text-4xl leading-tight mb-2">{product.name}</h3>
+                <p class="text-xs tracking-[0.15em] text-jm-text-muted uppercase mb-4" style="font-family: 'JetBrains Mono', monospace;">
+                  {product.subtitlePrefix}{" "}
+                  <span class="font-bold" style={`color: ${product.color}`}>{product.subtitleHighlight}</span>{" "}
+                  {product.subtitleSuffix}
+                </p>
+
+                {/* Badges */}
+                <div class="flex flex-wrap gap-2 mb-6">
+                  {product.badges.map((badge) => (
+                    <span
+                      class:list={["badge-pill", badge.variant === "filled" ? "badge-filled" : "badge-outlined"]}
+                      style={badge.variant === "filled"
+                        ? `background: ${badge.color};`
+                        : `border-color: ${badge.color}60; color: ${badge.color};`}
+                    >
+                      <span>{badge.emoji}</span>
+                      {badge.label}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Description */}
+                <p class="text-sm text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">{product.description}</p>
+              </div>
+
+              {/* Info cards grid */}
+              <div class="grid grid-cols-2 gap-4">
+                {product.infoCards.map((card) => (
+                  <div class="info-card" style={`--info-card-color: ${card.color};`}>
+                    <div class="text-[10px] tracking-[0.12em] text-jm-text-muted uppercase mb-1.5" style="font-family: 'JetBrains Mono', monospace;">{card.label}</div>
+                    <div class="text-sm font-bold" style={`font-family: 'Orbitron', sans-serif; color: ${card.color};`}>
+                      {card.label === "STATUS" && <span class="inline-block w-2 h-2 rounded-full mr-1.5 align-middle" style={`background: ${card.color};`} />}
+                      {card.value}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ========== FEATURES PANEL ========== */}
+          {node.id === "features" && (
+            <div class="max-w-5xl">
+              {/* Section label */}
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs">
+                  {product.id === "feather-wand" ? "🪄" : product.id === "super-key" ? "⌨️" : product.id === "jmeter-studio" ? "🎨" : "🚀"}
+                </span>
+                <span class="text-[10px] tracking-[0.15em] uppercase font-bold" style={`font-family: 'JetBrains Mono', monospace; color: ${product.color};`}>{product.name}</span>
+                <span class="flex-1 h-px ml-1" style={`background: linear-gradient(to right, ${product.color}40, transparent);`} />
+              </div>
+
+              {/* Heading */}
+              <h3 class="text-3xl font-bold text-jm-text mb-1" style="font-family: 'Orbitron', sans-serif;">
+                {product.featuresHeadingPrefix}{" "}
+                <span class="product-name-gradient">{product.featuresHeadingHighlight}</span>
+              </h3>
+              <p class="text-sm text-jm-text-dim leading-relaxed mb-8">{product.featuresSubtitle}</p>
+
+              {/* Feature cards — 3 column grid */}
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {product.features.map((feat) => (
+                  <div class="feature-card">
+                    <div class="text-2xl mb-3">{feat.icon}</div>
+                    <h4 class="feature-card-title text-jm-text mb-2">{feat.title}</h4>
+                    <p class="text-xs text-jm-text-dim leading-relaxed">{feat.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* OSS vs Pro Panel */}
+          {node.id === "oss-pro" && (
+            <div class="max-w-3xl">
+              <h3 class="text-lg font-bold text-jm-text mb-1">OSS vs Pro</h3>
+              <p class="text-xs text-jm-text-muted mb-6">Choose the edition that fits your needs.</p>
+              <div class="bg-jm-surface border border-jm-border rounded-lg overflow-hidden">
+                <table class="w-full text-xs">
+                  <thead>
+                    <tr class="border-b border-jm-border">
+                      <th class="text-left px-4 py-3 text-jm-text-muted font-medium">Feature</th>
+                      <th class="text-center px-4 py-3 font-medium" style={`color: ${product.color}`}>
+                        <span class="inline-flex items-center gap-1">
+                          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                          OSS
+                        </span>
+                      </th>
+                      <th class="text-center px-4 py-3 font-medium text-jm-amber">
+                        <span class="inline-flex items-center gap-1">
+                          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                          Pro
+                        </span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {product.ossVsPro.map((row, ri) => (
+                      <tr class:list={["border-b border-jm-border/50 hover:bg-jm-tree-hover transition-colors", ri === product.ossVsPro.length - 1 && "border-b-0"]}>
+                        <td class="px-4 py-2.5 text-jm-text">{row.feature}</td>
+                        <td class="px-4 py-2.5 text-center">
+                          {typeof row.oss === "boolean" ? (
+                            row.oss ? (
+                              <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-jm-green/15"><svg class="w-3 h-3 text-jm-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>
+                            ) : (
+                              <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-jm-red/10"><svg class="w-3 h-3 text-jm-text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+                            )
+                          ) : (
+                            <span class="text-jm-text-dim">{row.oss}</span>
+                          )}
+                        </td>
+                        <td class="px-4 py-2.5 text-center">
+                          {typeof row.pro === "boolean" ? (
+                            row.pro ? (
+                              <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-jm-green/15"><svg class="w-3 h-3 text-jm-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>
+                            ) : (
+                              <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-jm-red/10"><svg class="w-3 h-3 text-jm-text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+                            )
+                          ) : (
+                            <span class="text-jm-amber">{row.pro}</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div class="flex gap-4 mt-6">
+                <div class="flex-1 border border-jm-border rounded-lg p-5 text-center bg-jm-surface">
+                  <h4 class="text-base font-bold text-jm-text mb-1">Open Source</h4>
+                  <div class="text-2xl font-bold font-mono mb-2" style={`color: ${product.color}`}>Free</div>
+                  <p class="text-[11px] text-jm-text-muted mb-4">Community edition. MIT License.</p>
+                  <a href={product.github} target="_blank" rel="noopener" class="block w-full text-center px-4 py-2 rounded-lg text-xs font-medium border transition-colors hover:bg-jm-surface-alt" style={`border-color: ${product.color}40; color: ${product.color};`}>
+                    Get Started
+                  </a>
+                </div>
+                <div class="flex-1 border rounded-lg p-5 text-center bg-jm-surface relative overflow-hidden" style={`border-color: ${product.color}40;`}>
+                  <div class="absolute top-0 right-0 px-2 py-0.5 text-[9px] font-bold rounded-bl-lg bg-jm-amber text-jm-bg">COMING SOON</div>
+                  <h4 class="text-base font-bold text-jm-text mb-1">Pro</h4>
+                  <div class="text-2xl font-bold font-mono text-jm-amber mb-2">$$$</div>
+                  <p class="text-[11px] text-jm-text-muted mb-4">Extended features. Priority support.</p>
+                  <button class="w-full px-4 py-2 rounded-lg text-xs font-medium bg-jm-amber/10 text-jm-amber border border-jm-amber/30 cursor-not-allowed opacity-70">
+                    Coming Soon
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Installation Panel */}
+          {node.id === "installation" && (
+            <div class="max-w-3xl">
+              <h3 class="text-lg font-bold text-jm-text mb-1">Installation</h3>
+              <p class="text-xs text-jm-text-muted mb-6">Get {product.name} up and running in minutes.</p>
+              <div class="space-y-4">
+                {product.installation.map((step, si) => (
+                  <div class="flex gap-4">
+                    <div class="flex flex-col items-center">
+                      <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0" style={`background: ${product.color}20; color: ${product.color}; border: 1px solid ${product.color}40;`}>
+                        {si + 1}
+                      </div>
+                      {si < product.installation.length - 1 && (
+                        <div class="w-px flex-1 mt-2" style={`background: ${product.color}20;`} />
+                      )}
+                    </div>
+                    <div class="flex-1 pb-4">
+                      <h4 class="text-sm font-semibold text-jm-text mb-1">{step.title}</h4>
+                      <p class="text-xs text-jm-text-dim mb-2">{step.description}</p>
+                      {step.code && (
+                        <pre class="jm-code text-[11px] whitespace-pre-wrap">{step.code}</pre>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* GitHub Panel */}
+          {node.id === "github" && (
+            <div class="max-w-3xl">
+              <h3 class="text-lg font-bold text-jm-text mb-1">GitHub Repository</h3>
+              <p class="text-xs text-jm-text-muted mb-6">Explore the source, report issues, and contribute.</p>
+              <a href={product.github} target="_blank" rel="noopener" class="block bg-jm-surface border border-jm-border rounded-lg p-6 hover:border-jm-border-light transition-colors group mb-6">
+                <div class="flex items-center gap-3 mb-3">
+                  <svg class="w-8 h-8 text-jm-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                  <div>
+                    <h4 class="text-sm font-bold text-jm-text group-hover:underline">QAInsights/{product.id === "feather-wand" ? "jmeter-ai" : product.id === "jmeter-studio" ? "jmeter-studio" : product.id}</h4>
+                    <p class="text-xs text-jm-text-dim">{product.tagline}</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4 text-[11px] text-jm-text-muted">
+                  <span class="flex items-center gap-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-jm-amber"></span> Java
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    Stars
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>
+                    Forks
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
+                    MIT License
+                  </span>
+                </div>
+              </a>
+              <div class="grid grid-cols-2 gap-4">
+                <a href={`${product.github}/issues`} target="_blank" rel="noopener" class="bg-jm-surface border border-jm-border rounded-lg p-4 hover:border-jm-border-light transition-colors">
+                  <div class="flex items-center gap-2 mb-1">
+                    <svg class="w-4 h-4 text-jm-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                    <h5 class="text-xs font-semibold text-jm-text">Report an Issue</h5>
+                  </div>
+                  <p class="text-[11px] text-jm-text-muted">Found a bug? Let us know.</p>
+                </a>
+                <a href={`${product.github}/discussions`} target="_blank" rel="noopener" class="bg-jm-surface border border-jm-border rounded-lg p-4 hover:border-jm-border-light transition-colors">
+                  <div class="flex items-center gap-2 mb-1">
+                    <svg class="w-4 h-4 text-jm-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                    <h5 class="text-xs font-semibold text-jm-text">Discussions</h5>
+                  </div>
+                  <p class="text-[11px] text-jm-text-muted">Join the community conversation.</p>
+                </a>
+                <a href={`${product.github}/pulls`} target="_blank" rel="noopener" class="bg-jm-surface border border-jm-border rounded-lg p-4 hover:border-jm-border-light transition-colors">
+                  <div class="flex items-center gap-2 mb-1">
+                    <svg class="w-4 h-4 text-jm-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M6 9v12"/></svg>
+                    <h5 class="text-xs font-semibold text-jm-text">Pull Requests</h5>
+                  </div>
+                  <p class="text-[11px] text-jm-text-muted">Contribute to development.</p>
+                </a>
+                <a href={`${product.github}/releases`} target="_blank" rel="noopener" class="bg-jm-surface border border-jm-border rounded-lg p-4 hover:border-jm-border-light transition-colors">
+                  <div class="flex items-center gap-2 mb-1">
+                    <svg class="w-4 h-4 text-jm-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></svg>
+                    <h5 class="text-xs font-semibold text-jm-text">Releases</h5>
+                  </div>
+                  <p class="text-[11px] text-jm-text-muted">Download the latest version.</p>
+                </a>
+              </div>
+            </div>
+          )}
+
+          {/* Connect Panel */}
+          {node.id === "connect" && (
+            <div class="max-w-3xl">
+              <h3 class="text-lg font-bold text-jm-text mb-1">Connect</h3>
+              <p class="text-xs text-jm-text-muted mb-6">Follow QAInsights for updates, tutorials, and community events.</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {product.socials.map((social) => (
+                  <a href={social.url} target="_blank" rel="noopener" class="flex items-center gap-4 bg-jm-surface border border-jm-border rounded-lg p-4 hover:border-jm-border-light transition-all group">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={`background: ${product.color}12; border: 1px solid ${product.color}25;`}>
+                      {social.icon === "github" && <svg class="w-5 h-5" style={`color: ${product.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>}
+                      {social.icon === "twitter" && <svg class="w-5 h-5" style={`color: ${product.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>}
+                      {social.icon === "youtube" && <svg class="w-5 h-5" style={`color: ${product.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>}
+                      {social.icon === "linkedin" && <svg class="w-5 h-5" style={`color: ${product.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>}
+                      {social.icon === "globe" && <svg class="w-5 h-5" style={`color: ${product.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>}
+                    </div>
+                    <div>
+                      <h4 class="text-sm font-semibold text-jm-text group-hover:underline">{social.name}</h4>
+                      <p class="text-[11px] text-jm-text-muted truncate max-w-[200px]">{social.url}</p>
+                    </div>
+                    <svg class="w-4 h-4 text-jm-text-muted ml-auto opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  ))}
+</main>

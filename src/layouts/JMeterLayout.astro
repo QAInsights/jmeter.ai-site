@@ -1,0 +1,261 @@
+---
+import "../styles/global.css";
+import SEOHead from "../components/SEOHead.astro";
+import TitleBar from "../components/TitleBar.astro";
+import MenuBar from "../components/MenuBar.astro";
+import Toolbar from "../components/Toolbar.astro";
+import TabBar from "../components/TabBar.astro";
+import TreeView from "../components/TreeView.astro";
+import DetailPanel from "../components/DetailPanel.astro";
+import StatusBar from "../components/StatusBar.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SEOHead />
+  </head>
+  <body class="flex flex-col h-screen overflow-hidden bg-jm-bg">
+    <!-- JMeter Chrome -->
+    <TitleBar />
+    <MenuBar />
+    <Toolbar />
+    <TabBar />
+
+    <!-- Main Content: Tree + Detail Split Pane -->
+    <div class="flex flex-1 min-h-0">
+      <TreeView />
+      <div class="jm-resizer" id="resizer" role="separator" aria-label="Resize panels"></div>
+      <DetailPanel />
+    </div>
+
+    <!-- Status Bar -->
+    <StatusBar />
+
+    <!-- Interactivity Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- State ---
+        let activeTab = "feather-wand";
+        let activeNodes: Record<string, string> = {
+          "feather-wand": "overview",
+          "super-key": "overview",
+          "jmeter-studio": "overview",
+          "prism": "overview",
+        };
+
+        // --- Tab Switching ---
+        const tabBar = document.getElementById("tab-bar");
+        const tabs = tabBar?.querySelectorAll<HTMLButtonElement>("[data-tab]") ?? [];
+        const treePanels = document.querySelectorAll<HTMLElement>("[data-tree-product]");
+        const detailPanels = document.querySelectorAll<HTMLElement>("[data-panels-product]");
+
+        function switchTab(tabId: string) {
+          activeTab = tabId;
+
+          // Update tab buttons
+          tabs.forEach((tab) => {
+            const isActive = tab.dataset.tab === tabId;
+            const color = tab.dataset.color || "#00e5ff";
+            tab.setAttribute("aria-selected", isActive ? "true" : "false");
+
+            if (isActive) {
+              tab.className = tab.className
+                .replace(/bg-transparent/g, "bg-jm-tab-active")
+                .replace(/border-transparent/g, "border-jm-border")
+                .replace(/text-jm-text-muted/g, "text-jm-text")
+                .replace(/hover:text-jm-text-dim/g, "")
+                .replace(/hover:bg-jm-tab-hover/g, "");
+              if (!tab.className.includes("bg-jm-tab-active")) {
+                tab.classList.add("bg-jm-tab-active", "border-jm-border", "text-jm-text");
+              }
+              // Set icon color
+              const icon = tab.querySelector("svg");
+              if (icon) icon.style.color = color;
+              // Add indicator
+              let indicator = tab.querySelector("#tab-indicator") as HTMLElement;
+              if (!indicator) {
+                indicator = document.createElement("div");
+                indicator.id = "tab-indicator";
+                indicator.className = "absolute bottom-0 left-0 right-0 h-0.5 rounded-full";
+                tab.appendChild(indicator);
+              }
+              indicator.style.background = color;
+            } else {
+              tab.className = tab.className
+                .replace(/bg-jm-tab-active/g, "bg-transparent")
+                .replace(/border-jm-border(?!\S)/g, "border-transparent")
+                .replace(/text-jm-text(?!-)/g, "text-jm-text-muted");
+              const icon = tab.querySelector("svg");
+              if (icon) icon.style.color = "";
+              const indicator = tab.querySelector("#tab-indicator");
+              if (indicator) indicator.remove();
+            }
+          });
+
+          // Show/hide tree panels
+          treePanels.forEach((panel) => {
+            panel.classList.toggle("hidden", panel.dataset.treeProduct !== tabId);
+          });
+
+          // Show/hide detail panels
+          detailPanels.forEach((panel) => {
+            panel.classList.toggle("hidden", panel.dataset.panelsProduct !== tabId);
+          });
+
+          // Restore active node for this tab
+          const currentNode = activeNodes[tabId] || "overview";
+          highlightTreeNode(tabId, currentNode);
+          showDetailContent(tabId, currentNode);
+        }
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", (e) => {
+            const target = e.target as HTMLElement;
+            // Don't switch tab if clicking close button
+            if (target.closest(".tab-close")) return;
+            const tabId = tab.dataset.tab;
+            if (tabId) switchTab(tabId);
+          });
+        });
+
+        // --- Tree Node Selection ---
+        const treeNodes = document.querySelectorAll<HTMLButtonElement>("[data-node]");
+
+        function highlightTreeNode(productId: string, nodeId: string) {
+          const product = document.querySelector(`[data-tree-product="${productId}"]`);
+          if (!product) return;
+
+          const nodes = product.querySelectorAll<HTMLButtonElement>("[data-node]");
+          const productEl = document.querySelector(`[data-panels-product="${productId}"]`);
+          const color = productEl
+            ? (document.querySelector(`[data-tab="${productId}"]`) as HTMLElement)?.dataset.color || "#00e5ff"
+            : "#00e5ff";
+
+          nodes.forEach((node) => {
+            const isActive = node.dataset.node === nodeId;
+            node.setAttribute("aria-selected", isActive ? "true" : "false");
+
+            // Reset classes
+            node.classList.remove("bg-jm-tree-active/60", "text-jm-text");
+            node.classList.remove("text-jm-text-dim");
+
+            if (isActive) {
+              node.style.background = `color-mix(in srgb, ${color} 15%, transparent)`;
+              node.classList.add("text-jm-text");
+              // Active indicator
+              let ind = node.querySelector(".active-ind") as HTMLElement;
+              if (!ind) {
+                ind = document.createElement("span");
+                ind.className = "active-ind absolute left-0 top-0 bottom-0 w-[2px] rounded-r";
+                node.appendChild(ind);
+              }
+              ind.style.background = color;
+            } else {
+              node.style.background = "";
+              node.classList.add("text-jm-text-dim");
+              const ind = node.querySelector(".active-ind");
+              if (ind) ind.remove();
+            }
+          });
+        }
+
+        function showDetailContent(productId: string, nodeId: string) {
+          const container = document.querySelector(`[data-panels-product="${productId}"]`);
+          if (!container) return;
+
+          const contents = container.querySelectorAll<HTMLElement>("[data-detail]");
+          contents.forEach((content) => {
+            const isActive = content.dataset.detail === `${productId}-${nodeId}`;
+            content.classList.toggle("hidden", !isActive);
+            if (isActive) {
+              content.classList.add("panel-enter");
+            }
+          });
+
+          // Update panel section label in header
+          const sectionEl = container.querySelector(`[data-panel-section="${productId}"]`);
+          if (sectionEl) {
+            const nodeLabel = document.querySelector(
+              `[data-tree-product="${productId}"] [data-node="${nodeId}"]`
+            )?.textContent?.trim();
+            sectionEl.textContent = nodeLabel || "Overview";
+          }
+        }
+
+        treeNodes.forEach((node) => {
+          node.addEventListener("click", () => {
+            const nodeId = node.dataset.node;
+            const productId = node.dataset.product;
+            if (!nodeId || !productId) return;
+
+            activeNodes[productId] = nodeId;
+            highlightTreeNode(productId, nodeId);
+            showDetailContent(productId, nodeId);
+          });
+        });
+
+        // --- Resizable Split Pane ---
+        const resizer = document.getElementById("resizer");
+        const treePanel = document.getElementById("tree-panel");
+
+        if (resizer && treePanel) {
+          let isResizing = false;
+
+          resizer.addEventListener("mousedown", (e) => {
+            isResizing = true;
+            document.body.style.cursor = "col-resize";
+            document.body.style.userSelect = "none";
+            e.preventDefault();
+          });
+
+          document.addEventListener("mousemove", (e) => {
+            if (!isResizing) return;
+            const newWidth = Math.max(160, Math.min(500, e.clientX));
+            treePanel.style.width = `${newWidth}px`;
+          });
+
+          document.addEventListener("mouseup", () => {
+            if (isResizing) {
+              isResizing = false;
+              document.body.style.cursor = "";
+              document.body.style.userSelect = "";
+            }
+          });
+        }
+
+        // --- Keyboard Navigation ---
+        document.addEventListener("keydown", (e) => {
+          // Ctrl+Tab / Ctrl+Shift+Tab to switch tabs
+          if (e.ctrlKey && e.key === "Tab") {
+            e.preventDefault();
+            const tabIds = Array.from(tabs).map((t) => t.dataset.tab!);
+            const currentIndex = tabIds.indexOf(activeTab);
+            const nextIndex = e.shiftKey
+              ? (currentIndex - 1 + tabIds.length) % tabIds.length
+              : (currentIndex + 1) % tabIds.length;
+            switchTab(tabIds[nextIndex]);
+          }
+
+          // Arrow keys for tree navigation
+          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            const currentTree = document.querySelector(`[data-tree-product="${activeTab}"]`);
+            if (!currentTree) return;
+            const nodes = Array.from(currentTree.querySelectorAll<HTMLButtonElement>("[data-node]"));
+            const currentNode = activeNodes[activeTab];
+            const currentIndex = nodes.findIndex((n) => n.dataset.node === currentNode);
+            const nextIndex = e.key === "ArrowDown"
+              ? Math.min(currentIndex + 1, nodes.length - 1)
+              : Math.max(currentIndex - 1, 0);
+            const nextNode = nodes[nextIndex]?.dataset.node;
+            if (nextNode) {
+              activeNodes[activeTab] = nextNode;
+              highlightTreeNode(activeTab, nextNode);
+              showDetailContent(activeTab, nextNode);
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
