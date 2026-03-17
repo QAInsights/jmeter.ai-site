@@ -720,12 +720,12 @@ import StatusBar from "../components/StatusBar.astro";
           div.className = "flex gap-3 justify-end";
           div.innerHTML = `
             <div class="flex-1 flex justify-end">
-              <div class="bg-[#E87040]/20 border border-[#E87040]/40 rounded-lg px-3 py-2 text-xs text-jm-text max-w-[80%]" style="font-family: 'JetBrains Mono', monospace;">
+              <div class="bg-[#E87040]/20 border border-[#E87040]/40 rounded-lg px-4 py-3 text-sm text-jm-text max-w-[80%]" style="font-family: 'JetBrains Mono', monospace;">
                 ${text}
               </div>
             </div>
-            <div class="w-8 h-8 rounded-lg bg-jm-cyan/20 border border-jm-cyan/40 flex items-center justify-center shrink-0">
-              <span class="text-sm">👤</span>
+            <div class="w-10 h-10 rounded-lg bg-jm-cyan/20 border border-jm-cyan/40 flex items-center justify-center shrink-0">
+              <span class="text-base">👤</span>
             </div>
           `;
           fwChatMessages.appendChild(div);
@@ -739,12 +739,12 @@ import StatusBar from "../components/StatusBar.astro";
           const div = document.createElement("div");
           div.className = "flex gap-3";
           div.innerHTML = `
-            <div class="w-8 h-8 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0">
-              <span class="text-sm">🪄</span>
+            <div class="w-10 h-10 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0">
+              <span class="text-base">🪄</span>
             </div>
             <div class="flex-1">
-              <div class="text-[10px] text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div>
-              <div class="bg-jm-surface-alt border border-jm-border rounded-lg px-3 py-2 text-xs text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">
+              <div class="text-xs text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div>
+              <div class="bg-jm-surface-alt border border-jm-border rounded-lg px-4 py-3 text-sm text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">
                 <span class="fw-typing-cursor">▊</span>
               </div>
             </div>
@@ -781,10 +781,10 @@ import StatusBar from "../components/StatusBar.astro";
               }
               
               const treeItem = document.createElement("div");
-              treeItem.className = "flex items-center gap-1 py-1 px-1 hover:bg-jm-tree-hover rounded fw-tree-item-new";
+              treeItem.className = "flex items-center gap-1.5 py-1.5 px-2 hover:bg-jm-tree-hover rounded fw-tree-item-new";
               treeItem.innerHTML = `
-                <span class="w-3"></span>
-                <span class="text-sm">${el.icon}</span>
+                <span class="w-3.5"></span>
+                <span class="text-base">${el.icon}</span>
                 <span class="text-jm-text">${el.name}</span>
               `;
               
@@ -861,21 +861,21 @@ import StatusBar from "../components/StatusBar.astro";
           // Clear all messages except welcome message
           fwChatMessages.innerHTML = `
             <div class="flex gap-3">
-              <div class="w-8 h-8 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0">
-                <span class="text-sm">🪄</span>
+              <div class="w-10 h-10 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0">
+                <span class="text-base">🪄</span>
               </div>
               <div class="flex-1">
-                <div class="text-[10px] text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div>
-                <div class="bg-jm-surface-alt border border-jm-border rounded-lg px-3 py-2 text-xs text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">
+                <div class="text-xs text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div>
+                <div class="bg-jm-surface-alt border border-jm-border rounded-lg px-4 py-3 text-sm text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">
                   <p class="mb-2">👋 Hello! I'm your AI assistant for JMeter test creation.</p>
                   <p>I can help you:</p>
-                  <ul class="list-disc list-inside mt-1 space-y-0.5 text-[11px]">
+                  <ul class="list-disc list-inside mt-2 space-y-1 text-xs">
                     <li>Generate Thread Groups and samplers</li>
                     <li>Add assertions and timers</li>
                     <li>Configure HTTP requests</li>
                     <li>Explain JMeter concepts</li>
                   </ul>
-                  <p class="mt-2">What would you like to create?</p>
+                  <p class="mt-3">What would you like to create?</p>
                 </div>
               </div>
             </div>
@@ -883,7 +883,7 @@ import StatusBar from "../components/StatusBar.astro";
           
           // Clear tree content and reset to placeholder
           fwTreeContent.innerHTML = `
-            <div class="flex items-center gap-1 py-1 px-1 text-jm-text-muted/50 italic">
+            <div class="flex items-center gap-1.5 py-1.5 px-2 text-jm-text-muted/50 italic">
               <span class="text-xs">Empty — ask AI to add elements</span>
             </div>
           `;
