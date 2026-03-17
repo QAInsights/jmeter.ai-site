@@ -399,3 +399,23 @@ body {
 .sk-running-dot {
   animation: skRunPulse 0.8s ease-in-out infinite;
 }
+
+/* ===== Feather Wand AI Chat ===== */
+.fw-typing-cursor {
+  display: inline-block;
+  animation: fwCursorBlink 0.8s ease-in-out infinite;
+  color: #E87040;
+  font-weight: bold;
+}
+@keyframes fwCursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.fw-tree-item-new {
+  animation: fwTreeItemSlide 0.3s ease-out;
+}
+@keyframes fwTreeItemSlide {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}

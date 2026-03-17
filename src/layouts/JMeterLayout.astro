@@ -645,6 +645,263 @@ import StatusBar from "../components/StatusBar.astro";
           skOpenPalette();
         });
 
+        // --- Feather Wand AI Chat ---
+        const fwChatInput = document.getElementById("fw-chat-input") as HTMLInputElement;
+        const fwChatSend = document.getElementById("fw-chat-send");
+        const fwChatMessages = document.getElementById("fw-chat-messages");
+        const fwTreeContent = document.getElementById("fw-tree-content");
+        const fwElementCount = document.getElementById("fw-element-count");
+        let fwElementsAdded = 0;
+
+        // Track if Thread Group exists
+        let fwHasThreadGroup = false;
+
+        // Mock conversation database with pattern matching
+        const fwResponses: Record<string, {response: string; elements?: Array<{icon: string; name: string}>; requiresThreadGroup?: boolean}> = {
+          "thread group": {
+            response: "I'll create a Thread Group for you with 100 concurrent users.\n\n**Configuration:**\n• Number of Threads: 100\n• Ramp-up Period: 10 seconds\n• Loop Count: 1\n\nThe Thread Group has been added to your test plan. Would you like me to add any samplers to it?",
+            elements: [{icon: "⚙️", name: "Thread Group (100 users)"}]
+          },
+          "http request": {
+            response: "I've added an HTTP Request sampler to your Thread Group.\n\n**Configuration:**\n• Protocol: https\n• Server: api.example.com\n• Method: GET\n• Path: /api/users\n\nWould you like to add headers, parameters, or assertions?",
+            elements: [{icon: "🌐", name: "HTTP Request - GET /api/users"}],
+            requiresThreadGroup: true
+          },
+          "assertion": {
+            response: "I've added response assertions to validate your HTTP request.\n\n**Assertions added:**\n• Response Code: 200\n• Response Time: < 500ms\n• JSON Path: $.data exists\n\nYour test now validates successful responses!",
+            elements: [{icon: "✅", name: "Response Assertion"}, {icon: "⏱️", name: "Duration Assertion"}],
+            requiresThreadGroup: true
+          },
+          "timer": {
+            response: "I've added a Constant Timer to simulate realistic user behavior.\n\n**Configuration:**\n• Thread Delay: 1000ms (1 second)\n\nThis adds a 1-second pause between requests to simulate think time.",
+            elements: [{icon: "⏳", name: "Constant Timer (1s)"}],
+            requiresThreadGroup: true
+          },
+          "listener": {
+            response: "I've added listeners to visualize your test results.\n\n**Listeners added:**\n• View Results Tree (detailed request/response)\n• Summary Report (aggregate metrics)\n\nYou can now see detailed results when you run the test!",
+            elements: [{icon: "🌳", name: "View Results Tree"}, {icon: "📈", name: "Summary Report"}],
+            requiresThreadGroup: true
+          },
+          "help": {
+            response: "I can help you with:\n\n**Test Structure:**\n• Thread Groups (concurrent users)\n• Samplers (HTTP, JDBC, FTP, etc.)\n• Controllers (logic, loops, conditions)\n\n**Test Configuration:**\n• Timers (delays, think time)\n• Assertions (validation)\n• Config Elements (headers, cookies)\n\n**Results:**\n• Listeners (reports, graphs)\n• Post-processors (extract data)\n\nJust describe what you need in plain English!"
+          },
+          "need_thread_group": {
+            response: "⚠️ **Thread Group Required**\n\nIn JMeter, you need to add a **Thread Group** first before adding samplers, timers, assertions, or listeners.\n\nThe Thread Group defines how many virtual users will run your test and is the container for all test elements.\n\nWould you like me to create a Thread Group for you? Just say:\n• \"Create a thread group with 100 users\"\n• \"Add a thread group\""
+          },
+          "default": {
+            response: "I understand you want to work with JMeter test elements. Could you be more specific?\n\nTry asking me to:\n• \"Create a thread group with 100 users\"\n• \"Add an HTTP request to api.example.com\"\n• \"Add response assertions\"\n• \"Add a constant timer\"\n• \"Add listeners for results\"\n\nWhat would you like to create?"
+          }
+        };
+
+        function fwMatchResponse(input: string): {response: string; elements?: Array<{icon: string; name: string}>; requiresThreadGroup?: boolean} {
+          const lower = input.toLowerCase();
+          if (lower.includes("thread") && lower.includes("group")) return fwResponses["thread group"];
+          
+          // Check for elements that require Thread Group
+          let matchedResponse = null;
+          if (lower.includes("http") || lower.includes("request") || lower.includes("sampler")) matchedResponse = fwResponses["http request"];
+          else if (lower.includes("assert")) matchedResponse = fwResponses["assertion"];
+          else if (lower.includes("timer") || lower.includes("delay") || lower.includes("think")) matchedResponse = fwResponses["timer"];
+          else if (lower.includes("listener") || lower.includes("result") || lower.includes("report")) matchedResponse = fwResponses["listener"];
+          else if (lower.includes("help") || lower.includes("what can you")) return fwResponses["help"];
+          else return fwResponses["default"];
+          
+          // If matched response requires Thread Group and we don't have one, return warning
+          if (matchedResponse && matchedResponse.requiresThreadGroup && !fwHasThreadGroup) {
+            return fwResponses["need_thread_group"];
+          }
+          
+          return matchedResponse;
+        }
+
+        function fwAddUserMessage(text: string) {
+          if (!fwChatMessages) return;
+          const div = document.createElement("div");
+          div.className = "flex gap-3 justify-end";
+          div.innerHTML = `
+            <div class="flex-1 flex justify-end">
+              <div class="bg-[#E87040]/20 border border-[#E87040]/40 rounded-lg px-3 py-2 text-xs text-jm-text max-w-[80%]" style="font-family: 'JetBrains Mono', monospace;">
+                ${text}
+              </div>
+            </div>
+            <div class="w-8 h-8 rounded-lg bg-jm-cyan/20 border border-jm-cyan/40 flex items-center justify-center shrink-0">
+              <span class="text-sm">👤</span>
+            </div>
+          `;
+          fwChatMessages.appendChild(div);
+          fwChatMessages.scrollTop = fwChatMessages.scrollHeight;
+        }
+
+        async function fwAddAIMessage(text: string, elements?: Array<{icon: string; name: string}>) {
+          if (!fwChatMessages) return;
+          
+          // Create AI message container
+          const div = document.createElement("div");
+          div.className = "flex gap-3";
+          div.innerHTML = `
+            <div class="w-8 h-8 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0">
+              <span class="text-sm">🪄</span>
+            </div>
+            <div class="flex-1">
+              <div class="text-[10px] text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div>
+              <div class="bg-jm-surface-alt border border-jm-border rounded-lg px-3 py-2 text-xs text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">
+                <span class="fw-typing-cursor">▊</span>
+              </div>
+            </div>
+          `;
+          fwChatMessages.appendChild(div);
+          fwChatMessages.scrollTop = fwChatMessages.scrollHeight;
+
+          // Simulate typing animation
+          const messageContent = div.querySelector(".bg-jm-surface-alt") as HTMLElement;
+          const lines = text.split("\n");
+          let fullText = "";
+          
+          for (const line of lines) {
+            for (let i = 0; i < line.length; i++) {
+              fullText += line[i];
+              messageContent.innerHTML = fullText.replace(/\*\*(.*?)\*\*/g, '<strong class="text-jm-text">$1</strong>').replace(/\n/g, '<br>') + '<span class="fw-typing-cursor">▊</span>';
+              fwChatMessages.scrollTop = fwChatMessages.scrollHeight;
+              await new Promise(resolve => setTimeout(resolve, 15)); // 15ms per char
+            }
+            fullText += "\n";
+          }
+          
+          // Remove cursor
+          messageContent.innerHTML = fullText.replace(/\*\*(.*?)\*\*/g, '<strong class="text-jm-text">$1</strong>').replace(/\n/g, '<br>');
+
+          // Add elements to tree if provided
+          if (elements && fwTreeContent) {
+            for (const el of elements) {
+              fwElementsAdded++;
+              
+              // Check if this is a Thread Group
+              if (el.name.toLowerCase().includes("thread group")) {
+                fwHasThreadGroup = true;
+              }
+              
+              const treeItem = document.createElement("div");
+              treeItem.className = "flex items-center gap-1 py-1 px-1 hover:bg-jm-tree-hover rounded fw-tree-item-new";
+              treeItem.innerHTML = `
+                <span class="w-3"></span>
+                <span class="text-sm">${el.icon}</span>
+                <span class="text-jm-text">${el.name}</span>
+              `;
+              
+              // Remove placeholder if exists
+              const placeholder = fwTreeContent.querySelector(".italic");
+              if (placeholder) placeholder.remove();
+              
+              fwTreeContent.appendChild(treeItem);
+              await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            
+            // Update element count
+            if (fwElementCount) {
+              fwElementCount.textContent = `${fwElementsAdded} element${fwElementsAdded === 1 ? '' : 's'}`;
+            }
+          }
+        }
+
+        async function fwSendMessage() {
+          if (!fwChatInput || !fwChatSend) return;
+          const text = fwChatInput.value.trim();
+          if (!text) return;
+
+          // Disable input
+          fwChatInput.disabled = true;
+          fwChatSend.setAttribute("disabled", "true");
+          fwChatSend.classList.add("opacity-50", "cursor-not-allowed");
+
+          // Add user message
+          fwAddUserMessage(text);
+          fwChatInput.value = "";
+
+          // Wait a bit before AI responds
+          await new Promise(resolve => setTimeout(resolve, 500));
+
+          // Get AI response
+          const match = fwMatchResponse(text);
+          await fwAddAIMessage(match.response, match.elements);
+
+          // Re-enable input
+          fwChatInput.disabled = false;
+          fwChatSend.removeAttribute("disabled");
+          fwChatSend.classList.remove("opacity-50", "cursor-not-allowed");
+          fwChatInput.focus();
+        }
+
+        // Send button click
+        fwChatSend?.addEventListener("click", () => fwSendMessage());
+
+        // Enter key to send
+        fwChatInput?.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            fwSendMessage();
+          }
+        });
+
+        // Suggestion buttons
+        document.querySelectorAll<HTMLButtonElement>("[data-fw-suggestion]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const suggestion = btn.dataset.fwSuggestion;
+            if (suggestion && fwChatInput) {
+              fwChatInput.value = suggestion;
+              fwSendMessage();
+            }
+          });
+        });
+
+        // Clear chat button
+        const fwClearChatBtn = document.getElementById("fw-clear-chat");
+        fwClearChatBtn?.addEventListener("click", () => {
+          if (!fwChatMessages || !fwTreeContent || !fwElementCount) return;
+          
+          // Clear all messages except welcome message
+          fwChatMessages.innerHTML = `
+            <div class="flex gap-3">
+              <div class="w-8 h-8 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0">
+                <span class="text-sm">🪄</span>
+              </div>
+              <div class="flex-1">
+                <div class="text-[10px] text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div>
+                <div class="bg-jm-surface-alt border border-jm-border rounded-lg px-3 py-2 text-xs text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">
+                  <p class="mb-2">👋 Hello! I'm your AI assistant for JMeter test creation.</p>
+                  <p>I can help you:</p>
+                  <ul class="list-disc list-inside mt-1 space-y-0.5 text-[11px]">
+                    <li>Generate Thread Groups and samplers</li>
+                    <li>Add assertions and timers</li>
+                    <li>Configure HTTP requests</li>
+                    <li>Explain JMeter concepts</li>
+                  </ul>
+                  <p class="mt-2">What would you like to create?</p>
+                </div>
+              </div>
+            </div>
+          `;
+          
+          // Clear tree content and reset to placeholder
+          fwTreeContent.innerHTML = `
+            <div class="flex items-center gap-1 py-1 px-1 text-jm-text-muted/50 italic">
+              <span class="text-xs">Empty — ask AI to add elements</span>
+            </div>
+          `;
+          
+          // Reset element count
+          fwElementsAdded = 0;
+          fwElementCount.textContent = "0 elements";
+          
+          // Reset Thread Group flag
+          fwHasThreadGroup = false;
+          
+          // Clear input
+          if (fwChatInput) {
+            fwChatInput.value = "";
+            fwChatInput.focus();
+          }
+        });
+
         // --- Prism Tab Switcher ---
         const prismTabs = document.querySelectorAll<HTMLButtonElement>(".prism-tab");
         prismTabs.forEach((tab) => {
