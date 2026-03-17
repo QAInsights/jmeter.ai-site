@@ -644,6 +644,67 @@ export const themes: Theme[] = [
   },
 ];
 
+export interface JMeterElement {
+  name: string;
+  type: "element" | "action";
+  category: string;
+  icon: string;
+  parent?: string;
+}
+
+export const jmeterElements: JMeterElement[] = [
+  { name: "Thread Group", type: "element", category: "Threads", icon: "⚙️", parent: "Test Plan" },
+  { name: "setUp Thread Group", type: "element", category: "Threads", icon: "⚙️", parent: "Test Plan" },
+  { name: "tearDown Thread Group", type: "element", category: "Threads", icon: "⚙️", parent: "Test Plan" },
+  { name: "Open Model Thread Group", type: "element", category: "Threads", icon: "⚙️", parent: "Test Plan" },
+  { name: "HTTP Request", type: "element", category: "Samplers", icon: "🌐", parent: "Thread Group" },
+  { name: "HTTP Header Manager", type: "element", category: "Config", icon: "📋", parent: "Thread Group" },
+  { name: "HTTP Cookie Manager", type: "element", category: "Config", icon: "🍪", parent: "Thread Group" },
+  { name: "HTTP Cache Manager", type: "element", category: "Config", icon: "💾", parent: "Thread Group" },
+  { name: "HTTP Authorization Manager", type: "element", category: "Config", icon: "🔐", parent: "Thread Group" },
+  { name: "Access Log Sampler", type: "element", category: "Samplers", icon: "📄", parent: "Thread Group" },
+  { name: "AJP/1.3 Sampler", type: "element", category: "Samplers", icon: "🔌", parent: "Thread Group" },
+  { name: "DNS Cache Manager", type: "element", category: "Config", icon: "🌍", parent: "Thread Group" },
+  { name: "GraphQL HTTP Request", type: "element", category: "Samplers", icon: "📊", parent: "Thread Group" },
+  { name: "HTML Link Parser", type: "element", category: "PostProcessors", icon: "🔗", parent: "Thread Group" },
+  { name: "FTP Request", type: "element", category: "Samplers", icon: "📁", parent: "Thread Group" },
+  { name: "JDBC Request", type: "element", category: "Samplers", icon: "🗄️", parent: "Thread Group" },
+  { name: "JSR223 Sampler", type: "element", category: "Samplers", icon: "📜", parent: "Thread Group" },
+  { name: "Debug Sampler", type: "element", category: "Samplers", icon: "🐛", parent: "Thread Group" },
+  { name: "View Results Tree", type: "element", category: "Listeners", icon: "🌳", parent: "Thread Group" },
+  { name: "View Results in Table", type: "element", category: "Listeners", icon: "📊", parent: "Thread Group" },
+  { name: "Summary Report", type: "element", category: "Listeners", icon: "📈", parent: "Thread Group" },
+  { name: "Aggregate Report", type: "element", category: "Listeners", icon: "📉", parent: "Thread Group" },
+  { name: "Graph Results", type: "element", category: "Listeners", icon: "📈", parent: "Thread Group" },
+  { name: "Response Assertion", type: "element", category: "Assertions", icon: "✅", parent: "Thread Group" },
+  { name: "JSON Assertion", type: "element", category: "Assertions", icon: "✅", parent: "Thread Group" },
+  { name: "Duration Assertion", type: "element", category: "Assertions", icon: "⏱️", parent: "Thread Group" },
+  { name: "Constant Timer", type: "element", category: "Timers", icon: "⏳", parent: "Thread Group" },
+  { name: "Gaussian Random Timer", type: "element", category: "Timers", icon: "⏳", parent: "Thread Group" },
+  { name: "Uniform Random Timer", type: "element", category: "Timers", icon: "⏳", parent: "Thread Group" },
+  { name: "CSV Data Set Config", type: "element", category: "Config", icon: "📋", parent: "Thread Group" },
+  { name: "User Defined Variables", type: "element", category: "Config", icon: "📋", parent: "Test Plan" },
+  { name: "Loop Controller", type: "element", category: "Controllers", icon: "🔁", parent: "Thread Group" },
+  { name: "If Controller", type: "element", category: "Controllers", icon: "❓", parent: "Thread Group" },
+  { name: "While Controller", type: "element", category: "Controllers", icon: "🔄", parent: "Thread Group" },
+  { name: "Transaction Controller", type: "element", category: "Controllers", icon: "📦", parent: "Thread Group" },
+  { name: "Runtime Controller", type: "element", category: "Controllers", icon: "⏱️", parent: "Thread Group" },
+  { name: "Regular Expression Extractor", type: "element", category: "PostProcessors", icon: "🔍", parent: "Thread Group" },
+  { name: "JSON Extractor", type: "element", category: "PostProcessors", icon: "🔍", parent: "Thread Group" },
+  { name: "BeanShell PreProcessor", type: "element", category: "PreProcessors", icon: "📜", parent: "Thread Group" },
+  { name: "JSR223 PreProcessor", type: "element", category: "PreProcessors", icon: "📜", parent: "Thread Group" },
+  { name: "JSR223 PostProcessor", type: "element", category: "PostProcessors", icon: "📜", parent: "Thread Group" },
+  // Actions
+  { name: "Action: Run Tg", type: "action", category: "Actions", icon: "▶️" },
+  { name: "Action: Run Tg No Timers", type: "action", category: "Actions", icon: "▶️" },
+  { name: "Action: Save Before Run", type: "action", category: "Actions", icon: "💾" },
+  { name: "Action: Stop", type: "action", category: "Actions", icon: "⏹️" },
+  { name: "Action: Stop Thread", type: "action", category: "Actions", icon: "⏹️" },
+  { name: "Action: Remote Stop", type: "action", category: "Actions", icon: "⏹️" },
+  { name: "Action: Remote Stop All", type: "action", category: "Actions", icon: "⏹️" },
+  { name: "Action: Thread Dump", type: "action", category: "Actions", icon: "📋" },
+];
+
 export const siteConfig = {
   title: "JMeter.AI - Performance Intelligence Suite",
   version: "0.0.1",
