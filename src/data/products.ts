@@ -389,9 +389,9 @@ export const products: Product[] = [
     ],
     infoCards: [
       { label: "CATEGORY", value: "Multi-Tab / UX", color: "#00e676" },
-      { label: "PLATFORM", value: "Apache JMeter Plugin", color: "#00e676" },
+      { label: "PLATFORM", value: "Apache JMeter Plugin", color: "#00e5ff" },
       { label: "LICENSE", value: "OSS + Commercial", color: "#ff5252" },
-      { label: "MAX TABS (OSS)", value: "3 concurrent", color: "#00e5ff" },
+      { label: "MAX TABS (OSS)", value: "3 concurrent", color: "#ffab00" },
     ],
     featuresHeadingPrefix: "Tab",
     featuresHeadingHighlight: "Revolution",

@@ -645,6 +645,38 @@ import StatusBar from "../components/StatusBar.astro";
           skOpenPalette();
         });
 
+        // --- Prism Tab Switcher ---
+        const prismTabs = document.querySelectorAll<HTMLButtonElement>(".prism-tab");
+        prismTabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const tabId = tab.dataset.prismTab;
+            if (!tabId) return;
+
+            // Update tab active states
+            prismTabs.forEach((t) => {
+              const isActive = t.dataset.prismTab === tabId;
+              if (isActive) {
+                t.classList.add("prism-tab-active", "bg-jm-tab-active", "border-t", "border-l", "border-r", "border-jm-border");
+                t.classList.remove("bg-transparent", "hover:bg-jm-tab-hover");
+                const span = t.querySelector("span");
+                if (span) span.classList.replace("text-jm-text-muted", "text-jm-text");
+              } else {
+                t.classList.remove("prism-tab-active", "bg-jm-tab-active", "border-t", "border-l", "border-r", "border-jm-border");
+                t.classList.add("bg-transparent", "hover:bg-jm-tab-hover");
+                const span = t.querySelector("span");
+                if (span) span.classList.replace("text-jm-text", "text-jm-text-muted");
+              }
+            });
+
+            // Switch tree content
+            document.querySelectorAll(".prism-tree-content").forEach((content) => {
+              content.classList.add("hidden");
+            });
+            const activeTree = document.getElementById(`prism-tree-${tabId}`);
+            if (activeTree) activeTree.classList.remove("hidden");
+          });
+        });
+
         // --- Keyboard Navigation ---
         document.addEventListener("keydown", (e) => {
           // Ctrl+K / Cmd+K to open Super Key command palette
