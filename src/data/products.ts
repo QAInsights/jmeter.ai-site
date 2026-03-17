@@ -252,8 +252,8 @@ export const products: Product[] = [
         code: "$JMETER_HOME/bin/jmeter",
       },
       {
-        title: "Open Cheatsheet",
-        description: "Press Ctrl+Shift+? to see all available shortcuts.",
+        title: "Launch Super Key",
+        description: "Ctrl/Cmd + K to open the Super Key panel.",
       },
     ],
     socials: defaultSocials,
