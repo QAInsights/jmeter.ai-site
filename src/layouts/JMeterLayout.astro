@@ -224,6 +224,113 @@ import StatusBar from "../components/StatusBar.astro";
           });
         }
 
+        // --- Live Theme Switcher ---
+        const CSS_VAR_MAP: Record<string, string> = {
+          bg: "--color-jm-bg",
+          surface: "--color-jm-surface",
+          surfaceAlt: "--color-jm-surface-alt",
+          border: "--color-jm-border",
+          borderLight: "--color-jm-border-light",
+          text: "--color-jm-text",
+          textDim: "--color-jm-text-dim",
+          textMuted: "--color-jm-text-muted",
+          titleBar: "--color-jm-title-bar",
+          menuBg: "--color-jm-menu-bg",
+          toolbarBg: "--color-jm-toolbar-bg",
+          tabActive: "--color-jm-tab-active",
+          tabHover: "--color-jm-tab-hover",
+          treeHover: "--color-jm-tree-hover",
+          treeActive: "--color-jm-tree-active",
+          accent: "--color-jm-accent",
+          accentDim: "--color-jm-accent-dim",
+          cyan: "--color-jm-cyan",
+          amber: "--color-jm-amber",
+          purple: "--color-jm-purple",
+          green: "--color-jm-green",
+          red: "--color-jm-red",
+          statusBg: "--color-jm-status-bg",
+        };
+
+        let activeThemeId = "default";
+
+        function applyTheme(themeId: string, colors: Record<string, string>) {
+          const root = document.documentElement;
+
+          // Enable smooth transition
+          root.classList.add("theme-transitioning");
+
+          // Set every CSS custom property
+          for (const [key, cssVar] of Object.entries(CSS_VAR_MAP)) {
+            if (colors[key]) {
+              root.style.setProperty(cssVar, colors[key]);
+            }
+          }
+
+          // Update active swatch ring
+          document.querySelectorAll<HTMLElement>(".theme-swatch").forEach((btn) => {
+            const ring = btn.querySelector<HTMLElement>(".theme-active-ring");
+            if (!ring) return;
+            if (btn.dataset.themeId === themeId) {
+              const c = JSON.parse(btn.dataset.themeColors || "{}");
+              ring.style.borderColor = c.accent || "#00e5ff";
+              ring.style.boxShadow = `0 0 12px ${c.accent || "#00e5ff"}40`;
+            } else {
+              ring.style.borderColor = "transparent";
+              ring.style.boxShadow = "none";
+            }
+          });
+
+          // Update active label
+          const label = document.getElementById("theme-active-label");
+          if (label) {
+            const btn = document.querySelector(`[data-theme-id="${themeId}"]`);
+            const name = btn?.querySelector("[style*='Orbitron']")?.textContent || themeId;
+            label.textContent = `Active: ${name}`;
+            label.style.color = colors.accent || "";
+          }
+
+          // Update glow-text-cyan to match new accent
+          const glowStyle = document.getElementById("dynamic-glow");
+          if (glowStyle) {
+            glowStyle.textContent = `.glow-text-cyan { text-shadow: 0 0 8px ${colors.accent || "#00e5ff"}66; }`;
+          } else {
+            const s = document.createElement("style");
+            s.id = "dynamic-glow";
+            s.textContent = `.glow-text-cyan { text-shadow: 0 0 8px ${colors.accent || "#00e5ff"}66; }`;
+            document.head.appendChild(s);
+          }
+
+          activeThemeId = themeId;
+
+          // Remove transition class after animation completes
+          setTimeout(() => root.classList.remove("theme-transitioning"), 400);
+        }
+
+        // Bind swatch clicks
+        document.querySelectorAll<HTMLButtonElement>(".theme-swatch").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const themeId = btn.dataset.themeId;
+            const colors = JSON.parse(btn.dataset.themeColors || "{}");
+            if (themeId) applyTheme(themeId, colors);
+          });
+        });
+
+        // Reset button
+        document.getElementById("theme-reset")?.addEventListener("click", () => {
+          const defaultBtn = document.querySelector<HTMLButtonElement>('[data-theme-id="default"]');
+          if (defaultBtn) {
+            const colors = JSON.parse(defaultBtn.dataset.themeColors || "{}");
+            applyTheme("default", colors);
+          }
+        });
+
+        // Mark default theme as active on load
+        const defaultRing = document.querySelector('[data-theme-id="default"] .theme-active-ring') as HTMLElement | null;
+        if (defaultRing) {
+          defaultRing.style.borderColor = "#00e5ff";
+          defaultRing.style.boxShadow = "0 0 12px #00e5ff40";
+        }
+
         // --- Keyboard Navigation ---
         document.addEventListener("keydown", (e) => {
           // Ctrl+Tab / Ctrl+Shift+Tab to switch tabs

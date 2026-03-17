@@ -39,6 +39,14 @@ html {
   height: 100%;
 }
 
+/* Live theme transition — smooth repaint */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -157,7 +165,7 @@ body {
   background: var(--color-jm-surface);
   border: 1px solid var(--color-jm-border);
   border-radius: 12px;
-  padding: 1.25rem;
+  padding: 1.5rem;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .feature-card:hover {
@@ -167,7 +175,7 @@ body {
 .feature-card-title {
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-weight: 600;
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   letter-spacing: 0.02em;
 }
 
@@ -176,7 +184,7 @@ body {
   background: var(--color-jm-surface-alt);
   border: 1px solid var(--color-jm-border);
   border-radius: 12px;
-  padding: 2rem;
+  padding: 2.5rem;
 }
 
 /* Info card grid */
@@ -184,7 +192,7 @@ body {
   background: var(--color-jm-surface);
   border: 1px solid var(--color-jm-border);
   border-radius: 10px;
-  padding: 1rem 1.25rem;
+  padding: 1.25rem 1.5rem;
   position: relative;
   overflow: hidden;
 }
@@ -202,14 +210,14 @@ body {
 /* Badge pill */
 .badge-pill {
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  padding: 5px 14px;
+  padding: 6px 16px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   white-space: nowrap;
 }
 .badge-filled {

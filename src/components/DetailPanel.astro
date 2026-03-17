@@ -1,5 +1,5 @@
 ---
-import { products } from "../data/products";
+import { products, themes } from "../data/products";
 ---
 
 <main class="flex-1 bg-jm-bg overflow-y-auto" id="detail-panel">
@@ -24,25 +24,25 @@ import { products } from "../data/products";
       {product.treeNodes.map((node, ni) => (
         <div
           class:list={[
-            "detail-content p-6 panel-enter",
+            "detail-content p-8 panel-enter",
             ni > 0 && "hidden",
           ]}
           data-detail={`${product.id}-${node.id}`}
         >
           {/* ========== OVERVIEW PANEL ========== */}
           {node.id === "overview" && (
-            <div class="max-w-4xl">
+            <div>
               {/* Hero card */}
               <div class="overview-hero mb-6" style={`border-color: ${product.color}25;`}>
-                <h3 class="product-name-gradient text-4xl leading-tight mb-2">{product.name}</h3>
-                <p class="text-xs tracking-[0.15em] text-jm-text-muted uppercase mb-4" style="font-family: 'JetBrains Mono', monospace;">
+                <h3 class="product-name-gradient text-5xl leading-tight mb-3">{product.name}</h3>
+                <p class="text-sm tracking-[0.15em] text-jm-text-muted uppercase mb-5" style="font-family: 'JetBrains Mono', monospace;">
                   {product.subtitlePrefix}{" "}
                   <span class="font-bold" style={`color: ${product.color}`}>{product.subtitleHighlight}</span>{" "}
                   {product.subtitleSuffix}
                 </p>
 
                 {/* Badges */}
-                <div class="flex flex-wrap gap-2 mb-6">
+                <div class="flex flex-wrap gap-2.5 mb-7">
                   {product.badges.map((badge) => (
                     <span
                       class:list={["badge-pill", badge.variant === "filled" ? "badge-filled" : "badge-outlined"]}
@@ -57,50 +57,117 @@ import { products } from "../data/products";
                 </div>
 
                 {/* Description */}
-                <p class="text-sm text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">{product.description}</p>
+                <p class="text-base text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">{product.description}</p>
               </div>
 
               {/* Info cards grid */}
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-4 gap-4">
                 {product.infoCards.map((card) => (
                   <div class="info-card" style={`--info-card-color: ${card.color};`}>
-                    <div class="text-[10px] tracking-[0.12em] text-jm-text-muted uppercase mb-1.5" style="font-family: 'JetBrains Mono', monospace;">{card.label}</div>
-                    <div class="text-sm font-bold" style={`font-family: 'Orbitron', sans-serif; color: ${card.color};`}>
+                    <div class="text-[11px] tracking-[0.12em] text-jm-text-muted uppercase mb-2" style="font-family: 'JetBrains Mono', monospace;">{card.label}</div>
+                    <div class="text-base font-bold" style={`font-family: 'Orbitron', sans-serif; color: ${card.color};`}>
                       {card.label === "STATUS" && <span class="inline-block w-2 h-2 rounded-full mr-1.5 align-middle" style={`background: ${card.color};`} />}
                       {card.value}
                     </div>
                   </div>
                 ))}
               </div>
+
+              {/* ===== THEME GALLERY — JMeter Studio only ===== */}
+              {product.id === "jmeter-studio" && (
+                <div class="mt-8" id="theme-gallery">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="text-base">🎨</span>
+                    <span class="text-xs tracking-[0.15em] uppercase font-bold" style="font-family: 'JetBrains Mono', monospace; color: #d500f9;">LIVE THEME PREVIEW</span>
+                    <span class="flex-1 h-px ml-1" style="background: linear-gradient(to right, #d500f940, transparent);" />
+                  </div>
+                  <p class="text-sm text-jm-text-dim mb-5" style="font-family: 'JetBrains Mono', monospace;">Click any theme to repaint the entire UI in real time.</p>
+
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {themes.map((theme) => (
+                      <button
+                        class="theme-swatch group relative text-left rounded-xl border border-jm-border p-4 transition-all hover:scale-[1.02] hover:shadow-lg cursor-pointer"
+                        data-theme-id={theme.id}
+                        data-theme-colors={JSON.stringify(theme.colors)}
+                        data-theme-dark={theme.dark}
+                        style={`background: ${theme.colors.surface};`}
+                      >
+                        {/* Active indicator ring */}
+                        <div class="theme-active-ring absolute inset-0 rounded-xl border-2 border-transparent pointer-events-none transition-all" />
+
+                        {/* Theme name */}
+                        <div class="flex items-center justify-between mb-3">
+                          <span class="text-xs font-bold tracking-wide" style={`font-family: 'Orbitron', sans-serif; color: ${theme.colors.text};`}>{theme.name}</span>
+                          {!theme.dark && <span class="text-[9px] px-1.5 py-0.5 rounded font-bold" style={`font-family: 'JetBrains Mono', monospace; background: ${theme.colors.accent}20; color: ${theme.colors.accent};`}>LIGHT</span>}
+                        </div>
+
+                        {/* Color swatches */}
+                        <div class="flex gap-1.5 mb-3">
+                          {theme.swatchColors.map((color) => (
+                            <div class="w-6 h-6 rounded-full border" style={`background: ${color}; border-color: ${theme.colors.borderLight};`} />
+                          ))}
+                        </div>
+
+                        {/* Mini preview bar */}
+                        <div class="rounded-md overflow-hidden" style={`background: ${theme.colors.bg};`}>
+                          <div class="h-1.5" style={`background: ${theme.colors.titleBar};`} />
+                          <div class="flex h-8">
+                            <div class="w-1/4 border-r p-1" style={`border-color: ${theme.colors.border};`}>
+                              <div class="h-1 rounded mb-0.5" style={`background: ${theme.colors.accent}; width: 60%;`} />
+                              <div class="h-1 rounded mb-0.5" style={`background: ${theme.colors.textMuted}40; width: 80%;`} />
+                              <div class="h-1 rounded" style={`background: ${theme.colors.textMuted}30; width: 50%;`} />
+                            </div>
+                            <div class="flex-1 p-1">
+                              <div class="h-1 rounded mb-0.5" style={`background: ${theme.colors.textDim}40; width: 70%;`} />
+                              <div class="h-1 rounded" style={`background: ${theme.colors.textMuted}25; width: 90%;`} />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* LaF class */}
+                        <div class="mt-2 text-[9px] truncate opacity-60" style={`font-family: 'JetBrains Mono', monospace; color: ${theme.colors.textMuted};`}>{theme.lafClass}</div>
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Reset button */}
+                  <div class="mt-4 flex items-center gap-3">
+                    <button id="theme-reset" class="text-xs px-4 py-2 rounded-lg border border-jm-border text-jm-text-muted hover:text-jm-text hover:border-jm-border-light transition-colors" style="font-family: 'JetBrains Mono', monospace;">
+                      Reset to Default
+                    </button>
+                    <span class="text-[10px] text-jm-text-muted" style="font-family: 'JetBrains Mono', monospace;" id="theme-active-label">Active: JMeter Dark</span>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
           {/* ========== FEATURES PANEL ========== */}
           {node.id === "features" && (
-            <div class="max-w-5xl">
+            <div>
               {/* Section label */}
               <div class="flex items-center gap-2 mb-1">
                 <span class="text-xs">
                   {product.id === "feather-wand" ? "🪄" : product.id === "super-key" ? "⌨️" : product.id === "jmeter-studio" ? "🎨" : "🚀"}
                 </span>
-                <span class="text-[10px] tracking-[0.15em] uppercase font-bold" style={`font-family: 'JetBrains Mono', monospace; color: ${product.color};`}>{product.name}</span>
+                <span class="text-xs tracking-[0.15em] uppercase font-bold" style={`font-family: 'JetBrains Mono', monospace; color: ${product.color};`}>{product.name}</span>
                 <span class="flex-1 h-px ml-1" style={`background: linear-gradient(to right, ${product.color}40, transparent);`} />
               </div>
 
               {/* Heading */}
-              <h3 class="text-3xl font-bold text-jm-text mb-1" style="font-family: 'Orbitron', sans-serif;">
+              <h3 class="text-4xl font-bold text-jm-text mb-2" style="font-family: 'Orbitron', sans-serif;">
                 {product.featuresHeadingPrefix}{" "}
                 <span class="product-name-gradient">{product.featuresHeadingHighlight}</span>
               </h3>
-              <p class="text-sm text-jm-text-dim leading-relaxed mb-8">{product.featuresSubtitle}</p>
+              <p class="text-base text-jm-text-dim leading-relaxed mb-8">{product.featuresSubtitle}</p>
 
               {/* Feature cards — 3 column grid */}
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {product.features.map((feat) => (
                   <div class="feature-card">
-                    <div class="text-2xl mb-3">{feat.icon}</div>
+                    <div class="text-3xl mb-3">{feat.icon}</div>
                     <h4 class="feature-card-title text-jm-text mb-2">{feat.title}</h4>
-                    <p class="text-xs text-jm-text-dim leading-relaxed">{feat.description}</p>
+                    <p class="text-sm text-jm-text-dim leading-relaxed">{feat.description}</p>
                   </div>
                 ))}
               </div>
@@ -109,11 +176,11 @@ import { products } from "../data/products";
 
           {/* OSS vs Pro Panel */}
           {node.id === "oss-pro" && (
-            <div class="max-w-3xl">
-              <h3 class="text-lg font-bold text-jm-text mb-1">OSS vs Pro</h3>
-              <p class="text-xs text-jm-text-muted mb-6">Choose the edition that fits your needs.</p>
+            <div>
+              <h3 class="text-2xl font-bold text-jm-text mb-2" style="font-family: 'Orbitron', sans-serif;">OSS vs Pro</h3>
+              <p class="text-sm text-jm-text-muted mb-6">Choose the edition that fits your needs.</p>
               <div class="bg-jm-surface border border-jm-border rounded-lg overflow-hidden">
-                <table class="w-full text-xs">
+                <table class="w-full text-sm">
                   <thead>
                     <tr class="border-b border-jm-border">
                       <th class="text-left px-4 py-3 text-jm-text-muted font-medium">Feature</th>
@@ -186,9 +253,9 @@ import { products } from "../data/products";
 
           {/* Installation Panel */}
           {node.id === "installation" && (
-            <div class="max-w-3xl">
-              <h3 class="text-lg font-bold text-jm-text mb-1">Installation</h3>
-              <p class="text-xs text-jm-text-muted mb-6">Get {product.name} up and running in minutes.</p>
+            <div>
+              <h3 class="text-2xl font-bold text-jm-text mb-2" style="font-family: 'Orbitron', sans-serif;">Installation</h3>
+              <p class="text-sm text-jm-text-muted mb-6">Get {product.name} up and running in minutes.</p>
               <div class="space-y-4">
                 {product.installation.map((step, si) => (
                   <div class="flex gap-4">
@@ -201,8 +268,8 @@ import { products } from "../data/products";
                       )}
                     </div>
                     <div class="flex-1 pb-4">
-                      <h4 class="text-sm font-semibold text-jm-text mb-1">{step.title}</h4>
-                      <p class="text-xs text-jm-text-dim mb-2">{step.description}</p>
+                      <h4 class="text-base font-semibold text-jm-text mb-1">{step.title}</h4>
+                      <p class="text-sm text-jm-text-dim mb-2">{step.description}</p>
                       {step.code && (
                         <pre class="jm-code text-[11px] whitespace-pre-wrap">{step.code}</pre>
                       )}
@@ -215,9 +282,9 @@ import { products } from "../data/products";
 
           {/* GitHub Panel */}
           {node.id === "github" && (
-            <div class="max-w-3xl">
-              <h3 class="text-lg font-bold text-jm-text mb-1">GitHub Repository</h3>
-              <p class="text-xs text-jm-text-muted mb-6">Explore the source, report issues, and contribute.</p>
+            <div>
+              <h3 class="text-2xl font-bold text-jm-text mb-2" style="font-family: 'Orbitron', sans-serif;">GitHub Repository</h3>
+              <p class="text-sm text-jm-text-muted mb-6">Explore the source, report issues, and contribute.</p>
               <a href={product.github} target="_blank" rel="noopener" class="block bg-jm-surface border border-jm-border rounded-lg p-6 hover:border-jm-border-light transition-colors group mb-6">
                 <div class="flex items-center gap-3 mb-3">
                   <svg class="w-8 h-8 text-jm-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
@@ -279,9 +346,9 @@ import { products } from "../data/products";
 
           {/* Connect Panel */}
           {node.id === "connect" && (
-            <div class="max-w-3xl">
-              <h3 class="text-lg font-bold text-jm-text mb-1">Connect</h3>
-              <p class="text-xs text-jm-text-muted mb-6">Follow QAInsights for updates, tutorials, and community events.</p>
+            <div>
+              <h3 class="text-2xl font-bold text-jm-text mb-2" style="font-family: 'Orbitron', sans-serif;">Connect</h3>
+              <p class="text-sm text-jm-text-muted mb-6">Follow QAInsights for updates, tutorials, and community events.</p>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {product.socials.map((social) => (
                   <a href={social.url} target="_blank" rel="noopener" class="flex items-center gap-4 bg-jm-surface border border-jm-border rounded-lg p-4 hover:border-jm-border-light transition-all group">
