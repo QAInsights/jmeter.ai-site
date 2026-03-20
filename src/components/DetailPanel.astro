@@ -24,7 +24,7 @@ import { products, themes, jmeterElements } from "../data/products";
       {product.treeNodes.map((node, ni) => (
         <div
           class:list={[
-            "detail-content p-8 panel-enter",
+            "detail-content p-4 sm:p-8 panel-enter",
             ni > 0 && "hidden",
           ]}
           data-detail={`${product.id}-${node.id}`}
@@ -34,7 +34,7 @@ import { products, themes, jmeterElements } from "../data/products";
             <div>
               {/* Hero card */}
               <div class="overview-hero mb-6" style={`border-color: ${product.color}25;`}>
-                <h3 class="product-name-gradient text-5xl leading-tight mb-3">{product.name}</h3>
+                <h3 class="product-name-gradient text-3xl sm:text-5xl leading-tight mb-3">{product.name}</h3>
                 <p class="text-sm tracking-[0.15em] text-jm-text-muted uppercase mb-5" style="font-family: 'JetBrains Mono', monospace;">
                   {product.subtitlePrefix}{" "}
                   <span class="font-bold" style={`color: ${product.color}`}>{product.subtitleHighlight}</span>{" "}
@@ -61,7 +61,7 @@ import { products, themes, jmeterElements } from "../data/products";
               </div>
 
               {/* Info cards grid */}
-              <div class="grid grid-cols-4 gap-4">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {product.infoCards.map((card) => (
                   <div class="info-card" style={`--info-card-color: ${card.color};`}>
                     <div class="text-[11px] tracking-[0.12em] text-jm-text-muted uppercase mb-2" style="font-family: 'JetBrains Mono', monospace;">{card.label}</div>
@@ -96,9 +96,9 @@ import { products, themes, jmeterElements } from "../data/products";
                   </p>
 
                   {/* Simulator split view */}
-                  <div class="flex gap-4 h-[420px]">
+                  <div class="flex flex-col sm:flex-row gap-4 sm:h-[420px]">
                     {/* Left: Test Plan Tree */}
-                    <div class="w-72 shrink-0 bg-jm-surface border border-jm-border rounded-xl overflow-hidden flex flex-col">
+                    <div class="w-full sm:w-72 sm:shrink-0 bg-jm-surface border border-jm-border rounded-xl overflow-hidden flex flex-col" style="min-height: 180px;">
                       <div class="px-3 py-2 border-b border-jm-border bg-jm-surface-alt/60 flex items-center gap-2">
                         <svg class="w-3.5 h-3.5 text-jm-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
                         <span class="text-[11px] font-bold text-jm-text" style="font-family: 'JetBrains Mono', monospace;">Test Plan</span>
@@ -242,9 +242,10 @@ import { products, themes, jmeterElements } from "../data/products";
                     </div>
 
                     {/* Content area with tree */}
-                    <div class="h-[380px] bg-jm-bg flex">
+                    <div class="min-h-[200px] sm:h-[380px] bg-jm-bg flex flex-col sm:flex-row">
                       {/* Tree panel */}
-                      <div class="w-64 border-r border-jm-border overflow-y-auto p-2">
+                      <div class="w-full sm:w-64 sm:border-r border-b sm:border-b-0 border-jm-border overflow-y-auto p-2" style="max-height:200px;">
+                        <div class="sm:hidden text-[10px] text-jm-text-muted px-1 pb-1" style="font-family: 'JetBrains Mono', monospace;">Test Plan Tree</div>
                         <div id="prism-tree-tab1" class="prism-tree-content">
                           <div class="text-[11px]" style="font-family: 'JetBrains Mono', monospace;">
                             <div class="flex items-center gap-1 py-1 px-1 hover:bg-jm-tree-hover rounded cursor-pointer">
@@ -488,10 +489,10 @@ import { products, themes, jmeterElements } from "../data/products";
                       </button>
                     </div>
 
-                    {/* Content area: Tree + Chat */}
-                    <div class="h-[520px] bg-jm-bg flex">
-                      {/* Tree panel */}
-                      <div class="w-72 border-r border-jm-border overflow-y-auto p-3">
+                     {/* Content area: Tree + Chat */}
+                     <div class="bg-jm-bg flex flex-col sm:flex-row" style="min-height: 300px;">
+                       {/* Tree panel */}
+                       <div class="w-full sm:w-72 border-b sm:border-b-0 sm:border-r border-jm-border overflow-y-auto p-3" style="max-height: 180px;">
                         <div class="text-xs" style="font-family: 'JetBrains Mono', monospace;" id="fw-tree">
                           <div class="flex items-center gap-1.5 py-1.5 px-2 hover:bg-jm-tree-hover rounded cursor-pointer">
                             <svg class="w-3.5 h-3.5 text-jm-text-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
@@ -763,7 +764,7 @@ import { products, themes, jmeterElements } from "../data/products";
                   </tbody>
                 </table>
               </div>
-              <div class="flex gap-4 mt-6">
+              <div class="flex flex-col sm:flex-row gap-4 mt-6">
                 <div class="flex-1 border border-jm-border rounded-lg p-5 text-center bg-jm-surface">
                   <h4 class="text-base font-bold text-jm-text mb-1">Open Source</h4>
                   <div class="text-2xl font-bold font-mono mb-2" style={`color: ${product.color}`}>Free</div>

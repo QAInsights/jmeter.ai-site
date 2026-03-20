@@ -39,6 +39,14 @@ html {
   height: 100%;
 }
 
+/* On mobile, allow the page to scroll vertically */
+@media (max-width: 767px) {
+  html {
+    overflow: auto;
+    height: auto;
+  }
+}
+
 /* Live theme transition — smooth repaint */
 html.theme-transitioning,
 html.theme-transitioning *,
@@ -52,6 +60,14 @@ body {
   padding: 0;
   height: 100%;
   overflow: hidden;
+}
+
+/* On mobile, body scrolls too */
+@media (max-width: 767px) {
+  body {
+    height: auto;
+    overflow: auto;
+  }
 }
 
 /* Scrollbar styling */
@@ -101,6 +117,12 @@ body {
 }
 .jm-resizer:hover {
   background: var(--color-jm-accent);
+}
+/* Hide resizer on mobile — sidebar becomes a drawer */
+@media (max-width: 767px) {
+  .jm-resizer {
+    display: none;
+  }
 }
 
 /* Code block styling */
@@ -186,6 +208,11 @@ body {
   border-radius: 12px;
   padding: 2.5rem;
 }
+@media (max-width: 639px) {
+  .overview-hero {
+    padding: 1.25rem;
+  }
+}
 
 /* Info card grid */
 .info-card {
@@ -247,8 +274,8 @@ body {
   to { opacity: 1; }
 }
 .sk-palette {
-  width: 520px;
-  max-height: 420px;
+  width: min(520px, 92vw);
+  max-height: min(420px, 80vh);
   background: var(--color-jm-surface);
   border: 1px solid var(--color-jm-border-light);
   border-radius: 14px;

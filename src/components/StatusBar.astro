@@ -2,11 +2,11 @@
 import { siteConfig } from "../data/products";
 ---
 
-<div class="flex items-center justify-between bg-jm-status-bg border-t border-jm-border px-3 py-1 select-none shrink-0 text-[11px] font-mono">
-  <div class="flex items-center gap-3 text-jm-text-muted">
-    <span>&copy; {new Date().getFullYear()} <a href={siteConfig.authorUrl} class="text-jm-accent-dim hover:text-jm-accent transition-colors" target="_blank" rel="noopener">{siteConfig.author}</a></span>
-    <span class="w-px h-3 bg-jm-border"></span>
-    <span>Built for the JMeter community</span>
+<div class="flex items-center justify-between bg-jm-status-bg border-t border-jm-border px-3 py-1 select-none shrink-0 text-[11px] font-mono overflow-x-auto">
+  <div class="flex items-center gap-3 text-jm-text-muted shrink-0">
+    <span class="hidden sm:inline">&copy; {new Date().getFullYear()} <a href={siteConfig.authorUrl} class="text-jm-accent-dim hover:text-jm-accent transition-colors" target="_blank" rel="noopener">{siteConfig.author}</a></span>
+    <span class="hidden sm:inline w-px h-3 bg-jm-border"></span>
+    <span class="hidden sm:inline">Built for the JMeter community</span>
   </div>
   <div class="flex items-center gap-2 text-jm-text-muted">
     <a href="https://github.com/QAInsights" target="_blank" rel="noopener" class="hover:text-jm-text transition-colors p-1" aria-label="GitHub">

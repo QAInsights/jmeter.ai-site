@@ -15,15 +15,31 @@ import StatusBar from "../components/StatusBar.astro";
   <head>
     <SEOHead />
   </head>
-  <body class="flex flex-col h-screen overflow-hidden bg-jm-bg">
+  <body class="flex flex-col h-screen md:h-screen md:overflow-hidden overflow-auto min-h-screen bg-jm-bg">
     <!-- JMeter Chrome -->
     <TitleBar />
+    <!-- Mobile sidebar toggle button -->
+    <button
+      id="mobile-sidebar-toggle"
+      class="md:hidden fixed bottom-4 left-4 z-50 w-10 h-10 rounded-full bg-jm-accent text-jm-bg flex items-center justify-center shadow-lg"
+      aria-label="Toggle navigation"
+      title="Toggle sidebar"
+    >
+      <svg id="sidebar-menu-icon" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>
+      </svg>
+      <svg id="sidebar-close-icon" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+      </svg>
+    </button>
     <MenuBar />
     <Toolbar />
     <TabBar />
 
     <!-- Main Content: Tree + Detail Split Pane -->
-    <div class="flex flex-1 min-h-0">
+    <div class="flex flex-1 min-h-0 relative">
+      <!-- Mobile sidebar overlay backdrop -->
+      <div id="sidebar-backdrop" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden" aria-hidden="true"></div>
       <TreeView />
       <div class="jm-resizer" id="resizer" role="separator" aria-label="Resize panels"></div>
       <DetailPanel />
@@ -38,6 +54,85 @@ import StatusBar from "../components/StatusBar.astro";
     <!-- Interactivity Script -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        // --- Mobile Sidebar Drawer ---
+        const sidebarToggleBtn = document.getElementById("mobile-sidebar-toggle");
+        const sidebarBackdrop = document.getElementById("sidebar-backdrop");
+        const menuIcon = document.getElementById("sidebar-menu-icon");
+        const closeIcon = document.getElementById("sidebar-close-icon");
+        const treePanelEl = document.getElementById("tree-panel");
+        let sidebarOpen = false;
+
+        function isMobile() {
+          return window.innerWidth < 768;
+        }
+
+        function initSidebarForSize() {
+          if (!treePanelEl) return;
+          if (isMobile()) {
+            // Collapse sidebar on mobile
+            treePanelEl.style.width = "0px";
+            treePanelEl.style.minWidth = "0";
+            treePanelEl.style.overflow = "hidden";
+            treePanelEl.style.position = "absolute";
+            treePanelEl.style.top = "0";
+            treePanelEl.style.left = "0";
+            treePanelEl.style.bottom = "0";
+            treePanelEl.style.zIndex = "45";
+            treePanelEl.style.maxWidth = "280px";
+            sidebarOpen = false;
+          } else {
+            // Reset to inline panel on desktop
+            treePanelEl.style.width = "256px";
+            treePanelEl.style.minWidth = "";
+            treePanelEl.style.overflow = "";
+            treePanelEl.style.position = "";
+            treePanelEl.style.top = "";
+            treePanelEl.style.left = "";
+            treePanelEl.style.bottom = "";
+            treePanelEl.style.zIndex = "";
+            treePanelEl.style.maxWidth = "";
+            sidebarBackdrop?.classList.add("hidden");
+          }
+        }
+
+        function openSidebar() {
+          if (!treePanelEl || !isMobile()) return;
+          sidebarOpen = true;
+          treePanelEl.style.width = "260px";
+          treePanelEl.style.overflow = "";
+          sidebarBackdrop?.classList.remove("hidden");
+          menuIcon?.classList.add("hidden");
+          closeIcon?.classList.remove("hidden");
+        }
+
+        function closeSidebar() {
+          if (!treePanelEl) return;
+          sidebarOpen = false;
+          treePanelEl.style.width = "0px";
+          treePanelEl.style.overflow = "hidden";
+          sidebarBackdrop?.classList.add("hidden");
+          menuIcon?.classList.remove("hidden");
+          closeIcon?.classList.add("hidden");
+        }
+
+        sidebarToggleBtn?.addEventListener("click", () => {
+          if (sidebarOpen) closeSidebar(); else openSidebar();
+        });
+
+        sidebarBackdrop?.addEventListener("click", closeSidebar);
+
+        // Close sidebar when a tree node is clicked on mobile
+        document.querySelectorAll<HTMLButtonElement>("[data-node]").forEach((node) => {
+          node.addEventListener("click", () => {
+            if (isMobile() && sidebarOpen) closeSidebar();
+          });
+        });
+
+        // Re-initialize on resize
+        window.addEventListener("resize", initSidebarForSize);
+        // Initialize on load
+        initSidebarForSize();
+
         // --- State ---
         let activeTab = "feather-wand";
         let activeNodes: Record<string, string> = {

@@ -42,7 +42,7 @@ const iconPaths: Record<string, string> = {
 };
 ---
 
-<div class="flex items-center bg-jm-toolbar-bg border-b border-jm-border px-2 py-1 gap-1 select-none shrink-0" role="toolbar" aria-label="Toolbar">
+<div class="flex items-center bg-jm-toolbar-bg border-b border-jm-border px-2 py-1 gap-1 select-none shrink-0 overflow-x-auto" role="toolbar" aria-label="Toolbar">
   {toolbarGroups.map((group, gi) => (
     <div class="flex items-center gap-0.5">
       {group.map((btn) => (
