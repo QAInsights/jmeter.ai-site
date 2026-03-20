@@ -140,6 +140,7 @@ import StatusBar from "../components/StatusBar.astro";
           "super-key": "overview",
           "jmeter-studio": "overview",
           "prism": "overview",
+          "perftractor": "overview",
         };
 
         // --- Tab Switching ---
@@ -1073,6 +1074,63 @@ import StatusBar from "../components/StatusBar.astro";
             }
           }
         });
+
+        // --- Perftractor Calculators ---
+
+        // Calculators Panel (separate IDs)
+        function updateCalcVirtualUsers() {
+          const tps = parseFloat((document.getElementById("calc-vu-tps") as HTMLInputElement)?.value || "10");
+          const response = parseFloat((document.getElementById("calc-vu-response") as HTMLInputElement)?.value || "2");
+          const think = parseFloat((document.getElementById("calc-vu-think") as HTMLInputElement)?.value || "3");
+          const result = Math.floor(tps * (response + think));
+          const resultEl = document.getElementById("calc-vu-result");
+          if (resultEl) resultEl.textContent = String(result);
+        }
+
+        function updateCalcPacing() {
+          const tph = parseFloat((document.getElementById("calc-pacing-tph") as HTMLInputElement)?.value || "36000");
+          const users = parseFloat((document.getElementById("calc-pacing-users") as HTMLInputElement)?.value || "100");
+          const result = ((users * 3600) / tph).toFixed(2);
+          const resultEl = document.getElementById("calc-pacing-result");
+          if (resultEl) resultEl.textContent = result;
+        }
+
+        function updateCalcTestData() {
+          const users = parseFloat((document.getElementById("calc-data-users") as HTMLInputElement)?.value || "10");
+          const duration = parseFloat((document.getElementById("calc-data-duration") as HTMLInputElement)?.value || "2");
+          const testDuration = parseFloat((document.getElementById("calc-data-test-duration") as HTMLInputElement)?.value || "3");
+          const result = Math.floor(users * testDuration * (60 / duration));
+          const resultEl = document.getElementById("calc-data-result");
+          if (resultEl) resultEl.textContent = String(result);
+        }
+
+        function updateCalcLoadGenerator() {
+          const ram = parseFloat((document.getElementById("calc-lg-ram") as HTMLInputElement)?.value || "4024");
+          const first = parseFloat((document.getElementById("calc-lg-first") as HTMLInputElement)?.value || "200");
+          const additional = parseFloat((document.getElementById("calc-lg-additional") as HTMLInputElement)?.value || "100");
+          const os = parseFloat((document.getElementById("calc-lg-os") as HTMLInputElement)?.value || "1024");
+          const result = Math.floor(((ram - os) * 0.75 - first) / additional) + 1;
+          const resultEl = document.getElementById("calc-lg-result");
+          if (resultEl) resultEl.textContent = String(Math.max(0, result));
+        }
+
+        
+        // Attach event listeners for calculators panel
+        document.getElementById("calc-vu-tps")?.addEventListener("input", updateCalcVirtualUsers);
+        document.getElementById("calc-vu-response")?.addEventListener("input", updateCalcVirtualUsers);
+        document.getElementById("calc-vu-think")?.addEventListener("input", updateCalcVirtualUsers);
+
+        document.getElementById("calc-pacing-tph")?.addEventListener("input", updateCalcPacing);
+        document.getElementById("calc-pacing-users")?.addEventListener("input", updateCalcPacing);
+
+        document.getElementById("calc-data-users")?.addEventListener("input", updateCalcTestData);
+        document.getElementById("calc-data-duration")?.addEventListener("input", updateCalcTestData);
+        document.getElementById("calc-data-test-duration")?.addEventListener("input", updateCalcTestData);
+
+        document.getElementById("calc-lg-ram")?.addEventListener("input", updateCalcLoadGenerator);
+        document.getElementById("calc-lg-first")?.addEventListener("input", updateCalcLoadGenerator);
+        document.getElementById("calc-lg-additional")?.addEventListener("input", updateCalcLoadGenerator);
+        document.getElementById("calc-lg-os")?.addEventListener("input", updateCalcLoadGenerator);
       });
     </script>
   </body>

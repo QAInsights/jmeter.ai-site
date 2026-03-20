@@ -452,6 +452,70 @@ export const products: Product[] = [
     ],
     socials: defaultSocials,
   },
+  {
+    id: "perftractor",
+    name: "Perftractor",
+    tagline: "Performance Testing Calculators",
+    subtitlePrefix: "ESSENTIAL",
+    subtitleHighlight: "PERFORMANCE CALCULATORS",
+    subtitleSuffix: "FOR LOAD TESTING",
+    description:
+      "Perftractor provides essential performance testing calculators to help you accurately simulate production workload. Calculate virtual users using Little's Law, determine pacing, estimate test data requirements, and plan load generator capacity.",
+    icon: "calculator",
+    color: "#ff6b6b",
+    colorRgb: "255, 107, 107",
+    github: "https://github.com/QAInsights/perftractor",
+    treeNodes: [
+      { id: "overview", label: "Overview", icon: "info" },
+      { id: "calculators", label: "Calculators", icon: "calculator" },
+      { id: "github", label: "GitHub", icon: "github" },
+      { id: "connect", label: "Connect", icon: "users" },
+    ],
+    badges: [
+      { label: "CALCULATORS", emoji: "🧮", variant: "filled", color: "#ff6b6b" },
+      { label: "FREE TOOLS", emoji: "⚡", variant: "outlined", color: "#00e676" },
+      { label: "WEB BASED", emoji: "🌐", variant: "outlined", color: "#00e5ff" },
+    ],
+    infoCards: [
+      { label: "CATEGORY", value: "Planning Tools", color: "#ff6b6b" },
+      { label: "PLATFORM", value: "Web Application", color: "#00e676" },
+      { label: "LICENSE", value: "Free & Open", color: "#00e5ff" },
+      { label: "CALCULATORS", value: "4 Tools", color: "#ffab00" },
+    ],
+    featuresHeadingPrefix: "Essential",
+    featuresHeadingHighlight: "Calculators",
+    featuresSubtitle: "Plan your performance tests with precision using industry-standard formulas and best practices.",
+    features: [
+      {
+        title: "Little's Law Calculator",
+        description: "Calculate the number of virtual users needed based on transactions per second, response time, and think time.",
+        icon: "⚖️",
+      },
+      {
+        title: "Virtual Users Calculator",
+        description: "Determine the optimal number of virtual users required to achieve your target load.",
+        icon: "👥",
+      },
+      {
+        title: "Pacing Calculator",
+        description: "Calculate the required pacing time between transactions to maintain consistent load.",
+        icon: "⌛",
+      },
+      {
+        title: "Test Data Calculator",
+        description: "Estimate the amount of unique test data needed for your performance test duration.",
+        icon: "🧪",
+      },
+      {
+        title: "Load Generator Calculator",
+        description: "Determine how many load generators you need based on memory requirements and virtual user count.",
+        icon: "🔋",
+      },
+    ],
+    ossVsPro: [],
+    installation: [],
+    socials: defaultSocials,
+  },
 ];
 
 export interface Theme {
