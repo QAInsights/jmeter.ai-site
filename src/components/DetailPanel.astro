@@ -829,6 +829,44 @@ import { products, themes, jmeterElements } from "../data/products";
                     </div>
                   </div>
                 </div>
+
+                {/* Network Bandwidth Calculator */}
+                <div class="bg-jm-surface border border-jm-border rounded-lg p-5">
+                  <h5 class="text-base font-bold text-jm-text mb-2 flex items-center gap-2" style="font-family: 'Orbitron', sans-serif;">
+                    <span>🌐</span> Network Bandwidth
+                  </h5>
+                  <p class="text-xs text-jm-text-dim mb-4" style="font-family: 'JetBrains Mono', monospace;">
+                    Calculate required network bandwidth for your performance test.
+                  </p>
+                  
+                  <div class="space-y-3">
+                    <div>
+                      <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Concurrent Users:</label>
+                      <input type="number" id="calc-bandwidth-users" value="100" min="1" max="10000" step="1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Transactions Per Second (per user):</label>
+                      <input type="number" id="calc-bandwidth-tps" value="2" min="0.1" max="100" step="0.1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Average Request Size (KB):</label>
+                      <input type="number" id="calc-bandwidth-request" value="5" min="0.1" max="1024" step="0.1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Average Response Size (KB):</label>
+                      <input type="number" id="calc-bandwidth-response" value="50" min="0.1" max="10240" step="0.1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Protocol Overhead (%):</label>
+                      <input type="number" id="calc-bandwidth-overhead" value="20" min="0" max="50" step="1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                    </div>
+                    <div class="pt-3 border-t border-jm-border">
+                      <p class="text-sm font-semibold" style="font-family: 'JetBrains Mono', monospace; color: #ff6b6b;">
+                        Result: <span id="calc-bandwidth-result">12.00</span> Mbps required
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}

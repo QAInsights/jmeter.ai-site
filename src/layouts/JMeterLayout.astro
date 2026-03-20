@@ -1114,6 +1114,24 @@ import StatusBar from "../components/StatusBar.astro";
           if (resultEl) resultEl.textContent = String(Math.max(0, result));
         }
 
+        function updateCalcBandwidth() {
+          const users = parseFloat((document.getElementById("calc-bandwidth-users") as HTMLInputElement)?.value || "100");
+          const tps = parseFloat((document.getElementById("calc-bandwidth-tps") as HTMLInputElement)?.value || "2");
+          const requestSize = parseFloat((document.getElementById("calc-bandwidth-request") as HTMLInputElement)?.value || "5");
+          const responseSize = parseFloat((document.getElementById("calc-bandwidth-response") as HTMLInputElement)?.value || "50");
+          const overhead = parseFloat((document.getElementById("calc-bandwidth-overhead") as HTMLInputElement)?.value || "20");
+          
+          // Calculate total data per transaction (KB)
+          const totalDataPerTransaction = requestSize + responseSize;
+          // Calculate total data per second (KB/s)
+          const totalDataPerSecond = users * tps * totalDataPerTransaction;
+          // Convert to Mbps and add overhead
+          const bandwidthMbps = (totalDataPerSecond * 8 / 1024) * (1 + overhead / 100);
+          
+          const resultEl = document.getElementById("calc-bandwidth-result");
+          if (resultEl) resultEl.textContent = bandwidthMbps.toFixed(2);
+        }
+
         
         // Attach event listeners for calculators panel
         document.getElementById("calc-vu-tps")?.addEventListener("input", updateCalcVirtualUsers);
@@ -1131,6 +1149,12 @@ import StatusBar from "../components/StatusBar.astro";
         document.getElementById("calc-lg-first")?.addEventListener("input", updateCalcLoadGenerator);
         document.getElementById("calc-lg-additional")?.addEventListener("input", updateCalcLoadGenerator);
         document.getElementById("calc-lg-os")?.addEventListener("input", updateCalcLoadGenerator);
+
+        document.getElementById("calc-bandwidth-users")?.addEventListener("input", updateCalcBandwidth);
+        document.getElementById("calc-bandwidth-tps")?.addEventListener("input", updateCalcBandwidth);
+        document.getElementById("calc-bandwidth-request")?.addEventListener("input", updateCalcBandwidth);
+        document.getElementById("calc-bandwidth-response")?.addEventListener("input", updateCalcBandwidth);
+        document.getElementById("calc-bandwidth-overhead")?.addEventListener("input", updateCalcBandwidth);
       });
     </script>
   </body>
