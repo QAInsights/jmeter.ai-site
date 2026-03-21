@@ -1,6 +1,26 @@
 ---
 import { products, themes, jmeterElements } from "../data/products";
 
+// Product emoji lookup — used in header and features panel
+const productEmoji: Record<string, string> = {
+  "feather-wand": "🪄",
+  "super-key": "⌨️",
+  "jmeter-studio": "🎨",
+  "perftractor": "🧮",
+  "learn": "🎓",
+  "prism": "🚀",
+};
+
+// Shared Tailwind class for all calculator number inputs
+const calcInputClass = "w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light";
+
+// Disclaimer texts per simulator
+const disclaimerText: Record<string, string> = {
+  "super-key": "This is a browser-based demo simulating Super Key's command palette and test execution. The actual JMeter plugin features, performance, and behavior may vary. For full functionality, install the plugin in Apache JMeter.",
+  "prism": "This is a browser-based demo simulating Prism's multi-tab interface. The actual JMeter plugin features, tab management, and behavior may vary. For full functionality, install the plugin in Apache JMeter.",
+  "feather-wand": "This demo uses pre-scripted AI responses to simulate Feather Wand's capabilities. The actual plugin uses real LLM integration (OpenAI, Anthropic, etc.) with full context awareness and advanced code generation. Responses and behavior may vary in the production version.",
+};
+
 // Playlist configuration for the learn product
 const playlistConfig: Record<string, {
   emoji: string;
@@ -15,9 +35,9 @@ const playlistConfig: Record<string, {
   playlist: {
     emoji: "🎓",
     label: "QAINSIGHTS",
-    title: "JMeter",
-    highlight: "Tutorials",
-    description: "Free step-by-step JMeter tutorial series. New videos are added regularly and appear here automatically.",
+    title: "Learn ",
+    highlight: "JMeter",
+    description: "Free step-by-step JMeter tutorial series from basics to advanced to AI-powered testing. New videos are added regularly and appear here automatically.",
     playlistId: "PLJ9A48W0kpRIjLkZ32Do9yDZXnnm7_uj_",
     slug: "jmeter-tutorials",
     subtitle: "JMeter Performance Testing Series",
@@ -135,7 +155,7 @@ const playlistConfig: Record<string, {
       <div class="sticky top-0 z-10 bg-jm-surface-alt/95 backdrop-blur-sm border-b border-jm-border px-6 py-2.5">
         <div class="flex items-center gap-2.5">
           <span class="text-lg">
-            {product.id === "feather-wand" ? "🪄" : product.id === "super-key" ? "⌨️" : product.id === "jmeter-studio" ? "🎨" : product.id === "perftractor" ? "🧮" : product.id === "learn" ? "🎓" : "🚀"}
+            {productEmoji[product.id] ?? "🚀"}
           </span>
           <h2 class="text-sm font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;" data-panel-title={product.id}>
             {product.name} <span class="text-jm-text-muted font-normal">&mdash;</span> <span class="text-jm-text-dim font-normal" data-panel-section={product.id}>Overview</span>
@@ -277,9 +297,7 @@ const playlistConfig: Record<string, {
                       <svg class="w-4 h-4 text-jm-amber shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
                       <div>
                         <p class="text-xs font-semibold text-jm-text mb-1" style="font-family: 'JetBrains Mono', monospace;">Interactive Simulation</p>
-                        <p class="text-[11px] text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">
-                          This is a browser-based demo simulating Super Key's command palette and test execution. The actual JMeter plugin features, performance, and behavior may vary. For full functionality, install the plugin in Apache JMeter.
-                        </p>
+                        <p class="text-[11px] text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">{disclaimerText[product.id]}</p>
                       </div>
                     </div>
                   </div>
@@ -552,9 +570,7 @@ const playlistConfig: Record<string, {
                       <svg class="w-4 h-4 text-jm-amber shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
                       <div>
                         <p class="text-xs font-semibold text-jm-text mb-1" style="font-family: 'JetBrains Mono', monospace;">Interactive Simulation</p>
-                        <p class="text-[11px] text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">
-                          This is a browser-based demo simulating Prism's multi-tab interface. The actual JMeter plugin features, tab management, and behavior may vary. For full functionality, install the plugin in Apache JMeter.
-                        </p>
+                        <p class="text-[11px] text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">{disclaimerText[product.id]}</p>
                       </div>
                     </div>
                   </div>
@@ -722,9 +738,7 @@ const playlistConfig: Record<string, {
                       <svg class="w-4 h-4 text-jm-amber shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
                       <div>
                         <p class="text-xs font-semibold text-jm-text mb-1" style="font-family: 'JetBrains Mono', monospace;">Interactive Simulation</p>
-                        <p class="text-[11px] text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">
-                          This demo uses pre-scripted AI responses to simulate Feather Wand's capabilities. The actual plugin uses real LLM integration (OpenAI, Anthropic, etc.) with full context awareness and advanced code generation. Responses and behavior may vary in the production version.
-                        </p>
+                        <p class="text-[11px] text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">{disclaimerText[product.id]}</p>
                       </div>
                     </div>
                   </div>
@@ -845,15 +859,15 @@ const playlistConfig: Record<string, {
                   <div class="space-y-3">
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Transactions Per Second:</label>
-                      <input type="number" id="calc-vu-tps" value="10" min="1" max="10000" step="1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-vu-tps" value="10" min="1" max="10000" step="1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Average Response Time (seconds):</label>
-                      <input type="number" id="calc-vu-response" value="2" min="0.1" max="60" step="0.1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-vu-response" value="2" min="0.1" max="60" step="0.1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Think Time (seconds):</label>
-                      <input type="number" id="calc-vu-think" value="3" min="0" max="300" step="0.1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-vu-think" value="3" min="0" max="300" step="0.1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div class="pt-3 border-t border-jm-border">
                       <p class="text-sm font-semibold" style="font-family: 'JetBrains Mono', monospace; color: #ff6b6b;">
@@ -875,11 +889,11 @@ const playlistConfig: Record<string, {
                   <div class="space-y-3">
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Transactions Per Hour:</label>
-                      <input type="number" id="calc-pacing-tph" value="36000" min="60" max="1000000" step="100" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-pacing-tph" value="36000" min="60" max="1000000" step="100" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Number of Virtual Users:</label>
-                      <input type="number" id="calc-pacing-users" value="100" min="1" max="10000" step="1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-pacing-users" value="100" min="1" max="10000" step="1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div class="pt-3 border-t border-jm-border">
                       <p class="text-sm font-semibold" style="font-family: 'JetBrains Mono', monospace; color: #ff6b6b;">
@@ -901,15 +915,15 @@ const playlistConfig: Record<string, {
                   <div class="space-y-3">
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Number of Virtual Users:</label>
-                      <input type="number" id="calc-data-users" value="10" min="1" max="10000" step="1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-data-users" value="10" min="1" max="10000" step="1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Each VUser Duration (minutes):</label>
-                      <input type="number" id="calc-data-duration" value="2" min="0.1" max="60" step="0.1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-data-duration" value="2" min="0.1" max="60" step="0.1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Test Duration (hours):</label>
-                      <input type="number" id="calc-data-test-duration" value="3" min="0.1" max="24" step="0.1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-data-test-duration" value="3" min="0.1" max="24" step="0.1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div class="pt-3 border-t border-jm-border">
                       <p class="text-sm font-semibold" style="font-family: 'JetBrains Mono', monospace; color: #ff6b6b;">
@@ -931,19 +945,19 @@ const playlistConfig: Record<string, {
                   <div class="space-y-3">
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Total LG RAM (MB):</label>
-                      <input type="number" id="calc-lg-ram" value="4024" min="1024" max="262144" step="1024" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-lg-ram" value="4024" min="1024" max="262144" step="1024" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">First VUser Memory (MB):</label>
-                      <input type="number" id="calc-lg-first" value="200" min="50" max="1024" step="10" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-lg-first" value="200" min="50" max="1024" step="10" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Each Additional VUser Memory (MB):</label>
-                      <input type="number" id="calc-lg-additional" value="100" min="10" max="1024" step="10" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-lg-additional" value="100" min="10" max="1024" step="10" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">OS RAM (typically 700-750 MB):</label>
-                      <input type="number" id="calc-lg-os" value="1024" min="512" max="4096" step="128" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-lg-os" value="1024" min="512" max="4096" step="128" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div class="pt-3 border-t border-jm-border">
                       <p class="text-sm font-semibold" style="font-family: 'JetBrains Mono', monospace; color: #ff6b6b;">
@@ -965,23 +979,23 @@ const playlistConfig: Record<string, {
                   <div class="space-y-3">
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Concurrent Users:</label>
-                      <input type="number" id="calc-bandwidth-users" value="100" min="1" max="10000" step="1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-bandwidth-users" value="100" min="1" max="10000" step="1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Transactions Per Second (per user):</label>
-                      <input type="number" id="calc-bandwidth-tps" value="2" min="0.1" max="100" step="0.1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-bandwidth-tps" value="2" min="0.1" max="100" step="0.1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Average Request Size (KB):</label>
-                      <input type="number" id="calc-bandwidth-request" value="5" min="0.1" max="1024" step="0.1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-bandwidth-request" value="5" min="0.1" max="1024" step="0.1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Average Response Size (KB):</label>
-                      <input type="number" id="calc-bandwidth-response" value="50" min="0.1" max="10240" step="0.1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-bandwidth-response" value="50" min="0.1" max="10240" step="0.1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div>
                       <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">Protocol Overhead (%):</label>
-                      <input type="number" id="calc-bandwidth-overhead" value="20" min="0" max="50" step="1" class="w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light" style="font-family: 'JetBrains Mono', monospace;" />
+                      <input type="number" id="calc-bandwidth-overhead" value="20" min="0" max="50" step="1" class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
                     </div>
                     <div class="pt-3 border-t border-jm-border">
                       <p class="text-sm font-semibold" style="font-family: 'JetBrains Mono', monospace; color: #ff6b6b;">
@@ -1095,9 +1109,7 @@ const playlistConfig: Record<string, {
             <div>
               {/* Section label */}
               <div class="flex items-center gap-2 mb-1">
-                <span class="text-xs">
-                  {product.id === "feather-wand" ? "🪄" : product.id === "super-key" ? "⌨️" : product.id === "jmeter-studio" ? "🎨" : "🚀"}
-                </span>
+                <span class="text-xs">{productEmoji[product.id] ?? "🚀"}</span>
                 <span class="text-xs tracking-[0.15em] uppercase font-bold" style={`font-family: 'JetBrains Mono', monospace; color: ${product.color};`}>{product.name}</span>
                 <span class="flex-1 h-px ml-1" style={`background: linear-gradient(to right, ${product.color}40, transparent);`} />
               </div>
