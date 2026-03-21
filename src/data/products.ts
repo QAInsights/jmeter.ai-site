@@ -543,7 +543,17 @@ export const products: Product[] = [
     installation: [],
     socials: defaultSocials,
     treeNodes: [
-      { id: "playlist", label: "JMeter Playlist", icon: "play-circle" },
+      { id: "playlist", label: "Learn JMeter", icon: "play-circle" },
+      { id: "k6", label: "Learn k6", icon: "play-circle" },
+      { id: "gatling", label: "Learn Gatling", icon: "play-circle" },
+      { id: "locust", label: "Learn Locust", icon: "play-circle" },
+      { id: "loadrunner", label: "Learn LoadRunner", icon: "play-circle" },
+      { id: "performance-engineering", label: "Performance Engineering", icon: "play-circle" },
+      { id: "regex", label: "Regular Expressions", icon: "play-circle" },
+      { id: "vault", label: "Learn HashiCorp Vault", icon: "play-circle" },
+      { id: "devtools", label: "Chrome DevTools for Performance Engineers", icon: "play-circle" },
+      { id: "statistics", label: "Statistics for Performance Engineers", icon: "play-circle" },
+      { id: "chaos", label: "Learn Chaos Engineering", icon: "play-circle" },
     ],
   },
 ];
