@@ -521,6 +521,31 @@ export const products: Product[] = [
     installation: [],
     socials: defaultSocials,
   },
+  {
+    id: "learn",
+    name: "Learn",
+    tagline: "JMeter Video Tutorials on YouTube",
+    subtitlePrefix: "FREE",
+    subtitleHighlight: "JMETER TUTORIALS",
+    subtitleSuffix: "ON YOUTUBE",
+    description: "Watch the complete JMeter tutorial playlist on YouTube. Step-by-step video guides covering everything from getting started to advanced performance testing techniques.",
+    icon: "graduation-cap",
+    color: "#a78bfa",
+    colorRgb: "167, 139, 250",
+    github: "https://youtube.com/@QAInsights",
+    badges: [],
+    infoCards: [],
+    featuresHeadingPrefix: "",
+    featuresHeadingHighlight: "",
+    featuresSubtitle: "",
+    features: [],
+    ossVsPro: [],
+    installation: [],
+    socials: defaultSocials,
+    treeNodes: [
+      { id: "playlist", label: "JMeter Playlist", icon: "play-circle" },
+    ],
+  },
 ];
 
 export interface Theme {
