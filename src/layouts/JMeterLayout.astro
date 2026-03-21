@@ -466,6 +466,7 @@ import StatusBar from "../components/StatusBar.astro";
         const fwTreeContent = document.getElementById("fw-tree-content");
         const fwElementCount = document.getElementById("fw-element-count");
         let fwElementsAdded = 0;
+        let fwHasThreadGroup = false;
         const fwResponses: Record<string, {message: string; element: {name: string; icon: string; parent: string}}> = {
           "thread group": { message: "I'll create a Thread Group with 100 users, 1 second ramp-up, and 5 second loop.", element: { name: "Thread Group", icon: "⚙️", parent: "Test Plan" } },
           "http request": { message: "Adding an HTTP Request sampler with default configuration.", element: { name: "HTTP Request", icon: "📋", parent: "Thread Group" } },
@@ -473,24 +474,60 @@ import StatusBar from "../components/StatusBar.astro";
           "timer": { message: "Adding Constant Timer to add 1000ms think time between requests.", element: { name: "Constant Timer", icon: "⏱️", parent: "HTTP Request" } },
           "listener": { message: "Adding View Results Tree listener to see response data.", element: { name: "View Results Tree", icon: "📊", parent: "Thread Group" } },
         };
-        function fwAddMessage(content: string, isUser = false) {
+        function fwAddMessage(content: string, isUser = false, stream = false) {
           if (!fwChatMessages) return;
           const div = document.createElement("div"); div.className = "flex gap-3";
           if (isUser) {
             div.innerHTML = `<div class="w-10 h-10 rounded-lg bg-jm-accent/20 border border-jm-accent/40 flex items-center justify-center shrink-0"><span class="text-base">👤</span></div><div class="flex-1"><div class="text-xs text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">You</div><div class="bg-jm-surface border border-jm-border rounded-lg px-4 py-3 text-sm text-jm-text" style="font-family: 'JetBrains Mono', monospace;">${content}</div></div>`;
+            fwChatMessages.appendChild(div); fwChatMessages.scrollTop = fwChatMessages.scrollHeight;
           } else {
-            div.innerHTML = `<div class="w-10 h-10 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0"><span class="text-base">🪄</span></div><div class="flex-1"><div class="text-xs text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div><div class="bg-jm-surface-alt border border-jm-border rounded-lg px-4 py-3 text-sm text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">${content}</div></div>`;
+            div.innerHTML = `<div class="w-10 h-10 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0"><span class="text-base">🪄</span></div><div class="flex-1"><div class="text-xs text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div><div class="bg-jm-surface-alt border border-jm-border rounded-lg px-4 py-3 text-sm text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;"><span class="fw-streaming-text"></span></div></div>`;
+            fwChatMessages.appendChild(div); fwChatMessages.scrollTop = fwChatMessages.scrollHeight;
+            if (stream) {
+              const textSpan = div.querySelector(".fw-streaming-text") as HTMLElement;
+              let i = 0;
+              const chars = content.split("");
+              const interval = window.setInterval(() => {
+                if (i < chars.length) { textSpan.textContent += chars[i]; i++; fwChatMessages.scrollTop = fwChatMessages.scrollHeight; }
+                else { clearInterval(interval); }
+              }, 15);
+            } else {
+              const textSpan = div.querySelector(".fw-streaming-text") as HTMLElement;
+              if (textSpan) textSpan.textContent = content;
+            }
           }
-          fwChatMessages.appendChild(div); fwChatMessages.scrollTop = fwChatMessages.scrollHeight;
         }
-        function fwAddElementToTree(element: {name: string; icon: string}) {
+        function fwAddElementToTree(element: {name: string; icon: string; parent: string}) {
           if (!fwTreeContent) return;
+          // Remove empty placeholder if present
+          const emptyPlaceholder = fwTreeContent.querySelector(".text-jm-text-muted\\/50");
+          if (emptyPlaceholder) emptyPlaceholder.remove();
           fwElementsAdded++; if (fwElementCount) fwElementCount.textContent = `${fwElementsAdded} elements`;
+          
+          let container = fwTreeContent;
+          let paddingLeft = "16px";
+          
+          // If parent is Thread Group, find or create Thread Group container
+          if (element.parent === "Thread Group") {
+            let tgContainer = fwTreeContent.querySelector(".fw-thread-group-children") as HTMLElement;
+            if (!tgContainer) {
+              // Create Thread Group node first
+              const tgDiv = document.createElement("div");
+              tgDiv.className = "fw-tree-node-new";
+              tgDiv.innerHTML = `<div class="flex items-center gap-1 py-1 px-1 hover:bg-jm-tree-hover rounded cursor-pointer" style="padding-left: 16px;"><svg class="w-3 h-3 text-jm-text-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg><span class="text-sm">⚙️</span><span class="text-jm-text">Thread Group</span></div><div class="fw-thread-group-children ml-4"></div>`;
+              fwTreeContent.appendChild(tgDiv);
+              tgContainer = tgDiv.querySelector(".fw-thread-group-children") as HTMLElement;
+              setTimeout(() => tgDiv.classList.remove("fw-tree-node-new"), 500);
+            }
+            container = tgContainer;
+            paddingLeft = "16px";
+          }
+          
           const div = document.createElement("div");
           div.className = "flex items-center gap-1 py-1 px-1 hover:bg-jm-tree-hover rounded fw-tree-node-new";
-          div.style.paddingLeft = "32px";
+          div.style.paddingLeft = paddingLeft;
           div.innerHTML = `<span class="text-sm">${element.icon}</span><span class="text-jm-text">${element.name}</span>`;
-          fwTreeContent.appendChild(div); setTimeout(() => div.classList.remove("fw-tree-node-new"), 500);
+          container.appendChild(div); setTimeout(() => div.classList.remove("fw-tree-node-new"), 500);
         }
         function fwSendMessage() {
           if (!fwChatInput) return;
@@ -498,11 +535,41 @@ import StatusBar from "../components/StatusBar.astro";
           fwAddMessage(message, true); fwChatInput.value = "";
           setTimeout(() => {
             const lowerInput = message.toLowerCase();
+            // Check for Thread Group first
+            if (lowerInput.includes("thread group")) {
+              const response = fwResponses["thread group"];
+              fwAddMessage(response.message, false, true);
+              setTimeout(() => { 
+                // Create Thread Group as container node
+                if (fwTreeContent) {
+                  const emptyPlaceholder = fwTreeContent.querySelector(".text-jm-text-muted\\/50");
+                  if (emptyPlaceholder) emptyPlaceholder.remove();
+                  let tgContainer = fwTreeContent.querySelector(".fw-thread-group-children") as HTMLElement;
+                  if (!tgContainer) {
+                    const tgDiv = document.createElement("div");
+                    tgDiv.className = "fw-tree-node-new";
+                    tgDiv.innerHTML = `<div class="flex items-center gap-1 py-1 px-1 hover:bg-jm-tree-hover rounded cursor-pointer" style="padding-left: 16px;"><svg class="w-3 h-3 text-jm-text-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg><span class="text-sm">⚙️</span><span class="text-jm-text">Thread Group</span></div><div class="fw-thread-group-children ml-4"></div>`;
+                    fwTreeContent.appendChild(tgDiv);
+                    tgContainer = tgDiv.querySelector(".fw-thread-group-children") as HTMLElement;
+                    setTimeout(() => tgDiv.classList.remove("fw-tree-node-new"), 500);
+                  }
+                  fwElementsAdded++; 
+                  if (fwElementCount) fwElementCount.textContent = `${fwElementsAdded} elements`;
+                }
+                fwHasThreadGroup = true; 
+              }, 800);
+              return;
+            }
+            // Validate Thread Group exists for other elements
+            if (!fwHasThreadGroup) {
+              fwAddMessage("Please add a Thread Group first before adding other elements. Thread Group is the main container for your test plan.", false, true);
+              return;
+            }
             for (const [key, response] of Object.entries(fwResponses)) {
-              if (lowerInput.includes(key)) { fwAddMessage(response.message); setTimeout(() => fwAddElementToTree(response.element), 800); return; }
+              if (lowerInput.includes(key)) { fwAddMessage(response.message, false, true); setTimeout(() => fwAddElementToTree(response.element), 800); return; }
             }
             const defaults = ["I can help you create Thread Groups, HTTP Requests, Assertions, Timers, and Listeners. Try asking for one of these!", "Would you like me to add a Thread Group to get started with your test plan?", "I can add various JMeter test elements. What specific element would you like to create?", "Let me help you build a complete test plan. Would you like to start with a Thread Group?"];
-            fwAddMessage(defaults[Math.floor(Math.random() * defaults.length)]);
+            fwAddMessage(defaults[Math.floor(Math.random() * defaults.length)], false, true);
           }, 600);
         }
         fwChatSend?.addEventListener("click", fwSendMessage);
@@ -512,7 +579,7 @@ import StatusBar from "../components/StatusBar.astro";
         });
         document.getElementById("fw-clear-chat")?.addEventListener("click", () => {
           if (fwChatMessages) { const msgs = fwChatMessages.children; for (let i = msgs.length - 1; i > 0; i--) msgs[i].remove(); }
-          if (fwTreeContent) fwTreeContent.innerHTML = `<div class="text-[11px]" style="font-family: 'JetBrains Mono', monospace;"><div class="flex items-center gap-1 py-1 px-1 hover:bg-jm-tree-hover rounded cursor-pointer"><svg class="w-3 h-3 text-jm-text-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg><span class="text-sm">📋</span><span class="text-jm-text">Test Plan</span></div></div>`;
+          if (fwTreeContent) fwTreeContent.innerHTML = `<div class="flex items-center gap-1.5 py-1.5 px-2 text-jm-text-muted/50 italic"><span class="text-xs">Empty — ask AI to add elements</span></div>`;
           fwElementsAdded = 0; if (fwElementCount) fwElementCount.textContent = "0 elements";
         });
 
