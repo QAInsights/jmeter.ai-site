@@ -24,6 +24,12 @@ const toolbarGroups = [
     { icon: "search", title: "Search", label: "Search" },
     { icon: "eraser", title: "Reset", label: "Reset Search" },
   ],
+  [
+    { icon: "zoom-in", title: "Zoom In", label: "Zoom In" },
+    { icon: "zoom-out", title: "Zoom Out", label: "Zoom Out" },
+    { icon: "refresh-cw", title: "Reset", label: "Reset All" },
+    { icon: "zoom-reset", title: "Reset Zoom", label: "Reset Zoom (100%)" },
+  ],
 ];
 
 const iconPaths: Record<string, string> = {
@@ -39,6 +45,9 @@ const iconPaths: Record<string, string> = {
   "toggle-left": '<rect width="20" height="12" x="2" y="6" rx="6" ry="6"/><circle cx="8" cy="12" r="2"/>',
   "search": '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
   "eraser": '<path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/>',
+  "zoom-in": '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/>',
+  "zoom-out": '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/>',
+  "refresh-cw": '<path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/><path d="M20 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>',
 };
 ---
 
@@ -55,6 +64,7 @@ const iconPaths: Record<string, string> = {
           ]}
           title={btn.label}
           aria-label={btn.label}
+          data-action={btn.icon === "zoom-in" ? "zoom-in" : btn.icon === "zoom-out" ? "zoom-out" : btn.icon === "zoom-reset" ? "zoom-reset" : btn.icon === "refresh-cw" ? "reset-all" : undefined}
         >
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconPaths[btn.icon] || ""} />
         </button>
@@ -65,3 +75,72 @@ const iconPaths: Record<string, string> = {
     </div>
   ))}
 </div>
+
+<script>
+  const STEP = 0.1;
+  const MIN = 0.5;
+  const MAX = 2.0;
+  const STORAGE_KEY = "jm-zoom";
+
+  const detailPanel = document.querySelector<HTMLElement>("#detail-panel");
+
+  function applyZoom(level: number) {
+    if (!detailPanel) return;
+    detailPanel.style.zoom = String(level);
+    localStorage.setItem(STORAGE_KEY, String(level));
+  }
+
+  function getZoom(): number {
+    return parseFloat(localStorage.getItem(STORAGE_KEY) ?? "1");
+  }
+
+  applyZoom(getZoom());
+
+  document.querySelectorAll<HTMLButtonElement>("[data-action='zoom-in']").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      applyZoom(Math.min(MAX, Math.round((getZoom() + STEP) * 10) / 10));
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>("[data-action='zoom-out']").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      applyZoom(Math.max(MIN, Math.round((getZoom() - STEP) * 10) / 10));
+    });
+  });
+
+  // Zoom reset functionality
+  document.querySelectorAll<HTMLButtonElement>("[data-action='zoom-reset']").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      applyZoom(1.0);
+    });
+  });
+
+  // Reset all functionality
+  document.querySelectorAll<HTMLButtonElement>("[data-action='reset-all']").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      // Reset zoom to 100%
+      applyZoom(1.0);
+      
+      // Clear localStorage
+      localStorage.clear();
+      
+      // Reset any form inputs
+      document.querySelectorAll('input').forEach(input => {
+        if (input.type === 'number') {
+          // Reset to default values if available
+          const defaultValue = input.getAttribute('value');
+          if (defaultValue) {
+            input.value = defaultValue;
+          }
+        } else if (input.type === 'text' || input.type === 'search') {
+          input.value = '';
+        }
+      });
+      
+      // Trigger change events to update calculators
+      document.querySelectorAll('input').forEach(input => {
+        input.dispatchEvent(new Event('input'));
+      });
+    });
+  });
+</script>
