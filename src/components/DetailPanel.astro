@@ -941,20 +941,20 @@ const disclaimerText = {
                     class="yt-facade"
                     data-playlist={pl.playlistId}
                     data-title={`${pl.subtitle} by QAInsights`}
-                    style="position: relative; padding-bottom: 56.25%; height: 0; background: #000; cursor: pointer;"
+                    style="position: relative; padding-bottom: 56.25%; height: 0; background: linear-gradient(135deg, #0f0a1e 0%, #1a1035 50%, #0a0614 100%); cursor: pointer;"
                   >
-                    <img
-                      src={`https://i.ytimg.com/vi/0/hqdefault.jpg`}
-                      alt={`${pl.subtitle} thumbnail`}
-                      loading="lazy"
-                      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7;"
-                    />
-                    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
-                      <div style="width: 64px; height: 64px; background: #ff0000ee; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+                      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                        <div style="width: 72px; height: 72px; background: #ff0000; border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 32px #ff000060;">
+                          <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                        <div style="text-align: center;">
+                          <div style="font-family: 'Orbitron', sans-serif; font-size: 13px; color: #e5e7eb; font-weight: 600; letter-spacing: 0.05em;">{pl.subtitle}</div>
+                          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #a78bfa; margin-top: 4px; letter-spacing: 0.1em;">by QAInsights</div>
+                        </div>
                       </div>
+                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #ffffff60; border: 1px solid #ffffff20; padding: 4px 12px; border-radius: 4px;">▶ Click to load playlist</div>
                     </div>
-                    <div style="position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 11px; color: #ffffffaa; font-family: 'JetBrains Mono', monospace;">Click to load playlist</div>
                   </div>
 
                   {/* Bottom info bar */}
