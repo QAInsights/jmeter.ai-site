@@ -16,6 +16,43 @@ import StatusBar from "../components/StatusBar.astro";
     <SEOHead />
   </head>
   <body class="flex flex-col h-screen md:h-screen md:overflow-hidden overflow-auto min-h-screen bg-jm-bg">
+    <!-- SVG Sprite Sheet: referenced via <use href="#icon-*"> everywhere -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+      <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+      <symbol id="icon-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
+      <symbol id="icon-git-compare" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></symbol>
+      <symbol id="icon-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+      <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+      <symbol id="icon-calculator" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/><path d="M12 7V3"/><path d="M12 21v-4"/><path d="m3.5 9 3.5-2"/><path d="m17 13 3.5 2"/><path d="M3.5 15l3.5-2"/><path d="M17 11l3.5 2"/></symbol>
+      <symbol id="icon-play-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></symbol>
+      <symbol id="icon-wand-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></symbol>
+      <symbol id="icon-keyboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 8h.01"/><path d="M12 12h.01"/><path d="M14 8h.01"/><path d="M16 12h.01"/><path d="M18 8h.01"/><path d="M6 8h.01"/><path d="M7 16h10"/><path d="M8 12h.01"/><rect width="20" height="16" x="2" y="4" rx="2"/></symbol>
+      <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol>
+      <symbol id="icon-app-window" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></symbol>
+      <symbol id="icon-graduation-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
+      <symbol id="icon-file-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M9 15h6"/><path d="M12 18v-6"/></symbol>
+      <symbol id="icon-folder-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></symbol>
+      <symbol id="icon-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol>
+      <symbol id="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
+      <symbol id="icon-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/></symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="icon-zoom-in" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></symbol>
+      <symbol id="icon-zoom-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/></symbol>
+      <symbol id="icon-external-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+      <symbol id="icon-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+      <symbol id="icon-scissors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></symbol>
+      <symbol id="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+      <symbol id="icon-clipboard-paste" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H9a1 1 0 0 0-1 1v2c0 .6.4 1 1 1h6c.6 0 1-.4 1-1V3c0-.6-.4-1-1-1Z"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2M16 4h2a2 2 0 0 1 2 2v2"/><path d="M21 14H11"/><path d="m15 10-4 4 4 4"/></symbol>
+      <symbol id="icon-rotate-ccw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+      <symbol id="icon-toggle-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="6" ry="6"/><circle cx="8" cy="12" r="2"/></symbol>
+      <symbol id="icon-eraser" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></symbol>
+      <symbol id="icon-refresh-cw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/><path d="M20 4v6h-6"/><path d="M20.49 15a9 9 1 1 1-2.12-9.36L23 10"/></symbol>
+      <symbol id="icon-zoom-reset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 11a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/><path d="m21 21-4.35-4.35"/><path d="M11 8V2"/><path d="M2 11h6"/><path d="M11 14v6"/><path d="M14 11h6"/></symbol>
+    </svg>
     <!-- JMeter Chrome -->
     <TitleBar />
     <!-- Mobile sidebar toggle button -->
@@ -62,96 +99,53 @@ import StatusBar from "../components/StatusBar.astro";
         const treePanelEl = document.getElementById("tree-panel");
         let sidebarOpen = false;
 
-        function isMobile() {
-          return window.innerWidth < 768;
-        }
+        function isMobile() { return window.innerWidth < 768; }
 
         function initSidebarForSize() {
           if (!treePanelEl) return;
           if (isMobile()) {
-            // Collapse sidebar on mobile
-            treePanelEl.style.width = "0px";
-            treePanelEl.style.minWidth = "0";
-            treePanelEl.style.overflow = "hidden";
-            treePanelEl.style.position = "absolute";
-            treePanelEl.style.top = "0";
-            treePanelEl.style.left = "0";
-            treePanelEl.style.bottom = "0";
-            treePanelEl.style.zIndex = "45";
-            treePanelEl.style.maxWidth = "280px";
-            sidebarOpen = false;
+            treePanelEl.style.width = "0px"; treePanelEl.style.minWidth = "0";
+            treePanelEl.style.overflow = "hidden"; treePanelEl.style.position = "absolute";
+            treePanelEl.style.top = "0"; treePanelEl.style.left = "0";
+            treePanelEl.style.bottom = "0"; treePanelEl.style.zIndex = "45";
+            treePanelEl.style.maxWidth = "280px"; sidebarOpen = false;
           } else {
-            // Reset to inline panel on desktop
-            treePanelEl.style.width = "256px";
-            treePanelEl.style.minWidth = "";
-            treePanelEl.style.overflow = "";
-            treePanelEl.style.position = "";
-            treePanelEl.style.top = "";
-            treePanelEl.style.left = "";
-            treePanelEl.style.bottom = "";
-            treePanelEl.style.zIndex = "";
-            treePanelEl.style.maxWidth = "";
-            sidebarBackdrop?.classList.add("hidden");
+            treePanelEl.style.width = "256px"; treePanelEl.style.minWidth = "";
+            treePanelEl.style.overflow = ""; treePanelEl.style.position = "";
+            treePanelEl.style.top = ""; treePanelEl.style.left = "";
+            treePanelEl.style.bottom = ""; treePanelEl.style.zIndex = "";
+            treePanelEl.style.maxWidth = ""; sidebarBackdrop?.classList.add("hidden");
           }
         }
 
         function openSidebar() {
           if (!treePanelEl || !isMobile()) return;
-          sidebarOpen = true;
-          treePanelEl.style.width = "260px";
-          treePanelEl.style.overflow = "";
-          sidebarBackdrop?.classList.remove("hidden");
-          menuIcon?.classList.add("hidden");
-          closeIcon?.classList.remove("hidden");
+          sidebarOpen = true; treePanelEl.style.width = "260px"; treePanelEl.style.overflow = "";
+          sidebarBackdrop?.classList.remove("hidden"); menuIcon?.classList.add("hidden"); closeIcon?.classList.remove("hidden");
         }
 
         function closeSidebar() {
           if (!treePanelEl) return;
-          sidebarOpen = false;
-          treePanelEl.style.width = "0px";
-          treePanelEl.style.overflow = "hidden";
-          sidebarBackdrop?.classList.add("hidden");
-          menuIcon?.classList.remove("hidden");
-          closeIcon?.classList.add("hidden");
+          sidebarOpen = false; treePanelEl.style.width = "0px"; treePanelEl.style.overflow = "hidden";
+          sidebarBackdrop?.classList.add("hidden"); menuIcon?.classList.remove("hidden"); closeIcon?.classList.add("hidden");
         }
 
-        sidebarToggleBtn?.addEventListener("click", () => {
-          if (sidebarOpen) closeSidebar(); else openSidebar();
-        });
-
+        sidebarToggleBtn?.addEventListener("click", () => { if (sidebarOpen) closeSidebar(); else openSidebar(); });
         sidebarBackdrop?.addEventListener("click", closeSidebar);
-
-        // Close sidebar when a tree node is clicked on mobile
-        document.querySelectorAll<HTMLButtonElement>("[data-node]").forEach((node) => {
-          node.addEventListener("click", () => {
-            if (isMobile() && sidebarOpen) closeSidebar();
-          });
+        document.querySelectorAll("[data-node]").forEach((node) => {
+          node.addEventListener("click", () => { if (isMobile() && sidebarOpen) closeSidebar(); });
         });
-
-        // Re-initialize on resize
         window.addEventListener("resize", initSidebarForSize);
-        // Initialize on load
         initSidebarForSize();
 
         // --- State ---
         let activeTab = "feather-wand";
         let activeNodes: Record<string, string> = {
-          "feather-wand": "overview",
-          "super-key": "overview",
-          "jmeter-studio": "overview",
-          "prism": "overview",
-          "perftractor": "overview",
-          "learn": "playlist",
-          "k6": "k6",
-          "performance-engineering": "performance-engineering",
-          "regex": "regex",
-          "locust": "locust",
-          "loadrunner": "loadrunner",
-          "devtools": "devtools",
-          "gatling": "gatling",
-          "statistics": "statistics",
-          "chaos": "chaos",
-          "vault": "vault",
+          "feather-wand": "overview", "super-key": "overview", "jmeter-studio": "overview",
+          "prism": "overview", "perftractor": "overview", "learn": "playlist",
+          "k6": "k6", "performance-engineering": "performance-engineering", "regex": "regex",
+          "locust": "locust", "loadrunner": "loadrunner", "devtools": "devtools",
+          "gatling": "gatling", "statistics": "statistics", "chaos": "chaos", "vault": "vault",
         };
 
         // --- Tab Switching ---
@@ -162,13 +156,10 @@ import StatusBar from "../components/StatusBar.astro";
 
         function switchTab(tabId: string) {
           activeTab = tabId;
-
-          // Update tab buttons
           tabs.forEach((tab) => {
             const isActive = tab.dataset.tab === tabId;
             const color = tab.dataset.color || "#00e5ff";
             tab.setAttribute("aria-selected", isActive ? "true" : "false");
-
             if (isActive) {
               tab.className = tab.className
                 .replace(/bg-transparent/g, "bg-jm-tab-active")
@@ -176,13 +167,10 @@ import StatusBar from "../components/StatusBar.astro";
                 .replace(/text-jm-text-muted/g, "text-jm-text")
                 .replace(/hover:text-jm-text-dim/g, "")
                 .replace(/hover:bg-jm-tab-hover/g, "");
-              if (!tab.className.includes("bg-jm-tab-active")) {
+              if (!tab.className.includes("bg-jm-tab-active"))
                 tab.classList.add("bg-jm-tab-active", "border-jm-border", "text-jm-text");
-              }
-              // Set icon color
               const icon = tab.querySelector("svg");
               if (icon) icon.style.color = color;
-              // Add indicator
               let indicator = tab.querySelector("#tab-indicator") as HTMLElement;
               if (!indicator) {
                 indicator = document.createElement("div");
@@ -202,18 +190,8 @@ import StatusBar from "../components/StatusBar.astro";
               if (indicator) indicator.remove();
             }
           });
-
-          // Show/hide tree panels
-          treePanels.forEach((panel) => {
-            panel.classList.toggle("hidden", panel.dataset.treeProduct !== tabId);
-          });
-
-          // Show/hide detail panels
-          detailPanels.forEach((panel) => {
-            panel.classList.toggle("hidden", panel.dataset.panelsProduct !== tabId);
-          });
-
-          // Restore active node for this tab
+          treePanels.forEach((panel) => { panel.classList.toggle("hidden", panel.dataset.treeProduct !== tabId); });
+          detailPanels.forEach((panel) => { panel.classList.toggle("hidden", panel.dataset.panelsProduct !== tabId); });
           const currentNode = activeNodes[tabId] || "overview";
           highlightTreeNode(tabId, currentNode);
           showDetailContent(tabId, currentNode);
@@ -222,7 +200,6 @@ import StatusBar from "../components/StatusBar.astro";
         tabs.forEach((tab) => {
           tab.addEventListener("click", (e) => {
             const target = e.target as HTMLElement;
-            // Don't switch tab if clicking close button
             if (target.closest(".tab-close")) return;
             const tabId = tab.dataset.tab;
             if (tabId) switchTab(tabId);
@@ -235,25 +212,15 @@ import StatusBar from "../components/StatusBar.astro";
         function highlightTreeNode(productId: string, nodeId: string) {
           const product = document.querySelector(`[data-tree-product="${productId}"]`);
           if (!product) return;
-
           const nodes = product.querySelectorAll<HTMLButtonElement>("[data-node]");
-          const productEl = document.querySelector(`[data-panels-product="${productId}"]`);
-          const color = productEl
-            ? (document.querySelector(`[data-tab="${productId}"]`) as HTMLElement)?.dataset.color || "#00e5ff"
-            : "#00e5ff";
-
+          const color = (document.querySelector(`[data-tab="${productId}"]`) as HTMLElement)?.dataset.color || "#00e5ff";
           nodes.forEach((node) => {
             const isActive = node.dataset.node === nodeId;
             node.setAttribute("aria-selected", isActive ? "true" : "false");
-
-            // Reset classes
-            node.classList.remove("bg-jm-tree-active/60", "text-jm-text");
-            node.classList.remove("text-jm-text-dim");
-
+            node.classList.remove("bg-jm-tree-active/60", "text-jm-text", "text-jm-text-dim");
             if (isActive) {
               node.style.background = `color-mix(in srgb, ${color} 15%, transparent)`;
               node.classList.add("text-jm-text");
-              // Active indicator
               let ind = node.querySelector(".active-ind") as HTMLElement;
               if (!ind) {
                 ind = document.createElement("span");
@@ -264,8 +231,7 @@ import StatusBar from "../components/StatusBar.astro";
             } else {
               node.style.background = "";
               node.classList.add("text-jm-text-dim");
-              const ind = node.querySelector(".active-ind");
-              if (ind) ind.remove();
+              node.querySelector(".active-ind")?.remove();
             }
           });
         }
@@ -273,22 +239,14 @@ import StatusBar from "../components/StatusBar.astro";
         function showDetailContent(productId: string, nodeId: string) {
           const container = document.querySelector(`[data-panels-product="${productId}"]`);
           if (!container) return;
-
-          const contents = container.querySelectorAll<HTMLElement>("[data-detail]");
-          contents.forEach((content) => {
+          container.querySelectorAll<HTMLElement>("[data-detail]").forEach((content) => {
             const isActive = content.dataset.detail === `${productId}-${nodeId}`;
             content.classList.toggle("hidden", !isActive);
-            if (isActive) {
-              content.classList.add("panel-enter");
-            }
+            if (isActive) content.classList.add("panel-enter");
           });
-
-          // Update panel section label in header
           const sectionEl = container.querySelector(`[data-panel-section="${productId}"]`);
           if (sectionEl) {
-            const nodeLabel = document.querySelector(
-              `[data-tree-product="${productId}"] [data-node="${nodeId}"]`
-            )?.textContent?.trim();
+            const nodeLabel = document.querySelector(`[data-tree-product="${productId}"] [data-node="${nodeId}"]`)?.textContent?.trim();
             sectionEl.textContent = nodeLabel || "Overview";
           }
         }
@@ -298,7 +256,6 @@ import StatusBar from "../components/StatusBar.astro";
             const nodeId = node.dataset.node;
             const productId = node.dataset.product;
             if (!nodeId || !productId) return;
-
             activeNodes[productId] = nodeId;
             highlightTreeNode(productId, nodeId);
             showDetailContent(productId, nodeId);
@@ -308,138 +265,62 @@ import StatusBar from "../components/StatusBar.astro";
         // --- Resizable Split Pane ---
         const resizer = document.getElementById("resizer");
         const treePanel = document.getElementById("tree-panel");
-
         if (resizer && treePanel) {
           let isResizing = false;
-
-          resizer.addEventListener("mousedown", (e) => {
-            isResizing = true;
-            document.body.style.cursor = "col-resize";
-            document.body.style.userSelect = "none";
-            e.preventDefault();
-          });
-
-          document.addEventListener("mousemove", (e) => {
-            if (!isResizing) return;
-            const newWidth = Math.max(160, Math.min(500, e.clientX));
-            treePanel.style.width = `${newWidth}px`;
-          });
-
-          document.addEventListener("mouseup", () => {
-            if (isResizing) {
-              isResizing = false;
-              document.body.style.cursor = "";
-              document.body.style.userSelect = "";
-            }
-          });
+          resizer.addEventListener("mousedown", (e) => { isResizing = true; document.body.style.cursor = "col-resize"; document.body.style.userSelect = "none"; e.preventDefault(); });
+          document.addEventListener("mousemove", (e) => { if (!isResizing) return; treePanel.style.width = `${Math.max(160, Math.min(500, e.clientX))}px`; });
+          document.addEventListener("mouseup", () => { if (isResizing) { isResizing = false; document.body.style.cursor = ""; document.body.style.userSelect = ""; } });
         }
 
         // --- Live Theme Switcher ---
         const CSS_VAR_MAP: Record<string, string> = {
-          bg: "--color-jm-bg",
-          surface: "--color-jm-surface",
-          surfaceAlt: "--color-jm-surface-alt",
-          border: "--color-jm-border",
-          borderLight: "--color-jm-border-light",
-          text: "--color-jm-text",
-          textDim: "--color-jm-text-dim",
-          textMuted: "--color-jm-text-muted",
-          titleBar: "--color-jm-title-bar",
-          menuBg: "--color-jm-menu-bg",
-          toolbarBg: "--color-jm-toolbar-bg",
-          tabActive: "--color-jm-tab-active",
-          tabHover: "--color-jm-tab-hover",
-          treeHover: "--color-jm-tree-hover",
-          treeActive: "--color-jm-tree-active",
-          accent: "--color-jm-accent",
-          accentDim: "--color-jm-accent-dim",
-          cyan: "--color-jm-cyan",
-          amber: "--color-jm-amber",
-          purple: "--color-jm-purple",
-          green: "--color-jm-green",
-          red: "--color-jm-red",
-          statusBg: "--color-jm-status-bg",
+          bg: "--color-jm-bg", surface: "--color-jm-surface", surfaceAlt: "--color-jm-surface-alt",
+          border: "--color-jm-border", borderLight: "--color-jm-border-light",
+          text: "--color-jm-text", textDim: "--color-jm-text-dim", textMuted: "--color-jm-text-muted",
+          titleBar: "--color-jm-title-bar", menuBg: "--color-jm-menu-bg", toolbarBg: "--color-jm-toolbar-bg",
+          tabActive: "--color-jm-tab-active", tabHover: "--color-jm-tab-hover",
+          treeHover: "--color-jm-tree-hover", treeActive: "--color-jm-tree-active",
+          accent: "--color-jm-accent", accentDim: "--color-jm-accent-dim",
+          cyan: "--color-jm-cyan", amber: "--color-jm-amber", purple: "--color-jm-purple",
+          green: "--color-jm-green", red: "--color-jm-red", statusBg: "--color-jm-status-bg",
         };
-
-        let activeThemeId = "default";
 
         function applyTheme(themeId: string, colors: Record<string, string>) {
           const root = document.documentElement;
-
-          // Enable smooth transition
           root.classList.add("theme-transitioning");
-
-          // Set every CSS custom property
-          for (const [key, cssVar] of Object.entries(CSS_VAR_MAP)) {
-            if (colors[key]) {
-              root.style.setProperty(cssVar, colors[key]);
-            }
-          }
-
-          // Update active swatch ring
+          for (const [key, cssVar] of Object.entries(CSS_VAR_MAP)) { if (colors[key]) root.style.setProperty(cssVar, colors[key]); }
           document.querySelectorAll<HTMLElement>(".theme-swatch").forEach((btn) => {
             const ring = btn.querySelector<HTMLElement>(".theme-active-ring");
             if (!ring) return;
             if (btn.dataset.themeId === themeId) {
               const c = JSON.parse(btn.dataset.themeColors || "{}");
-              ring.style.borderColor = c.accent || "#00e5ff";
-              ring.style.boxShadow = `0 0 12px ${c.accent || "#00e5ff"}40`;
-            } else {
-              ring.style.borderColor = "transparent";
-              ring.style.boxShadow = "none";
-            }
+              ring.style.borderColor = c.accent || "#00e5ff"; ring.style.boxShadow = `0 0 12px ${c.accent || "#00e5ff"}40`;
+            } else { ring.style.borderColor = "transparent"; ring.style.boxShadow = "none"; }
           });
-
-          // Update active label
           const label = document.getElementById("theme-active-label");
           if (label) {
-            const btn = document.querySelector(`[data-theme-id="${themeId}"]`);
-            const name = btn?.querySelector("[style*='Orbitron']")?.textContent || themeId;
-            label.textContent = `Active: ${name}`;
+            const btn = document.querySelector<HTMLElement>(`[data-theme-id="${themeId}"]`);
+            label.textContent = `Active: ${btn?.querySelector("[style*='Orbitron']")?.textContent || themeId}`;
             label.style.color = colors.accent || "";
           }
-
-          // Update glow-text-cyan to match new accent
           const glowStyle = document.getElementById("dynamic-glow");
-          if (glowStyle) {
-            glowStyle.textContent = `.glow-text-cyan { text-shadow: 0 0 8px ${colors.accent || "#00e5ff"}66; }`;
-          } else {
-            const s = document.createElement("style");
-            s.id = "dynamic-glow";
-            s.textContent = `.glow-text-cyan { text-shadow: 0 0 8px ${colors.accent || "#00e5ff"}66; }`;
-            document.head.appendChild(s);
-          }
-
-          activeThemeId = themeId;
-
-          // Remove transition class after animation completes
+          if (glowStyle) { glowStyle.textContent = `.glow-text-cyan { text-shadow: 0 0 8px ${colors.accent || "#00e5ff"}66; }`; }
+          else { const s = document.createElement("style"); s.id = "dynamic-glow"; s.textContent = `.glow-text-cyan { text-shadow: 0 0 8px ${colors.accent || "#00e5ff"}66; }`; document.head.appendChild(s); }
           setTimeout(() => root.classList.remove("theme-transitioning"), 400);
         }
 
-        // Bind swatch clicks
-        document.querySelectorAll<HTMLButtonElement>(".theme-swatch").forEach((btn) => {
+        document.querySelectorAll<HTMLElement>(".theme-swatch").forEach((btn) => {
           btn.addEventListener("click", () => {
-            const themeId = btn.dataset.themeId;
-            const colors = JSON.parse(btn.dataset.themeColors || "{}");
+            const themeId = btn.dataset.themeId; const colors = JSON.parse(btn.dataset.themeColors || "{}");
             if (themeId) applyTheme(themeId, colors);
           });
         });
-
-        // Reset button
         document.getElementById("theme-reset")?.addEventListener("click", () => {
-          const defaultBtn = document.querySelector<HTMLButtonElement>('[data-theme-id="default"]');
-          if (defaultBtn) {
-            const colors = JSON.parse(defaultBtn.dataset.themeColors || "{}");
-            applyTheme("default", colors);
-          }
+          const defaultBtn = document.querySelector<HTMLElement>('[data-theme-id="default"]');
+          if (defaultBtn) applyTheme("default", JSON.parse(defaultBtn.dataset.themeColors || "{}"));
         });
-
-        // Mark default theme as active on load
-        const defaultRing = document.querySelector('[data-theme-id="default"] .theme-active-ring') as HTMLElement | null;
-        if (defaultRing) {
-          defaultRing.style.borderColor = "#00e5ff";
-          defaultRing.style.boxShadow = "0 0 12px #00e5ff40";
-        }
+        const defaultRing = document.querySelector<HTMLElement>('[data-theme-id="default"] .theme-active-ring');
+        if (defaultRing) { defaultRing.style.borderColor = "#00e5ff"; defaultRing.style.boxShadow = "0 0 12px #00e5ff40"; }
 
         // --- Super Key Command Palette ---
         const skPaletteRoot = document.getElementById("sk-palette-root");
@@ -449,308 +330,134 @@ import StatusBar from "../components/StatusBar.astro";
         const skStatusIndicator = document.getElementById("sk-status-indicator");
         const skProgress = document.getElementById("sk-progress");
         const skResetBtn = document.getElementById("sk-reset-btn");
-
-        // Load element catalog from embedded data attribute
         let skElementCatalog: Array<{name: string; type: string; category: string; icon: string; parent?: string}> = [];
         const skDataEl = document.getElementById("jmeter-elements-data");
-        if (skDataEl) {
-          try { skElementCatalog = JSON.parse(skDataEl.dataset.elements || "[]"); } catch(e) { /* ignore */ }
-        }
-
-        // Test plan state
+        if (skDataEl) { try { skElementCatalog = JSON.parse(skDataEl.dataset.elements || "[]"); } catch(e) {} }
         interface SkTreeNode { name: string; icon: string; depth: number; children: SkTreeNode[]; }
         let skTestPlan: SkTreeNode = { name: "Test Plan", icon: "📋", depth: 0, children: [] };
-        let skPaletteOpen = false;
-        let skActiveIndex = 0;
-        let skRunning = false;
-        let skRunInterval: number | null = null;
-        let skSampleCount = 0;
+        let skPaletteOpen = false, skActiveIndex = 0, skRunning = false;
+        let skRunInterval: number | null = null, skSampleCount = 0;
 
         function skFindParent(node: SkTreeNode, parentName: string): SkTreeNode | null {
           if (node.name === parentName || node.name.includes(parentName)) return node;
-          for (const child of node.children) {
-            const found = skFindParent(child, parentName);
-            if (found) return found;
-          }
+          for (const child of node.children) { const found = skFindParent(child, parentName); if (found) return found; }
           return null;
         }
-
         function skRenderTree() {
-          if (!skTree) return;
-          skTree.innerHTML = "";
+          if (!skTree) return; skTree.innerHTML = "";
           function renderNode(node: SkTreeNode, depth: number) {
             const div = document.createElement("div");
             div.className = `sk-tree-node flex items-center gap-1.5 py-1 rounded text-xs ${depth === 0 ? "" : "sk-tree-node-new"}`;
-            div.style.paddingLeft = `${8 + depth * 16}px`;
-            div.style.paddingRight = "8px";
-            div.dataset.skNode = node.name;
-            div.dataset.skDepth = String(depth);
+            div.style.paddingLeft = `${8 + depth * 16}px`; div.style.paddingRight = "8px";
+            div.dataset.skNode = node.name; div.dataset.skDepth = String(depth);
             div.innerHTML = `<span class="text-sm">${node.icon}</span><span class="text-jm-text" style="font-family: 'JetBrains Mono', monospace;">${node.name}</span>`;
             skTree.appendChild(div);
-            for (const child of node.children) {
-              renderNode(child, depth + 1);
-            }
+            for (const child of node.children) renderNode(child, depth + 1);
           }
           renderNode(skTestPlan, 0);
         }
-
-        function skAddElement(element: {name: string; type: string; category: string; icon: string; parent?: string}) {
-          if (element.type === "action") {
-            skHandleAction(element.name);
-            return;
-          }
-          const parentName = element.parent || "Test Plan";
-          let parent = skFindParent(skTestPlan, parentName);
-          // If parent not found, add under Test Plan
-          if (!parent) parent = skTestPlan;
-          // Check if element already exists under parent
-          const exists = parent.children.some(c => c.name === element.name);
-          if (!exists) {
-            parent.children.push({ name: element.name, icon: element.icon, depth: parent.depth + 1, children: [] });
-          }
-          skRenderTree();
-          // Log addition
-          skLogMessage(`Added: ${element.icon} ${element.name}`, "info");
-        }
-
-        function skHandleAction(actionName: string) {
-          if (actionName.includes("Run")) {
-            skStartRun();
-          } else if (actionName.includes("Stop")) {
-            skStopRun();
-          } else if (actionName.includes("Thread Dump")) {
-            skLogMessage("Thread dump captured", "warn");
-          } else if (actionName.includes("Save")) {
-            skLogMessage("Test plan saved", "info");
-          }
-        }
-
-        function skLogMessage(msg: string, level: "info" | "pass" | "fail" | "warn") {
+        function skLogMessage(msg: string, level: string) {
           if (!skResults) return;
-          // Clear placeholder if present
-          const placeholder = skResults.querySelector(".flex.flex-col.items-center");
-          if (placeholder) placeholder.remove();
-
+          skResults.querySelector(".flex.flex-col.items-center")?.remove();
           const now = new Date();
           const timeStr = `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}:${String(now.getSeconds()).padStart(2,"0")}`;
-          const entry = document.createElement("div");
-          entry.className = "sk-log-entry";
+          const entry = document.createElement("div"); entry.className = "sk-log-entry";
           const dotClass = level === "pass" ? "sk-log-pass" : level === "fail" ? "sk-log-fail" : level === "warn" ? "sk-log-warn" : "sk-log-pass";
           entry.innerHTML = `<span class="sk-log-time">${timeStr}</span><span class="sk-log-status ${dotClass}"></span><span class="text-jm-text-dim">${msg}</span>`;
-          skResults.appendChild(entry);
-          skResults.scrollTop = skResults.scrollHeight;
+          skResults.appendChild(entry); skResults.scrollTop = skResults.scrollHeight;
         }
-
         function skSetStatus(text: string, color: string, pulse: boolean) {
-          if (skStatusText) {
-            skStatusText.textContent = text;
-            skStatusText.style.color = color;
-          }
+          if (skStatusText) { skStatusText.textContent = text; skStatusText.style.color = color; }
           if (skStatusIndicator) {
             const dot = skStatusIndicator.querySelector("span:first-child") as HTMLElement;
-            if (dot) {
-              dot.style.background = color;
-              dot.className = `w-2 h-2 rounded-full ${pulse ? "sk-running-dot" : ""}`;
-            }
+            if (dot) { dot.style.background = color; dot.className = `w-2 h-2 rounded-full ${pulse ? "sk-running-dot" : ""}`; }
           }
         }
-
+        function skAddElement(element: {name: string; type: string; category: string; icon: string; parent?: string}) {
+          if (element.type === "action") { skHandleAction(element.name); return; }
+          let parent = skFindParent(skTestPlan, element.parent || "Test Plan") || skTestPlan;
+          if (!parent.children.some(c => c.name === element.name))
+            parent.children.push({ name: element.name, icon: element.icon, depth: parent.depth + 1, children: [] });
+          skRenderTree(); skLogMessage(`Added: ${element.icon} ${element.name}`, "info");
+        }
+        function skHandleAction(actionName: string) {
+          if (actionName.includes("Run")) skStartRun();
+          else if (actionName.includes("Stop")) skStopRun();
+          else if (actionName.includes("Thread Dump")) skLogMessage("Thread dump captured", "warn");
+          else if (actionName.includes("Save")) skLogMessage("Test plan saved", "info");
+        }
         function skStartRun() {
-          // Check if there's at least a sampler
-          const hasSampler = skTestPlan.children.some(tg =>
-            tg.children.some(c =>
-              c.name.includes("Request") || c.name.includes("Sampler")
-            )
-          );
-          if (!hasSampler) {
-            skLogMessage("⚠️ No sampler found. Add HTTP Request first.", "warn");
-            return;
-          }
+          const hasSampler = skTestPlan.children.some(tg => tg.children.some(c => c.name.includes("Request") || c.name.includes("Sampler")));
+          if (!hasSampler) { skLogMessage("⚠️ No sampler found. Add HTTP Request first.", "warn"); return; }
           if (skRunning) return;
-          skRunning = true;
-          skSampleCount = 0;
-          skSetStatus("Running", "#00e676", true);
-          skLogMessage("▶️ Test started", "info");
-
-          // Find samplers for simulation
+          skRunning = true; skSampleCount = 0; skSetStatus("Running", "#00e676", true); skLogMessage("▶️ Test started", "info");
           const samplerNames: string[] = [];
-          function findSamplers(node: SkTreeNode) {
-            if (node.name.includes("Request") || node.name.includes("Sampler")) {
-              samplerNames.push(node.name);
-            }
-            node.children.forEach(findSamplers);
-          }
+          function findSamplers(node: SkTreeNode) { if (node.name.includes("Request") || node.name.includes("Sampler")) samplerNames.push(node.name); node.children.forEach(findSamplers); }
           findSamplers(skTestPlan);
-
-          // Simulate requests
           skRunInterval = window.setInterval(() => {
-            if (!skRunning) return;
-            skSampleCount++;
+            if (!skRunning) return; skSampleCount++;
             const sampler = samplerNames[Math.floor(Math.random() * samplerNames.length)];
             const responseTime = Math.floor(Math.random() * 450) + 50;
             const statusCode = Math.random() > 0.12 ? 200 : (Math.random() > 0.5 ? 500 : 404);
             const pass = statusCode === 200;
-            const level = pass ? "pass" : "fail";
-            const label = `#${skSampleCount} ${sampler} → ${statusCode} (${responseTime}ms)`;
-            skLogMessage(label, level as "pass" | "fail");
-            // Update progress bar
-            if (skProgress) {
-              const pct = Math.min(100, (skSampleCount / 50) * 100);
-              skProgress.style.width = `${pct}%`;
-              skProgress.style.background = pass ? "" : "var(--color-jm-red)";
-            }
+            skLogMessage(`#${skSampleCount} ${sampler} → ${statusCode} (${responseTime}ms)`, pass ? "pass" : "fail");
+            if (skProgress) { skProgress.style.width = `${Math.min(100, (skSampleCount / 50) * 100)}%`; skProgress.style.background = pass ? "" : "var(--color-jm-red)"; }
           }, 600);
         }
-
         function skStopRun() {
-          if (!skRunning) return;
-          skRunning = false;
-          if (skRunInterval !== null) {
-            clearInterval(skRunInterval);
-            skRunInterval = null;
-          }
-          skSetStatus("Stopped", "#ff5252", false);
-          skLogMessage(`⏹️ Test stopped — ${skSampleCount} samples`, "warn");
+          if (!skRunning) return; skRunning = false;
+          if (skRunInterval !== null) { clearInterval(skRunInterval); skRunInterval = null; }
+          skSetStatus("Stopped", "#ff5252", false); skLogMessage(`⏹️ Test stopped — ${skSampleCount} samples`, "warn");
           if (skProgress) skProgress.style.width = "100%";
         }
-
-        // Command palette open/close
         function skOpenPalette() {
-          if (skPaletteOpen) return;
-          skPaletteOpen = true;
-          skActiveIndex = 0;
-          if (!skPaletteRoot) return;
-          skPaletteRoot.innerHTML = `
-            <div class="sk-palette-overlay" id="sk-overlay">
-              <div class="sk-palette">
-                <div class="sk-palette-input-row">
-                  <div class="sk-palette-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/></svg>
-                  </div>
-                  <input type="text" class="sk-palette-input" id="sk-input" placeholder="Need a sampler? An assertion? Just type." autofocus />
-                  <div class="sk-palette-count" id="sk-count">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-                    <span id="sk-count-num">${skElementCatalog.length}</span>
-                  </div>
-                </div>
-                <div class="sk-palette-results" id="sk-palette-list"></div>
-              </div>
-            </div>
-          `;
+          if (skPaletteOpen || !skPaletteRoot) return;
+          skPaletteOpen = true; skActiveIndex = 0;
+          skPaletteRoot.innerHTML = `<div class="sk-palette-overlay" id="sk-overlay"><div class="sk-palette"><div class="sk-palette-input-row"><div class="sk-palette-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/></svg></div><input type="text" class="sk-palette-input" id="sk-input" placeholder="Need a sampler? An assertion? Just type." autofocus /><div class="sk-palette-count" id="sk-count"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg><span id="sk-count-num">${skElementCatalog.length}</span></div></div><div class="sk-palette-results" id="sk-palette-list"></div></div></div>`;
           const input = document.getElementById("sk-input") as HTMLInputElement;
           const list = document.getElementById("sk-palette-list")!;
           const overlay = document.getElementById("sk-overlay")!;
-
-          skRenderPaletteResults(list, "", input);
-          input.focus();
-
-          input.addEventListener("input", () => {
-            skActiveIndex = 0;
-            skRenderPaletteResults(list, input.value, input);
-          });
-
+          skRenderPaletteResults(list, ""); input.focus();
+          input.addEventListener("input", () => { skActiveIndex = 0; skRenderPaletteResults(list, input.value); });
           input.addEventListener("keydown", (e) => {
             const items = list.querySelectorAll(".sk-palette-item");
-            if (e.key === "ArrowDown") {
-              e.preventDefault();
-              skActiveIndex = Math.min(skActiveIndex + 1, items.length - 1);
-              skHighlightPaletteItem(list);
-            } else if (e.key === "ArrowUp") {
-              e.preventDefault();
-              skActiveIndex = Math.max(skActiveIndex - 1, 0);
-              skHighlightPaletteItem(list);
-            } else if (e.key === "Enter") {
-              e.preventDefault();
-              const active = items[skActiveIndex] as HTMLElement | undefined;
-              if (active) {
-                const idx = parseInt(active.dataset.skIdx || "0");
-                const filtered = skGetFilteredElements(input.value);
-                if (filtered[idx]) {
-                  skAddElement(filtered[idx]);
-                  skClosePalette();
-                }
-              }
-            } else if (e.key === "Escape") {
-              skClosePalette();
-            }
+            if (e.key === "ArrowDown") { e.preventDefault(); skActiveIndex = Math.min(skActiveIndex + 1, items.length - 1); skHighlightPaletteItem(list); }
+            else if (e.key === "ArrowUp") { e.preventDefault(); skActiveIndex = Math.max(skActiveIndex - 1, 0); skHighlightPaletteItem(list); }
+            else if (e.key === "Enter") { e.preventDefault(); const active = items[skActiveIndex] as HTMLElement; if (active) { const filtered = skGetFilteredElements(input.value); if (filtered[parseInt(active.dataset.skIdx || "0")]) { skAddElement(filtered[parseInt(active.dataset.skIdx || "0")]); skClosePalette(); } } }
+            else if (e.key === "Escape") skClosePalette();
           });
-
-          overlay.addEventListener("click", (e) => {
-            if (e.target === overlay) skClosePalette();
-          });
+          overlay.addEventListener("click", (e) => { if (e.target === overlay) skClosePalette(); });
         }
-
-        function skClosePalette() {
-          skPaletteOpen = false;
-          if (skPaletteRoot) skPaletteRoot.innerHTML = "";
-        }
-
+        function skClosePalette() { skPaletteOpen = false; if (skPaletteRoot) skPaletteRoot.innerHTML = ""; }
         function skGetFilteredElements(query: string) {
           const q = query.toLowerCase().trim();
-          if (!q) return skElementCatalog;
-          return skElementCatalog.filter(el => el.name.toLowerCase().includes(q) || el.category.toLowerCase().includes(q));
+          return q ? skElementCatalog.filter(el => el.name.toLowerCase().includes(q) || el.category.toLowerCase().includes(q)) : skElementCatalog;
         }
-
-        function skRenderPaletteResults(container: HTMLElement, query: string, input: HTMLInputElement) {
-          const filtered = skGetFilteredElements(query);
-          container.innerHTML = "";
-          const countEl = document.getElementById("sk-count-num");
-          if (countEl) countEl.textContent = String(filtered.length);
-
+        function skRenderPaletteResults(container: HTMLElement, query: string) {
+          const filtered = skGetFilteredElements(query); container.innerHTML = "";
+          const countEl = document.getElementById("sk-count-num"); if (countEl) countEl.textContent = String(filtered.length);
           filtered.forEach((el, i) => {
             const div = document.createElement("div");
             div.className = `sk-palette-item ${i === skActiveIndex ? "sk-active" : ""}`;
             div.dataset.skIdx = String(i);
             div.innerHTML = `<span class="mr-2">${el.icon}</span><span>${el.name}</span><span class="sk-palette-item-category">${el.category}</span>`;
-            div.addEventListener("click", () => {
-              skAddElement(el);
-              skClosePalette();
-            });
-            div.addEventListener("mouseenter", () => {
-              skActiveIndex = i;
-              skHighlightPaletteItem(container);
-            });
+            div.addEventListener("click", () => { skAddElement(el); skClosePalette(); });
+            div.addEventListener("mouseenter", () => { skActiveIndex = i; skHighlightPaletteItem(container); });
             container.appendChild(div);
           });
         }
-
         function skHighlightPaletteItem(container: HTMLElement) {
           const items = container.querySelectorAll(".sk-palette-item");
-          items.forEach((item, i) => {
-            item.classList.toggle("sk-active", i === skActiveIndex);
-          });
-          // Scroll into view
-          const active = items[skActiveIndex] as HTMLElement | undefined;
-          if (active) active.scrollIntoView({ block: "nearest" });
+          items.forEach((item, i) => item.classList.toggle("sk-active", i === skActiveIndex));
+          (items[skActiveIndex] as HTMLElement)?.scrollIntoView({ block: "nearest" });
         }
-
-        // Reset demo
         skResetBtn?.addEventListener("click", () => {
-          skStopRun();
-          skTestPlan = { name: "Test Plan", icon: "📋", depth: 0, children: [] };
-          skSampleCount = 0;
-          skRenderTree();
-          if (skResults) {
-            skResults.innerHTML = `
-              <div class="flex flex-col items-center justify-center h-full text-center opacity-60">
-                <span class="text-3xl mb-2">⌨️</span>
-                <p class="text-xs text-jm-text-muted" style="font-family: 'JetBrains Mono', monospace;">Press Ctrl+K to start</p>
-                <p class="text-[10px] text-jm-text-muted mt-1" style="font-family: 'JetBrains Mono', monospace;">Add elements, then "Run" to simulate</p>
-              </div>`;
-          }
-          if (skProgress) skProgress.style.width = "0%";
-          skSetStatus("Idle", "", false);
-          if (skStatusText) skStatusText.style.color = "";
+          skStopRun(); skTestPlan = { name: "Test Plan", icon: "📋", depth: 0, children: [] }; skSampleCount = 0; skRenderTree();
+          if (skResults) skResults.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-center opacity-60"><span class="text-3xl mb-2">⌨️</span><p class="text-xs text-jm-text-muted" style="font-family: 'JetBrains Mono', monospace;">Press Ctrl+K to start</p><p class="text-[10px] text-jm-text-muted mt-1" style="font-family: 'JetBrains Mono', monospace;">Add elements, then "Run" to simulate</p></div>`;
+          if (skProgress) skProgress.style.width = "0%"; skSetStatus("Idle", "", false); if (skStatusText) skStatusText.style.color = "";
         });
-
-        // Initial tree render
         skRenderTree();
-
-        // Open Palette button
-        const skOpenPaletteBtn = document.getElementById("sk-open-palette-btn");
-        skOpenPaletteBtn?.addEventListener("click", () => {
-          skOpenPalette();
-        });
+        document.getElementById("sk-open-palette-btn")?.addEventListener("click", () => skOpenPalette());
 
         // --- Feather Wand AI Chat ---
         const fwChatInput = document.getElementById("fw-chat-input") as HTMLInputElement;
@@ -759,413 +466,166 @@ import StatusBar from "../components/StatusBar.astro";
         const fwTreeContent = document.getElementById("fw-tree-content");
         const fwElementCount = document.getElementById("fw-element-count");
         let fwElementsAdded = 0;
-
-        // Track if Thread Group exists
-        let fwHasThreadGroup = false;
-
-        // Mock conversation database with pattern matching
-        const fwResponses: Record<string, {response: string; elements?: Array<{icon: string; name: string}>; requiresThreadGroup?: boolean}> = {
-          "thread group": {
-            response: "I'll create a Thread Group for you with 100 concurrent users.\n\n**Configuration:**\n• Number of Threads: 100\n• Ramp-up Period: 10 seconds\n• Loop Count: 1\n\nThe Thread Group has been added to your test plan. Would you like me to add any samplers to it?",
-            elements: [{icon: "⚙️", name: "Thread Group (100 users)"}]
-          },
-          "http request": {
-            response: "I've added an HTTP Request sampler to your Thread Group.\n\n**Configuration:**\n• Protocol: https\n• Server: api.example.com\n• Method: GET\n• Path: /api/users\n\nWould you like to add headers, parameters, or assertions?",
-            elements: [{icon: "🌐", name: "HTTP Request - GET /api/users"}],
-            requiresThreadGroup: true
-          },
-          "assertion": {
-            response: "I've added response assertions to validate your HTTP request.\n\n**Assertions added:**\n• Response Code: 200\n• Response Time: < 500ms\n• JSON Path: $.data exists\n\nYour test now validates successful responses!",
-            elements: [{icon: "✅", name: "Response Assertion"}, {icon: "⏱️", name: "Duration Assertion"}],
-            requiresThreadGroup: true
-          },
-          "timer": {
-            response: "I've added a Constant Timer to simulate realistic user behavior.\n\n**Configuration:**\n• Thread Delay: 1000ms (1 second)\n\nThis adds a 1-second pause between requests to simulate think time.",
-            elements: [{icon: "⏳", name: "Constant Timer (1s)"}],
-            requiresThreadGroup: true
-          },
-          "listener": {
-            response: "I've added listeners to visualize your test results.\n\n**Listeners added:**\n• View Results Tree (detailed request/response)\n• Summary Report (aggregate metrics)\n\nYou can now see detailed results when you run the test!",
-            elements: [{icon: "🌳", name: "View Results Tree"}, {icon: "📈", name: "Summary Report"}],
-            requiresThreadGroup: true
-          },
-          "help": {
-            response: "I can help you with:\n\n**Test Structure:**\n• Thread Groups (concurrent users)\n• Samplers (HTTP, JDBC, FTP, etc.)\n• Controllers (logic, loops, conditions)\n\n**Test Configuration:**\n• Timers (delays, think time)\n• Assertions (validation)\n• Config Elements (headers, cookies)\n\n**Results:**\n• Listeners (reports, graphs)\n• Post-processors (extract data)\n\nJust describe what you need in plain English!"
-          },
-          "need_thread_group": {
-            response: "⚠️ **Thread Group Required**\n\nIn JMeter, you need to add a **Thread Group** first before adding samplers, timers, assertions, or listeners.\n\nThe Thread Group defines how many virtual users will run your test and is the container for all test elements.\n\nWould you like me to create a Thread Group for you? Just say:\n• \"Create a thread group with 100 users\"\n• \"Add a thread group\""
-          },
-          "default": {
-            response: "I understand you want to work with JMeter test elements. Could you be more specific?\n\nTry asking me to:\n• \"Create a thread group with 100 users\"\n• \"Add an HTTP request to api.example.com\"\n• \"Add response assertions\"\n• \"Add a constant timer\"\n• \"Add listeners for results\"\n\nWhat would you like to create?"
-          }
+        const fwResponses: Record<string, {message: string; element: {name: string; icon: string; parent: string}}> = {
+          "thread group": { message: "I'll create a Thread Group with 100 users, 1 second ramp-up, and 5 second loop.", element: { name: "Thread Group", icon: "⚙️", parent: "Test Plan" } },
+          "http request": { message: "Adding an HTTP Request sampler with default configuration.", element: { name: "HTTP Request", icon: "📋", parent: "Thread Group" } },
+          "assertion": { message: "Adding Response Assertion to validate the response.", element: { name: "Response Assertion", icon: "📋", parent: "HTTP Request" } },
+          "timer": { message: "Adding Constant Timer to add 1000ms think time between requests.", element: { name: "Constant Timer", icon: "⏱️", parent: "HTTP Request" } },
+          "listener": { message: "Adding View Results Tree listener to see response data.", element: { name: "View Results Tree", icon: "📊", parent: "Thread Group" } },
         };
-
-        function fwMatchResponse(input: string): {response: string; elements?: Array<{icon: string; name: string}>; requiresThreadGroup?: boolean} {
-          const lower = input.toLowerCase();
-          if (lower.includes("thread") && lower.includes("group")) return fwResponses["thread group"];
-          
-          // Check for elements that require Thread Group
-          let matchedResponse = null;
-          if (lower.includes("http") || lower.includes("request") || lower.includes("sampler")) matchedResponse = fwResponses["http request"];
-          else if (lower.includes("assert")) matchedResponse = fwResponses["assertion"];
-          else if (lower.includes("timer") || lower.includes("delay") || lower.includes("think")) matchedResponse = fwResponses["timer"];
-          else if (lower.includes("listener") || lower.includes("result") || lower.includes("report")) matchedResponse = fwResponses["listener"];
-          else if (lower.includes("help") || lower.includes("what can you")) return fwResponses["help"];
-          else return fwResponses["default"];
-          
-          // If matched response requires Thread Group and we don't have one, return warning
-          if (matchedResponse && matchedResponse.requiresThreadGroup && !fwHasThreadGroup) {
-            return fwResponses["need_thread_group"];
-          }
-          
-          return matchedResponse;
-        }
-
-        function fwAddUserMessage(text: string) {
+        function fwAddMessage(content: string, isUser = false) {
           if (!fwChatMessages) return;
+          const div = document.createElement("div"); div.className = "flex gap-3";
+          if (isUser) {
+            div.innerHTML = `<div class="w-10 h-10 rounded-lg bg-jm-accent/20 border border-jm-accent/40 flex items-center justify-center shrink-0"><span class="text-base">👤</span></div><div class="flex-1"><div class="text-xs text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">You</div><div class="bg-jm-surface border border-jm-border rounded-lg px-4 py-3 text-sm text-jm-text" style="font-family: 'JetBrains Mono', monospace;">${content}</div></div>`;
+          } else {
+            div.innerHTML = `<div class="w-10 h-10 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0"><span class="text-base">🪄</span></div><div class="flex-1"><div class="text-xs text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div><div class="bg-jm-surface-alt border border-jm-border rounded-lg px-4 py-3 text-sm text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">${content}</div></div>`;
+          }
+          fwChatMessages.appendChild(div); fwChatMessages.scrollTop = fwChatMessages.scrollHeight;
+        }
+        function fwAddElementToTree(element: {name: string; icon: string}) {
+          if (!fwTreeContent) return;
+          fwElementsAdded++; if (fwElementCount) fwElementCount.textContent = `${fwElementsAdded} elements`;
           const div = document.createElement("div");
-          div.className = "flex gap-3 justify-end";
-          div.innerHTML = `
-            <div class="flex-1 flex justify-end">
-              <div class="bg-[#E87040]/20 border border-[#E87040]/40 rounded-lg px-4 py-3 text-sm text-jm-text max-w-[80%]" style="font-family: 'JetBrains Mono', monospace;">
-                ${text}
-              </div>
-            </div>
-            <div class="w-10 h-10 rounded-lg bg-jm-cyan/20 border border-jm-cyan/40 flex items-center justify-center shrink-0">
-              <span class="text-base">👤</span>
-            </div>
-          `;
-          fwChatMessages.appendChild(div);
-          fwChatMessages.scrollTop = fwChatMessages.scrollHeight;
+          div.className = "flex items-center gap-1 py-1 px-1 hover:bg-jm-tree-hover rounded fw-tree-node-new";
+          div.style.paddingLeft = "32px";
+          div.innerHTML = `<span class="text-sm">${element.icon}</span><span class="text-jm-text">${element.name}</span>`;
+          fwTreeContent.appendChild(div); setTimeout(() => div.classList.remove("fw-tree-node-new"), 500);
         }
-
-        async function fwAddAIMessage(text: string, elements?: Array<{icon: string; name: string}>) {
-          if (!fwChatMessages) return;
-          
-          // Create AI message container
-          const div = document.createElement("div");
-          div.className = "flex gap-3";
-          div.innerHTML = `
-            <div class="w-10 h-10 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0">
-              <span class="text-base">🪄</span>
-            </div>
-            <div class="flex-1">
-              <div class="text-xs text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div>
-              <div class="bg-jm-surface-alt border border-jm-border rounded-lg px-4 py-3 text-sm text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">
-                <span class="fw-typing-cursor">▊</span>
-              </div>
-            </div>
-          `;
-          fwChatMessages.appendChild(div);
-          fwChatMessages.scrollTop = fwChatMessages.scrollHeight;
-
-          // Simulate typing animation
-          const messageContent = div.querySelector(".bg-jm-surface-alt") as HTMLElement;
-          const lines = text.split("\n");
-          let fullText = "";
-          
-          for (const line of lines) {
-            for (let i = 0; i < line.length; i++) {
-              fullText += line[i];
-              messageContent.innerHTML = fullText.replace(/\*\*(.*?)\*\*/g, '<strong class="text-jm-text">$1</strong>').replace(/\n/g, '<br>') + '<span class="fw-typing-cursor">▊</span>';
-              fwChatMessages.scrollTop = fwChatMessages.scrollHeight;
-              await new Promise(resolve => setTimeout(resolve, 15)); // 15ms per char
+        function fwSendMessage() {
+          if (!fwChatInput) return;
+          const message = fwChatInput.value.trim(); if (!message) return;
+          fwAddMessage(message, true); fwChatInput.value = "";
+          setTimeout(() => {
+            const lowerInput = message.toLowerCase();
+            for (const [key, response] of Object.entries(fwResponses)) {
+              if (lowerInput.includes(key)) { fwAddMessage(response.message); setTimeout(() => fwAddElementToTree(response.element), 800); return; }
             }
-            fullText += "\n";
-          }
-          
-          // Remove cursor
-          messageContent.innerHTML = fullText.replace(/\*\*(.*?)\*\*/g, '<strong class="text-jm-text">$1</strong>').replace(/\n/g, '<br>');
-
-          // Add elements to tree if provided
-          if (elements && fwTreeContent) {
-            for (const el of elements) {
-              fwElementsAdded++;
-              
-              // Check if this is a Thread Group
-              if (el.name.toLowerCase().includes("thread group")) {
-                fwHasThreadGroup = true;
-              }
-              
-              const treeItem = document.createElement("div");
-              treeItem.className = "flex items-center gap-1.5 py-1.5 px-2 hover:bg-jm-tree-hover rounded fw-tree-item-new";
-              treeItem.innerHTML = `
-                <span class="w-3.5"></span>
-                <span class="text-base">${el.icon}</span>
-                <span class="text-jm-text">${el.name}</span>
-              `;
-              
-              // Remove placeholder if exists
-              const placeholder = fwTreeContent.querySelector(".italic");
-              if (placeholder) placeholder.remove();
-              
-              fwTreeContent.appendChild(treeItem);
-              await new Promise(resolve => setTimeout(resolve, 100));
-            }
-            
-            // Update element count
-            if (fwElementCount) {
-              fwElementCount.textContent = `${fwElementsAdded} element${fwElementsAdded === 1 ? '' : 's'}`;
-            }
-          }
+            const defaults = ["I can help you create Thread Groups, HTTP Requests, Assertions, Timers, and Listeners. Try asking for one of these!", "Would you like me to add a Thread Group to get started with your test plan?", "I can add various JMeter test elements. What specific element would you like to create?", "Let me help you build a complete test plan. Would you like to start with a Thread Group?"];
+            fwAddMessage(defaults[Math.floor(Math.random() * defaults.length)]);
+          }, 600);
         }
-
-        async function fwSendMessage() {
-          if (!fwChatInput || !fwChatSend) return;
-          const text = fwChatInput.value.trim();
-          if (!text) return;
-
-          // Disable input
-          fwChatInput.disabled = true;
-          fwChatSend.setAttribute("disabled", "true");
-          fwChatSend.classList.add("opacity-50", "cursor-not-allowed");
-
-          // Add user message
-          fwAddUserMessage(text);
-          fwChatInput.value = "";
-
-          // Wait a bit before AI responds
-          await new Promise(resolve => setTimeout(resolve, 500));
-
-          // Get AI response
-          const match = fwMatchResponse(text);
-          await fwAddAIMessage(match.response, match.elements);
-
-          // Re-enable input
-          fwChatInput.disabled = false;
-          fwChatSend.removeAttribute("disabled");
-          fwChatSend.classList.remove("opacity-50", "cursor-not-allowed");
-          fwChatInput.focus();
-        }
-
-        // Send button click
-        fwChatSend?.addEventListener("click", () => fwSendMessage());
-
-        // Enter key to send
-        fwChatInput?.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            fwSendMessage();
-          }
+        fwChatSend?.addEventListener("click", fwSendMessage);
+        fwChatInput?.addEventListener("keypress", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); fwSendMessage(); } });
+        document.querySelectorAll("[data-fw-suggestion]").forEach(btn => {
+          btn.addEventListener("click", () => { const s = btn.getAttribute("data-fw-suggestion"); if (s && fwChatInput) { fwChatInput.value = s; fwChatInput.focus(); } });
+        });
+        document.getElementById("fw-clear-chat")?.addEventListener("click", () => {
+          if (fwChatMessages) { const msgs = fwChatMessages.children; for (let i = msgs.length - 1; i > 0; i--) msgs[i].remove(); }
+          if (fwTreeContent) fwTreeContent.innerHTML = `<div class="text-[11px]" style="font-family: 'JetBrains Mono', monospace;"><div class="flex items-center gap-1 py-1 px-1 hover:bg-jm-tree-hover rounded cursor-pointer"><svg class="w-3 h-3 text-jm-text-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg><span class="text-sm">📋</span><span class="text-jm-text">Test Plan</span></div></div>`;
+          fwElementsAdded = 0; if (fwElementCount) fwElementCount.textContent = "0 elements";
         });
 
-        // Suggestion buttons
-        document.querySelectorAll<HTMLButtonElement>("[data-fw-suggestion]").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const suggestion = btn.dataset.fwSuggestion;
-            if (suggestion && fwChatInput) {
-              fwChatInput.value = suggestion;
-              fwSendMessage();
-            }
-          });
-        });
-
-        // Clear chat button
-        const fwClearChatBtn = document.getElementById("fw-clear-chat");
-        fwClearChatBtn?.addEventListener("click", () => {
-          if (!fwChatMessages || !fwTreeContent || !fwElementCount) return;
-          
-          // Clear all messages except welcome message
-          fwChatMessages.innerHTML = `
-            <div class="flex gap-3">
-              <div class="w-10 h-10 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0">
-                <span class="text-base">🪄</span>
-              </div>
-              <div class="flex-1">
-                <div class="text-xs text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div>
-                <div class="bg-jm-surface-alt border border-jm-border rounded-lg px-4 py-3 text-sm text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">
-                  <p class="mb-2">👋 Hello! I'm your AI assistant for JMeter test creation.</p>
-                  <p>I can help you:</p>
-                  <ul class="list-disc list-inside mt-2 space-y-1 text-xs">
-                    <li>Generate Thread Groups and samplers</li>
-                    <li>Add assertions and timers</li>
-                    <li>Configure HTTP requests</li>
-                    <li>Explain JMeter concepts</li>
-                  </ul>
-                  <p class="mt-3">What would you like to create?</p>
-                </div>
-              </div>
-            </div>
-          `;
-          
-          // Clear tree content and reset to placeholder
-          fwTreeContent.innerHTML = `
-            <div class="flex items-center gap-1.5 py-1.5 px-2 text-jm-text-muted/50 italic">
-              <span class="text-xs">Empty — ask AI to add elements</span>
-            </div>
-          `;
-          
-          // Reset element count
-          fwElementsAdded = 0;
-          fwElementCount.textContent = "0 elements";
-          
-          // Reset Thread Group flag
-          fwHasThreadGroup = false;
-          
-          // Clear input
-          if (fwChatInput) {
-            fwChatInput.value = "";
-            fwChatInput.focus();
-          }
-        });
-
-        // --- Prism Tab Switcher ---
-        const prismTabs = document.querySelectorAll<HTMLButtonElement>(".prism-tab");
-        prismTabs.forEach((tab) => {
-          tab.addEventListener("click", () => {
-            const tabId = tab.dataset.prismTab;
-            if (!tabId) return;
-
-            // Update tab active states
-            prismTabs.forEach((t) => {
-              const isActive = t.dataset.prismTab === tabId;
-              if (isActive) {
-                t.classList.add("prism-tab-active", "bg-jm-tab-active", "border-t", "border-l", "border-r", "border-jm-border");
-                t.classList.remove("bg-transparent", "hover:bg-jm-tab-hover");
-                const span = t.querySelector("span");
-                if (span) span.classList.replace("text-jm-text-muted", "text-jm-text");
-              } else {
-                t.classList.remove("prism-tab-active", "bg-jm-tab-active", "border-t", "border-l", "border-r", "border-jm-border");
-                t.classList.add("bg-transparent", "hover:bg-jm-tab-hover");
-                const span = t.querySelector("span");
-                if (span) span.classList.replace("text-jm-text", "text-jm-text-muted");
-              }
-            });
-
-            // Switch tree content
-            document.querySelectorAll(".prism-tree-content").forEach((content) => {
-              content.classList.add("hidden");
-            });
-            const activeTree = document.getElementById(`prism-tree-${tabId}`);
-            if (activeTree) activeTree.classList.remove("hidden");
-          });
-        });
-
-        // --- Keyboard Navigation ---
-        document.addEventListener("keydown", (e) => {
-          // Ctrl+K / Cmd+K to open Super Key command palette
-          if ((e.ctrlKey || e.metaKey) && e.key === "k") {
-            e.preventDefault();
-            // Only open if Super Key tab is active, or allow from anywhere
-            if (activeTab === "super-key") {
-              skOpenPalette();
-            } else {
-              // Switch to Super Key tab first, then open palette
-              switchTab("super-key");
-              setTimeout(() => skOpenPalette(), 100);
-            }
-          }
-
-          // Ctrl+Tab / Ctrl+Shift+Tab to switch tabs
-          if (e.ctrlKey && e.key === "Tab") {
-            e.preventDefault();
-            const tabIds = Array.from(tabs).map((t) => t.dataset.tab!);
-            const currentIndex = tabIds.indexOf(activeTab);
-            const nextIndex = e.shiftKey
-              ? (currentIndex - 1 + tabIds.length) % tabIds.length
-              : (currentIndex + 1) % tabIds.length;
-            switchTab(tabIds[nextIndex]);
-          }
-
-          // Arrow keys for tree navigation
-          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-            const currentTree = document.querySelector(`[data-tree-product="${activeTab}"]`);
-            if (!currentTree) return;
-            const nodes = Array.from(currentTree.querySelectorAll<HTMLButtonElement>("[data-node]"));
-            const currentNode = activeNodes[activeTab];
-            const currentIndex = nodes.findIndex((n) => n.dataset.node === currentNode);
-            const nextIndex = e.key === "ArrowDown"
-              ? Math.min(currentIndex + 1, nodes.length - 1)
-              : Math.max(currentIndex - 1, 0);
-            const nextNode = nodes[nextIndex]?.dataset.node;
-            if (nextNode) {
-              activeNodes[activeTab] = nextNode;
-              highlightTreeNode(activeTab, nextNode);
-              showDetailContent(activeTab, nextNode);
-            }
-          }
-        });
-
-        // --- Perftractor Calculators ---
-
-        // Calculators Panel (separate IDs)
+        // --- Calculators ---
         function updateCalcVirtualUsers() {
           const tps = parseFloat((document.getElementById("calc-vu-tps") as HTMLInputElement)?.value || "10");
           const response = parseFloat((document.getElementById("calc-vu-response") as HTMLInputElement)?.value || "2");
           const think = parseFloat((document.getElementById("calc-vu-think") as HTMLInputElement)?.value || "3");
-          const result = Math.floor(tps * (response + think));
-          const resultEl = document.getElementById("calc-vu-result");
-          if (resultEl) resultEl.textContent = String(result);
+          const resultEl = document.getElementById("calc-vu-result"); if (resultEl) resultEl.textContent = String(Math.ceil(tps * (response + think)));
         }
-
         function updateCalcPacing() {
           const tph = parseFloat((document.getElementById("calc-pacing-tph") as HTMLInputElement)?.value || "36000");
           const users = parseFloat((document.getElementById("calc-pacing-users") as HTMLInputElement)?.value || "100");
-          const result = ((users * 3600) / tph).toFixed(2);
-          const resultEl = document.getElementById("calc-pacing-result");
-          if (resultEl) resultEl.textContent = result;
+          const resultEl = document.getElementById("calc-pacing-result"); if (resultEl) resultEl.textContent = ((users * 3600) / tph).toFixed(2);
         }
-
         function updateCalcTestData() {
           const users = parseFloat((document.getElementById("calc-data-users") as HTMLInputElement)?.value || "10");
           const duration = parseFloat((document.getElementById("calc-data-duration") as HTMLInputElement)?.value || "2");
           const testDuration = parseFloat((document.getElementById("calc-data-test-duration") as HTMLInputElement)?.value || "3");
-          const result = Math.floor(users * testDuration * (60 / duration));
-          const resultEl = document.getElementById("calc-data-result");
-          if (resultEl) resultEl.textContent = String(result);
+          const resultEl = document.getElementById("calc-data-result"); if (resultEl) resultEl.textContent = String(Math.floor(users * testDuration * (60 / duration)));
         }
-
         function updateCalcLoadGenerator() {
           const ram = parseFloat((document.getElementById("calc-lg-ram") as HTMLInputElement)?.value || "4024");
           const first = parseFloat((document.getElementById("calc-lg-first") as HTMLInputElement)?.value || "200");
           const additional = parseFloat((document.getElementById("calc-lg-additional") as HTMLInputElement)?.value || "100");
           const os = parseFloat((document.getElementById("calc-lg-os") as HTMLInputElement)?.value || "1024");
-          const result = Math.floor(((ram - os) * 0.75 - first) / additional) + 1;
-          const resultEl = document.getElementById("calc-lg-result");
-          if (resultEl) resultEl.textContent = String(Math.max(0, result));
+          const resultEl = document.getElementById("calc-lg-result"); if (resultEl) resultEl.textContent = String(Math.max(0, Math.floor(((ram - os) * 0.75 - first) / additional) + 1));
         }
-
         function updateCalcBandwidth() {
           const users = parseFloat((document.getElementById("calc-bandwidth-users") as HTMLInputElement)?.value || "100");
           const tps = parseFloat((document.getElementById("calc-bandwidth-tps") as HTMLInputElement)?.value || "2");
           const requestSize = parseFloat((document.getElementById("calc-bandwidth-request") as HTMLInputElement)?.value || "5");
           const responseSize = parseFloat((document.getElementById("calc-bandwidth-response") as HTMLInputElement)?.value || "50");
           const overhead = parseFloat((document.getElementById("calc-bandwidth-overhead") as HTMLInputElement)?.value || "20");
-          
-          // Calculate total data per transaction (KB)
-          const totalDataPerTransaction = requestSize + responseSize;
-          // Calculate total data per second (KB/s)
-          const totalDataPerSecond = users * tps * totalDataPerTransaction;
-          // Convert to Mbps and add overhead
-          const bandwidthMbps = (totalDataPerSecond * 8 / 1024) * (1 + overhead / 100);
-          
           const resultEl = document.getElementById("calc-bandwidth-result");
-          if (resultEl) resultEl.textContent = bandwidthMbps.toFixed(2);
+          if (resultEl) resultEl.textContent = ((users * tps * (requestSize + responseSize) * 8 / 1024) * (1 + overhead / 100)).toFixed(2);
         }
-
-        
-        // Attach event listeners for calculators panel
         document.getElementById("calc-vu-tps")?.addEventListener("input", updateCalcVirtualUsers);
         document.getElementById("calc-vu-response")?.addEventListener("input", updateCalcVirtualUsers);
         document.getElementById("calc-vu-think")?.addEventListener("input", updateCalcVirtualUsers);
-
         document.getElementById("calc-pacing-tph")?.addEventListener("input", updateCalcPacing);
         document.getElementById("calc-pacing-users")?.addEventListener("input", updateCalcPacing);
-
         document.getElementById("calc-data-users")?.addEventListener("input", updateCalcTestData);
         document.getElementById("calc-data-duration")?.addEventListener("input", updateCalcTestData);
         document.getElementById("calc-data-test-duration")?.addEventListener("input", updateCalcTestData);
-
         document.getElementById("calc-lg-ram")?.addEventListener("input", updateCalcLoadGenerator);
         document.getElementById("calc-lg-first")?.addEventListener("input", updateCalcLoadGenerator);
         document.getElementById("calc-lg-additional")?.addEventListener("input", updateCalcLoadGenerator);
         document.getElementById("calc-lg-os")?.addEventListener("input", updateCalcLoadGenerator);
-
         document.getElementById("calc-bandwidth-users")?.addEventListener("input", updateCalcBandwidth);
         document.getElementById("calc-bandwidth-tps")?.addEventListener("input", updateCalcBandwidth);
         document.getElementById("calc-bandwidth-request")?.addEventListener("input", updateCalcBandwidth);
         document.getElementById("calc-bandwidth-response")?.addEventListener("input", updateCalcBandwidth);
         document.getElementById("calc-bandwidth-overhead")?.addEventListener("input", updateCalcBandwidth);
+
+        // --- Prism Tab Switcher ---
+        const prismTabs = document.querySelectorAll<HTMLButtonElement>(".prism-tab");
+        prismTabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const tabId = tab.dataset.prismTab; if (!tabId) return;
+            prismTabs.forEach((t) => {
+              const isActive = t.dataset.prismTab === tabId;
+              if (isActive) { t.classList.add("prism-tab-active", "bg-jm-tab-active", "border-t", "border-l", "border-r", "border-jm-border"); t.classList.remove("bg-transparent", "hover:bg-jm-tab-hover"); t.querySelector("span")?.classList.replace("text-jm-text-muted", "text-jm-text"); }
+              else { t.classList.remove("prism-tab-active", "bg-jm-tab-active", "border-t", "border-l", "border-r", "border-jm-border"); t.classList.add("bg-transparent", "hover:bg-jm-tab-hover"); t.querySelector("span")?.classList.replace("text-jm-text", "text-jm-text-muted"); }
+            });
+            document.querySelectorAll(".prism-tree-content").forEach((content) => content.classList.add("hidden"));
+            document.getElementById(`prism-tree-${tabId}`)?.classList.remove("hidden");
+          });
+        });
+
+        // --- YouTube Facade (lazy iframe on click) ---
+        document.querySelectorAll<HTMLElement>(".yt-facade").forEach((facade) => {
+          facade.addEventListener("click", () => {
+            const playlist = facade.dataset.playlist;
+            const title = facade.dataset.title || "YouTube Playlist";
+            if (!playlist) return;
+            const iframe = document.createElement("iframe");
+            iframe.src = `https://www.youtube.com/embed/videoseries?list=${playlist}&rel=0&modestbranding=1&autoplay=1`;
+            iframe.title = title;
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+            iframe.allowFullscreen = true;
+            iframe.style.cssText = "position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: block;";
+            facade.innerHTML = "";
+            facade.style.cursor = "default";
+            facade.appendChild(iframe);
+          }, { once: true });
+        });
+
+        // --- Keyboard Navigation ---
+        document.addEventListener("keydown", (e) => {
+          if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+            e.preventDefault();
+            if (activeTab === "super-key") skOpenPalette();
+            else { switchTab("super-key"); setTimeout(() => skOpenPalette(), 100); }
+          }
+          if (e.ctrlKey && e.key === "Tab") {
+            e.preventDefault();
+            const tabIds = Array.from(tabs).map((t) => t.dataset.tab!);
+            const currentIndex = tabIds.indexOf(activeTab);
+            const nextIndex = e.shiftKey ? (currentIndex - 1 + tabIds.length) % tabIds.length : (currentIndex + 1) % tabIds.length;
+            switchTab(tabIds[nextIndex]);
+          }
+          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            const currentTree = document.querySelector(`[data-tree-product="${activeTab}"]`);
+            if (!currentTree) return;
+            const nodes = Array.from(currentTree.querySelectorAll<HTMLButtonElement>("[data-node]"));
+            const currentNode = activeNodes[activeTab];
+            const currentIndex = nodes.findIndex((n) => n.dataset.node === currentNode);
+            const nextIndex = e.key === "ArrowDown" ? Math.min(currentIndex + 1, nodes.length - 1) : Math.max(currentIndex - 1, 0);
+            const nextNode = nodes[nextIndex]?.dataset.node;
+            if (nextNode) { activeNodes[activeTab] = nextNode; highlightTreeNode(activeTab, nextNode); showDetailContent(activeTab, nextNode); }
+          }
+        });
       });
     </script>
   </body>

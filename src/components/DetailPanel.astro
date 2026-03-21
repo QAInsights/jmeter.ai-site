@@ -1,8 +1,8 @@
 ---
-import { products, themes, jmeterElements } from "../data/products";
+import { products, themes, jmeterElements, playlistConfig } from "../data/products";
 
 // Product emoji lookup — used in header and features panel
-const productEmoji: Record<string, string> = {
+const productEmoji = {
   "feather-wand": "🪄",
   "super-key": "⌨️",
   "jmeter-studio": "🎨",
@@ -15,133 +15,10 @@ const productEmoji: Record<string, string> = {
 const calcInputClass = "w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light";
 
 // Disclaimer texts per simulator
-const disclaimerText: Record<string, string> = {
+const disclaimerText = {
   "super-key": "This is a browser-based demo simulating Super Key's command palette and test execution. The actual JMeter plugin features, performance, and behavior may vary. For full functionality, install the plugin in Apache JMeter.",
   "prism": "This is a browser-based demo simulating Prism's multi-tab interface. The actual JMeter plugin features, tab management, and behavior may vary. For full functionality, install the plugin in Apache JMeter.",
   "feather-wand": "This demo uses pre-scripted AI responses to simulate Feather Wand's capabilities. The actual plugin uses real LLM integration (OpenAI, Anthropic, etc.) with full context awareness and advanced code generation. Responses and behavior may vary in the production version.",
-};
-
-// Playlist configuration for the learn product
-const playlistConfig: Record<string, {
-  emoji: string;
-  label: string;
-  title: string;
-  highlight: string;
-  description: string;
-  playlistId: string;
-  slug: string;
-  subtitle: string;
-}> = {
-  playlist: {
-    emoji: "🎓",
-    label: "QAINSIGHTS",
-    title: "Learn ",
-    highlight: "JMeter",
-    description: "Free step-by-step JMeter tutorial series from basics to advanced to AI-powered testing. New videos are added regularly and appear here automatically.",
-    playlistId: "PLJ9A48W0kpRIjLkZ32Do9yDZXnnm7_uj_",
-    slug: "jmeter-tutorials",
-    subtitle: "JMeter Performance Testing Series",
-  },
-  k6: {
-    emoji: "🚀",
-    label: "K6",
-    title: "k6",
-    highlight: "Series",
-    description: "Modern load testing with k6. Learn how to use this powerful open-source tool for performance testing.",
-    playlistId: "PLJ9A48W0kpRJKmVeurt7ltKfrOdr8ZBdt",
-    slug: "k6-series",
-    subtitle: "k6 Load Testing Series",
-  },
-  "performance-engineering": {
-    emoji: "⚡",
-    label: "PERFORMANCE",
-    title: "Performance Engineering",
-    highlight: "Series",
-    description: "Comprehensive performance engineering concepts, methodologies, and best practices for modern applications.",
-    playlistId: "PLJ9A48W0kpRJ6Za-PG87scNCJp7kFgW2g",
-    slug: "performance-engineering",
-    subtitle: "Performance Engineering Series",
-  },
-  regex: {
-    emoji: "🔍",
-    label: "REGEX",
-    title: "Regular",
-    highlight: "Expressions",
-    description: "Master regular expressions for pattern matching, data extraction, and text processing in performance testing.",
-    playlistId: "PLJ9A48W0kpRLorIGHOM7g2OUsO2de3ERm",
-    slug: "regular-expressions",
-    subtitle: "Regular Expressions Series",
-  },
-  locust: {
-    emoji: "🦗",
-    label: "LOCUST",
-    title: "Learn",
-    highlight: "Locust",
-    description: "Python-based load testing framework. Learn how to write scalable performance tests with Locust.",
-    playlistId: "PLJ9A48W0kpRKMCzJARCObgJs3SinOewp5",
-    slug: "learn-locust",
-    subtitle: "Learn Locust Series",
-  },
-  loadrunner: {
-    emoji: "🎯",
-    label: "LOADRUNNER",
-    title: "Learn",
-    highlight: "LoadRunner",
-    description: "Enterprise performance testing with LoadRunner. Master scripts, scenarios, and analysis.",
-    playlistId: "PLJ9A48W0kpRIiVf8W7jMvf6Ao-naX3Ari",
-    slug: "learn-loadrunner",
-    subtitle: "Learn LoadRunner Series",
-  },
-  devtools: {
-    emoji: "🔧",
-    label: "DEVTOOLS",
-    title: "Chrome",
-    highlight: "DevTools",
-    description: "Master Chrome DevTools for performance analysis, debugging, and optimization of web applications.",
-    playlistId: "PLJ9A48W0kpRJk0YNqzyofhPQS1pt_5bUF",
-    slug: "chrome-devtools",
-    subtitle: "Chrome DevTools Series",
-  },
-  gatling: {
-    emoji: "⚡",
-    label: "GATLING",
-    title: "Learn",
-    highlight: "Gatling",
-    description: "High-performance load testing with Gatling. Learn Scala-based performance testing framework.",
-    playlistId: "PLJ9A48W0kpRJE6s8I1MjWm-z8BGbUYNCw",
-    slug: "learn-gatling",
-    subtitle: "Learn Gatling Series",
-  },
-  statistics: {
-    emoji: "📊",
-    label: "STATISTICS",
-    title: "Statistics for",
-    highlight: "Performance Engineers",
-    description: "Essential statistical concepts for performance testing analysis, interpretation, and reporting.",
-    playlistId: "PLJ9A48W0kpRJl6I8ijICDNQD5NFQeHN4X",
-    slug: "statistics-performance",
-    subtitle: "Statistics for Performance Engineers",
-  },
-  chaos: {
-    emoji: "🌪️",
-    label: "CHAOS",
-    title: "Learn",
-    highlight: "Chaos Engineering",
-    description: "Master chaos engineering principles and practices to build resilient, fault-tolerant systems.",
-    playlistId: "PLJ9A48W0kpRKyBBmwOz6oSn4s3A90HHCj",
-    slug: "chaos-engineering",
-    subtitle: "Learn Chaos Engineering Series",
-  },
-  vault: {
-    emoji: "🔐",
-    label: "VAULT",
-    title: "Learn",
-    highlight: "HashiCorp Vault",
-    description: "Master secrets management with HashiCorp Vault. Learn how to secure, store, and control access to tokens, passwords, certificates, and encryption keys.",
-    playlistId: "PLJ9A48W0kpRLkV9GrtzNhiJSpwJMVZQTk",
-    slug: "learn-vault",
-    subtitle: "Learn HashiCorp Vault",
-  },
 };
 ---
 
@@ -1059,15 +936,25 @@ const playlistConfig: Record<string, {
                   {/* Accent line */}
                   <div style="height: 2px; background: linear-gradient(to right, #a78bfa, #7c3aed, transparent);"></div>
 
-                  {/* iframe */}
-                  <div style="position: relative; padding-bottom: 56.25%; height: 0; background: #000;">
-                    <iframe
-                      src={`https://www.youtube.com/embed/videoseries?list=${pl.playlistId}&rel=0&modestbranding=1`}
-                      title={`${pl.subtitle} by QAInsights`}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
-                      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: block;"
+                  {/* Lazy iframe — loads on click */}
+                  <div
+                    class="yt-facade"
+                    data-playlist={pl.playlistId}
+                    data-title={`${pl.subtitle} by QAInsights`}
+                    style="position: relative; padding-bottom: 56.25%; height: 0; background: #000; cursor: pointer;"
+                  >
+                    <img
+                      src={`https://i.ytimg.com/vi/0/hqdefault.jpg`}
+                      alt={`${pl.subtitle} thumbnail`}
+                      loading="lazy"
+                      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7;"
                     />
+                    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+                      <div style="width: 64px; height: 64px; background: #ff0000ee; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                      </div>
+                    </div>
+                    <div style="position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 11px; color: #ffffffaa; font-family: 'JetBrains Mono', monospace;">Click to load playlist</div>
                   </div>
 
                   {/* Bottom info bar */}
