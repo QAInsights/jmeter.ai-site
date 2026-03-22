@@ -28,7 +28,6 @@ const toolbarGroups = [
     { icon: "zoom-in", title: "Zoom In", label: "Zoom In" },
     { icon: "zoom-out", title: "Zoom Out", label: "Zoom Out" },
     { icon: "refresh-cw", title: "Reset", label: "Reset All" },
-    { icon: "zoom-reset", title: "Reset Zoom", label: "Reset Zoom (100%)" },
   ],
 ];
 
@@ -91,14 +90,7 @@ const toolbarGroups = [
     });
   });
 
-  // Zoom reset functionality
-  document.querySelectorAll<HTMLButtonElement>("[data-action='zoom-reset']").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      applyZoom(1.0);
-    });
-  });
-
-  // Reset all functionality
+  // Zoom reset functionality (Reset All button)
   document.querySelectorAll<HTMLButtonElement>("[data-action='reset-all']").forEach((btn) => {
     btn.addEventListener("click", () => {
       // Reset zoom to 100%

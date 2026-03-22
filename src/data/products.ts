@@ -913,10 +913,10 @@ export const playlistConfig = {
 };
 
 export const siteConfig = {
-  title: "JMeter Plugins by QAInsights",
-  description: "Professional Apache JMeter plugins and tools for performance testing",
+  title: "JMeter.AI - Performance Intelligence Suite",
+  description: "AI-Powered Tools & Plugins for Apache JMeter - Supercharge your performance testing workflow.",
   url: "https://jmeter.ai",
-  author: "QAInsights",
+  author: "NaveenKumar Namachivayam",
   authorUrl: "https://qainsights.com",
   menuItems: ["File", "Edit", "Search", "Run", "Options", "Tools", "Help"],
 };
