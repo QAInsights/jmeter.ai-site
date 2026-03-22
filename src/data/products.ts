@@ -522,8 +522,8 @@ export const products: Product[] = [
     socials: defaultSocials,
   },
   {
-    id: "learn",
-    name: "Learn",
+    id: "academy",
+    name: "Academy",
     tagline: "JMeter Video Tutorials on YouTube",
     subtitlePrefix: "FREE",
     subtitleHighlight: "LEARN JMETER",
