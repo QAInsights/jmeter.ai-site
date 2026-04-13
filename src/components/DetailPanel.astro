@@ -1,5 +1,6 @@
 ---
 import { products, themes, jmeterElements, playlistConfig } from "../data/products";
+import PromptsPanel from "./PromptsPanel.astro";
 
 // Product emoji lookup — used in header and features panel
 const productEmoji = {
@@ -44,7 +45,7 @@ const disclaimerText = {
       {product.treeNodes.map((node, ni) => (
         <div
           class:list={[
-            "detail-content p-4 sm:p-8 panel-enter",
+            node.id === "prompts" ? "detail-content panel-enter h-full" : "detail-content p-4 sm:p-8 panel-enter",
             ni > 0 && "hidden",
           ]}
           data-detail={`${product.id}-${node.id}`}
@@ -1192,6 +1193,11 @@ const disclaimerText = {
           )}
 
           {/* Connect Panel */}
+          {/* ========== PROMPTS PANEL ========== */}
+          {node.id === "prompts" && (
+            <PromptsPanel />
+          )}
+
           {node.id === "connect" && (
             <div>
               <h3 class="text-2xl font-bold text-jm-text mb-2" style="font-family: 'Orbitron', sans-serif;">Connect</h3>

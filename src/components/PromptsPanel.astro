@@ -1,0 +1,196 @@
+---
+import { promptCategories } from "../data/prompts";
+
+const categoryIcons: Record<string, string> = {
+  "clipboard-list": '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M9 12h6"/><path d="M9 16h6"/>',
+  "bar-chart": '<line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>',
+  "code": '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+  "zap": '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
+  "terminal": '<polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/>',
+  "git-merge": '<circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/>',
+  "database": '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/>',
+  "check-circle": '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>',
+  "git-branch": '<line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/>',
+  "trending-up": '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+  "activity": '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+  "globe": '<circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+  "server": '<rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/>',
+  "radio": '<circle cx="12" cy="12" r="2"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M7.76 7.76a6 6 0 0 0 0 8.49"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49"/>',
+  "cloud": '<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/>',
+  "file-text": '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
+  "alert-triangle": '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  "eye": '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  "cpu": '<rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/>',
+  "award": '<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/>',
+  "layers": '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+  "monitor": '<rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>',
+  "zap-off": '<polyline points="12.41 6.75 13 2 10.57 4.92"/><polyline points="18.57 12.91 21 10 15.66 10"/><polyline points="8 8 3 14 12 14 11 22 16 16"/><line x1="2" x2="22" y1="2" y2="22"/>',
+};
+---
+
+<div class="flex h-full" id="prompts-panel">
+  <!-- Category Sidebar -->
+  <div
+    class="w-56 shrink-0 border-r border-jm-border bg-jm-surface overflow-y-auto"
+    id="prompts-sidebar"
+    role="list"
+    aria-label="Prompt categories"
+  >
+    <div class="px-3 py-3 border-b border-jm-border">
+      <p class="text-[10px] uppercase tracking-widest text-jm-text-muted font-semibold" style="font-family: 'JetBrains Mono', monospace;">
+        Categories
+      </p>
+    </div>
+    {promptCategories.map((cat, i) => (
+      <button
+        class:list={[
+          "prompts-cat-btn w-full flex items-center gap-2.5 px-3 py-2.5 text-left text-xs transition-colors cursor-pointer border-l-2",
+          i === 0
+            ? "bg-jm-tree-active border-jm-accent text-jm-text"
+            : "bg-transparent border-transparent text-jm-text-muted hover:bg-jm-tree-hover hover:text-jm-text",
+        ]}
+        data-cat={cat.id}
+        role="listitem"
+        aria-selected={i === 0 ? "true" : "false"}
+      >
+        <svg
+          class="w-3.5 h-3.5 shrink-0"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          set:html={categoryIcons[cat.icon] ?? ""}
+        />
+        <span class="leading-tight">{cat.label}</span>
+        <span class="ml-auto text-[10px] text-jm-text-muted shrink-0">{cat.prompts.length}</span>
+      </button>
+    ))}
+  </div>
+
+  <!-- Prompt Cards Area -->
+  <div class="flex-1 overflow-y-auto bg-jm-bg" id="prompts-cards-area">
+    {promptCategories.map((cat, ci) => (
+      <div
+        class:list={["prompts-cat-panel px-6 py-6", ci > 0 && "hidden"]}
+        data-cat-panel={cat.id}
+      >
+        <!-- Category header -->
+        <div class="flex items-center gap-3 mb-6">
+          <svg
+            class="w-5 h-5 text-jm-accent shrink-0"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            set:html={categoryIcons[cat.icon] ?? ""}
+          />
+          <h3 class="text-base font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;">
+            {cat.label}
+          </h3>
+          <span class="ml-auto text-xs text-jm-text-muted bg-jm-surface px-2 py-0.5 rounded-full border border-jm-border">
+            {cat.prompts.length} prompt{cat.prompts.length !== 1 ? "s" : ""}
+          </span>
+        </div>
+
+        <!-- Prompt cards -->
+        <div class="space-y-4">
+          {cat.prompts.map((prompt) => (
+            <div class="prompt-card rounded-lg border border-jm-border bg-jm-surface hover:border-jm-border-light transition-colors">
+              <!-- Card header -->
+              <div class="flex items-center justify-between px-4 py-3 border-b border-jm-border">
+                <h4 class="text-sm font-semibold text-jm-text">{prompt.title}</h4>
+                <button
+                  class="copy-btn flex items-center gap-1.5 text-xs text-jm-text-muted hover:text-jm-accent transition-colors px-2 py-1 rounded hover:bg-jm-surface-alt"
+                  data-prompt-id={prompt.id}
+                  data-prompt-body={prompt.body}
+                  title="Copy prompt"
+                  aria-label={`Copy prompt: ${prompt.title}`}
+                >
+                  <svg class="copy-icon w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <use href="#icon-copy" />
+                  </svg>
+                  <svg class="check-icon w-3.5 h-3.5 hidden text-jm-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <use href="#icon-check" />
+                  </svg>
+                  <span class="copy-label">Copy</span>
+                </button>
+              </div>
+              <!-- Card body -->
+              <pre class="px-4 py-3 text-xs text-jm-text-dim font-mono leading-relaxed whitespace-pre-wrap break-words overflow-x-auto" style="font-family: 'JetBrains Mono', monospace;">{prompt.body}</pre>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  function initPromptsPanel() {
+    const catBtns = document.querySelectorAll<HTMLButtonElement>(".prompts-cat-btn");
+    const catPanels = document.querySelectorAll<HTMLElement>("[data-cat-panel]");
+
+    catBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetCat = btn.dataset.cat;
+
+        catBtns.forEach((b) => {
+          const isActive = b.dataset.cat === targetCat;
+          b.setAttribute("aria-selected", isActive ? "true" : "false");
+          if (isActive) {
+            b.classList.remove("bg-transparent", "border-transparent", "text-jm-text-muted", "hover:bg-jm-tree-hover", "hover:text-jm-text");
+            b.classList.add("bg-jm-tree-active", "border-jm-accent", "text-jm-text");
+          } else {
+            b.classList.remove("bg-jm-tree-active", "border-jm-accent", "text-jm-text");
+            b.classList.add("bg-transparent", "border-transparent", "text-jm-text-muted", "hover:bg-jm-tree-hover", "hover:text-jm-text");
+          }
+        });
+
+        catPanels.forEach((panel) => {
+          if (panel.dataset.catPanel === targetCat) {
+            panel.classList.remove("hidden");
+          } else {
+            panel.classList.add("hidden");
+          }
+        });
+      });
+    });
+
+    document.querySelectorAll<HTMLButtonElement>(".copy-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const body = btn.dataset.promptBody ?? "";
+        const copyIcon = btn.querySelector<SVGElement>(".copy-icon");
+        const checkIcon = btn.querySelector<SVGElement>(".check-icon");
+        const label = btn.querySelector<HTMLSpanElement>(".copy-label");
+
+        try {
+          await navigator.clipboard.writeText(body);
+          copyIcon?.classList.add("hidden");
+          checkIcon?.classList.remove("hidden");
+          if (label) label.textContent = "Copied!";
+          btn.classList.add("text-jm-green");
+          btn.classList.remove("text-jm-text-muted", "hover:text-jm-accent");
+
+          setTimeout(() => {
+            copyIcon?.classList.remove("hidden");
+            checkIcon?.classList.add("hidden");
+            if (label) label.textContent = "Copy";
+            btn.classList.remove("text-jm-green");
+            btn.classList.add("text-jm-text-muted", "hover:text-jm-accent");
+          }, 1500);
+        } catch {
+          if (label) label.textContent = "Failed";
+          setTimeout(() => {
+            if (label) label.textContent = "Copy";
+          }, 1500);
+        }
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initPromptsPanel);
+</script>

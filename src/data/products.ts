@@ -556,6 +556,41 @@ export const products: Product[] = [
       { id: "chaos", label: "Learn Chaos Engineering", icon: "play-circle" },
     ],
   },
+  {
+    id: "prompts",
+    name: "Prompt Library",
+    tagline: "Performance Engineering Prompt Library",
+    subtitlePrefix: "CURATED",
+    subtitleHighlight: "AI PROMPTS",
+    subtitleSuffix: "FOR PERFORMANCE ENGINEERS",
+    description:
+      "A curated library of performance engineering prompts for JMeter, k6, Gatling, and beyond. Copy-ready prompts for test planning, script generation, results analysis, CI/CD integration, and more.",
+    icon: "book-open",
+    color: "#00e676",
+    colorRgb: "0, 230, 118",
+    github: "https://github.com/QAInsights",
+    badges: [
+      { label: "PROMPT LIBRARY", emoji: "📚", variant: "filled", color: "#00e676" },
+      { label: "COPY READY", emoji: "📋", variant: "outlined", color: "#00e5ff" },
+      { label: "23 CATEGORIES", emoji: "🗂️", variant: "outlined", color: "#ffab00" },
+    ],
+    infoCards: [
+      { label: "CATEGORY", value: "AI / Productivity", color: "#00e676" },
+      { label: "PROMPTS", value: "50+ Prompts", color: "#00e5ff" },
+      { label: "TOOLS", value: "JMeter · k6 · Gatling", color: "#ffab00" },
+      { label: "ACCESS", value: "Free", color: "#00e676" },
+    ],
+    featuresHeadingPrefix: "Copy-Ready",
+    featuresHeadingHighlight: "Prompts",
+    featuresSubtitle: "Accelerate your performance engineering workflow with battle-tested AI prompts.",
+    features: [],
+    ossVsPro: [],
+    installation: [],
+    socials: defaultSocials,
+    treeNodes: [
+      { id: "prompts", label: "Browse Prompts", icon: "book-open" },
+    ],
+  },
 ];
 
 export interface Theme {
