@@ -4,7 +4,7 @@ import PromptsPanel from "./PromptsPanel.astro";
 import BlogPanel from "./BlogPanel.astro";
 
 // Product emoji lookup — used in header and features panel
-const productEmoji = {
+const productEmoji: Record<string, string> = {
   "feather-wand": "🪄",
   "super-key": "⌨️",
   "jmeter-studio": "🎨",
@@ -19,7 +19,7 @@ const productEmoji = {
 const calcInputClass = "w-full bg-jm-bg border border-jm-border rounded px-3 py-2 text-sm text-jm-text focus:outline-none focus:border-jm-border-light";
 
 // Disclaimer texts per simulator
-const disclaimerText = {
+const disclaimerText: Record<string, string> = {
   "super-key": "This is a browser-based demo simulating Super Key's command palette and test execution. The actual JMeter plugin features, performance, and behavior may vary. For full functionality, install the plugin in Apache JMeter.",
   "prism": "This is a browser-based demo simulating Prism's multi-tab interface. The actual JMeter plugin features, tab management, and behavior may vary. For full functionality, install the plugin in Apache JMeter.",
   "feather-wand": "This demo uses pre-scripted AI responses to simulate Feather Wand's capabilities. The actual plugin uses real LLM integration (OpenAI, Anthropic, etc.) with full context awareness and advanced code generation. Responses and behavior may vary in the production version.",
