@@ -1,50 +1,57 @@
 ---
-import { getCollection, render } from 'astro:content';
 import JMeterLayout from "../../layouts/JMeterLayout.astro";
 
+// Posts live as MDX files under src/pages/blog/ and are loaded via
+// import.meta.glob — this matches the data source used by
+// BlogPanel.astro, blog/index.astro, and rss.xml.ts.
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
+  const postImports = import.meta.glob('./**/*.mdx', { eager: true });
+  return Object.entries(postImports)
+    .filter(([, post]: [string, any]) => post.frontmatter && !post.frontmatter?.draft)
+    .map(([path, post]: [string, any]) => ({
+      params: {
+        slug: path.replace('./', '').replace(/\/index\.mdx$/, '').replace(/\.mdx$/, ''),
+      },
+      props: { post },
+    }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { post } = Astro.props as { post: any };
+const Content = post.default;
+const { title, description, pubDate, author = 'QAInsights', tags = [] } = post.frontmatter;
+const date = pubDate instanceof Date ? pubDate : new Date(String(pubDate));
 ---
 
-<JMeterLayout 
-  title={post.data.title} 
-  description={post.data.description}
->
-  <article class="max-w-3xl mx-auto px-6 py-12">
-    <header class="mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">{post.data.title}</h1>
-      <p class="text-lg text-slate-400 mb-4">{post.data.description}</p>
-      <div class="flex items-center gap-4 text-sm text-slate-500">
-        <time datetime={post.data.pubDate.toISOString()}>
-          {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-        </time>
-        <span>by {post.data.author}</span>
-        {post.data.tags.length > 0 && (
-          <div class="flex gap-2">
-            {post.data.tags.map((tag) => (
-              <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded text-xs">{tag}</span>
-            ))}
-          </div>
-        )}
+<JMeterLayout hasSlot={true} activeProduct="blog">
+  <div class="flex-1 overflow-y-auto p-6 md:p-10">
+    <article class="max-w-3xl mx-auto">
+      <header class="mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h1>
+        <p class="text-lg text-slate-400 mb-4">{description}</p>
+        <div class="flex items-center gap-4 text-sm text-slate-500">
+          <time datetime={date.toISOString()}>
+            {date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+          <span>by {author}</span>
+          {tags.length > 0 && (
+            <div class="flex gap-2">
+              {tags.map((tag: string) => (
+                <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded text-xs">{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
+
+      <div class="prose prose-invert prose-cyan max-w-none">
+        <Content />
       </div>
-    </header>
-    
-    <div class="prose prose-invert prose-cyan max-w-none">
-      <Content />
-    </div>
-    
-    <footer class="mt-12 pt-8 border-t border-slate-800">
-      <a href="/blog/" class="text-cyan-400 hover:text-cyan-300 transition-colors">
-        ← Back to Blog
-      </a>
-    </footer>
-  </article>
+
+      <footer class="mt-12 pt-8 border-t border-slate-800">
+        <a href="/blog/" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+          &larr; Back to Blog
+        </a>
+      </footer>
+    </article>
+  </div>
 </JMeterLayout>
