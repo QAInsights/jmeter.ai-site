@@ -1,6 +1,7 @@
 ---
 import { products, themes, jmeterElements, playlistConfig } from "../data/products";
 import PromptsPanel from "./PromptsPanel.astro";
+import BlogPanel from "./BlogPanel.astro";
 
 // Product emoji lookup — used in header and features panel
 const productEmoji = {
@@ -11,6 +12,7 @@ const productEmoji = {
   "academy": "🎓",
   "prism": "🚀",
   "prompts": "📚",
+  "blog": "📝",
 };
 
 // Shared Tailwind class for all calculator number inputs
@@ -46,7 +48,7 @@ const disclaimerText = {
       {product.treeNodes.map((node, ni) => (
         <div
           class:list={[
-            node.id === "prompts" ? "detail-content panel-enter h-full" : "detail-content p-4 sm:p-8 panel-enter",
+            (node.id === "prompts" || node.id === "blog") ? "detail-content panel-enter h-full" : "detail-content p-4 sm:p-8 panel-enter",
             ni > 0 && "hidden",
           ]}
           data-detail={`${product.id}-${node.id}`}
@@ -1197,6 +1199,9 @@ const disclaimerText = {
           {/* ========== PROMPTS PANEL ========== */}
           {node.id === "prompts" && (
             <PromptsPanel />
+          )}
+          {node.id === "blog" && (
+            <BlogPanel />
           )}
 
           {node.id === "connect" && (

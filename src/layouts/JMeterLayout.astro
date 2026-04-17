@@ -1,6 +1,13 @@
 ---
 import "../styles/global.css";
 import SEOHead from "../components/SEOHead.astro";
+
+interface Props {
+  hasSlot?: boolean;
+  activeProduct?: string;
+}
+
+const { hasSlot = false, activeProduct = "feather-wand" } = Astro.props;
 import TitleBar from "../components/TitleBar.astro";
 import MenuBar from "../components/MenuBar.astro";
 import Toolbar from "../components/Toolbar.astro";
@@ -15,7 +22,7 @@ import StatusBar from "../components/StatusBar.astro";
   <head>
     <SEOHead />
   </head>
-  <body class="flex flex-col h-screen md:h-screen md:overflow-hidden overflow-auto min-h-screen bg-jm-bg">
+  <body class="flex flex-col h-screen md:h-screen md:overflow-hidden overflow-auto min-h-screen bg-jm-bg" data-active-product={activeProduct}>
     <!-- SVG Sprite Sheet: referenced via <use href="#icon-*"> everywhere -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
       <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
@@ -80,7 +87,7 @@ import StatusBar from "../components/StatusBar.astro";
       <div id="sidebar-backdrop" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden" aria-hidden="true"></div>
       <TreeView />
       <div class="jm-resizer" id="resizer" role="separator" aria-label="Resize panels"></div>
-      <DetailPanel />
+      {hasSlot ? <slot /> : <DetailPanel />}
     </div>
 
     <!-- Status Bar -->
@@ -147,7 +154,7 @@ import StatusBar from "../components/StatusBar.astro";
           "k6": "k6", "performance-engineering": "performance-engineering", "regex": "regex",
           "locust": "locust", "loadrunner": "loadrunner", "devtools": "devtools",
           "gatling": "gatling", "statistics": "statistics", "chaos": "chaos", "vault": "vault",
-          "prompts": "prompts",
+          "prompts": "prompts", "blog": "blog",
         };
 
         // --- Tab Switching ---
@@ -199,14 +206,33 @@ import StatusBar from "../components/StatusBar.astro";
           showDetailContent(tabId, currentNode);
         }
 
+        // On slot pages (e.g. blog article), the DetailPanel isn't rendered,
+        // so tab clicks must navigate to the appropriate page instead of
+        // just toggling local state.
+        const isSlotPage = document.querySelector("main#detail-panel") === null;
+
         tabs.forEach((tab) => {
           tab.addEventListener("click", (e) => {
             const target = e.target as HTMLElement;
             if (target.closest(".tab-close")) return;
             const tabId = tab.dataset.tab;
-            if (tabId) switchTab(tabId);
+            if (!tabId) return;
+            if (isSlotPage) {
+              window.location.href = tabId === "blog" ? "/blog/" : `/#${tabId}`;
+              return;
+            }
+            switchTab(tabId);
           });
         });
+
+        // --- Initial active tab ---
+        // Priority: URL hash (e.g. /#super-key) > server-provided activeProduct.
+        const hashProduct = window.location.hash.replace(/^#/, "");
+        const initialProduct = hashProduct || document.body.dataset.activeProduct;
+        if (initialProduct && initialProduct !== "feather-wand") {
+          const tabExists = Array.from(tabs).some((t) => t.dataset.tab === initialProduct);
+          if (tabExists) switchTab(initialProduct);
+        }
 
         // --- Tree Node Selection ---
         const treeNodes = document.querySelectorAll<HTMLButtonElement>("[data-node]");
@@ -258,6 +284,9 @@ import StatusBar from "../components/StatusBar.astro";
             const nodeId = node.dataset.node;
             const productId = node.dataset.product;
             if (!nodeId || !productId) return;
+            // Navigate to external URL if data-href is set (e.g. Blog)
+            const href = node.dataset.href;
+            if (href) { window.location.href = href; return; }
             activeNodes[productId] = nodeId;
             highlightTreeNode(productId, nodeId);
             showDetailContent(productId, nodeId);

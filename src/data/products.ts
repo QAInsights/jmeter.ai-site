@@ -63,6 +63,7 @@ export interface TreeNode {
   id: string;
   label: string;
   icon: string;
+  href?: string;
   children?: TreeNode[];
 }
 
@@ -589,6 +590,41 @@ export const products: Product[] = [
     socials: defaultSocials,
     treeNodes: [
       { id: "prompts", label: "Browse Prompts", icon: "book-open" },
+    ],
+  },
+  {
+    id: "blog",
+    name: "Blog",
+    tagline: "Performance Engineering Blog",
+    subtitlePrefix: "EXPERT",
+    subtitleHighlight: "INSIGHTS",
+    subtitleSuffix: "FOR PERFORMANCE ENGINEERS",
+    description:
+      "In-depth articles, tutorials, and updates on Apache JMeter, performance testing, and AI-powered testing tools.",
+    icon: "book-open",
+    color: "#00bcd4",
+    colorRgb: "0, 188, 212",
+    github: "https://github.com/QAInsights",
+    badges: [
+      { label: "BLOG", emoji: "📝", variant: "filled", color: "#00bcd4" },
+      { label: "TUTORIALS", emoji: "🎓", variant: "outlined", color: "#00e5ff" },
+      { label: "INSIGHTS", emoji: "💡", variant: "outlined", color: "#ffab00" },
+    ],
+    infoCards: [
+      { label: "CATEGORY", value: "Blog / Tutorials", color: "#00bcd4" },
+      { label: "TOPICS", value: "JMeter · AI · Perf", color: "#00e5ff" },
+      { label: "AUTHOR", value: "QAInsights", color: "#ffab00" },
+      { label: "ACCESS", value: "Free", color: "#00bcd4" },
+    ],
+    featuresHeadingPrefix: "Latest",
+    featuresHeadingHighlight: "Articles",
+    featuresSubtitle: "Stay up to date with the latest in performance testing and AI.",
+    features: [],
+    ossVsPro: [],
+    installation: [],
+    socials: defaultSocials,
+    treeNodes: [
+      { id: "blog", label: "All Posts", icon: "book-open" },
     ],
   },
 ];

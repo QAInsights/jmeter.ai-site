@@ -1,0 +1,46 @@
+---
+import "../styles/global.css";
+import SEOHead from "../components/SEOHead.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SEOHead title={title} description={description} image={image} />
+  </head>
+  <body class="min-h-screen bg-jm-bg text-white">
+    <!-- Blog Header -->
+    <header class="border-b border-slate-800">
+      <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/" class="text-cyan-400 font-semibold text-lg hover:text-cyan-300 transition-colors">
+          JMeter.AI
+        </a>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="/blog/" class="text-slate-400 hover:text-white transition-colors">Blog</a>
+          <a href="/rss.xml" class="text-slate-400 hover:text-white transition-colors">RSS</a>
+          <a href="https://github.com/qainsights" class="text-slate-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Blog Footer -->
+    <footer class="border-t border-slate-800 mt-16">
+      <div class="max-w-5xl mx-auto px-6 py-8 text-center text-sm text-slate-500">
+        <p>&copy; {new Date().getFullYear()} QAInsights. AI-Powered Tools for Apache JMeter.</p>
+      </div>
+    </footer>
+  </body>
+</html>
