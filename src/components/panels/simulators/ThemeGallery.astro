@@ -1,0 +1,73 @@
+---
+import type { Theme } from "../../../data/products";
+
+interface Props {
+  themes: Theme[];
+}
+
+const { themes } = Astro.props;
+---
+
+<div class="mt-8" id="theme-gallery">
+  <div class="flex items-center gap-2 mb-2">
+    <span class="text-base">🎨</span>
+    <span class="text-xs tracking-[0.15em] uppercase font-bold" style="font-family: 'JetBrains Mono', monospace; color: #d500f9;">LIVE THEME PREVIEW</span>
+    <span class="flex-1 h-px ml-1" style="background: linear-gradient(to right, #d500f940, transparent);" />
+  </div>
+  <p class="text-sm text-jm-text-dim mb-5" style="font-family: 'JetBrains Mono', monospace;">Click any theme to repaint the entire UI in real time.</p>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    {themes.map((theme) => (
+      <button
+        class="theme-swatch group relative text-left rounded-xl border border-jm-border p-4 transition-all hover:scale-[1.02] hover:shadow-lg cursor-pointer"
+        data-theme-id={theme.id}
+        data-theme-colors={JSON.stringify(theme.colors)}
+        data-theme-dark={theme.dark}
+        style={`background: ${theme.colors.surface};`}
+      >
+        {/* Active indicator ring */}
+        <div class="theme-active-ring absolute inset-0 rounded-xl border-2 border-transparent pointer-events-none transition-all" />
+
+        {/* Theme name */}
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold tracking-wide" style={`font-family: 'Orbitron', sans-serif; color: ${theme.colors.text};`}>{theme.name}</span>
+          {!theme.dark && <span class="text-[9px] px-1.5 py-0.5 rounded font-bold" style={`font-family: 'JetBrains Mono', monospace; background: ${theme.colors.accent}20; color: ${theme.colors.accent};`}>LIGHT</span>}
+        </div>
+
+        {/* Color swatches */}
+        <div class="flex gap-1.5 mb-3">
+          {theme.swatchColors.map((color) => (
+            <div class="w-6 h-6 rounded-full border" style={`background: ${color}; border-color: ${theme.colors.borderLight};`} />
+          ))}
+        </div>
+
+        {/* Mini preview bar */}
+        <div class="rounded-md overflow-hidden" style={`background: ${theme.colors.bg};`}>
+          <div class="h-1.5" style={`background: ${theme.colors.titleBar};`} />
+          <div class="flex h-8">
+            <div class="w-1/4 border-r p-1" style={`border-color: ${theme.colors.border};`}>
+              <div class="h-1 rounded mb-0.5" style={`background: ${theme.colors.accent}; width: 60%;`} />
+              <div class="h-1 rounded mb-0.5" style={`background: ${theme.colors.textMuted}40; width: 80%;`} />
+              <div class="h-1 rounded" style={`background: ${theme.colors.textMuted}30; width: 50%;`} />
+            </div>
+            <div class="flex-1 p-1">
+              <div class="h-1 rounded mb-0.5" style={`background: ${theme.colors.textDim}40; width: 70%;`} />
+              <div class="h-1 rounded" style={`background: ${theme.colors.textMuted}25; width: 90%;`} />
+            </div>
+          </div>
+        </div>
+
+        {/* LaF class */}
+        <div class="mt-2 text-[9px] truncate opacity-60" style={`font-family: 'JetBrains Mono', monospace; color: ${theme.colors.textMuted};`}>{theme.lafClass}</div>
+      </button>
+    ))}
+  </div>
+
+  {/* Reset button */}
+  <div class="mt-4 flex items-center gap-3">
+    <button id="theme-reset" class="text-xs px-4 py-2 rounded-lg border border-jm-border text-jm-text-muted hover:text-jm-text hover:border-jm-border-light transition-colors" style="font-family: 'JetBrains Mono', monospace;">
+      Reset to Default
+    </button>
+    <span class="text-[10px] text-jm-text-muted" style="font-family: 'JetBrains Mono', monospace;" id="theme-active-label">Active: JMeter Dark</span>
+  </div>
+</div>

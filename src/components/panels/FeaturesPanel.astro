@@ -1,0 +1,37 @@
+---
+import type { Product } from "../../data/products";
+import { productEmoji } from "./constants";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+---
+
+<div>
+  {/* Section label */}
+  <div class="flex items-center gap-2 mb-1">
+    <span class="text-xs">{productEmoji[product.id] ?? "🚀"}</span>
+    <span class="text-xs tracking-[0.15em] uppercase font-bold" style={`font-family: 'JetBrains Mono', monospace; color: ${product.color};`}>{product.name}</span>
+    <span class="flex-1 h-px ml-1" style={`background: linear-gradient(to right, ${product.color}40, transparent);`} />
+  </div>
+
+  {/* Heading */}
+  <h3 class="text-4xl font-bold text-jm-text mb-2" style="font-family: 'Orbitron', sans-serif;">
+    {product.featuresHeadingPrefix}{" "}
+    <span class="product-name-gradient">{product.featuresHeadingHighlight}</span>
+  </h3>
+  <p class="text-base text-jm-text-dim leading-relaxed mb-8">{product.featuresSubtitle}</p>
+
+  {/* Feature cards — 3 column grid */}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    {product.features.map((feat) => (
+      <div class="feature-card">
+        <div class="text-3xl mb-3">{feat.icon}</div>
+        <h4 class="feature-card-title text-jm-text mb-2">{feat.title}</h4>
+        <p class="text-sm text-jm-text-dim leading-relaxed">{feat.description}</p>
+      </div>
+    ))}
+  </div>
+</div>

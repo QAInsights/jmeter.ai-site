@@ -1,0 +1,172 @@
+---
+interface Props {
+  disclaimer: string;
+}
+
+const { disclaimer } = Astro.props;
+---
+
+<div class="mt-8" id="featherwand-simulator">
+  <div class="flex items-center gap-2 mb-2">
+    <span class="text-base">🪄</span>
+    <span class="text-xs tracking-[0.15em] uppercase font-bold" style="font-family: 'JetBrains Mono', monospace; color: #E87040;">INTERACTIVE DEMO</span>
+    <span class="flex-1 h-px ml-1" style="background: linear-gradient(to right, #E8704040, transparent);" />
+  </div>
+  <p class="text-sm text-jm-text-dim mb-1" style="font-family: 'JetBrains Mono', monospace;">
+    Chat with the AI assistant to generate JMeter test elements. Type your request below.
+  </p>
+  <p class="text-[11px] text-jm-text-muted mb-5" style="font-family: 'JetBrains Mono', monospace;">
+    Try: "Create a thread group with 100 users" • "Add HTTP request" • "Generate assertions"
+  </p>
+
+  {/* Mock JMeter UI with AI Chat */}
+  <div class="fw-jmeter-window rounded-xl overflow-hidden border border-jm-border shadow-2xl">
+    {/* Title bar */}
+    <div class="h-9 bg-jm-title-bar border-b border-jm-border flex items-center px-4 gap-2">
+      <div class="flex gap-1.5">
+        <div class="w-3.5 h-3.5 rounded-full bg-red-500/80"></div>
+        <div class="w-3.5 h-3.5 rounded-full bg-amber-500/80"></div>
+        <div class="w-3.5 h-3.5 rounded-full bg-green-500/80"></div>
+      </div>
+      <span class="text-xs text-jm-text-dim ml-2" style="font-family: 'JetBrains Mono', monospace;">Apache JMeter (with Feather Wand AI)</span>
+    </div>
+
+    {/* Menu bar */}
+    <div class="h-8 bg-jm-menu-bg border-b border-jm-border flex items-center px-3 gap-1">
+      {["File", "Edit", "Search", "Run", "Options", "AI Assistant", "Help"].map(menu => (
+        <button class="px-3 py-1 text-xs text-jm-text-dim hover:text-jm-text hover:bg-jm-surface-alt rounded transition-colors" style="font-family: 'JetBrains Mono', monospace;">
+          {menu}
+        </button>
+      ))}
+    </div>
+
+    {/* Toolbar */}
+    <div class="h-10 bg-jm-toolbar-bg border-b border-jm-border flex items-center px-3 gap-1.5">
+      <button class="w-8 h-8 rounded hover:bg-jm-surface-alt transition-colors flex items-center justify-center" title="New">
+        <svg class="w-4.5 h-4.5 text-jm-text-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+      </button>
+      <button class="w-8 h-8 rounded hover:bg-jm-surface-alt transition-colors flex items-center justify-center" title="Save">
+        <svg class="w-4.5 h-4.5 text-jm-text-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+      </button>
+      <div class="w-px h-6 bg-jm-border mx-1"></div>
+      <button class="px-3 h-8 rounded bg-[#E87040]/20 border border-[#E87040]/40 hover:bg-[#E87040]/30 transition-colors flex items-center gap-2" title="AI Assistant">
+        <svg class="w-4 h-4 text-[#E87040]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h-1.73c-.34.6-.98 1-1.73 1-.74 0-1.39-.4-1.73-1H14v1.73c.6.34 1 .98 1 1.73 0 1.1-.9 2-2 2s-2-.9-2-2c0-.74.4-1.39 1-1.73V15H9.73c-.34.6-.98 1-1.73 1-.74 0-1.39-.4-1.73-1H5a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.98-1-1.73a2 2 0 0 1 2-2Z"/></svg>
+        <span class="text-xs text-[#E87040] font-semibold" style="font-family: 'JetBrains Mono', monospace;">AI</span>
+      </button>
+    </div>
+
+     {/* Content area: Tree + Chat */}
+     <div class="bg-jm-bg flex flex-col sm:flex-row" style="min-height: 300px;">
+       {/* Tree panel */}
+       <div class="w-full sm:w-72 border-b sm:border-b-0 sm:border-r border-jm-border overflow-y-auto p-3" style="max-height: 180px;">
+        <div class="text-xs" style="font-family: 'JetBrains Mono', monospace;" id="fw-tree">
+          <div class="flex items-center gap-1.5 py-1.5 px-2 hover:bg-jm-tree-hover rounded cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-jm-text-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+            <span class="text-base">📋</span>
+            <span class="text-jm-text">Test Plan</span>
+          </div>
+          <div class="ml-5" id="fw-tree-content">
+            <div class="flex items-center gap-1.5 py-1.5 px-2 text-jm-text-muted/50 italic">
+              <span class="text-xs">Empty — ask AI to add elements</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* AI Chat panel */}
+      <div class="flex-1 flex flex-col">
+        {/* Chat header */}
+        <div class="h-12 border-b border-jm-border bg-jm-surface-alt/60 flex items-center px-5 gap-2">
+          <svg class="w-5 h-5 text-[#E87040]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h-1.73c-.34.6-.98 1-1.73 1-.74 0-1.39-.4-1.73-1H14v1.73c.6.34 1 .98 1 1.73 0 1.1-.9 2-2 2s-2-.9-2-2c0-.74.4-1.39 1-1.73V15H9.73c-.34.6-.98 1-1.73 1-.74 0-1.39-.4-1.73-1H5a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.98-1-1.73a2 2 0 0 1 2-2Z"/></svg>
+          <span class="text-sm font-bold text-jm-text" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI Assistant</span>
+          <div class="ml-auto flex items-center gap-3">
+            <button id="fw-clear-chat" class="text-xs px-3 py-1.5 rounded bg-jm-surface border border-jm-border text-jm-text-muted hover:text-jm-text hover:border-jm-border-light transition-colors flex items-center gap-1.5" style="font-family: 'JetBrains Mono', monospace;" title="Clear chat and start over">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+              Clear
+            </button>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-jm-green animate-pulse"></span>
+              <span class="text-xs text-jm-text-muted" style="font-family: 'JetBrains Mono', monospace;">Online</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Chat messages */}
+        <div class="flex-1 overflow-y-auto p-5 space-y-4" id="fw-chat-messages">
+          {/* Welcome message */}
+          <div class="flex gap-3">
+            <div class="w-10 h-10 rounded-lg bg-[#E87040]/20 border border-[#E87040]/40 flex items-center justify-center shrink-0">
+              <span class="text-base">🪄</span>
+            </div>
+            <div class="flex-1">
+              <div class="text-xs text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">Feather Wand AI</div>
+              <div class="bg-jm-surface-alt border border-jm-border rounded-lg px-4 py-3 text-sm text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">
+                <p class="mb-2">👋 Hello! I'm your AI assistant for JMeter test creation.</p>
+                <p>I can help you:</p>
+                <ul class="list-disc list-inside mt-2 space-y-1 text-xs">
+                  <li>Generate Thread Groups and samplers</li>
+                  <li>Add assertions and timers</li>
+                  <li>Configure HTTP requests</li>
+                  <li>Explain JMeter concepts</li>
+                </ul>
+                <p class="mt-3">What would you like to create?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Chat input */}
+        <div class="border-t border-jm-border p-4 bg-jm-surface-alt/30">
+          <div class="flex gap-2.5">
+            <input
+              type="text"
+              id="fw-chat-input"
+              placeholder="Ask me to create test elements..."
+              class="flex-1 bg-jm-surface border border-jm-border rounded-lg px-4 py-2.5 text-sm text-jm-text placeholder:text-jm-text-muted focus:outline-none focus:border-[#E87040]/60 focus:ring-1 focus:ring-[#E87040]/20"
+              style="font-family: 'JetBrains Mono', monospace;"
+            />
+            <button
+              id="fw-chat-send"
+              class="px-5 py-2.5 bg-[#E87040] hover:bg-[#E87040]/80 text-white rounded-lg text-sm font-semibold transition-colors flex items-center gap-2"
+              style="font-family: 'JetBrains Mono', monospace;"
+            >
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+              Send
+            </button>
+          </div>
+          <div class="mt-3 flex items-center gap-2">
+            <button class="text-xs px-3 py-1.5 rounded bg-jm-surface border border-jm-border text-jm-text-muted hover:text-jm-text hover:border-jm-border-light transition-colors" style="font-family: 'JetBrains Mono', monospace;" data-fw-suggestion="Create a thread group with 100 users">
+              💡 Thread Group
+            </button>
+            <button class="text-xs px-3 py-1.5 rounded bg-jm-surface border border-jm-border text-jm-text-muted hover:text-jm-text hover:border-jm-border-light transition-colors" style="font-family: 'JetBrains Mono', monospace;" data-fw-suggestion="Add an HTTP request to api.example.com">
+              💡 HTTP Request
+            </button>
+            <button class="text-xs px-3 py-1.5 rounded bg-jm-surface border border-jm-border text-jm-text-muted hover:text-jm-text hover:border-jm-border-light transition-colors" style="font-family: 'JetBrains Mono', monospace;" data-fw-suggestion="Add response assertions">
+              💡 Assertions
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Status bar */}
+    <div class="h-7 bg-jm-status-bg border-t border-jm-border flex items-center px-4 text-xs text-jm-text-muted" style="font-family: 'JetBrains Mono', monospace;">
+      <span>AI Assistant Ready</span>
+      <span class="mx-2">•</span>
+      <span id="fw-element-count">0 elements</span>
+      <span class="mx-2">•</span>
+      <span>Feather Wand v2.0</span>
+    </div>
+  </div>
+
+  {/* Disclaimer */}
+  <div class="mt-4 px-4 py-3 rounded-lg border border-jm-border bg-jm-surface-alt/30">
+    <div class="flex items-start gap-2">
+      <svg class="w-4 h-4 text-jm-amber shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <div>
+        <p class="text-xs font-semibold text-jm-text mb-1" style="font-family: 'JetBrains Mono', monospace;">Interactive Simulation</p>
+        <p class="text-[11px] text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">{disclaimer}</p>
+      </div>
+    </div>
+  </div>
+</div>

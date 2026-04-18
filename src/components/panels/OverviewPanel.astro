@@ -1,0 +1,78 @@
+---
+import type { Product } from "../../data/products";
+import { themes, jmeterElements } from "../../data/products";
+import { disclaimerText } from "./constants";
+import SuperKeySimulator from "./simulators/SuperKeySimulator.astro";
+import PrismSimulator from "./simulators/PrismSimulator.astro";
+import FeatherWandSimulator from "./simulators/FeatherWandSimulator.astro";
+import ThemeGallery from "./simulators/ThemeGallery.astro";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+---
+
+<div>
+  {/* Hero card */}
+  <div class="overview-hero mb-6" style={`border-color: ${product.color}25;`}>
+    <h3 class="product-name-gradient text-3xl sm:text-5xl leading-tight mb-3">{product.name}</h3>
+    <p class="text-sm tracking-[0.15em] text-jm-text-muted uppercase mb-5" style="font-family: 'JetBrains Mono', monospace;">
+      {product.subtitlePrefix}{" "}
+      <span class="font-bold" style={`color: ${product.color}`}>{product.subtitleHighlight}</span>{" "}
+      {product.subtitleSuffix}
+    </p>
+
+    {/* Badges */}
+    <div class="flex flex-wrap gap-2.5 mb-7">
+      {product.badges.map((badge) => (
+        <span
+          class:list={["badge-pill", badge.variant === "filled" ? "badge-filled" : "badge-outlined"]}
+          style={badge.variant === "filled"
+            ? `background: ${badge.color};`
+            : `border-color: ${badge.color}60; color: ${badge.color};`}
+        >
+          <span>{badge.emoji}</span>
+          {badge.label}
+        </span>
+      ))}
+    </div>
+
+    {/* Description */}
+    <p class="text-base text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">{product.description}</p>
+  </div>
+
+  {/* Info cards grid */}
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    {product.infoCards.map((card) => (
+      <div class="info-card" style={`--info-card-color: ${card.color};`}>
+        <div class="text-[11px] tracking-[0.12em] text-jm-text-muted uppercase mb-2" style="font-family: 'JetBrains Mono', monospace;">{card.label}</div>
+        <div class="text-base font-bold" style={`font-family: 'Orbitron', sans-serif; color: ${card.color};`}>
+          {card.label === "STATUS" && <span class="inline-block w-2 h-2 rounded-full mr-1.5 align-middle" style={`background: ${card.color};`} />}
+          {card.value}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  {/* ===== SUPER KEY SIMULATOR — Super Key only ===== */}
+  {product.id === "super-key" && (
+    <SuperKeySimulator jmeterElements={jmeterElements} disclaimer={disclaimerText[product.id] ?? ""} />
+  )}
+
+  {/* ===== PRISM SIMULATOR — Prism only ===== */}
+  {product.id === "prism" && (
+    <PrismSimulator disclaimer={disclaimerText[product.id] ?? ""} />
+  )}
+
+  {/* ===== FEATHER WAND SIMULATOR — Feather Wand only ===== */}
+  {product.id === "feather-wand" && (
+    <FeatherWandSimulator disclaimer={disclaimerText[product.id] ?? ""} />
+  )}
+
+  {/* ===== THEME GALLERY — JMeter Studio only ===== */}
+  {product.id === "jmeter-studio" && (
+    <ThemeGallery themes={themes} />
+  )}
+</div>
