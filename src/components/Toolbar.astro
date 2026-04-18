@@ -33,13 +33,13 @@ const toolbarGroups = [
 
 ---
 
-<div class="flex items-center bg-jm-toolbar-bg border-b border-jm-border px-2 py-1 gap-1 select-none shrink-0 overflow-x-auto" role="toolbar" aria-label="Toolbar">
+<div class="flex items-center bg-jm-toolbar-bg border-b border-jm-border px-1 sm:px-2 py-1 gap-0.5 sm:gap-1 select-none shrink-0 overflow-x-auto scrollbar-thin" role="toolbar" aria-label="Toolbar">
   {toolbarGroups.map((group, gi) => (
-    <div class="flex items-center gap-0.5">
+    <div class="flex items-center gap-0.5 shrink-0">
       {group.map((btn) => (
         <button
           class:list={[
-            "p-1.5 rounded transition-colors",
+            "p-1 sm:p-1.5 rounded transition-colors shrink-0",
             btn.accent
               ? "text-jm-green hover:bg-jm-green/10 hover:text-jm-green"
               : "text-jm-text-muted hover:bg-jm-surface-alt hover:text-jm-text-dim",
@@ -52,7 +52,7 @@ const toolbarGroups = [
         </button>
       ))}
       {gi < toolbarGroups.length - 1 && (
-        <div class="w-px h-5 bg-jm-border mx-1.5" />
+        <div class="w-px h-5 bg-jm-border mx-1 sm:mx-1.5 shrink-0" />
       )}
     </div>
   ))}

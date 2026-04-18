@@ -2,8 +2,24 @@
 import { siteConfig } from "../data/products";
 ---
 
-<nav class="flex items-center justify-between bg-jm-menu-bg border-b border-jm-border px-2 py-0 select-none shrink-0" role="menubar">
-  <div class="flex items-center overflow-x-auto">
+<nav class="relative flex items-center justify-between bg-jm-menu-bg border-b border-jm-border px-2 py-0 select-none shrink-0" role="menubar">
+  {/* Mobile menu toggle */}
+  <button
+    id="menubar-toggle"
+    class="md:hidden flex items-center gap-1.5 px-2 py-1.5 text-jm-text-dim hover:text-jm-text rounded transition-colors"
+    style="font-family: 'JetBrains Mono', monospace; font-size: 11px;"
+    aria-label="Toggle menu"
+    aria-expanded="false"
+    aria-controls="menubar-items"
+  >
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>
+    </svg>
+    <span>Menu</span>
+  </button>
+
+  {/* Desktop menu items */}
+  <div class="hidden md:flex items-center overflow-x-auto">
     {siteConfig.menuItems.map((item) => (
       <button
         class="px-3 py-1.5 text-jm-text-dim hover:text-jm-text hover:bg-jm-surface-alt rounded transition-colors cursor-default"
@@ -14,17 +30,59 @@ import { siteConfig } from "../data/products";
       </button>
     ))}
   </div>
-  
-  {/* Donate button */}
+
+  {/* Mobile dropdown panel */}
+  <div
+    id="menubar-items"
+    class="hidden absolute top-full left-0 right-0 z-40 bg-jm-menu-bg border-b border-jm-border shadow-lg md:!hidden"
+  >
+    <div class="flex flex-col p-1">
+      {siteConfig.menuItems.map((item) => (
+        <button
+          class="text-left px-3 py-2 text-jm-text-dim hover:text-jm-text hover:bg-jm-surface-alt rounded transition-colors"
+          style="font-family: 'JetBrains Mono', monospace; font-size: 12px;"
+          role="menuitem"
+        >
+          {item}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  {/* Donate button — icon-only on mobile, full label on sm+ */}
   <a
     href="https://buymeacoffee.com/qainsights"
     target="_blank"
     rel="noopener noreferrer"
-    class="flex items-center gap-1.5 px-3 py-1.5 rounded transition-all hover:opacity-100 opacity-80"
+    class="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded transition-all hover:opacity-100 opacity-80 shrink-0"
     style="background: #ff6b4a15; border: 1px solid #ff6b4a30; color: #ff6b4a; font-family: 'JetBrains Mono', monospace; font-size: 10px;"
     title="Support QAInsights on Buy Me a Coffee"
+    aria-label="Donate"
   >
     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.518 2.318 2 5.5 2c1.881 0 3.312.803 4.5 2.338C11.188 2.803 12.619 2 14.5 2 17.682 2 19 3.518 19 7.191c0 4.105-5.37 8.863-7 10.402z"/></svg>
-    Donate
+    <span class="hidden sm:inline">Donate</span>
   </a>
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("menubar-toggle");
+    const panel = document.getElementById("menubar-items");
+    if (!toggle || !panel) return;
+    const closePanel = () => {
+      panel.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isHidden = panel.classList.toggle("hidden");
+      toggle.setAttribute("aria-expanded", isHidden ? "false" : "true");
+    });
+    document.addEventListener("click", (e) => {
+      if (!panel.contains(e.target as Node) && !toggle.contains(e.target as Node)) closePanel();
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 768) closePanel();
+    });
+  });
+</script>
