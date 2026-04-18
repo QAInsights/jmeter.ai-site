@@ -7,16 +7,40 @@ interface Props {
   pubDate: string | Date;
   author?: string;
   tags?: string[];
+  image?: string;
+  imageAlt?: string;
+  featured?: boolean;
 }
 
-const frontmatter = Astro.props.frontmatter ?? Astro.props;
-const { title, description, pubDate, author = 'QAInsights', tags = [] } = frontmatter;
+const FALLBACK_IMAGE = '/blog/default.svg';
+const props = Astro.props as Props & { frontmatter?: Props };
+const frontmatter: Props = props.frontmatter ?? props;
+const {
+  title,
+  description,
+  pubDate,
+  author = 'QAInsights',
+  tags = [],
+  image,
+  imageAlt,
+} = frontmatter;
 const date = pubDate instanceof Date ? pubDate : new Date(String(pubDate));
+const heroSrc = image && String(image).trim().length > 0 ? image : FALLBACK_IMAGE;
+const heroAlt = imageAlt ?? title;
 ---
 
 <JMeterLayout hasSlot={true} activeProduct="blog">
   <div class="flex-1 overflow-y-auto p-6 md:p-10">
     <article class="max-w-3xl mx-auto">
+      <figure class="mb-8 rounded-lg overflow-hidden border border-slate-700/50 bg-slate-800/30">
+        <img
+          src={heroSrc}
+          alt={heroAlt}
+          loading="eager"
+          decoding="async"
+          class="w-full h-auto aspect-[2/1] object-cover"
+        />
+      </figure>
       <header class="mb-8">
         <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h1>
         <p class="text-lg text-slate-400 mb-4">{description}</p>
@@ -27,7 +51,7 @@ const date = pubDate instanceof Date ? pubDate : new Date(String(pubDate));
           <span>by {author}</span>
           {tags.length > 0 && (
             <div class="flex gap-2">
-              {tags.map((tag) => (
+              {tags.map((tag: string) => (
                 <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded text-xs">{tag}</span>
               ))}
             </div>

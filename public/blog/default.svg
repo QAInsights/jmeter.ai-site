@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="JMeter.AI blog post">
+  <defs>
+    <linearGradient id="dbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#1a2236"/>
+    </linearGradient>
+    <linearGradient id="daccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00e5ff"/>
+      <stop offset="100%" stop-color="#d500f9"/>
+    </linearGradient>
+    <pattern id="dgrid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#1e293b" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#dbg)"/>
+  <rect width="1200" height="600" fill="url(#dgrid)" opacity="0.5"/>
+
+  <!-- Subtle wave -->
+  <g stroke="#00e5ff" stroke-width="2" fill="none" opacity="0.35">
+    <path d="M0 420 Q 150 360 300 420 T 600 420 T 900 420 T 1200 420"/>
+  </g>
+
+  <!-- Word mark -->
+  <text x="600" y="310" text-anchor="middle" font-family="Orbitron, Inter, system-ui, sans-serif" font-weight="900" font-size="72" fill="#e2e8f0" letter-spacing="-1">
+    JMeter<tspan fill="url(#daccent)">.AI</tspan>
+  </text>
+  <text x="600" y="360" text-anchor="middle" font-family="JetBrains Mono, ui-monospace, monospace" font-size="20" fill="#64748b" letter-spacing="3">
+    BLOG
+  </text>
+
+  <!-- Accent underline -->
+  <rect x="560" y="380" width="80" height="3" rx="1.5" fill="url(#daccent)"/>
+</svg>
