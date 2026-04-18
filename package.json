@@ -20,5 +20,8 @@
     "astro": "^6.0.5",
     "astro-expressive-code": "^0.41.7",
     "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "astro-compress": "^2.4.1"
   }
 }
