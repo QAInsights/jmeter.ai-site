@@ -42,6 +42,9 @@ export default defineConfig({
       // Skip image recompression — Astro's Sharp service already handles
       // OG / favicon assets; avoids long build times and extra CPU.
       Image: false,
+      // Logger accepts `boolean | 0 | 1 | 2` per @playform/pipe types
+      // (default: 2). Using 1 = summary-only output (one line per file-type)
+      // — quieter for CI logs while still confirming compression ran.
       Logger: 1,
     }),
   ],
