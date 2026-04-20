@@ -30,7 +30,7 @@ const heroAlt = imageAlt ?? title;
 
 const siteUrl = "https://jmeter.ai";
 const pageUrl = Astro.url?.toString() ?? siteUrl;
-const heroAbsUrl = heroSrc.startsWith("http") ? heroSrc : `${siteUrl}${heroSrc}`;
+const heroAbsUrl = heroSrc.startsWith("http") ? heroSrc : `${siteUrl}/${heroSrc.replace(/^\//, "")}`;
 
 const blogPostingLd = {
   "@context": "https://schema.org",
