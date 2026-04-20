@@ -1,5 +1,6 @@
 ---
 import JMeterLayout from './JMeterLayout.astro';
+import MeshGradient from '../components/MeshGradient.astro';
 
 interface Props {
   title: string;
@@ -7,12 +8,12 @@ interface Props {
   pubDate: string | Date;
   author?: string;
   tags?: string[];
+  featured?: boolean;
+  readTime?: string;
   image?: string;
   imageAlt?: string;
-  featured?: boolean;
 }
 
-const FALLBACK_IMAGE = '/blog/default.svg';
 const props = Astro.props as Props & { frontmatter?: Props };
 const frontmatter: Props = props.frontmatter ?? props;
 const {
@@ -21,16 +22,17 @@ const {
   pubDate,
   author = 'QAInsights',
   tags = [],
+  featured = false,
+  readTime = '5 min read',
   image,
   imageAlt,
 } = frontmatter;
 const date = pubDate instanceof Date ? pubDate : new Date(String(pubDate));
-const heroSrc = image && String(image).trim().length > 0 ? image : FALLBACK_IMAGE;
-const heroAlt = imageAlt ?? title;
+const seed = title.replace(/\s+/g, '-').toLowerCase();
+const hasImage = image && String(image).trim().length > 0;
 
 const siteUrl = "https://jmeter.ai";
 const pageUrl = Astro.url?.toString() ?? siteUrl;
-const heroAbsUrl = heroSrc.startsWith("http") ? heroSrc : `${siteUrl}/${heroSrc.replace(/^\//, "")}`;
 
 const blogPostingLd = {
   "@context": "https://schema.org",
@@ -42,10 +44,6 @@ const blogPostingLd = {
   dateModified: date.toISOString(),
   inLanguage: "en-US",
   url: pageUrl,
-  image: {
-    "@type": "ImageObject",
-    url: heroAbsUrl,
-  },
   author: {
     "@type": "Person",
     name: author,
@@ -69,32 +67,40 @@ const blogPostingLd = {
   <script type="application/ld+json" set:html={JSON.stringify(blogPostingLd)} />
   <div class="flex-1 overflow-y-auto p-6 md:p-10">
     <article class="max-w-3xl mx-auto">
-      <figure class="mb-8 rounded-lg overflow-hidden border border-slate-700/50 bg-slate-800/30">
-        <img
-          src={heroSrc}
-          alt={heroAlt}
-          loading="eager"
-          decoding="async"
-          class="w-full h-auto aspect-[2/1] object-cover"
-        />
-      </figure>
-      <header class="mb-8">
-        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h1>
-        <p class="text-lg text-slate-400 mb-4">{description}</p>
-        <div class="flex items-center gap-4 text-sm text-slate-500">
+      <header class="mb-8 text-center">
+        <div class="flex items-center justify-center gap-3 text-xs text-slate-400 uppercase tracking-wider mb-3">
           <time datetime={date.toISOString()}>
             {date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
           </time>
-          <span>by {author}</span>
-          {tags.length > 0 && (
-            <div class="flex gap-2">
-              {tags.map((tag: string) => (
-                <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded text-xs">{tag}</span>
-              ))}
-            </div>
-          )}
+          <span class="text-slate-600">•</span>
+          <span>{author}</span>
+          <span class="text-slate-600">•</span>
+          <span>{readTime}</span>
         </div>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">{title}</h1>
+        <p class="text-lg text-slate-400 mb-6 max-w-2xl mx-auto">{description}</p>
+        {tags.length > 0 && (
+          <div class="flex flex-wrap justify-center gap-2 mb-8">
+            {tags.map((tag: string) => (
+              <span class="px-3 py-1 bg-slate-700/50 text-slate-300 border border-slate-600/50 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">{tag}</span>
+            ))}
+          </div>
+        )}
       </header>
+
+      <figure class="mb-8 rounded-xl overflow-hidden border border-slate-700/50 aspect-[16/9]">
+        {hasImage ? (
+          <img
+            src={image}
+            alt={imageAlt ?? title}
+            loading="eager"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        ) : (
+          <MeshGradient seed={seed} class="w-full h-full" />
+        )}
+      </figure>
 
       <div class="prose prose-invert prose-cyan max-w-none">
         <slot />
