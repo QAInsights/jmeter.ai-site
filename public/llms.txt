@@ -1,0 +1,68 @@
+# JMeter.AI — Performance Intelligence Suite
+
+> AI-Powered Tools & Plugins for Apache JMeter — Supercharge your performance testing workflow.
+
+JMeter.AI is a platform built by NaveenKumar Namachivayam (QAInsights) providing AI-powered plugins,
+tools, and learning resources for Apache JMeter — one of the world's most popular open-source
+performance testing frameworks. All products are available as JMeter plugins (JAR files) and are
+compatible with Apache JMeter 5.x and later.
+
+## Products
+
+- [Feather Wand](https://jmeter.ai/#feather-wand): AI-powered chat interface and test plan generator
+  built directly into Apache JMeter. Use natural language to generate test scripts, analyze results,
+  debug issues, and receive AI-guided recommendations. Supports OpenAI, Anthropic Claude, Ollama, and
+  any OpenAI-compatible LLM endpoint. Integrates with Claude Code for enhanced AI coding capabilities.
+  Available in open-source (OSS) and commercial Pro editions.
+
+- [Super Key](https://jmeter.ai/#super-key): Keyboard command center for Apache JMeter featuring 70+
+  shortcuts, a VS Code-style command palette (Ctrl+Shift+P), and Vim-inspired navigation. Eliminates
+  mouse dependency for power users. Available in OSS and Pro editions.
+
+- [JMeter Studio](https://jmeter.ai/#jmeter-studio): Premium theme engine and custom icon pack system
+  for Apache JMeter. Enables full visual customization of the JMeter UI. One of the fastest-downloaded
+  plugins in the JMeter Plugins repository.
+
+- [Prism](https://jmeter.ai/#prism): Multi-tab interface plugin for Apache JMeter that enables
+  simultaneous editing of multiple test plans — like browser tabs for JMeter.
+
+- [Perftractor](https://jmeter.ai/#perftractor): Performance testing calculator suite for computing
+  throughput targets, optimal thread counts, think times, and concurrency levels.
+
+- [JMeter MCP](https://github.com/QAInsights/jmeter-mcp): Model Context Protocol (MCP) server that
+  integrates Apache JMeter with AI models and AI coding assistants such as Claude, Cursor, and
+  Windsurf.
+
+## Resources
+
+- [Blog](https://jmeter.ai/blog/): Articles, tutorials, and updates on performance testing, Apache
+  JMeter, and AI-powered testing workflows.
+
+- [Prompt Library](https://jmeter.ai/#prompts): Curated collection of performance engineering prompts
+  optimised for AI assistants including ChatGPT, Claude, and Gemini. Covers JMeter scripting, load
+  analysis, test strategy, and result interpretation.
+
+- [Academy](https://jmeter.ai/#academy): Free YouTube video tutorial series covering Apache JMeter
+  (beginner to advanced), k6, Gatling, Locust, LoadRunner, Chrome DevTools for performance engineers,
+  regular expressions, statistics, chaos engineering, and HashiCorp Vault.
+
+- [RSS Feed](https://jmeter.ai/rss.xml): Machine-readable feed of the latest blog posts and updates.
+
+## About
+
+JMeter.AI is maintained by NaveenKumar Namachivayam, a performance engineering expert, open-source
+contributor, and content creator.
+
+- **Author**: NaveenKumar Namachivayam
+- **Website**: https://qainsights.com
+- **GitHub**: https://github.com/QAInsights
+- **Twitter / X**: https://twitter.com/QAInsights
+- **YouTube**: https://youtube.com/@QAInsights
+- **LinkedIn**: https://linkedin.com/in/naveenkumarn
+
+## Optional
+
+- [GitHub — jmeter-ai (Feather Wand)](https://github.com/QAInsights/jmeter-ai): Source code and releases
+- [GitHub — superkey](https://github.com/QAInsights/superkey): Source code and releases
+- [GitHub — perftractor](https://github.com/QAInsights/perftractor): Source code and releases
+- [Sitemap](https://jmeter.ai/sitemap-index.xml): Full XML sitemap for crawlers

@@ -15,27 +15,71 @@ const ogImageUrl = image.startsWith("http") ? image : `${siteUrl}${image}`;
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: siteConfig.title,
-  url: siteConfig.url,
-  description: siteConfig.description,
-  author: {
-    "@type": "Organization",
-    name: siteConfig.author,
-    url: siteConfig.authorUrl,
-  },
-  hasPart: products.map((p) => ({
-    "@type": "SoftwareApplication",
-    name: p.name,
-    description: p.description,
-    applicationCategory: "DeveloperApplication",
-    operatingSystem: "Cross-platform",
-    url: p.github,
-    author: {
-      "@type": "Organization",
-      name: siteConfig.author,
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      name: siteConfig.title,
+      url: siteConfig.url,
+      description: siteConfig.description,
+      inLanguage: "en-US",
+      publisher: { "@id": `${siteConfig.url}/#organization` },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${siteConfig.url}/blog/?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
-  })),
+    {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+      name: "QAInsights",
+      alternateName: "JMeter.AI",
+      url: siteConfig.authorUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/favicon.svg`,
+        width: 512,
+        height: 512,
+      },
+      founder: {
+        "@type": "Person",
+        name: siteConfig.author,
+        url: siteConfig.authorUrl,
+      },
+      sameAs: [
+        "https://github.com/QAInsights",
+        "https://twitter.com/QAInsights",
+        "https://youtube.com/@QAInsights",
+        "https://linkedin.com/in/naveenkumarn",
+        "https://qainsights.com",
+      ],
+    },
+    ...products.map((p) => ({
+      "@type": "SoftwareApplication",
+      "@id": `${siteConfig.url}/#${p.id}`,
+      name: p.name,
+      description: p.description,
+      applicationCategory: "DeveloperApplication",
+      applicationSubCategory: "Performance Testing",
+      operatingSystem: "Windows, macOS, Linux",
+      url: `${siteConfig.url}/#${p.id}`,
+      downloadUrl: p.github,
+      softwareVersion: "latest",
+      author: { "@id": `${siteConfig.url}/#organization` },
+      publisher: { "@id": `${siteConfig.url}/#organization` },
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+      },
+      isPartOf: { "@id": `${siteConfig.url}/#website` },
+    })),
+  ],
 };
 ---
 

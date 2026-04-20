@@ -13,7 +13,20 @@ export default defineConfig({
   // whitespace squashing off to avoid double-work.
   compressHTML: false,
   integrations: [
-    sitemap(),
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
+      serialize(item) {
+        if (item.url === 'https://jmeter.ai/') {
+          return { ...item, changefreq: 'daily', priority: 1.0 };
+        }
+        if (item.url.startsWith('https://jmeter.ai/blog/')) {
+          return { ...item, changefreq: 'monthly', priority: 0.8 };
+        }
+        return item;
+      },
+    }),
     expressiveCode({
       themes: ['github-dark'],
       styleOverrides: {

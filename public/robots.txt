@@ -1,4 +1,105 @@
+# JMeter.AI — robots.txt
+# https://jmeter.ai
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Default: allow all crawlers
+# ──────────────────────────────────────────────────────────────────────────────
 User-agent: *
 Allow: /
 
+# ──────────────────────────────────────────────────────────────────────────────
+# Search engines — explicitly allowed
+# ──────────────────────────────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# ──────────────────────────────────────────────────────────────────────────────
+# AI crawlers — explicitly allowed
+# (some hosts/CDN rulesets block these by default; explicit Allow overrides)
+# ──────────────────────────────────────────────────────────────────────────────
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Google AI — Gemini, AI Overviews, NotebookLM
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+# Amazon Alexa / Amazonbot
+User-agent: Amazonbot
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# Common Crawl (training data corpus used by many AI labs)
+User-agent: CCBot
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Diffbot (structured data AI)
+User-agent: Diffbot
+Allow: /
+
+# Bytedance / TikTok AI
+User-agent: Bytespider
+Allow: /
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Sitemap & llms.txt
+# ──────────────────────────────────────────────────────────────────────────────
 Sitemap: https://jmeter.ai/sitemap-index.xml

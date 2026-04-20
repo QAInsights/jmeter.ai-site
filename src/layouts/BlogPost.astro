@@ -27,9 +27,46 @@ const {
 const date = pubDate instanceof Date ? pubDate : new Date(String(pubDate));
 const heroSrc = image && String(image).trim().length > 0 ? image : FALLBACK_IMAGE;
 const heroAlt = imageAlt ?? title;
+
+const siteUrl = "https://jmeter.ai";
+const pageUrl = Astro.url?.toString() ?? siteUrl;
+const heroAbsUrl = heroSrc.startsWith("http") ? heroSrc : `${siteUrl}${heroSrc}`;
+
+const blogPostingLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": `${pageUrl}#article`,
+  headline: title,
+  description,
+  datePublished: date.toISOString(),
+  dateModified: date.toISOString(),
+  inLanguage: "en-US",
+  url: pageUrl,
+  image: {
+    "@type": "ImageObject",
+    url: heroAbsUrl,
+  },
+  author: {
+    "@type": "Person",
+    name: author,
+    url: "https://qainsights.com",
+  },
+  publisher: {
+    "@id": `${siteUrl}/#organization`,
+  },
+  isPartOf: {
+    "@id": `${siteUrl}/#website`,
+  },
+  keywords: tags.join(", "),
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": pageUrl,
+  },
+};
 ---
 
 <JMeterLayout hasSlot={true} activeProduct="blog">
+  <script type="application/ld+json" set:html={JSON.stringify(blogPostingLd)} />
   <div class="flex-1 overflow-y-auto p-6 md:p-10">
     <article class="max-w-3xl mx-auto">
       <figure class="mb-8 rounded-lg overflow-hidden border border-slate-700/50 bg-slate-800/30">
