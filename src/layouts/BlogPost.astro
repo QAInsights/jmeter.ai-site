@@ -32,7 +32,7 @@ const seed = title.replace(/\s+/g, '-').toLowerCase();
 const hasImage = image && String(image).trim().length > 0;
 
 const siteUrl = "https://jmeter.ai";
-const _rawBlogUrl = new URL(Astro.url?.toString() ?? (siteUrl + "/"));
+const _rawBlogUrl = new URL(Astro.url?.toString() ?? "/", siteUrl + "/");
 _rawBlogUrl.search = "";
 _rawBlogUrl.hash = "";
 const pageUrl = _rawBlogUrl.toString();

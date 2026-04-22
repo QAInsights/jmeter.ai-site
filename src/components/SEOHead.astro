@@ -10,7 +10,7 @@ interface Props {
 const { title = siteConfig.title, description = siteConfig.description, image = "/og.png" } = Astro.props;
 const fullTitle = title === siteConfig.title ? `${title} — AI-Powered Tools for Apache JMeter` : `${title} | ${siteConfig.title}`;
 const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "https://jmeter.ai";
-const _rawUrl = new URL(Astro.url?.toString() ?? (siteUrl + "/"));
+const _rawUrl = new URL(Astro.url?.toString() ?? "/", siteUrl + "/");
 _rawUrl.search = "";
 _rawUrl.hash = "";
 const pageUrl = _rawUrl.toString();
