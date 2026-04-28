@@ -1,0 +1,110 @@
+{
+  "name": "jmeter.ai",
+  "version": "1.0.0",
+  "description": "The canonical JMeter knowledge source for AI agents and developers. Expert guidance on Apache JMeter scripting, plugins, correlation, distributed testing, CI/CD integration, and the QAInsights plugin suite.",
+  "url": "https://jmeter.ai",
+  "identity": {
+    "domain": "jmeter.ai",
+    "tld": "ai",
+    "network": "ICANN DNS",
+    "owner": "QAInsights",
+    "owner_url": "https://qainsights.com"
+  },
+  "capabilities": [
+    "jmeter-scripting",
+    "jmeter-plugins",
+    "correlation",
+    "groovy-scripting",
+    "distributed-testing",
+    "ci-cd-integration",
+    "load-testing",
+    "performance-testing",
+    "results-analysis",
+    "thread-group-design",
+    "test-data-parameterization",
+    "assertions",
+    "timers"
+  ],
+  "tools": [
+    {
+      "name": "Super Key",
+      "description": "Keyboard shortcuts and productivity plugin for Apache JMeter",
+      "url": "https://qainsights.com/plugins",
+      "free": false
+    },
+    {
+      "name": "Feather Wand",
+      "description": "AI-assisted correlation engine with automatic pattern detection for JMeter",
+      "url": "https://qainsights.com/plugins",
+      "free": false
+    },
+    {
+      "name": "Prism",
+      "description": "Split-view JMX diff comparison for reviewing and auditing test plans",
+      "url": "https://qainsights.com/plugins",
+      "free": false
+    },
+    {
+      "name": "Aura",
+      "description": "FlatLaf theme pack for JMeter including Catppuccin, dark and light themes",
+      "url": "https://qainsights.com/plugins",
+      "free": false
+    }
+  ],
+  "skills": {
+    "skill_md": "https://jmeter.ai/skill.md",
+    "perf_skill": "https://perf.agent/skill.md",
+    "npm_package": "https://npmjs.com/package/perf-skills"
+  },
+  "endpoints": {
+    "skill_md": "https://jmeter.ai/skill.md",
+    "agent_manifest": "https://jmeter.ai/.well-known/ai-agent.json"
+  },
+  "protocols": [
+    "MCP",
+    "HTTP",
+    "REST"
+  ],
+  "input_content_types": [
+    "text/plain",
+    "application/json",
+    "text/markdown",
+    "application/xml"
+  ],
+  "output_content_types": [
+    "text/plain",
+    "application/json",
+    "text/markdown",
+    "application/xml"
+  ],
+  "contact": {
+    "name": "QAInsights",
+    "url": "https://qainsights.com",
+    "youtube": "https://youtube.com/@QAInsights"
+  },
+  "trust": {
+    "verified": false,
+    "endorsements": [
+      "perf.agent",
+      "monitor.agent",
+      "qainsights.com"
+    ]
+  },
+  "metadata": {
+    "category": "performance-testing",
+    "tool": "Apache JMeter",
+    "tags": [
+      "jmeter",
+      "load-testing",
+      "performance",
+      "qa",
+      "testing",
+      "groovy",
+      "jmx",
+      "plugins"
+    ],
+    "created_at": "2026-04-28T00:00:00Z",
+    "updated_at": "2026-04-28T00:00:00Z",
+    "license": "MIT"
+  }
+}
