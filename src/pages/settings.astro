@@ -1,0 +1,74 @@
+---
+import JMeterLayout from "../layouts/JMeterLayout.astro";
+import { Show } from "@clerk/astro/components";
+import { SignIn } from "@clerk/astro/components";
+import { UserProfile } from "@clerk/astro/components";
+---
+
+<JMeterLayout hasSlot={true} activeProduct="feather-wand">
+  <main class="flex-1 overflow-auto p-6">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-2xl font-bold text-jm-text mb-6" style="font-family: 'Orbitron', sans-serif;">
+        Settings
+      </h1>
+
+      <Show when="signed-out">
+        <div class="bg-jm-surface border border-jm-border rounded p-6 text-center">
+          <p class="text-jm-text-dim mb-6 font-mono text-sm">
+            Please sign in to access settings.
+          </p>
+          <SignIn
+            routing="hash"
+            signUpUrl="/settings"
+            appearance={{
+              elements: {
+                rootBox: "mx-auto",
+                card: "bg-jm-bg border border-jm-border shadow-none",
+                headerTitle: "text-jm-text font-mono",
+                headerSubtitle: "text-jm-text-dim font-mono text-xs",
+                formButtonPrimary: "bg-jm-accent text-jm-bg font-mono hover:opacity-90",
+                formFieldLabel: "text-jm-text font-mono text-xs",
+                formFieldInput: "bg-jm-surface border-jm-border text-jm-text font-mono",
+                footerActionLink: "text-jm-accent font-mono",
+                socialButtonsBlockButton: "border-jm-border text-jm-text font-mono hover:bg-jm-surface-alt",
+                dividerLine: "bg-jm-border",
+                dividerText: "text-jm-text-dim font-mono text-xs",
+              },
+            }}
+          />
+        </div>
+      </Show>
+
+      <Show when="signed-in">
+        <div class="space-y-6">
+          <section class="bg-jm-surface border border-jm-border rounded p-6">
+            <h2 class="text-lg font-semibold text-jm-text mb-4 font-mono text-sm">
+              Profile
+            </h2>
+            <p class="text-jm-text-dim font-mono text-xs">
+              Profile settings coming soon.
+            </p>
+          </section>
+
+          <section class="bg-jm-surface border border-jm-border rounded p-6">
+            <h2 class="text-lg font-semibold text-jm-text mb-4 font-mono text-sm">
+              Preferences
+            </h2>
+            <p class="text-jm-text-dim font-mono text-xs">
+              Preference settings coming soon.
+            </p>
+          </section>
+
+          <section class="bg-jm-surface border border-jm-border rounded p-6">
+            <h2 class="text-lg font-semibold text-jm-text mb-4 font-mono text-sm">
+              Account
+            </h2>
+            <p class="text-jm-text-dim font-mono text-xs">
+              Account settings coming soon.
+            </p>
+          </section>
+        </div>
+      </Show>
+    </div>
+  </main>
+</JMeterLayout>

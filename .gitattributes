@@ -1,0 +1,29 @@
+# Code Provenance Tracking
+# This file marks source files for AI-generated code tracking
+
+# Track all source files for provenance
+*.ts provenance=text
+*.js provenance=text
+*.py provenance=text
+*.java provenance=text
+*.go provenance=text
+*.rs provenance=text
+*.cpp provenance=text
+*.c provenance=text
+*.h provenance=text
+*.hpp provenance=text
+
+# Mark files that contain AI-generated code sections
+*.ts diff=provenance
+*.js diff=provenance
+*.py diff=provenance
+
+# Binary files - no provenance tracking
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary

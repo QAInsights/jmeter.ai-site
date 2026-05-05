@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1778023604996-8a9ebe66a03a20eb",
+    "timestamp": "2026-05-05T23:26:44.996Z",
+    "file": "vercel.json",
+    "language": "json",
+    "lineRange": [
+      4,
+      4
+    ],
+    "code": "(.*)\",\n      \"has\": [{ \"type\": \"host\", \"value\": \"www.jmeter.ai\" }],\n      \"destination\": \"https://jmeter.ai/$1\",\n      \"permanent\": true\n    },\n    {\n      \"source\": \"/",
+    "codeHash": "ffc30343dedc7043",
+    "detection": {
+      "speed_ms": 0,
+      "is_block": true,
+      "is_tab_completion": false,
+      "confidence": 65
+    },
+    "compliance": {
+      "flags": [],
+      "risk_level": "low",
+      "human_review_required": false
+    },
+    "model": {
+      "name": "Unknown",
+      "version": "1.0",
+      "provider": "Detected"
+    }
+  }
+]

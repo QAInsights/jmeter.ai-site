@@ -1,6 +1,12 @@
 {
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.jmeter.ai" }],
+      "destination": "https://jmeter.ai/$1",
+      "permanent": true
+    },
+    {
       "source": "/",
       "has": [{ "type": "query", "key": "ref" }],
       "destination": "https://jmeter.ai/",

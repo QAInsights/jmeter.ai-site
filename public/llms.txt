@@ -48,6 +48,8 @@ compatible with Apache JMeter 5.x and later.
 
 - [RSS Feed](https://jmeter.ai/rss.xml): Machine-readable feed of the latest blog posts and updates.
 
+- [Settings](https://jmeter.ai/settings/): User account settings and profile management for authenticated users.
+
 ## About
 
 JMeter.AI is maintained by NaveenKumar Namachivayam, a performance engineering expert, open-source

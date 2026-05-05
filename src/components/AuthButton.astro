@@ -1,0 +1,106 @@
+---
+import { SignInButton } from "@clerk/astro/components";
+import { UserButton } from "@clerk/astro/components";
+import { Show } from "@clerk/astro/components";
+---
+
+<div class="auth-container">
+  <Show when="signed-out">
+    <SignInButton mode="modal">
+      <button class="signin-btn flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded transition-colors bg-jm-accent/10 text-jm-accent border border-jm-accent/30 hover:bg-jm-accent/20">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Sign In</span>
+      </button>
+    </SignInButton>
+  </Show>
+
+  <Show when="signed-in">
+    <UserButton
+      userProfileMode="navigation"
+      userProfileUrl="/settings"
+      appearance={{
+        elements: {
+          userButtonAvatarBox: "w-7 h-7 rounded-full border border-jm-border",
+          userButtonPopoverCard: "bg-jm-surface border border-jm-border rounded shadow-lg",
+          userButtonPopoverActionButton: "text-jm-text hover:bg-jm-surface-alt px-3 py-2 text-sm font-mono",
+          userButtonPopoverFooter: "hidden",
+        },
+      }}
+    >
+      <UserButton.MenuItems>
+        <UserButton.Link label="Settings" href="/settings">
+          <svg slot="startIcon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </UserButton.Link>
+      </UserButton.MenuItems>
+    </UserButton>
+  </Show>
+</div>
+
+<style>
+  .auth-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .signin-btn {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Override Clerk's default styling to match our theme */
+  :global(.cl-userButtonBox) {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  :global(.cl-userButtonAvatarBox) {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 9999px !important;
+    border: 1px solid var(--color-jm-border) !important;
+  }
+
+  :global(.cl-userButtonTrigger) {
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    cursor: pointer !important;
+  }
+
+  :global(.cl-userButtonPopoverCard) {
+    background: var(--color-jm-surface) !important;
+    border: 1px solid var(--color-jm-border) !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    min-width: 140px !important;
+  }
+
+  :global(.cl-userButtonPopoverActionButton) {
+    color: var(--color-jm-text) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    padding: 8px 12px !important;
+  }
+
+  :global(.cl-userButtonPopoverActionButton:hover) {
+    background: var(--color-jm-surface-alt) !important;
+  }
+
+  :global(.cl-userButtonPopoverFooter) {
+    display: none !important;
+  }
+
+  :global(.cl-userButtonPopoverMain) {
+    padding: 4px !important;
+  }
+
+  :global(.cl-signInButton) {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+  }
+</style>

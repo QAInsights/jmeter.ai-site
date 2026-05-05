@@ -5,6 +5,7 @@ import expressiveCode from 'astro-expressive-code';
 import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
 import compress from 'astro-compress';
+import clerk from '@clerk/astro';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,6 +14,7 @@ export default defineConfig({
   // whitespace squashing off to avoid double-work.
   compressHTML: false,
   integrations: [
+    clerk(),
     sitemap({
       changefreq: 'weekly',
       priority: 0.7,
@@ -23,6 +25,9 @@ export default defineConfig({
         }
         if (item.url.startsWith('https://jmeter.ai/blog/')) {
           return { ...item, changefreq: 'monthly', priority: 0.8 };
+        }
+        if (item.url === 'https://jmeter.ai/settings/') {
+          return { ...item, changefreq: 'monthly', priority: 0.5 };
         }
         return item;
       },

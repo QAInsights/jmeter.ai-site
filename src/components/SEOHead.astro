@@ -16,6 +16,8 @@ _rawUrl.hash = "";
 const pageUrl = _rawUrl.toString();
 const ogImageUrl = image.startsWith("http") ? image : `${siteUrl}${image}`;
 
+const isSettingsPage = Astro.url?.pathname === '/settings/' || Astro.url?.pathname === '/settings';
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -36,6 +38,15 @@ const jsonLd = {
         "query-input": "required name=search_term_string",
       },
     },
+    ...(isSettingsPage ? [{
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}/settings/#webpage`,
+      name: "Settings | JMeter.AI",
+      url: `${siteConfig.url}/settings/`,
+      description: "User account settings and profile management for JMeter.AI",
+      inLanguage: "en-US",
+      isPartOf: { "@id": `${siteConfig.url}/#website` },
+    }] : []),
     {
       "@type": "Organization",
       "@id": `${siteConfig.url}/#organization`,
