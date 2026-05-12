@@ -5,6 +5,7 @@ import { disclaimerText } from "./constants";
 import SuperKeySimulator from "./simulators/SuperKeySimulator.astro";
 import PrismSimulator from "./simulators/PrismSimulator.astro";
 import FeatherWandSimulator from "./simulators/FeatherWandSimulator.astro";
+import ReadmeSimulator from "./simulators/ReadmeSimulator.astro";
 import ThemeGallery from "./simulators/ThemeGallery.astro";
 
 interface Props {
@@ -69,6 +70,11 @@ const { product } = Astro.props;
   {/* ===== FEATHER WAND SIMULATOR — Feather Wand only ===== */}
   {product.id === "feather-wand" && (
     <FeatherWandSimulator disclaimer={disclaimerText[product.id] ?? ""} />
+  )}
+
+  {/* ===== README SIMULATOR — README Config only ===== */}
+  {product.id === "readme-config" && (
+    <ReadmeSimulator disclaimer={disclaimerText[product.id] ?? ""} />
   )}
 
   {/* ===== THEME GALLERY — JMeter Studio only ===== */}

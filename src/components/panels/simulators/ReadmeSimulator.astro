@@ -1,0 +1,152 @@
+---
+interface Props {
+  disclaimer: string;
+}
+
+const { disclaimer } = Astro.props;
+
+const defaultMarkdown = `# Test Plan: User Authentication
+This test suite validates the login flow for the production API.
+
+## Pre-requisites
+- Valid credentials in \`users.csv\`
+- Target environment: \`https://api.example.com\`
+
+## Deep Links
+- [View Login Sampler](jmeter://Login%20Request)
+- [Check Assertion](jmeter://Response%20Assertion)
+
+## TODO
+- [x] Add negative test cases
+- [ ] Implement MFA bypass for sandbox
+`;
+---
+
+<div class="mt-8" id="readme-simulator">
+  <div class="flex items-center gap-2 mb-2">
+    <span class="text-base">📝</span>
+    <span class="text-xs tracking-[0.15em] uppercase font-bold" style="font-family: 'JetBrains Mono', monospace; color: #00e5ff;">INTERACTIVE DEMO</span>
+    <span class="flex-1 h-px ml-1" style="background: linear-gradient(to right, #00e5ff40, transparent);" />
+  </div>
+  
+  <p class="text-sm text-jm-text-dim mb-5" style="font-family: 'JetBrains Mono', monospace;">
+    Experience the split-pane Markdown editor directly in the browser.
+  </p>
+
+  <div class="bg-jm-surface border border-jm-border rounded-xl overflow-hidden flex flex-col h-[400px]">
+    {/* Tabs */}
+    <div class="flex items-center bg-jm-surface-alt/60 border-b border-jm-border px-1 pt-1">
+      <button 
+        class="readme-sim-tab px-4 py-2 text-xs font-bold border-t border-l border-r border-jm-border rounded-t-lg bg-jm-bg text-jm-text relative z-10 -mb-px"
+        data-readme-tab="write"
+      >
+        Write
+      </button>
+      <button 
+        class="readme-sim-tab px-4 py-2 text-xs font-bold border-transparent text-jm-text-muted hover:text-jm-text-dim"
+        data-readme-tab="preview"
+      >
+        Preview
+      </button>
+      <div class="ml-auto px-3 py-1 bg-[#24292f] text-[#c9d1d9] text-[10px] rounded-md mr-2 border border-[#30363d] flex items-center gap-1.5">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        GFM Enabled
+      </div>
+    </div>
+
+    {/* Content */}
+    <div class="flex-1 overflow-hidden relative">
+      {/* Write Tab */}
+      <div id="readme-sim-write" class="h-full">
+        <textarea 
+          class="w-full h-full p-4 bg-jm-bg text-jm-text-dim text-sm focus:outline-none resize-none font-mono selection:bg-jm-accent/20"
+          spellcheck="false"
+        >{defaultMarkdown}</textarea>
+      </div>
+
+      {/* Preview Tab */}
+      <div id="readme-sim-preview" class="h-full hidden overflow-y-auto p-6 bg-white text-[#24292f]">
+        <div class="prose prose-sm max-w-none prose-slate">
+          <h1 class="border-b border-gray-200 pb-2 mb-4 text-2xl font-bold">Test Plan: User Authentication</h1>
+          <p class="mb-4">This test suite validates the login flow for the production API.</p>
+          
+          <h2 class="border-b border-gray-200 pb-1 mb-3 text-xl font-bold mt-6">Pre-requisites</h2>
+          <ul class="list-disc pl-5 mb-4">
+            <li>Valid credentials in <code class="bg-gray-100 px-1 rounded">users.csv</code></li>
+            <li>Target environment: <code class="bg-gray-100 px-1 rounded">https://api.example.com</code></li>
+          </ul>
+
+          <h2 class="border-b border-gray-200 pb-1 mb-3 text-xl font-bold mt-6">Deep Links</h2>
+          <ul class="list-disc pl-5 mb-4">
+            <li><a href="#" class="text-blue-600 hover:underline">View Login Sampler</a> <span class="text-[10px] bg-gray-100 px-1 rounded ml-1 text-gray-500">jmeter://Login%20Request</span></li>
+            <li><a href="#" class="text-blue-600 hover:underline">Check Assertion</a> <span class="text-[10px] bg-gray-100 px-1 rounded ml-1 text-gray-500">jmeter://Response%20Assertion</span></li>
+          </ul>
+
+          <h2 class="border-b border-gray-200 pb-1 mb-3 text-xl font-bold mt-6">TODO</h2>
+          <ul class="list-none pl-0 mb-4">
+            <li class="flex items-center gap-2">
+              <input type="checkbox" checked disabled />
+              <span>Add negative test cases</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <input type="checkbox" disabled />
+              <span>Implement MFA bypass for sandbox</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Disclaimer */}
+  <div class="mt-4 px-4 py-3 rounded-lg border border-jm-border bg-jm-surface-alt/30">
+    <div class="flex items-start gap-2">
+      <svg class="w-4 h-4 text-jm-accent shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+      <div>
+        <p class="text-xs font-semibold text-jm-text mb-1" style="font-family: 'JetBrains Mono', monospace;">UI Simulation</p>
+        <p class="text-[11px] text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">{disclaimer}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initReadmeSim() {
+    const tabs = document.querySelectorAll('.readme-sim-tab');
+    const writeTab = document.getElementById('readme-sim-write');
+    const previewTab = document.getElementById('readme-sim-preview');
+    const textarea = writeTab?.querySelector('textarea');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const type = (tab as HTMLElement).dataset.readmeTab;
+        
+        // Update active tab styles
+        tabs.forEach(t => {
+          const isActive = (t as HTMLElement).dataset.readmeTab === type;
+          if (isActive) {
+            t.classList.add('bg-jm-bg', 'text-jm-text', 'border-jm-border', 'z-10', '-mb-px');
+            t.classList.remove('bg-transparent', 'text-jm-text-muted', 'border-transparent');
+          } else {
+            t.classList.remove('bg-jm-bg', 'text-jm-text', 'border-jm-border', 'z-10', '-mb-px');
+            t.classList.add('bg-transparent', 'text-jm-text-muted', 'border-transparent');
+          }
+        });
+
+        // Switch content
+        if (type === 'write') {
+          writeTab?.classList.remove('hidden');
+          previewTab?.classList.add('hidden');
+        } else {
+          writeTab?.classList.add('hidden');
+          previewTab?.classList.remove('hidden');
+          // Simple preview simulation — in a real app we'd use marked or similar
+        }
+      });
+    });
+  }
+
+  // Handle both initial load and view transitions
+  initReadmeSim();
+  document.addEventListener('astro:page-load', initReadmeSim);
+</script>

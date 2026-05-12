@@ -4,6 +4,7 @@
 export const productEmoji: Record<string, string> = {
   "feather-wand": "🪄",
   "super-key": "⌨️",
+  "readme-config": "📝",
   "jmeter-studio": "🎨",
   "perftractor": "🧮",
   "academy": "🎓",
@@ -19,6 +20,8 @@ export const disclaimerText: Record<string, string> = {
     "This is a browser-based demo simulating Prism's multi-tab interface. The actual JMeter plugin features, tab management, and behavior may vary. For full functionality, install the plugin in Apache JMeter.",
   "feather-wand":
     "This demo uses pre-scripted AI responses to simulate Feather Wand's capabilities. The actual plugin uses real LLM integration (OpenAI, Anthropic, etc.) with full context awareness and advanced code generation. Responses and behavior may vary in the production version.",
+  "readme-config":
+    "This is a browser-based simulation of the README Config Element. The split-pane Markdown editor and preview rendering are for demonstration purposes only. For the full experience including JMeter deep-links and GFM support, download and install the actual plugin.",
 };
 
 // Shared Tailwind class for all calculator number inputs

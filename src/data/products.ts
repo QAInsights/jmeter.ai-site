@@ -260,6 +260,97 @@ export const products: Product[] = [
     socials: defaultSocials,
   },
   {
+    id: "readme-config",
+    name: "README Config",
+    tagline: "Embed Markdown documentation directly inside JMeter",
+    subtitlePrefix: "LIVE",
+    subtitleHighlight: "MARKDOWN DOCUMENTATION",
+    subtitleSuffix: "FOR APACHE JMETER",
+    description:
+      "README Config adds a live Markdown documentation node to any JMeter test plan. Keep your context, runbooks, and notes right alongside the test elements they describe, with zero performance impact.",
+    icon: "file-text",
+    color: "#00e5ff",
+    colorRgb: "0, 229, 255",
+    github: "https://github.com/QAInsights/jmeter-readme-config",
+    treeNodes: [
+      { id: "overview", label: "Overview", icon: "info" },
+      { id: "features", label: "Features", icon: "zap" },
+      { id: "installation", label: "Installation", icon: "download" },
+      { id: "github", label: "GitHub", icon: "github" },
+      { id: "connect", label: "Connect", icon: "users" },
+    ],
+    badges: [
+      { label: "DOCUMENTATION", emoji: "📝", variant: "filled", color: "#00e5ff" },
+      { label: "FOREVER FREE", emoji: "🎁", variant: "outlined", color: "#00e676" },
+      { label: "OPEN SOURCE", emoji: "⚡", variant: "outlined", color: "#00e676" },
+      { label: "GFM SUPPORT", emoji: "🐙", variant: "outlined", color: "#ffab00" },
+    ],
+    infoCards: [
+      { label: "CATEGORY", value: "Productivity / Docs", color: "#00e5ff" },
+      { label: "PLATFORM", value: "Apache JMeter Plugin", color: "#00e676" },
+      { label: "LICENSE", value: "MIT (Free)", color: "#00e5ff" },
+      { label: "PRICE", value: "Always Free", color: "#ffab00" },
+    ],
+    featuresHeadingPrefix: "Documentation",
+    featuresHeadingHighlight: "Redefined",
+    featuresSubtitle: "Keep your test plan documentation where it belongs — inside your test plan.",
+    features: [
+      {
+        title: "Live Markdown Preview",
+        description: "Write in the editor tab and see a live GitHub-style preview instantly in the next tab.",
+        icon: "📝",
+      },
+      {
+        title: "GFM Support",
+        description: "Full support for GitHub Flavored Markdown including tables, task lists, and strikethrough.",
+        icon: "🐙",
+      },
+      {
+        title: "JMeter Deep-links",
+        description: "Create clickable links that navigate and scroll to specific nodes in your JMeter test plan tree.",
+        icon: "🔗",
+      },
+      {
+        title: "Zero Perf Impact",
+        description: "The element is always disabled during test runs, consuming no threads and having zero impact on metrics.",
+        icon: "⚡",
+      },
+      {
+        title: "External Links",
+        description: "Clickable hyperlinks open directly in your system browser for easy access to external docs.",
+        icon: "🌐",
+      },
+      {
+        title: "Theme Aware",
+        description: "The UI automatically adapts to your JMeter theme for a consistent and integrated experience.",
+        icon: "🎨",
+      },
+    ],
+    ossVsPro: [],
+    installation: [
+      {
+        title: "Download the JAR",
+        description: "Grab the latest release from the GitHub Releases page.",
+        code: "curl -L -o readme-config.jar https://github.com/QAInsights/jmeter-readme-config/releases/latest",
+      },
+      {
+        title: "Copy to JMeter",
+        description: "Place the JAR file into your JMeter lib/ext directory.",
+        code: "cp readme-config.jar $JMETER_HOME/lib/ext/",
+      },
+      {
+        title: "Restart JMeter",
+        description: "Restart JMeter to load the plugin.",
+        code: "$JMETER_HOME/bin/jmeter",
+      },
+      {
+        title: "Add Element",
+        description: "Right-click any node → Add → Config Element → README Config Element.",
+      },
+    ],
+    socials: defaultSocials,
+  },
+  {
     id: "jmeter-studio",
     name: "JMeter Studio",
     tagline: "Beautiful Themes for Apache JMeter",
