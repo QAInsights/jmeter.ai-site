@@ -99,9 +99,9 @@ const icons: Record<string, string> = {
   </div>
 
   <!-- Metrics Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-4" aria-label="LLM Metrics Definitions">
     {metrics.map((m) => (
-      <div class="bg-jm-surface border border-jm-border p-5 rounded-lg hover:border-jm-border-light transition-all group flex gap-4">
+      <article class="bg-jm-surface border border-jm-border p-5 rounded-lg hover:border-jm-border-light transition-all group flex gap-4">
         <div class={`w-12 h-12 rounded-lg ${m.bg} flex items-center justify-center shrink-0`}>
           <svg
             class={`w-6 h-6 ${m.color}`}
@@ -116,16 +116,16 @@ const icons: Record<string, string> = {
         </div>
         <div class="flex flex-col gap-1.5">
           <div class="flex items-center gap-2">
-            <span class="text-base font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;">{m.name}</span>
+            <h4 class="text-base font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;">{m.name}</h4>
             <span class="text-[11px] text-jm-text-muted font-medium uppercase tracking-wider ml-1" style="font-family: 'JetBrains Mono', monospace;">{m.fullName}</span>
           </div>
           <p class="text-sm text-jm-text-dim leading-relaxed">
             {m.definition}
           </p>
         </div>
-      </div>
+      </article>
     ))}
-  </div>
+  </section>
 
   <!-- Quick Reference Table -->
   <div class="bg-jm-surface border border-jm-border rounded-lg overflow-hidden mt-8">

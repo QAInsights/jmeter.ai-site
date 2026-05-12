@@ -565,7 +565,7 @@ export const products: Product[] = [
     subtitleHighlight: "LLM & AI PROMPTS",
     subtitleSuffix: "FOR PERFORMANCE ENGINEERS",
     description:
-      "A curated library of performance engineering prompts for JMeter, k6, Gatling, and beyond. Copy-ready prompts for test planning, script generation, results analysis, CI/CD integration, and more.",
+      "The ultimate hub for LLM performance engineering. Access a curated library of AI prompts for JMeter and k6, along with comprehensive benchmarks and performance metrics like TTFT, TPOT, and ITL.",
     icon: "cpu",
     color: "#00e676",
     colorRgb: "0, 230, 118",
@@ -590,7 +590,7 @@ export const products: Product[] = [
     socials: defaultSocials,
     treeNodes: [
       { id: "prompts", label: "Browse Prompts", icon: "book-open" },
-      { id: "metrics", label: "Metrics", icon: "bar-chart" },
+      { id: "metrics", label: "Performance Metrics", icon: "bar-chart" },
     ],
   },
   {

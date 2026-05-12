@@ -17,7 +17,7 @@ metadata:
     api_base: https://jmeter.ai
     contact: https://qainsights.com
     youtube: https://youtube.com/@QAInsights
-    plugins: https://qainsights.com/plugins
+    plugins: https://plugins.jmeter.ai
 ---
 
 # jmeter.ai — The Canonical JMeter Agent Skill
