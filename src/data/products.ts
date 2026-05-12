@@ -951,6 +951,7 @@ export const jmeterElements: JMeterElement[] = [
   { name: "BeanShell PreProcessor", type: "element", category: "PreProcessors", icon: "📜", parent: "Thread Group" },
   { name: "JSR223 PreProcessor", type: "element", category: "PreProcessors", icon: "📜", parent: "Thread Group" },
   { name: "JSR223 PostProcessor", type: "element", category: "PostProcessors", icon: "📜", parent: "Thread Group" },
+  { name: "README Config Element", type: "element", category: "Config", icon: "📝", parent: "Thread Group" },
   // Actions
   { name: "Action: Run Tg", type: "action", category: "Actions", icon: "▶️" },
   { name: "Action: Run Tg No Timers", type: "action", category: "Actions", icon: "▶️" },
@@ -1077,7 +1078,7 @@ export const playlistConfig = {
 
 export const siteConfig = {
   title: "JMeter.AI - Performance Intelligence Suite",
-  description: "AI-Powered Tools & Plugins for Apache JMeter - Supercharge your performance testing workflow.",
+  description: "AI-Powered Tools & Plugins for Apache JMeter including Feather Wand, Super Key, and README Config. Supercharge your performance testing workflow.",
   url: "https://jmeter.ai",
   author: "NaveenKumar Namachivayam",
   authorUrl: "https://qainsights.com",
