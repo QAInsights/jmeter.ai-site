@@ -1,0 +1,150 @@
+---
+const metrics = [
+  {
+    id: "ttft",
+    name: "TTFT",
+    fullName: "Time to First Token",
+    definition: "The time between sending your prompt and receiving the very first token. This is the most critical metric for interactive user experience.",
+    icon: "clock",
+    color: "text-jm-accent",
+    bg: "bg-jm-accent/10"
+  },
+  {
+    id: "ttst",
+    name: "TTST",
+    fullName: "Time to Second Token",
+    definition: "The time gap between the first and second tokens. Measures how quickly the model transitions from processing input to active generation.",
+    icon: "step-forward",
+    color: "text-jm-purple",
+    bg: "bg-jm-purple/10"
+  },
+  {
+    id: "tpot",
+    name: "TPOT",
+    fullName: "Time Per Output Token",
+    definition: "The average time taken to generate each token after the first. This determines how smooth the streaming text appears to the user.",
+    icon: "zap",
+    color: "text-jm-green",
+    bg: "bg-jm-green/10"
+  },
+  {
+    id: "itl",
+    name: "ITL",
+    fullName: "Inter-Token Latency",
+    definition: "The average delay between consecutive tokens. Focuses on consistency; high variance here causes 'jittery' or stuttering text.",
+    icon: "activity",
+    color: "text-jm-cyan",
+    bg: "bg-jm-cyan/10"
+  },
+  {
+    id: "e2e",
+    name: "E2E",
+    fullName: "End-to-End Latency",
+    definition: "Total time from request start to final token. Useful for SLAs but hides the breakdown between prefill and decode phases.",
+    icon: "refresh-cw",
+    color: "text-jm-amber",
+    bg: "bg-jm-amber/10"
+  },
+  {
+    id: "throughput",
+    name: "Throughput",
+    fullName: "Token & Request Throughput",
+    definition: "The rate of tokens or requests processed per second. Essential for system capacity planning and cost estimation.",
+    icon: "bar-chart",
+    color: "text-jm-blue",
+    bg: "bg-jm-blue/10"
+  },
+  {
+    id: "goodput",
+    name: "Goodput",
+    fullName: "SLO-Meeting Throughput",
+    definition: "The number of requests per second that actually meet your defined performance SLOs. The 'honest' measure of user experience.",
+    icon: "award",
+    color: "text-jm-red",
+    bg: "bg-jm-red/10"
+  },
+  {
+    id: "queue",
+    name: "Queue Time",
+    fullName: "Request Wait Time",
+    definition: "Time spent waiting in the inference server's queue before processing begins. Spikes under high concurrency load.",
+    icon: "list",
+    color: "text-jm-text-muted",
+    bg: "bg-jm-surface-alt"
+  }
+];
+
+const icons: Record<string, string> = {
+  clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  "step-forward": '<polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/>',
+  zap: '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>',
+  activity: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+  "refresh-cw": '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/>',
+  "bar-chart": '<line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>',
+  award: '<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/>',
+  list: '<line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/>'
+};
+---
+
+<div class="space-y-8" id="metrics-panel">
+  <!-- Metrics Header -->
+  <div class="flex flex-col gap-2">
+    <div class="flex items-center gap-2">
+      <span class="text-xs font-bold text-jm-accent uppercase tracking-widest" style="font-family: 'JetBrains Mono', monospace;">Reference Guide</span>
+    </div>
+    <h3 class="text-2xl font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;">LLM Performance Metrics</h3>
+    <p class="text-base text-jm-text-dim max-w-2xl leading-relaxed">
+      A comprehensive guide to the core metrics used to evaluate and benchmark Large Language Model performance. Understanding these is key to delivering high-quality AI experiences.
+    </p>
+  </div>
+
+  <!-- Metrics Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {metrics.map((m) => (
+      <div class="bg-jm-surface border border-jm-border p-5 rounded-lg hover:border-jm-border-light transition-all group flex gap-4">
+        <div class={`w-12 h-12 rounded-lg ${m.bg} flex items-center justify-center shrink-0`}>
+          <svg
+            class={`w-6 h-6 ${m.color}`}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            set:html={icons[m.icon]}
+          />
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <div class="flex items-center gap-2">
+            <span class="text-base font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;">{m.name}</span>
+            <span class="text-[11px] text-jm-text-muted font-medium uppercase tracking-wider ml-1" style="font-family: 'JetBrains Mono', monospace;">{m.fullName}</span>
+          </div>
+          <p class="text-sm text-jm-text-dim leading-relaxed">
+            {m.definition}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Quick Reference Table -->
+  <div class="bg-jm-surface border border-jm-border rounded-lg overflow-hidden mt-8">
+    <div class="px-6 py-4 border-b border-jm-border bg-jm-surface-alt">
+      <h4 class="text-xs font-bold text-jm-text tracking-widest uppercase" style="font-family: 'JetBrains Mono', monospace;">Optimizing for Use Cases</h4>
+    </div>
+    <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="space-y-3">
+        <h5 class="text-sm font-bold text-jm-accent uppercase" style="font-family: 'Orbitron', sans-serif;">Chatbots</h5>
+        <p class="text-sm text-jm-text-dim leading-relaxed">Prioritize <span class="text-jm-text font-semibold">TTFT</span> for perceived speed. Users care most about how quickly the first word appears.</p>
+      </div>
+      <div class="space-y-3">
+        <h5 class="text-sm font-bold text-jm-purple uppercase" style="font-family: 'Orbitron', sans-serif;">Batch Jobs</h5>
+        <p class="text-sm text-jm-text-dim leading-relaxed">Focus on <span class="text-jm-text font-semibold">Throughput</span> and <span class="text-jm-text font-semibold">E2E Latency</span>. Cost per token is usually the primary constraint here.</p>
+      </div>
+      <div class="space-y-3">
+        <h5 class="text-sm font-bold text-jm-green uppercase" style="font-family: 'Orbitron', sans-serif;">Code Gen</h5>
+        <p class="text-sm text-jm-text-dim leading-relaxed">Prioritize <span class="text-jm-text font-semibold">ITL Consistency</span>. Stuttering generation is highly disruptive during active coding tasks.</p>
+      </div>
+    </div>
+  </div>
+</div>

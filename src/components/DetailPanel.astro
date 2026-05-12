@@ -1,4 +1,4 @@
-﻿---
+---
 import { products, playlistConfig } from "../data/products";
 import PromptsPanel from "./PromptsPanel.astro";
 import BlogPanel from "./BlogPanel.astro";
@@ -10,6 +10,7 @@ import GithubPanel from "./panels/GithubPanel.astro";
 import ConnectPanel from "./panels/ConnectPanel.astro";
 import CalculatorsPanel from "./panels/CalculatorsPanel.astro";
 import PlaylistPanel from "./panels/PlaylistPanel.astro";
+import MetricsPanel from "./panels/MetricsPanel.astro";
 import { productEmoji } from "./panels/constants";
 ---
 
@@ -26,7 +27,7 @@ import { productEmoji } from "./panels/constants";
             {productEmoji[product.id] ?? "🚀"}
           </span>
           <h2 class="text-sm font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;" data-panel-title={product.id}>
-            {product.name} <span class="text-jm-text-muted font-normal">&mdash;</span> <span class="text-jm-text-dim font-normal" data-panel-section={product.id}>Overview</span>
+            {product.name} <span class="text-jm-text-muted font-normal">/</span> <span class="text-jm-text-dim font-normal" data-panel-section={product.id}>Overview</span>
           </h2>
         </div>
       </div>
@@ -57,6 +58,8 @@ import { productEmoji } from "./panels/constants";
           {node.id === "github" && <GithubPanel product={product} />}
 
           {node.id === "prompts" && <PromptsPanel />}
+
+          {node.id === "metrics" && <MetricsPanel />}
 
           {node.id === "blog" && <BlogPanel />}
 
