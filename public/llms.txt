@@ -44,7 +44,7 @@ compatible with Apache JMeter 5.x and later.
 
 - [Academy](https://jmeter.ai/#academy): Free YouTube video tutorial series covering Apache JMeter
   (beginner to advanced), k6, Gatling, Locust, LoadRunner, Chrome DevTools for performance engineers,
-  regular expressions, statistics, chaos engineering, and HashiCorp Vault.
+  regular expressions, statistics, chaos engineering, HashiCorp Vault, and JMeter plugin development.
 
 - [RSS Feed](https://jmeter.ai/rss.xml): Machine-readable feed of the latest blog posts and updates.
 

@@ -646,6 +646,7 @@ export const products: Product[] = [
       { id: "devtools", label: "Chrome DevTools for Performance Engineers", icon: "play-circle" },
       { id: "statistics", label: "Statistics for Performance Engineers", icon: "play-circle" },
       { id: "chaos", label: "Learn Chaos Engineering", icon: "play-circle" },
+      { id: "jmeter-plugin-development", label: "JMeter Plugin Development", icon: "play-circle" },
     ],
   },
   {
@@ -1073,6 +1074,16 @@ export const playlistConfig = {
     playlistId: "PLJ9A48W0kpRLkV9GrtzNhiJSpwJMVZQTk",
     slug: "learn-vault",
     subtitle: "Learn HashiCorp Vault",
+  },
+  "jmeter-plugin-development": {
+    emoji: "🔌",
+    label: "JMETER PLUGINS",
+    title: "JMeter Plugin",
+    highlight: "Development",
+    description: "Learn how to build custom JMeter plugins from scratch. Step-by-step series covering plugin architecture, samplers, listeners, config elements, and publishing to the JMeter Plugins Marketplace.",
+    playlistId: "PLJ9A48W0kpRL2tA1e0jpBU4yJZKjRteaz",
+    slug: "jmeter-plugin-development",
+    subtitle: "JMeter Plugin Development Series",
   },
 };
 
