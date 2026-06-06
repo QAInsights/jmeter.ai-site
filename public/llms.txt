@@ -1,9 +1,9 @@
-# JMeter.AI — Performance Intelligence Suite
+# JMeter.AI - Performance Intelligence Suite
 
-> AI-Powered Tools & Plugins for Apache JMeter — Supercharge your performance testing workflow.
+> AI-Powered Tools and Plugins for Apache JMeter. Supercharge your performance testing workflow.
 
 JMeter.AI is a platform built by NaveenKumar Namachivayam (QAInsights) providing AI-powered plugins,
-tools, and learning resources for Apache JMeter — one of the world's most popular open-source
+tools, and learning resources for Apache JMeter - one of the world's most popular open-source
 performance testing frameworks. All products are available as JMeter plugins (JAR files) and are
 compatible with Apache JMeter 5.x and later.
 
@@ -19,12 +19,16 @@ compatible with Apache JMeter 5.x and later.
   shortcuts, a VS Code-style command palette (Ctrl+Shift+P), and Vim-inspired navigation. Eliminates
   mouse dependency for power users. Available in OSS and Pro editions.
 
+- [README Config](https://jmeter.ai/#readme-config): Adds a live Markdown documentation node directly
+  inside any JMeter test plan. Keep runbooks, context notes, and inline documentation right alongside
+  the test elements they describe, with zero performance impact on test execution.
+
 - [JMeter Studio](https://jmeter.ai/#jmeter-studio): Premium theme engine and custom icon pack system
   for Apache JMeter. Enables full visual customization of the JMeter UI. One of the fastest-downloaded
   plugins in the JMeter Plugins repository.
 
 - [Prism](https://jmeter.ai/#prism): Multi-tab interface plugin for Apache JMeter that enables
-  simultaneous editing of multiple test plans — like browser tabs for JMeter.
+  simultaneous editing of multiple test plans, like browser tabs for JMeter.
 
 - [Perftractor](https://jmeter.ai/#perftractor): Performance testing calculator suite for computing
   throughput targets, optimal thread counts, think times, and concurrency levels.
@@ -35,20 +39,42 @@ compatible with Apache JMeter 5.x and later.
 
 ## Resources
 
-- [Blog](https://jmeter.ai/blog/): Articles, tutorials, and updates on performance testing, Apache
-  JMeter, and AI-powered testing workflows.
+- [Blog](https://jmeter.ai/blog/): In-depth articles, tutorials, and updates on Apache JMeter,
+  performance testing, and AI-powered testing tools.
 
-- [Prompt Library](https://jmeter.ai/#prompts): Curated collection of performance engineering prompts
-  optimised for AI assistants including ChatGPT, Claude, and Gemini. Covers JMeter scripting, load
-  analysis, test strategy, and result interpretation.
+- [LLM Hub](https://jmeter.ai/#prompts): The hub for LLM performance engineering. Includes a curated
+  library of AI prompts for JMeter and k6, plus comprehensive LLM benchmarks and performance metrics
+  including TTFT (Time to First Token), TPOT (Time Per Output Token), and ITL (Inter-Token Latency).
 
 - [Academy](https://jmeter.ai/#academy): Free YouTube video tutorial series covering Apache JMeter
   (beginner to advanced), k6, Gatling, Locust, LoadRunner, Chrome DevTools for performance engineers,
   regular expressions, statistics, chaos engineering, HashiCorp Vault, and JMeter plugin development.
 
+- [30-Day Performance Testing Challenge](https://jmeter.ai/#academy): A structured, hands-on 30-day
+  program for building real performance testing skills. One scenario per day across five phases:
+  Foundations (Days 1-6), Load Patterns (Days 7-12), Correlation and Realism (Days 13-18), Bottleneck
+  Hunting (Days 19-24), and Advanced and Capstone (Days 25-30). Tool-agnostic: works with JMeter, k6,
+  Gatling, Locust, or LoadRunner. Each day includes an objective, scenario, metrics to watch, an aha
+  moment, a reflection prompt, a deliverable, and a solution.
+
 - [RSS Feed](https://jmeter.ai/rss.xml): Machine-readable feed of the latest blog posts and updates.
 
-- [Settings](https://jmeter.ai/settings/): User account settings and profile management for authenticated users.
+- [Settings](https://jmeter.ai/settings/): User account settings and profile management for
+  authenticated users.
+
+## Shareable URLs
+
+All tabs on jmeter.ai are directly linkable via URL hash fragment:
+
+- https://jmeter.ai/#feather-wand
+- https://jmeter.ai/#super-key
+- https://jmeter.ai/#readme-config
+- https://jmeter.ai/#jmeter-studio
+- https://jmeter.ai/#prism
+- https://jmeter.ai/#perftractor
+- https://jmeter.ai/#academy
+- https://jmeter.ai/#prompts
+- https://jmeter.ai/blog/
 
 ## About
 
@@ -62,9 +88,10 @@ contributor, and content creator.
 - **YouTube**: https://youtube.com/@QAInsights
 - **LinkedIn**: https://linkedin.com/in/naveenkumarn
 
-## Optional
+## Source Repositories
 
-- [GitHub — jmeter-ai (Feather Wand)](https://github.com/QAInsights/jmeter-ai): Source code and releases
-- [GitHub — superkey](https://github.com/QAInsights/superkey): Source code and releases
-- [GitHub — perftractor](https://github.com/QAInsights/perftractor): Source code and releases
+- [GitHub - jmeter-ai (Feather Wand)](https://github.com/QAInsights/jmeter-ai): Source code and releases
+- [GitHub - superkey](https://github.com/QAInsights/superkey): Source code and releases
+- [GitHub - perftractor](https://github.com/QAInsights/perftractor): Source code and releases
 - [Sitemap](https://jmeter.ai/sitemap-index.xml): Full XML sitemap for crawlers
+- [llms.txt](https://jmeter.ai/llms.txt): This file - machine-readable summary for AI assistants

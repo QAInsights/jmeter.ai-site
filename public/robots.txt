@@ -99,7 +99,24 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
+# xAI / Grok
+User-agent: Grok
+Allow: /
+
+# DeepSeek
+User-agent: DeepSeek
+Allow: /
+
+# Mistral AI
+User-agent: MistralBot
+Allow: /
+
+# Brave Search AI
+User-agent: BraveBot
+Allow: /
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Sitemap & llms.txt
 # ──────────────────────────────────────────────────────────────────────────────
 Sitemap: https://jmeter.ai/sitemap-index.xml
+LLMs: https://jmeter.ai/llms.txt

@@ -1090,7 +1090,7 @@ export const playlistConfig = {
 
 export const siteConfig = {
   title: "JMeter.AI - Performance Intelligence Suite",
-  description: "AI-Powered Tools & Plugins for Apache JMeter including Feather Wand, Super Key, and README Config. Supercharge your performance testing workflow.",
+  description: "AI-powered plugins and learning resources for Apache JMeter. Feather Wand, Super Key, README Config, JMeter Studio, Prism, Perftractor, a 30-Day Performance Testing Challenge, LLM benchmarks, and a free Academy. Supercharge your performance testing workflow.",
   url: "https://jmeter.ai",
   author: "NaveenKumar Namachivayam",
   authorUrl: "https://qainsights.com",
