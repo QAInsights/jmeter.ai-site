@@ -10,6 +10,7 @@ import GithubPanel from "./panels/GithubPanel.astro";
 import ConnectPanel from "./panels/ConnectPanel.astro";
 import CalculatorsPanel from "./panels/CalculatorsPanel.astro";
 import PlaylistPanel from "./panels/PlaylistPanel.astro";
+import ChallengePanel from "./panels/ChallengePanel.astro";
 import MetricsPanel from "./panels/MetricsPanel.astro";
 import { productEmoji } from "./panels/constants";
 ---
@@ -48,6 +49,8 @@ import { productEmoji } from "./panels/constants";
           {node.id in playlistConfig && product.id === "academy" && (
             <PlaylistPanel pl={playlistConfig[node.id as keyof typeof playlistConfig]} />
           )}
+
+          {node.id === "challenge" && product.id === "academy" && <ChallengePanel />}
 
           {node.id === "features" && <FeaturesPanel product={product} />}
 

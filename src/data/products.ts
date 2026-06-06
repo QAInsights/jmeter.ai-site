@@ -636,6 +636,7 @@ export const products: Product[] = [
     socials: defaultSocials,
     treeNodes: [
       { id: "playlist", label: "Learn JMeter", icon: "play-circle" },
+      { id: "challenge", label: "30-Day Challenge", icon: "zap" },
       { id: "k6", label: "Learn k6", icon: "play-circle" },
       { id: "gatling", label: "Learn Gatling", icon: "play-circle" },
       { id: "locust", label: "Learn Locust", icon: "play-circle" },

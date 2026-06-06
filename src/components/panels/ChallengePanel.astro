@@ -1,0 +1,437 @@
+---
+import { challengeMeta, challengeDays } from "../../data/challenge";
+
+const phases = challengeMeta.phases;
+const daysByPhase: Record<string, typeof challengeDays> = {};
+for (const d of challengeDays) {
+  if (!daysByPhase[d.phase]) daysByPhase[d.phase] = [];
+  daysByPhase[d.phase].push(d);
+}
+---
+
+<div id="challenge-panel">
+  {/* ── Hero ── */}
+  <div class="flex items-center gap-2 mb-1">
+    <span class="text-xs">🏆</span>
+    <span class="text-xs tracking-[0.15em] uppercase font-bold" style="font-family: 'JetBrains Mono', monospace; color: #a78bfa;">30-DAY CHALLENGE</span>
+    <span class="flex-1 h-px ml-1" style="background: linear-gradient(to right, #a78bfa40, transparent);" />
+  </div>
+
+  <h3 class="text-4xl font-bold text-jm-text mb-3" style="font-family: 'Orbitron', sans-serif;">
+    {challengeMeta.heading} <span style="color: #a78bfa;">{challengeMeta.highlight}</span>
+  </h3>
+
+  <div class="mb-2 text-base text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">
+    {challengeMeta.description}
+  </div>
+  <div class="mb-6 text-sm text-jm-text-muted leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">
+    {challengeMeta.subdescription}
+  </div>
+
+  {/* ── Disclaimer ── */}
+  <div class="mb-6 flex items-start gap-3 px-4 py-3 rounded-lg border" style="background: #f59e0b08; border-color: #f59e0b30;">
+    <span class="text-base shrink-0 mt-0.5">⚠️</span>
+    <p class="text-xs leading-relaxed" style="font-family: 'JetBrains Mono', monospace; color: #f59e0b;">
+      {challengeMeta.disclaimer}
+    </p>
+  </div>
+
+  {/* ── Progress bar ── */}
+  <div
+    class="sticky top-0 z-20 mb-6 bg-jm-surface-alt/95 backdrop-blur-sm border border-jm-border rounded-xl p-4"
+    id="challenge-progress"
+  >
+    <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;">
+          <span id="challenge-completed-count">0</span> / 30
+        </span>
+        <span class="text-xs text-jm-text-muted" style="font-family: 'JetBrains Mono', monospace;">
+          days complete
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1.5">
+          <span class="text-sm">🔥</span>
+          <span class="text-xs text-jm-text-dim" style="font-family: 'JetBrains Mono', monospace;">
+            Streak: <strong id="challenge-streak" class="text-jm-text">0</strong>
+          </span>
+        </div>
+        <button
+          id="challenge-reset"
+          class="text-[10px] text-jm-text-muted hover:text-jm-text transition-colors underline"
+          style="font-family: 'JetBrains Mono', monospace;"
+        >
+          reset
+        </button>
+      </div>
+    </div>
+    <div class="w-full h-2 rounded-full bg-jm-border overflow-hidden">
+      <div
+        id="challenge-progress-bar"
+        class="h-full rounded-full transition-all duration-500"
+        style="width: 0%; background: linear-gradient(to right, #a78bfa, #7c3aed);"
+      />
+    </div>
+    <p id="challenge-milestone" class="mt-2 text-[10px] text-jm-text-muted" style="font-family: 'JetBrains Mono', monospace;">
+      &nbsp;
+    </p>
+  </div>
+
+  {/* ── Phases ── */}
+  <div class="space-y-4">
+    {phases.map((phase, pi) => {
+      const days = daysByPhase[phase.key] ?? [];
+      return (
+        <div class="phase-section" data-phase={phase.key}>
+          {/* Phase header */}
+          <button
+            class="phase-toggle w-full flex items-center justify-between px-4 py-3 rounded-lg bg-jm-surface border border-jm-border hover:border-jm-border-light transition-colors text-left"
+            data-phase-toggle={phase.key}
+          >
+            <div class="flex items-center gap-3">
+              <span class="text-lg">{phase.emoji}</span>
+              <div>
+                <div class="text-sm font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;">
+                  {phase.label}
+                </div>
+                <div class="text-[10px] text-jm-text-muted" style="font-family: 'JetBrains Mono', monospace;">
+                  {phase.range}
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span
+                class="phase-badge text-[10px] px-2 py-0.5 rounded-full border"
+                style="font-family: 'JetBrains Mono', monospace; color: #a78bfa; border-color: #a78bfa30; background: #a78bfa10;"
+              >
+                <span class="phase-done-count">0</span>/{days.length}
+              </span>
+              <svg
+                class="phase-chevron w-4 h-4 text-jm-text-muted transition-transform duration-300"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </div>
+          </button>
+
+          {/* Phase days grid */}
+          <div class="phase-days grid grid-cols-1 gap-3 mt-3" data-phase-days={phase.key}>
+            {days.map((day) => (
+              <div
+                class="day-card relative rounded-xl border border-jm-border bg-jm-surface overflow-hidden transition-all duration-300"
+                data-day={day.day}
+              >
+                {/* Completed stripe */}
+                <div
+                  class="day-stripe absolute left-0 top-0 bottom-0 w-[3px] transition-opacity duration-300 opacity-0"
+                  style="background: linear-gradient(to bottom, #a78bfa, #7c3aed);"
+                />
+
+                <div class="p-4 sm:p-5 pl-5 sm:pl-6">
+                  {/* Day header */}
+                  <div class="flex items-start justify-between gap-3 mb-3">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="day-badge w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 transition-colors duration-300"
+                        style="background: #a78bfa15; color: #a78bfa; font-family: 'Orbitron', sans-serif;"
+                      >
+                        {day.day}
+                      </div>
+                      <div>
+                        <h4 class="text-sm font-bold text-jm-text" style="font-family: 'Orbitron', sans-serif;">
+                          <span class="mr-1">{day.emoji}</span>{day.title}
+                        </h4>
+                        <p class="text-[10px] text-jm-text-muted mt-0.5" style="font-family: 'JetBrains Mono', monospace;">
+                          Day {day.day}  -  {phase.label}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      class="day-toggle shrink-0 px-3 py-1.5 rounded-lg text-[10px] font-semibold transition-all duration-200 border"
+                      style="font-family: 'JetBrains Mono', monospace; border-color: #a78bfa40; color: #a78bfa; background: transparent;"
+                      data-day-toggle={day.day}
+                    >
+                      Mark done
+                    </button>
+                  </div>
+
+                  {/* Objective */}
+                  <div class="mb-3">
+                    <p class="text-xs text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">
+                      <strong class="text-jm-text">Objective:</strong> {day.objective}
+                    </p>
+                  </div>
+
+                  {/* Scenario */}
+                  <div class="mb-3 p-3 rounded-lg bg-jm-bg/60 border border-jm-border/50">
+                    <p class="text-[10px] uppercase tracking-wider text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">
+                      Scenario
+                    </p>
+                    <p class="text-xs text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">
+                      {day.scenario}
+                    </p>
+                  </div>
+
+                  {/* Metrics */}
+                  <div class="mb-3">
+                    <p class="text-[10px] uppercase tracking-wider text-jm-text-muted mb-1.5" style="font-family: 'JetBrains Mono', monospace;">
+                      Metrics to watch
+                    </p>
+                    <div class="flex flex-wrap gap-1.5">
+                      {day.metrics.map((m) => (
+                        <span
+                          class="inline-block px-2 py-0.5 rounded text-[10px] text-jm-text-dim border border-jm-border"
+                          style="font-family: 'JetBrains Mono', monospace;"
+                        >
+                          {m}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Aha moment */}
+                  <div class="mb-3 flex items-start gap-2 p-3 rounded-lg" style="background: #a78bfa08; border: 1px solid #a78bfa15;">
+                    <span class="text-sm shrink-0">💡</span>
+                    <p class="text-xs text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">
+                      <strong class="text-jm-text">When it clicks:</strong> {day.aha}
+                    </p>
+                  </div>
+
+                  {/* Reflection + Deliverable */}
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                    <div class="p-3 rounded-lg bg-jm-bg/40 border border-jm-border/40">
+                      <p class="text-[10px] uppercase tracking-wider text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">
+                        📝 Reflection
+                      </p>
+                      <p class="text-xs text-jm-text-dim italic leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">
+                        {day.reflection}
+                      </p>
+                    </div>
+                    <div class="p-3 rounded-lg bg-jm-bg/40 border border-jm-border/40">
+                      <p class="text-[10px] uppercase tracking-wider text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;">
+                        📦 Deliverable
+                      </p>
+                      <p class="text-xs text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">
+                        {day.deliverable}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Solution reveal */}
+                  <div class="solution-section">
+                    <button
+                      class="solution-toggle w-full flex items-center justify-between px-3 py-2 rounded-lg border transition-colors text-left"
+                      style="font-family: 'JetBrains Mono', monospace; border-color: #a78bfa20; background: #a78bfa08; color: #a78bfa;"
+                      data-solution-toggle={day.day}
+                    >
+                      <span class="text-[10px] font-semibold tracking-wider uppercase">Show solution</span>
+                      <svg
+                        class="solution-chevron w-3.5 h-3.5 transition-transform duration-200"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </button>
+                    <div class="solution-body hidden mt-2 p-3 rounded-lg border" style="border-color: #a78bfa20; background: #a78bfa06;">
+                      <p class="text-[10px] uppercase tracking-wider mb-2" style="font-family: 'JetBrains Mono', monospace; color: #a78bfa;">
+                        One way to approach it
+                      </p>
+                      <p class="text-xs leading-relaxed" style="font-family: 'JetBrains Mono', monospace; color: var(--color-jm-text-dim, #9ca3af);">
+                        {day.solution}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  {/* ── Footer ── */}
+  <div class="mt-8 mb-4 text-center">
+    <p class="text-xs text-jm-text-muted" style="font-family: 'JetBrains Mono', monospace;">
+      No grades. No judgement. Just one day at a time.
+    </p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const STORAGE_KEY = "qai-30day-progress";
+    const PANEL = document.getElementById("challenge-panel");
+    if (!PANEL) return;
+
+    function getProgress(): Set<number> {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return new Set(JSON.parse(raw));
+      } catch {}
+      return new Set();
+    }
+
+    function saveProgress(done: Set<number>) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(done)));
+    }
+
+    function calcStreak(done: Set<number>): number {
+      if (done.size === 0) return 0;
+      const arr = Array.from(done).sort((a, b) => a - b);
+      let streak = 1;
+      for (let i = arr.length - 1; i > 0; i--) {
+        if (arr[i] - arr[i - 1] === 1) streak++;
+        else break;
+      }
+      return streak;
+    }
+
+    function milestoneText(done: number): string {
+      if (done === 0) return "Every expert was once a beginner. Day 1 awaits.";
+      if (done < 6) return "Foundations are everything. Keep showing up.";
+      if (done < 12) return "You're building the rhythm. Load patterns are where it gets real.";
+      if (done < 18) return "Halfway. The correlation skills you're building now separate rookies from engineers.";
+      if (done < 24) return "Bottleneck hunting mode. This is where the magic happens.";
+      if (done < 30) return "The home stretch. You're not just running tests  -  you're reading systems.";
+      return "🏆 All 30 days complete. You have a test library, debugging instincts, and momentum.";
+    }
+
+    function render() {
+      const done = getProgress();
+      const total = 30;
+      const count = done.size;
+      const pct = Math.round((count / total) * 100);
+      const streak = calcStreak(done);
+
+      const countEl = document.getElementById("challenge-completed-count");
+      const streakEl = document.getElementById("challenge-streak");
+      const barEl = document.getElementById("challenge-progress-bar");
+      const milestoneEl = document.getElementById("challenge-milestone");
+
+      if (countEl) countEl.textContent = String(count);
+      if (streakEl) streakEl.textContent = String(streak);
+      if (barEl) barEl.style.width = `${pct}%`;
+      if (milestoneEl) milestoneEl.textContent = milestoneText(count);
+
+      // Update per-phase counts
+      PANEL.querySelectorAll("[data-phase]").forEach((section) => {
+        const phaseKey = section.getAttribute("data-phase");
+        if (!phaseKey) return;
+        const days = section.querySelectorAll<HTMLElement>("[data-day]");
+        let phaseDone = 0;
+        days.forEach((card) => {
+          const dayNum = Number(card.getAttribute("data-day"));
+          const isDone = done.has(dayNum);
+          const stripe = card.querySelector(".day-stripe");
+          const badge = card.querySelector(".day-badge") as HTMLElement;
+          const btn = card.querySelector("[data-day-toggle]") as HTMLElement;
+
+          if (stripe) stripe.classList.toggle("opacity-0", !isDone);
+          if (stripe) stripe.classList.toggle("opacity-100", isDone);
+
+          if (badge) {
+            badge.style.background = isDone ? "#a78bfa" : "#a78bfa15";
+            badge.style.color = isDone ? "#0a0a12" : "#a78bfa";
+          }
+
+          if (btn) {
+            btn.textContent = isDone ? "Done \u2713" : "Mark done";
+            btn.style.background = isDone ? "#a78bfa20" : "transparent";
+            btn.style.color = isDone ? "#a78bfa" : "#a78bfa";
+            btn.style.borderColor = isDone ? "#a78bfa60" : "#a78bfa40";
+          }
+
+          card.classList.toggle("border-jm-border", !isDone);
+          card.classList.toggle("border-jm-border-light", !isDone);
+          if (isDone) {
+            card.style.borderColor = "#a78bfa30";
+          } else {
+            card.style.borderColor = "";
+          }
+
+          if (isDone) phaseDone++;
+        });
+
+        const badge = section.querySelector(".phase-done-count");
+        if (badge) badge.textContent = String(phaseDone);
+      });
+    }
+
+    // Toggle day
+    PANEL.querySelectorAll("[data-day-toggle]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const dayNum = Number((btn as HTMLElement).getAttribute("data-day-toggle"));
+        const done = getProgress();
+        if (done.has(dayNum)) done.delete(dayNum);
+        else done.add(dayNum);
+        saveProgress(done);
+        render();
+      });
+    });
+
+    // Toggle phase collapse
+    PANEL.querySelectorAll("[data-phase-toggle]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = (btn as HTMLElement).getAttribute("data-phase-toggle");
+        const daysContainer = PANEL.querySelector(`[data-phase-days="${key}"]`) as HTMLElement;
+        const chevron = btn.querySelector(".phase-chevron") as HTMLElement;
+        if (!daysContainer) return;
+        const isHidden = daysContainer.classList.contains("hidden");
+        if (isHidden) {
+          daysContainer.classList.remove("hidden");
+          if (chevron) chevron.style.transform = "";
+        } else {
+          daysContainer.classList.add("hidden");
+          if (chevron) chevron.style.transform = "rotate(-90deg)";
+        }
+      });
+    });
+
+    // Toggle solution reveal
+    PANEL.querySelectorAll("[data-solution-toggle]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const body = btn.nextElementSibling as HTMLElement;
+        const chevron = btn.querySelector(".solution-chevron") as HTMLElement;
+        if (!body) return;
+        const isHidden = body.classList.contains("hidden");
+        if (isHidden) {
+          body.classList.remove("hidden");
+          btn.querySelector("span")!.textContent = "Hide solution";
+          if (chevron) chevron.style.transform = "rotate(180deg)";
+        } else {
+          body.classList.add("hidden");
+          btn.querySelector("span")!.textContent = "Show solution";
+          if (chevron) chevron.style.transform = "";
+        }
+      });
+    });
+
+    // Reset
+    const resetBtn = document.getElementById("challenge-reset");
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        if (confirm("Reset all progress? This cannot be undone.")) {
+          localStorage.removeItem(STORAGE_KEY);
+          render();
+        }
+      });
+    }
+
+    // Initial render
+    render();
+  })();
+</script>
