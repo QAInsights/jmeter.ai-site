@@ -167,8 +167,12 @@ import StatusBar from "../components/StatusBar.astro";
         const treePanels = document.querySelectorAll<HTMLElement>("[data-tree-product]");
         const detailPanels = document.querySelectorAll<HTMLElement>("[data-panels-product]");
 
-        function switchTab(tabId: string) {
+        function switchTab(tabId: string, updateHash = true) {
           activeTab = tabId;
+          if (updateHash) {
+            const newHash = tabId === "feather-wand" ? "" : `#${tabId}`;
+            history.replaceState(null, "", newHash || window.location.pathname);
+          }
           tabs.forEach((tab) => {
             const isActive = tab.dataset.tab === tabId;
             const color = tab.dataset.color || "#00e5ff";
@@ -235,8 +239,15 @@ import StatusBar from "../components/StatusBar.astro";
         const initialProduct = hashProduct || document.body.dataset.activeProduct;
         if (initialProduct && initialProduct !== "feather-wand") {
           const tabExists = Array.from(tabs).some((t) => t.dataset.tab === initialProduct);
-          if (tabExists) switchTab(initialProduct);
+          if (tabExists) switchTab(initialProduct, false);
         }
+
+        // --- Hash navigation: back/forward and direct links ---
+        window.addEventListener("hashchange", () => {
+          const tabId = window.location.hash.replace(/^#/, "") || "feather-wand";
+          const tabExists = Array.from(tabs).some((t) => t.dataset.tab === tabId);
+          if (tabExists) switchTab(tabId, false);
+        });
 
         // --- Tree Node Selection ---
         const treeNodes = document.querySelectorAll<HTMLButtonElement>("[data-node]");
