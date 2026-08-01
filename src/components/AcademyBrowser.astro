@@ -1,0 +1,92 @@
+---
+import { playlistConfig } from "../data/products";
+import ChallengeAccordion from "./ChallengeAccordion.astro";
+import PlaylistPanel from "./panels/PlaylistPanel.astro";
+
+const playlists = Object.entries(playlistConfig).map(([key, pl]) => ({
+  key,
+  emoji: pl.emoji,
+  label: `${pl.title} ${pl.highlight}`,
+}));
+
+const navActive = ["bg-violet-500/15", "border-violet-500/40", "text-white"];
+const navInactive = ["bg-black/40", "border-white/5", "text-slate-400", "hover:text-white", "hover:border-white/15"];
+---
+
+<div class="md:flex md:items-start gap-6" id="academy-browser">
+  <!-- Sidebar navigation -->
+  <div class="md:w-64 shrink-0 md:sticky md:top-24 mb-6 md:mb-0">
+    <p class="hidden md:block px-3 pb-3 text-[10px] uppercase tracking-widest text-slate-500 font-semibold font-mono">
+      Learning Series
+    </p>
+    <div class="flex md:flex-col gap-2 overflow-x-auto pb-2" role="list" aria-label="Academy sections">
+      <button
+        type="button"
+        class:list={[
+          "academy-nav-btn flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-left text-xs font-medium transition-colors cursor-pointer border whitespace-nowrap md:whitespace-normal shrink-0",
+          ...navActive,
+        ]}
+        data-academy-item="challenge"
+        aria-selected="true"
+        role="listitem"
+      >
+        <span aria-hidden="true">🏆</span>
+        <span class="leading-tight">30-Day Challenge</span>
+      </button>
+      {
+        playlists.map((item) => (
+          <button
+            type="button"
+            class:list={[
+              "academy-nav-btn flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-left text-xs font-medium transition-colors cursor-pointer border whitespace-nowrap md:whitespace-normal shrink-0",
+              ...navInactive,
+            ]}
+            data-academy-item={item.key}
+            aria-selected="false"
+            role="listitem"
+          >
+            <span aria-hidden="true">{item.emoji}</span>
+            <span class="leading-tight">{item.label}</span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Content area -->
+  <div class="flex-1 min-w-0">
+    <div data-academy-panel="challenge">
+      <ChallengeAccordion />
+    </div>
+    {
+      Object.entries(playlistConfig).map(([key, pl]) => (
+        <div class="hidden" data-academy-panel={key}>
+          <PlaylistPanel pl={pl} />
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const navBtns = document.querySelectorAll<HTMLButtonElement>(".academy-nav-btn");
+  const academyPanels = document.querySelectorAll<HTMLElement>("[data-academy-panel]");
+
+  const activeClasses = ["bg-violet-500/15", "border-violet-500/40", "text-white"];
+  const inactiveClasses = ["bg-black/40", "border-white/5", "text-slate-400", "hover:text-white", "hover:border-white/15"];
+
+  navBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.academyItem;
+      navBtns.forEach((b) => {
+        const isActive = b === btn;
+        b.setAttribute("aria-selected", String(isActive));
+        b.classList.remove(...(isActive ? inactiveClasses : activeClasses));
+        b.classList.add(...(isActive ? activeClasses : inactiveClasses));
+      });
+      academyPanels.forEach((panel) => {
+        panel.classList.toggle("hidden", panel.dataset.academyPanel !== target);
+      });
+    });
+  });
+</script>

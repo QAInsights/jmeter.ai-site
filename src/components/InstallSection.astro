@@ -1,0 +1,120 @@
+---
+import { installMethods } from "../data/products";
+---
+
+<section id="installation" class="py-20 px-6 max-w-5xl mx-auto scroll-mt-20">
+  <div class="text-center space-y-4 mb-12">
+    <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight">
+      Deploy in <span class="text-cyan-400">Seconds</span>
+    </h2>
+    <p class="text-slate-400 max-w-2xl mx-auto">
+      Three ways to install the JMeter.AI suite. Pick the workflow that fits your environment.
+    </p>
+  </div>
+
+  <div class="glass-panel rounded-2xl border border-white/10 overflow-hidden">
+    <!-- Tab bar -->
+    <div class="flex border-b border-white/10 bg-white/5" role="tablist" aria-label="Installation methods">
+      {
+        installMethods.map((method, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`install-tab-${method.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            aria-controls={`install-panel-${method.id}`}
+            data-install-tab={method.id}
+            class:list={[
+              "install-tab flex-1 px-4 py-3 text-xs md:text-sm font-mono transition border-b-2 -mb-px",
+              i === 0
+                ? "text-cyan-400 border-cyan-400 bg-black/30"
+                : "text-slate-400 border-transparent hover:text-white",
+            ]}
+          >
+            {method.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Tab panels -->
+    {
+      installMethods.map((method, i) => (
+        <div
+          role="tabpanel"
+          id={`install-panel-${method.id}`}
+          aria-labelledby={`install-tab-${method.id}`}
+          data-install-panel={method.id}
+          class:list={["p-6 md:p-8 space-y-6", i > 0 && "hidden"]}
+        >
+          <p class="text-slate-400 text-sm">{method.description}</p>
+          {method.blocks.map((block) => (
+            <div class="space-y-2">
+              <div class="text-xs font-mono text-slate-500 uppercase tracking-wider">{block.title}</div>
+              <div class="bg-black/50 rounded-xl p-4 font-mono text-xs text-slate-300 border border-white/5 flex items-start justify-between gap-4">
+                <pre class="whitespace-pre-wrap break-all leading-relaxed">{block.code}</pre>
+                <button
+                  type="button"
+                  data-copy={block.code}
+                  class="copy-btn shrink-0 px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  // Tab switching
+  const tabs = document.querySelectorAll<HTMLButtonElement>("[data-install-tab]");
+  const panels = document.querySelectorAll<HTMLElement>("[data-install-panel]");
+
+  const activeClasses = ["text-cyan-400", "border-cyan-400", "bg-black/30"];
+  const inactiveClasses = ["text-slate-400", "border-transparent", "hover:text-white"];
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.installTab;
+      tabs.forEach((t) => {
+        const isActive = t === tab;
+        t.setAttribute("aria-selected", String(isActive));
+        t.classList.remove(...(isActive ? inactiveClasses : activeClasses));
+        t.classList.add(...(isActive ? activeClasses : inactiveClasses));
+      });
+      panels.forEach((panel) => {
+        panel.classList.toggle("hidden", panel.dataset.installPanel !== target);
+      });
+    });
+  });
+
+  // Copy buttons (shared with Hero via .copy-btn)
+  document.querySelectorAll<HTMLButtonElement>(".copy-btn").forEach((btn) => {
+    if (btn.dataset.bound) return;
+    btn.dataset.bound = "1";
+    btn.addEventListener("click", async () => {
+      const text = btn.dataset.copy ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+      }
+      const original = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(() => {
+        btn.textContent = original;
+      }, 2000);
+    });
+  });
+</script>

@@ -1,0 +1,100 @@
+---
+const installNix = "bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent";
+const installWin = "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-agent";
+---
+
+<section class="relative pt-24 pb-20 px-6 overflow-hidden">
+  <div class="max-w-5xl mx-auto text-center space-y-8">
+    <div
+      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel border-cyan-500/30 text-cyan-400 text-xs font-mono"
+    >
+      <span class="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" aria-hidden="true"></span>
+      AI-NATIVE PERFORMANCE ENGINEERING PLATFORM
+    </div>
+
+    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-none text-white">
+      Autonomous AI Intelligence for <span class="gradient-text">Apache JMeter</span>
+    </h1>
+
+    <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+      Transform your performance engineering workflow. Generate JMX scripts from plain natural language, run
+      context-aware diagnostic models, and navigate with a keyboard-first command palette.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+      <a
+        href="#installation"
+        class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-base shadow-lg shadow-cyan-500/25 transition transform hover:-translate-y-0.5"
+      >
+        Install in JMeter →
+      </a>
+      <a
+        href="#architecture"
+        class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel hover:bg-white/10 text-white font-medium text-base transition border border-white/15"
+      >
+        Explore Architecture
+      </a>
+    </div>
+
+    <!-- Quick Install Box -->
+    <div class="max-w-2xl mx-auto pt-6 space-y-2">
+      <div
+        class="glass-panel rounded-xl p-4 text-left font-mono text-xs flex items-center justify-between gap-4 border border-cyan-500/30 bg-black/40"
+      >
+        <div class="flex items-center gap-3 overflow-x-auto whitespace-nowrap">
+          <span class="text-cyan-400 select-none shrink-0">$</span>
+          <span class="text-slate-300">{installNix}</span>
+        </div>
+        <button
+          type="button"
+          data-copy={installNix}
+          class="copy-btn shrink-0 px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition"
+        >
+          Copy
+        </button>
+      </div>
+      <div
+        class="glass-panel rounded-xl p-4 text-left font-mono text-xs flex items-center justify-between gap-4 border border-white/10 bg-black/40"
+      >
+        <div class="flex items-center gap-3 overflow-x-auto whitespace-nowrap">
+          <span class="text-slate-500 select-none shrink-0">C:\&gt;</span>
+          <span class="text-slate-300">{installWin}</span>
+        </div>
+        <button
+          type="button"
+          data-copy={installWin}
+          class="copy-btn shrink-0 px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition"
+        >
+          Copy
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".copy-btn").forEach((btn) => {
+    if (btn.dataset.bound) return;
+    btn.dataset.bound = "1";
+    btn.addEventListener("click", async () => {
+      const text = btn.dataset.copy ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+      }
+      const original = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(() => {
+        btn.textContent = original;
+      }, 2000);
+    });
+  });
+</script>

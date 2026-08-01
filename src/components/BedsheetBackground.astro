@@ -1,0 +1,221 @@
+---
+// BedsheetBackground.astro - Site pattern animated with bedsheet settling wave motion & interactive click water drop ripples
+---
+
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-graph-bg">
+  <!-- Ambient Background Orbs -->
+  <div class="gradient-glow w-[700px] h-[700px] bg-cyan-500/25 top-[-150px] left-1/2 -translate-x-1/2" aria-hidden="true"></div>
+  <div class="gradient-glow w-[600px] h-[600px] bg-indigo-600/30 top-[350px] left-[-150px]" aria-hidden="true"></div>
+  <div class="gradient-glow w-[550px] h-[550px] bg-purple-700/25 bottom-[100px] right-[-120px]" aria-hidden="true"></div>
+
+  <!-- Transparent Canvas -->
+  <canvas id="bedsheet-bg-canvas" class="w-full h-full block relative z-10"></canvas>
+</div>
+
+<script>
+  (function () {
+    const canvas = document.getElementById("bedsheet-bg-canvas") as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const GRID_STEP = 42; 
+    const WAVE_SPEED = 0.0003; 
+    const WAVELENGTH_DIAG = 0.0028; 
+    const AMPLITUDE = 35; 
+
+    interface Ripple {
+      x: number;
+      y: number;
+      radius: number;
+      maxRadius: number;
+      speed: number;
+      amplitude: number;
+      decay: number;
+    }
+
+    let width = 0;
+    let height = 0;
+    let cols = 0;
+    let rows = 0;
+    let dpr = 1;
+    let grid: Array<{ x: number; y: number; z: number }> = [];
+    let ripples: Ripple[] = [];
+    let time = 0;
+
+    function resize() {
+      if (!canvas) return;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+
+      cols = Math.ceil(width / GRID_STEP) + 2;
+      rows = Math.ceil(height / GRID_STEP) + 2;
+
+      grid = new Array(cols * rows);
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          grid[i * rows + j] = {
+            x: (i - 1) * GRID_STEP,
+            y: (j - 1) * GRID_STEP,
+            z: 0
+          };
+        }
+      }
+      if (prefersReducedMotion) {
+        updateGrid(0);
+        draw();
+      }
+    }
+
+    // Trigger water drop vibration ripple on user click/tap
+    window.addEventListener("pointerdown", (e) => {
+      if (prefersReducedMotion) return;
+      ripples.push({
+        x: e.clientX,
+        y: e.clientY,
+        radius: 0,
+        maxRadius: Math.max(width, height) * 0.75,
+        speed: 6.5,
+        amplitude: 42,
+        decay: 0.965
+      });
+    });
+
+    function updateGrid(t: number) {
+      const curAmp = prefersReducedMotion ? 4 : AMPLITUDE;
+
+      // Update active water drop ripples
+      for (let r = ripples.length - 1; r >= 0; r--) {
+        const rip = ripples[r];
+        rip.radius += rip.speed;
+        rip.amplitude *= rip.decay;
+        if (rip.amplitude < 0.1 || rip.radius > rip.maxRadius) {
+          ripples.splice(r, 1);
+        }
+      }
+
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          const pt = grid[i * rows + j];
+          const diag = pt.x + pt.y * 0.85;
+
+          const w1 = Math.sin(diag * WAVELENGTH_DIAG - t) * curAmp;
+          const w2 = Math.cos(pt.x * 0.0018 - pt.y * 0.0022 + t * 0.6) * (curAmp * 0.35);
+          const w3 = Math.sin(pt.x * 0.003 + pt.y * 0.0015 - t * 0.4) * (curAmp * 0.2);
+
+          let totalZ = w1 + w2 + w3;
+
+          // Water drop vibration ring displacement
+          if (ripples.length > 0) {
+            for (let r = 0; r < ripples.length; r++) {
+              const rip = ripples[r];
+              const dx = pt.x - rip.x;
+              const dy = pt.y - rip.y;
+              const dist = Math.hypot(dx, dy);
+              const diff = dist - rip.radius;
+
+              const ringWidth = 70;
+              if (Math.abs(diff) < ringWidth) {
+                const ringFactor = Math.cos((diff / ringWidth) * Math.PI * 1.5);
+                const distanceDamp = Math.exp(-dist * 0.002);
+                totalZ += ringFactor * rip.amplitude * distanceDamp;
+              }
+            }
+          }
+
+          pt.z = totalZ;
+        }
+      }
+    }
+
+    function draw() {
+      if (!ctx) return;
+      ctx.save();
+      ctx.scale(dpr, dpr);
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Batched mesh lines
+      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+
+      ctx.beginPath();
+      for (let j = 0; j < rows; j++) {
+        for (let i = 0; i < cols; i++) {
+          const pt = grid[i * rows + j];
+          if (i === 0) ctx.moveTo(pt.x, pt.y + pt.z);
+          else ctx.lineTo(pt.x, pt.y + pt.z);
+        }
+      }
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          const pt = grid[i * rows + j];
+          if (j === 0) ctx.moveTo(pt.x, pt.y + pt.z);
+          else ctx.lineTo(pt.x, pt.y + pt.z);
+        }
+      }
+      ctx.stroke();
+
+      // Render dots
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          const pt = grid[i * rows + j];
+          const renderX = pt.x;
+          const renderY = pt.y + pt.z;
+
+          const heightRatio = (pt.z + AMPLITUDE) / (AMPLITUDE * 2);
+
+          let radius = 1.5;
+          let fillStyle = "rgba(255, 255, 255, 0.25)";
+
+          if (heightRatio > 0.55) {
+            const cyanFactor = Math.min(1, (heightRatio - 0.55) / 0.45);
+            radius = 1.5 + cyanFactor * 1.5;
+            const alpha = 0.35 + cyanFactor * 0.6;
+            fillStyle = `rgba(0, 242, 254, ${alpha})`;
+          } else if (heightRatio < 0.35) {
+            const alpha = 0.12 + Math.max(0, heightRatio) * 0.18;
+            fillStyle = `rgba(121, 40, 202, ${alpha})`;
+          }
+
+          ctx.fillStyle = fillStyle;
+          ctx.beginPath();
+          ctx.arc(renderX, renderY, radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      ctx.restore();
+    }
+
+    let lastTime = 0;
+    function render(timestamp: number) {
+      if (!lastTime) lastTime = timestamp;
+      const delta = timestamp - lastTime;
+      lastTime = timestamp;
+
+      time += delta * WAVE_SPEED;
+      updateGrid(time);
+      draw();
+
+      if (!prefersReducedMotion) {
+        requestAnimationFrame(render);
+      }
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    if (!prefersReducedMotion) {
+      requestAnimationFrame(render);
+    }
+  })();
+</script>

@@ -1,0 +1,216 @@
+---
+import "../../styles/legacy-panels.css";
+import JMeterLayout from "../../layouts/JMeterLayout.astro";
+import { products } from "../../data/products";
+import type { Product } from "../../data/products";
+import { productEmoji } from "../../components/panels/constants";
+import FeaturesPanel from "../../components/panels/FeaturesPanel.astro";
+import InstallationPanel from "../../components/panels/InstallationPanel.astro";
+import GithubPanel from "../../components/panels/GithubPanel.astro";
+import ConnectPanel from "../../components/panels/ConnectPanel.astro";
+import AcademyBrowser from "../../components/AcademyBrowser.astro";
+import MetricsPanel from "../../components/panels/MetricsPanel.astro";
+import CalculatorsPanel from "../../components/panels/CalculatorsPanel.astro";
+import PromptsPanel from "../../components/PromptsPanel.astro";
+
+export function getStaticPaths() {
+  return products
+    .filter((product) => !product.externalUrl)
+    .map((product) => ({
+      params: { id: product.id },
+      props: { product },
+    }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const hasGithubRepo = !["academy", "prompts", "docs", "plugins"].includes(product.id);
+---
+
+<JMeterLayout title={product.name} description={product.description}>
+  <main class="px-6 py-12 md:py-16 relative">
+    <div class="max-w-7xl mx-auto space-y-16">
+      <!-- Breadcrumb -->
+      <a
+        href="/#products"
+        class="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-cyan-400 transition"
+      >
+        ← Back to Product Suite
+      </a>
+
+      <!-- Product hero -->
+      <section class="space-y-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div class="flex items-center gap-5">
+            <span
+              class="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-3xl md:text-4xl shrink-0"
+              style={`background: rgba(${product.colorRgb}, 0.1); box-shadow: 0 0 40px rgba(${product.colorRgb}, 0.15);`}
+              aria-hidden="true"
+            >
+              {productEmoji[product.id] ?? "🚀"}
+            </span>
+            <div>
+              <p class="text-xs font-mono tracking-widest text-slate-500 mb-1">
+                {product.subtitlePrefix}
+                <span style={`color: ${product.color}`}> {product.subtitleHighlight}</span>
+                {product.subtitleSuffix && ` ${product.subtitleSuffix}`}
+              </p>
+              <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white">{product.name}</h1>
+              <p class="text-sm md:text-base mt-1" style={`color: ${product.color}`}>{product.tagline}</p>
+            </div>
+          </div>
+          <a
+            href={product.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 text-xs font-mono font-medium rounded-lg glass-panel hover:bg-white/10 transition border border-white/10 text-slate-200"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            {product.id === "academy" ? "Watch on YouTube" : "View on GitHub"}
+          </a>
+        </div>
+
+        <p class="text-slate-400 leading-relaxed max-w-4xl text-base md:text-lg">{product.description}</p>
+
+        {
+          product.id === "feather-wand" && (
+            <div
+              class="relative overflow-hidden rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-cyan-500/10 via-blue-500/5 to-transparent p-5 md:p-6 flex flex-col sm:flex-row sm:items-center gap-4"
+            >
+              <div
+                class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-cyan-500/20 blur-3xl"
+                aria-hidden="true"
+              />
+              <div class="flex items-center gap-4 relative z-10">
+                <div class="flex flex-col">
+                  <span class="text-4xl md:text-5xl font-extrabold text-cyan-400 leading-none font-mono">
+                    900+
+                  </span>
+                  <span class="text-[10px] font-mono tracking-widest text-slate-500 mt-1">INSTALLS</span>
+                </div>
+                <div class="h-12 w-px bg-white/10" />
+                <div>
+                  <p class="text-sm md:text-base font-semibold text-white">
+                    Trusted by 900+ performance engineering teams worldwide
+                  </p>
+                  <p class="text-xs text-slate-400 mt-0.5">
+                    Installed via JMeter Plugins Manager across CI/CD pipelines, QA labs, and production environments.
+                  </p>
+                </div>
+              </div>
+              <a
+                href="#installation"
+                class="sm:ml-auto shrink-0 inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-bold rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 transition"
+              >
+                Install now →
+              </a>
+            </div>
+          )
+        }
+
+        {
+          product.badges.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {product.badges.map((badge) => (
+                <span
+                  class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider whitespace-nowrap"
+                  style={
+                    badge.variant === "filled"
+                      ? `background: ${badge.color}; color: #090a0f;`
+                      : `border: 1px solid ${badge.color}; color: ${badge.color};`
+                  }
+                >
+                  <span aria-hidden="true">{badge.emoji}</span>
+                  {badge.label}
+                </span>
+              ))}
+            </div>
+          )
+        }
+
+        {
+          product.infoCards.length > 0 && (
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {product.infoCards.map((card) => (
+                <div class="glass-panel rounded-xl p-4 relative overflow-hidden">
+                  <div
+                    class="absolute bottom-0 left-0 right-0 h-0.5 opacity-60"
+                    style={`background: ${card.color};`}
+                    aria-hidden="true"
+                  />
+                  <div class="text-[10px] font-mono tracking-widest text-slate-500 mb-1">{card.label}</div>
+                  <div class="text-sm font-semibold" style={`color: ${card.color}`}>
+                    {card.value}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
+        }
+      </section>
+
+      <!-- Perftractor calculators -->
+      {
+        product.id === "perftractor" && (
+          <section>
+            <CalculatorsPanel />
+          </section>
+        )
+      }
+
+      <!-- Academy: sidebar browser with challenge + playlists -->
+      {product.id === "academy" && <AcademyBrowser />}
+
+      <!-- LLM Hub: prompts + metrics -->
+      {
+        product.id === "prompts" && (
+          <>
+            <section>
+              <PromptsPanel />
+            </section>
+            <section>
+              <MetricsPanel />
+            </section>
+          </>
+        )
+      }
+
+      <!-- Features -->
+      {
+        product.features.length > 0 && (
+          <section>
+            <FeaturesPanel product={product} />
+          </section>
+        )
+      }
+
+      <!-- Installation -->
+      {
+        product.installation.length > 0 && (
+          <section>
+            <InstallationPanel product={product} />
+          </section>
+        )
+      }
+
+      <!-- GitHub -->
+      {
+        hasGithubRepo && (
+          <section>
+            <GithubPanel product={product} />
+          </section>
+        )
+      }
+
+      <!-- Connect -->
+      <section>
+        <ConnectPanel product={product} />
+      </section>
+    </div>
+  </main>
+</JMeterLayout>
