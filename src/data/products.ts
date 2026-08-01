@@ -70,7 +70,7 @@ export interface TreeNode {
 
 export const defaultSocials: Social[] = [
   { name: "GitHub", url: "https://github.com/QAInsights", icon: "github" },
-  { name: "Twitter / X", url: "https://twitter.com/QAInsights", icon: "twitter" },
+  { name: "X", url: "https://x.com/QAInsights", icon: "twitter" },
   { name: "YouTube", url: "https://youtube.com/@QAInsights", icon: "youtube" },
   { name: "LinkedIn", url: "https://linkedin.com/in/naveenkumarn", icon: "linkedin" },
   { name: "Website", url: "https://qainsights.com", icon: "globe" },

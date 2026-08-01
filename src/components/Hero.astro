@@ -39,31 +39,31 @@ const installWin = "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-ag
     <!-- Quick Install Box -->
     <div class="max-w-2xl mx-auto pt-6 space-y-2">
       <div
-        class="glass-panel rounded-xl p-4 text-left font-mono text-xs flex items-center justify-between gap-4 border border-cyan-500/30 bg-black/40"
+        class="glass-panel rounded-xl p-3 sm:p-4 text-left font-mono text-[11px] sm:text-xs flex items-center justify-between gap-3 sm:gap-4 border border-cyan-500/30 bg-black/40"
       >
-        <div class="flex items-center gap-3 overflow-x-auto whitespace-nowrap">
+        <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto whitespace-nowrap min-w-0">
           <span class="text-cyan-400 select-none shrink-0">$</span>
           <span class="text-slate-300">{installNix}</span>
         </div>
         <button
           type="button"
           data-copy={installNix}
-          class="copy-btn shrink-0 px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition"
+          class="copy-btn shrink-0 px-2.5 sm:px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition text-xs"
         >
           Copy
         </button>
       </div>
       <div
-        class="glass-panel rounded-xl p-4 text-left font-mono text-xs flex items-center justify-between gap-4 border border-white/10 bg-black/40"
+        class="glass-panel rounded-xl p-3 sm:p-4 text-left font-mono text-[11px] sm:text-xs flex items-center justify-between gap-3 sm:gap-4 border border-white/10 bg-black/40"
       >
-        <div class="flex items-center gap-3 overflow-x-auto whitespace-nowrap">
+        <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto whitespace-nowrap min-w-0">
           <span class="text-slate-500 select-none shrink-0">C:\&gt;</span>
           <span class="text-slate-300">{installWin}</span>
         </div>
         <button
           type="button"
           data-copy={installWin}
-          class="copy-btn shrink-0 px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition"
+          class="copy-btn shrink-0 px-2.5 sm:px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition text-xs"
         >
           Copy
         </button>
