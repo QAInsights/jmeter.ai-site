@@ -206,10 +206,96 @@ const jsonLdExtra =
         )
       }
 
+      <!-- Agent Mode (tool calling) -->
+      {
+        product.agentMode && (
+          <section class="space-y-8">
+            <div class="space-y-3">
+              <p class="text-xs font-mono tracking-widest uppercase" style={`color: ${product.color}`}>🔥 Killer Feature</p>
+              <h2 class="text-2xl md:text-4xl font-extrabold text-white tracking-tight">
+                Agent Mode — <span style={`color: ${product.color}`}>AI with Tool Calling</span>
+              </h2>
+              <p class="text-slate-400 leading-relaxed max-w-3xl">
+                Feather Wand doesn't just chat about your test plan — it <strong class="text-slate-200">acts on it</strong>.
+                The agent reads your tree, calls tools to mutate elements, verifies each change, and iterates until
+                the task is done. Every tool call streams to the chat in real time.
+              </p>
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 text-xs font-mono">
+                  ✓ Anthropic Claude
+                </span>
+                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 text-xs font-mono">
+                  ✓ OpenAI
+                </span>
+                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 text-slate-400 text-xs font-mono">
+                  enable: {product.agentMode.enableProperty}
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 leading-relaxed max-w-3xl">{product.agentMode.providersNote}</p>
+            </div>
+
+            <!-- Tool groups -->
+            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {product.agentMode.toolGroups.map((group) => (
+                <div class="glass-panel rounded-xl border border-white/10 p-5">
+                  <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+                    <span aria-hidden="true">{group.emoji}</span> {group.label}
+                    <span class="ml-auto text-[10px] font-mono text-slate-500">{group.tools.length} tools</span>
+                  </h3>
+                  <ul class="space-y-2">
+                    {group.tools.map((tool) => (
+                      <li class="text-xs">
+                        <code class="text-cyan-300 font-mono">{tool.name}</code>
+                        <span class="text-slate-500"> — {tool.description}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+
+              <!-- Safety card -->
+              <div class="glass-panel rounded-xl border border-amber-400/20 p-5">
+                <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+                  <span aria-hidden="true">🛡️</span> Safety Gates
+                </h3>
+                <ul class="space-y-2">
+                  {product.agentMode.safety.map((s) => (
+                    <li class="text-xs text-slate-400 leading-relaxed flex gap-2">
+                      <span class="text-amber-400 shrink-0" aria-hidden="true">▪</span>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <!-- Example tool chains -->
+            <div class="space-y-3">
+              <h3 class="text-lg font-bold text-white">See it work — natural language to tool calls</h3>
+              <div class="grid gap-3 md:grid-cols-2">
+                {product.agentMode.examples.map((ex) => (
+                  <div class="glass-panel rounded-xl border border-white/10 p-4 space-y-2">
+                    <p class="text-sm text-slate-200 italic">"{ex.request}"</p>
+                    <p class="text-[11px] font-mono text-slate-500 flex flex-wrap items-center gap-1">
+                      {ex.chain.map((tool, i) => (
+                        <>
+                          {i > 0 && <span class="text-slate-600" aria-hidden="true">→</span>}
+                          <code class="text-cyan-300/90">{tool}</code>
+                        </>
+                      ))}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )
+      }
+
       <!-- Installation -->
       {
         product.installation.length > 0 && (
-          <section>
+          <section id="installation" class="scroll-mt-20">
             <InstallationPanel product={product} />
           </section>
         )

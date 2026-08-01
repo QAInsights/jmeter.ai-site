@@ -24,7 +24,14 @@
     const GRID_STEP = 42; 
     const WAVE_SPEED = 0.0003; 
     const WAVELENGTH_DIAG = 0.0026; 
-    const AMPLITUDE = 25; 
+    const AMPLITUDE = 25;
+    const INTRO_DURATION = 4000;
+    const REVEAL_SPREAD = 0.65;
+
+    function smoothstep(x: number) {
+      x = Math.min(1, Math.max(0, x));
+      return x * x * (3 - 2 * x);
+    }
 
     interface Ripple {
       x: number;
@@ -34,6 +41,7 @@
       speed: number;
       amplitude: number;
       decay: number;
+      hue: number;
     }
 
     let width = 0;
@@ -41,9 +49,11 @@
     let cols = 0;
     let rows = 0;
     let dpr = 1;
-    let grid: Array<{ x: number; y: number; z: number }> = [];
+    let grid: Array<{ x: number; y: number; z: number; rippleHue: number; rippleIntensity: number; revealDelay: number }> = [];
     let ripples: Ripple[] = [];
     let time = 0;
+    let introStart = -1;
+    let introT = prefersReducedMotion ? 1 : 0;
 
     function resize() {
       if (!canvas) return;
@@ -59,13 +69,23 @@
       cols = Math.ceil(width / GRID_STEP) + 2;
       rows = Math.ceil(height / GRID_STEP) + 2;
 
+      const cx = width / 2;
+      const cy = height * 0.45;
+      const maxDist = Math.hypot(Math.max(cx, width - cx), Math.max(cy, height - cy));
+
       grid = new Array(cols * rows);
       for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
+          const px = (i - 1) * GRID_STEP;
+          const py = (j - 1) * GRID_STEP;
+          const distNorm = Math.hypot(px - cx, py - cy) / maxDist;
           grid[i * rows + j] = {
-            x: (i - 1) * GRID_STEP,
-            y: (j - 1) * GRID_STEP,
-            z: 0
+            x: px,
+            y: py,
+            z: 0,
+            rippleHue: 0,
+            rippleIntensity: 0,
+            revealDelay: (1 - distNorm) * REVEAL_SPREAD
           };
         }
       }
@@ -85,12 +105,13 @@
         maxRadius: Math.max(width, height) * 0.75,
         speed: 6.0,
         amplitude: 35,
-        decay: 0.965
+        decay: 0.965,
+        hue: Math.floor(Math.random() * 360)
       });
     });
 
     function updateGrid(t: number) {
-      const curAmp = prefersReducedMotion ? 3 : AMPLITUDE;
+      const curAmp = (prefersReducedMotion ? 3 : AMPLITUDE) * smoothstep(introT / 0.5);
 
       // Update active water drop ripples
       for (let r = ripples.length - 1; r >= 0; r--) {
@@ -112,6 +133,7 @@
           const w3 = Math.sin(pt.x * 0.003 + pt.y * 0.0015 - t * 0.4) * (curAmp * 0.2);
 
           let totalZ = w1 + w2 + w3;
+          pt.rippleIntensity = 0;
 
           // Water drop vibration ring displacement
           if (ripples.length > 0) {
@@ -126,7 +148,13 @@
               if (Math.abs(diff) < ringWidth) {
                 const ringFactor = Math.cos((diff / ringWidth) * Math.PI * 1.5);
                 const distanceDamp = Math.exp(-dist * 0.002);
-                totalZ += ringFactor * rip.amplitude * distanceDamp;
+                const contribution = ringFactor * rip.amplitude * distanceDamp;
+                totalZ += contribution;
+                const strength = Math.abs(contribution);
+                if (strength > pt.rippleIntensity) {
+                  pt.rippleIntensity = strength;
+                  pt.rippleHue = rip.hue;
+                }
               }
             }
           }
@@ -145,7 +173,7 @@
 
       // Batched mesh lines
       ctx.lineWidth = 0.6;
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
+      ctx.strokeStyle = `rgba(255, 255, 255, ${0.08 * smoothstep(introT / 0.4)})`;
 
       ctx.beginPath();
       for (let j = 0; j < rows; j++) {
@@ -168,6 +196,11 @@
       for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
           const pt = grid[i * rows + j];
+
+          // Intro reveal: edges first, center text area last
+          const reveal = smoothstep((introT - pt.revealDelay) / (1 - REVEAL_SPREAD));
+          if (reveal <= 0) continue;
+
           const renderX = pt.x;
           const renderY = pt.y + pt.z;
 
@@ -186,12 +219,23 @@
             fillStyle = `rgba(121, 40, 202, ${alpha})`;
           }
 
+          // Tint dots caught in a click ripple with the ripple's random color
+          if (pt.rippleIntensity > 0.5) {
+            const colorFactor = Math.min(1, pt.rippleIntensity / 20);
+            const lightness = 55 + colorFactor * 10;
+            const alpha = 0.35 + colorFactor * 0.6;
+            fillStyle = `hsla(${pt.rippleHue}, 90%, ${lightness}%, ${alpha})`;
+            radius += colorFactor * 0.8;
+          }
+
           ctx.fillStyle = fillStyle;
+          ctx.globalAlpha = reveal;
           ctx.beginPath();
           ctx.arc(renderX, renderY, radius, 0, Math.PI * 2);
           ctx.fill();
         }
       }
+      ctx.globalAlpha = 1;
 
       ctx.restore();
     }
@@ -201,6 +245,11 @@
       if (!lastTime) lastTime = timestamp;
       const delta = timestamp - lastTime;
       lastTime = timestamp;
+
+      if (introT < 1) {
+        if (introStart < 0) introStart = timestamp;
+        introT = Math.min(1, (timestamp - introStart) / INTRO_DURATION);
+      }
 
       time += delta * WAVE_SPEED;
       updateGrid(time);

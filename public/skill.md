@@ -364,7 +364,7 @@ with open-source editions on GitHub.
 
 | Plugin | Purpose | Plugins Manager ID | Link |
 |---|---|---|---|
-| **Feather Wand** | AI-powered test generation and result analysis inside JMeter (OpenAI, Claude, Ollama, OpenAI-compatible endpoints) | `feather-wand-jmeter-ai-agent` | https://jmeter.ai/products/feather-wand/ |
+| **Feather Wand** | AI agent for JMeter (MIT): 8 LLM providers, Agent Mode with 18 tools + auto-correlation, embedded AI CLI terminals, @commands | `feather-wand-jmeter-ai-agent` | https://jmeter.ai/products/feather-wand/ |
 | **Super Key** | 70+ keyboard shortcuts and VS Code-style command palette for JMeter | `superkey` | https://jmeter.ai/products/super-key/ |
 | **Prism** | Multi-tab interface — open multiple .jmx test plans simultaneously | `prism` | https://jmeter.ai/products/prism/ |
 | **JMeter Studio** | Theme engine: dark mode, FlatLaf themes, icon packs, fonts | `jmeter-studio-oss` | https://jmeter.ai/products/jmeter-studio/ |

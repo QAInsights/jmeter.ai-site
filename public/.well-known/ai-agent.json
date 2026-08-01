@@ -28,10 +28,11 @@
   "tools": [
     {
       "name": "Feather Wand",
-      "description": "AI-powered test generation and result analysis inside Apache JMeter. Supports OpenAI, Anthropic Claude, Ollama, and any OpenAI-compatible endpoint. Open-source (OSS) edition free; Pro edition commercial.",
+      "description": "AI agent for Apache JMeter (MIT). Chat with 8 LLM providers (Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta Muse, AWS Bedrock), Agent Mode autonomously edits test plans via 18 tools with auto-correlation, embedded AI CLI terminals, context-aware @commands, streaming, and JSR223 refactoring.",
       "url": "https://jmeter.ai/products/feather-wand/",
       "plugins_manager_id": "feather-wand-jmeter-ai-agent",
       "repository": "https://github.com/QAInsights/jmeter-ai",
+      "license": "MIT",
       "free": true
     },
     {

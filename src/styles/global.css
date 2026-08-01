@@ -87,6 +87,9 @@ body {
 }
 
 /* ===== Scrollbar ===== */
+html {
+  scrollbar-color: #0e7490 #0d0f16;
+}
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -95,11 +98,11 @@ body {
   background: #0d0f16;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2f3f;
+  background: #0e7490;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b4256;
+  background: var(--color-brand-cyan);
 }
 
 /* ===== Viewfinder focus — four corner brackets on hover ===== */

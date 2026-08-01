@@ -40,6 +40,25 @@ export interface Faq {
   answer: string;
 }
 
+export interface AgentToolGroup {
+  label: string;
+  emoji: string;
+  tools: { name: string; description: string }[];
+}
+
+export interface AgentExample {
+  request: string;
+  chain: string[];
+}
+
+export interface AgentMode {
+  providersNote: string;
+  enableProperty: string;
+  toolGroups: AgentToolGroup[];
+  examples: AgentExample[];
+  safety: string[];
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -62,6 +81,7 @@ export interface Product {
   ossVsPro: ComparisonRow[];
   installation: InstallStep[];
   faqs?: Faq[];
+  agentMode?: AgentMode;
   socials: Social[];
   treeNodes: TreeNode[];
 }
@@ -95,69 +115,81 @@ export const products: Product[] = [
   {
     id: "feather-wand",
     name: "Feather Wand",
-    tagline: "AI-Powered Test Generation for JMeter",
+    tagline: "The AI Agent for Apache JMeter",
     subtitlePrefix: "AI-POWERED INTELLIGENCE FOR",
     subtitleHighlight: "APACHE JMETER",
     subtitleSuffix: "",
     description:
-      "Feather Wand brings the power of Large Language Models directly into your JMeter workflow. Generate test scripts, analyze results, and get AI-guided recommendations, all without leaving your performance testing environment.",
+      "Feather Wand is a full AI agent living inside Apache JMeter. Chat with 8 LLM providers — Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta Muse, and AWS Bedrock — or enable Agent Mode and let the AI autonomously edit your test plan through 18 tools: adding elements, setting properties, running tests, and auto-correlating dynamic values. Embedded AI CLI terminals, context-aware @commands, streaming responses, and smart JSR223 refactoring included.",
     icon: "wand-sparkles",
     color: "#00e5ff",
     colorRgb: "0, 229, 255",
     github: "https://github.com/QAInsights/jmeter-ai",
-    treeNodes: defaultTreeNodes,
+    treeNodes: [
+      { id: "overview", label: "Overview", icon: "info" },
+      { id: "features", label: "Features", icon: "zap" },
+      { id: "installation", label: "Installation", icon: "download" },
+      { id: "github", label: "GitHub", icon: "github" },
+      { id: "connect", label: "Connect", icon: "users" },
+    ],
     badges: [
-      { label: "AI POWERED", emoji: "🤖", variant: "filled", color: "#d500f9" },
-      { label: "OPEN SOURCE", emoji: "⚡", variant: "outlined", color: "#00e676" },
-      { label: "LATEST", emoji: "💻", variant: "outlined", color: "#3d8bfd" },
+      { label: "AI AGENT", emoji: "🤖", variant: "filled", color: "#d500f9" },
+      { label: "OPEN SOURCE · MIT", emoji: "⚡", variant: "outlined", color: "#00e676" },
+      { label: "AGENT MODE", emoji: "🛠️", variant: "outlined", color: "#00e5ff" },
+      { label: "8 LLM PROVIDERS", emoji: "🔗", variant: "outlined", color: "#ffab00" },
     ],
     infoCards: [
-      { label: "CATEGORY", value: "AI / LLM Integration", color: "#00e5ff" },
+      { label: "CATEGORY", value: "AI Agent / LLM Integration", color: "#00e5ff" },
       { label: "PLATFORM", value: "Apache JMeter Plugin", color: "#00e676" },
-      { label: "LICENSE", value: "Open Source", color: "#00e676" },
-      { label: "STATUS", value: "Active", color: "#00e676" },
+      { label: "LICENSE", value: "MIT (Open Source)", color: "#00e676" },
+      { label: "LLM PROVIDERS", value: "8 Providers", color: "#ffab00" },
     ],
     featuresHeadingPrefix: "Intelligent",
     featuresHeadingHighlight: "Features",
     featuresSubtitle: "Supercharge your performance testing workflow with AI-driven capabilities built natively into JMeter.",
     features: [
       {
-        title: "AI Test Element Insertion",
-        description: "Describe the test element you want to insert in plain English. Feather Wand generates it instantly.",
+        title: "Agent Mode",
+        description: "AI autonomously edits your live test plan through 18 tools — add elements, set properties, run tests, and auto-correlate dynamic values, with confirmation-gated destructive ops. Claude & OpenAI.",
         icon: "🤖",
       },
       {
-        title: "Smart Result Analysis",
-        description: "Automatically analyze test results and surface insights, anomalies, and performance bottlenecks.",
-        icon: "🔍",
-      },
-      {
-        title: "Test Recommendations",
-        description: "Get AI-powered suggestions to optimize thread counts, ramp-up periods, and think times.",
-        icon: "💡",
-      },
-      {
-        title: "Multi-LLM Support",
-        description: "Connect to OpenAI, Anthropic Claude, Ollama, or any OpenAI-compatible endpoint.",
+        title: "8 LLM Providers",
+        description: "Chat with Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok (xAI), Meta Muse, or AWS Bedrock — all inside JMeter. Model filtering hides non-chat models automatically.",
         icon: "🔗",
       },
       {
-        title: "Natural Language Assertions",
-        description: "Write response assertions in natural language. AI translates them into proper JMeter validators.",
-        icon: "📝",
+        title: "Context-Aware @Commands",
+        description: "@this, @testplan, @optimize, @lint, @wrap, @code, @usage — each command understands your currently selected test-plan element.",
+        icon: "🔍",
       },
       {
-        title: "Context-Aware Help",
-        description: "Right-click any element to get AI help contextually. From samplers to listeners, help is one click away.",
+        title: "Multi-AI CLI Terminal",
+        description: "Run Claude Code, OpenAI Codex, OpenCode, Antigravity, or Grok CLI in an embedded terminal that receives your open .jmx as context.",
+        icon: "💻",
+      },
+      {
+        title: "Real-Time Streaming",
+        description: "Watch AI responses appear token-by-token, with a Stop button to cancel mid-response and an optional chime when the AI finishes.",
         icon: "⚡",
       },
+      {
+        title: "Smart JSR223 Refactoring",
+        description: "Right-click in the JSR223 editor to refactor, format, or inject functions with AI — no copy-pasting between tools.",
+        icon: "🧹",
+      },
+      {
+        title: "Local & Private via Ollama",
+        description: "Run fully offline with local models — zero data egress, with configurable thinking modes for reasoning models like DeepSeek R1.",
+        icon: "🔒",
+      },
+      {
+        title: "Companion Pets",
+        description: "A draggable animated pet (quill, glim, peacock, or monkey) that cheers on clean runs and frowns on sampler failures.",
+        icon: "🐾",
+      },
     ],
-    ossVsPro: [
-      { feature: "Multi-LLM Support", oss: "3 providers", pro: "All providers" },
-      { feature: "Context-Aware Suggestions", oss: true, pro: true },
-      { feature: "Custom Prompt Templates", oss: false, pro: true },
-      { feature: "Priority Support", oss: false, pro: true },
-    ],
+    ossVsPro: [],
     installation: [
       {
         title: "Plugins Manager (Recommended)",
@@ -176,31 +208,124 @@ export const products: Product[] = [
       },
       {
         title: "Configure AI Provider",
-        description: "Set your API key and preferred LLM provider in Feather Wand settings.",
+        description: "Copy jmeter-ai-sample.properties into your user.properties, add your API key (e.g. anthropic.api.key or openai.api.key), and restart JMeter. Then pick a model from the dropdown.",
       },
     ],
     faqs: [
       {
         question: "What is Feather Wand for Apache JMeter?",
-        answer: "Feather Wand is a JMeter plugin that brings Large Language Models directly into your performance testing workflow. You describe test elements in plain English and it generates samplers, assertions, and extractors, analyzes results, and suggests optimizations without leaving JMeter.",
+        answer: "Feather Wand is a free, MIT-licensed AI agent plugin for JMeter. Chat with 8 LLM providers to generate and analyze test plans, use context-aware @commands, run embedded AI CLI terminals (Claude Code, OpenAI Codex, and more), or enable Agent Mode to let the AI autonomously edit your test plan.",
       },
       {
         question: "Which LLMs does Feather Wand support?",
-        answer: "Feather Wand supports OpenAI, Anthropic Claude, local models via Ollama, and any OpenAI-compatible endpoint. The open-source edition includes 3 providers; the Pro edition unlocks all providers.",
+        answer: "Eight providers: Anthropic Claude, OpenAI, Google Gemini, DeepSeek, Ollama (local), Grok (xAI), Meta Muse, and AWS Bedrock via the Converse API. Non-chat models are filtered out of the dropdown automatically.",
+      },
+      {
+        question: "What is Agent Mode in Feather Wand?",
+        answer: "Agent Mode lets the AI autonomously edit your live test plan through 18 tools: reading the tree, adding and configuring elements, running tests, and detecting plus applying correlations. Destructive operations ask for confirmation, iterations are bounded, and everything is undoable with Ctrl+Z. It works with Claude and OpenAI models and is enabled with jmeter.ai.agent.enabled=true.",
       },
       {
         question: "How do I install Feather Wand?",
-        answer: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: PluginsManagerCMD install feather-wand-jmeter-ai-agent.",
+        answer: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: PluginsManagerCMD install feather-wand-jmeter-ai-agent. Then copy jmeter-ai-sample.properties into your user.properties and add your API key.",
       },
       {
         question: "Is Feather Wand free?",
-        answer: "Yes. The open-source edition is free on GitHub and via the JMeter Plugins Manager. A commercial Pro edition adds custom prompt templates, all LLM providers, and priority support.",
+        answer: "Yes — completely. Feather Wand is open source under the MIT license, including Agent Mode, all 8 LLM providers, the CLI terminal, and every @command. You only pay for your own LLM API usage (or nothing at all with local Ollama models).",
       },
       {
         question: "Does my test data leave my machine?",
         answer: "Not if you don't want it to. Feather Wand supports fully local deployments via Ollama, so test plans and results can stay on your machine with zero data egress.",
       },
     ],
+    agentMode: {
+      providersNote: "Tool calling works with Anthropic Claude and OpenAI models — the two providers with mature function-calling APIs. Other providers fall back to plain chat.",
+      enableProperty: "jmeter.ai.agent.enabled=true",
+      toolGroups: [
+        {
+          label: "Read",
+          emoji: "📖",
+          tools: [
+            { name: "get_tree_state", description: "Full test-plan tree with names, types, enabled state" },
+            { name: "get_element_config", description: "All properties of a specific element" },
+            { name: "get_element_children", description: "Children of a specific element" },
+            { name: "get_element_schema", description: "Property schema and allowed values for an element type" },
+          ],
+        },
+        {
+          label: "Write",
+          emoji: "✏️",
+          tools: [
+            { name: "add_element", description: "Add a new element as a child of a parent" },
+            { name: "update_element_property", description: "Set a scalar property on an element" },
+            { name: "set_property_list", description: "Set a flat string-list property" },
+            { name: "set_structured_property_list", description: "Set structured lists like headers and arguments" },
+            { name: "delete_element", description: "Delete an element and its subtree (confirmation gated)" },
+            { name: "toggle_element", description: "Enable or disable an element" },
+            { name: "move_element", description: "Reparent an element (confirmation gated)" },
+            { name: "duplicate_element", description: "Deep-clone an element's subtree" },
+            { name: "rename_element", description: "Rename an element" },
+            { name: "reorder_element", description: "Reposition an element among its siblings" },
+          ],
+        },
+        {
+          label: "Run",
+          emoji: "▶️",
+          tools: [
+            { name: "run_test", description: "Start the test plan" },
+            { name: "stop_test", description: "Stop the running test" },
+            { name: "get_test_results", description: "Run in a private engine and report pass/fail with failure details" },
+          ],
+        },
+        {
+          label: "Correlation",
+          emoji: "🔗",
+          tools: [
+            { name: "find_correlation_candidates", description: "Probe the plan and detect dynamic values needing correlation" },
+            { name: "apply_correlation", description: "Add extractors and rewrite values to ${variable} (confirmation gated)" },
+          ],
+        },
+        {
+          label: "File",
+          emoji: "💾",
+          tools: [
+            { name: "save_plan", description: "Save the test plan to a .jmx file" },
+            { name: "open_plan", description: "Open a .jmx file (confirmation gated)" },
+          ],
+        },
+      ],
+      examples: [
+        {
+          request: "Add an HTTP Request under the Thread Group and set its path to /login",
+          chain: ["get_tree_state", "add_element", "update_element_property", "get_element_config"],
+        },
+        {
+          request: "Add a Response Assertion that checks for 200",
+          chain: ["get_tree_state", "add_element", "set_property_list"],
+        },
+        {
+          request: "Find dynamic values that need correlation",
+          chain: ["find_correlation_candidates"],
+        },
+        {
+          request: "Apply correlation for candidates 1 and 3",
+          chain: ["apply_correlation"],
+        },
+        {
+          request: "Run the test and tell me if it passed",
+          chain: ["run_test", "get_test_results"],
+        },
+        {
+          request: "Move the JSON Extractor under the first HTTP Request",
+          chain: ["get_tree_state", "move_element"],
+        },
+      ],
+      safety: [
+        "Destructive operations (delete, move, open plan, apply correlation) ask for confirmation before executing.",
+        "Bounded iterations — the agent stops after 8 reason-act cycles by default, configurable via jmeter.ai.agent.max.iterations.",
+        "Graceful degradation — if the agent loop fails, you get a plain-text answer describing what it attempted.",
+        "Every mutation is undoable with Ctrl+Z when undo.history.size > 0 in user.properties.",
+      ],
+    },
     socials: defaultSocials,
   },
   {

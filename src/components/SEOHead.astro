@@ -36,6 +36,7 @@ const productSchema = (p: Product) => ({
   url: `${siteConfig.url}/products/${p.id}/`,
   downloadUrl: `${p.github}/releases`,
   installUrl: `${siteConfig.url}/products/${p.id}/`,
+  ...(p.features.length > 0 ? { featureList: p.features.map((f) => f.title) } : {}),
   author: { "@id": `${siteConfig.url}/#organization` },
   publisher: { "@id": `${siteConfig.url}/#organization` },
   offers: {

@@ -9,11 +9,14 @@ and as open-source projects on GitHub, compatible with Apache JMeter 5.x and lat
 
 ## Products
 
-- [Feather Wand](https://jmeter.ai/products/feather-wand/): AI-powered chat interface and test plan
-  generator built directly into Apache JMeter. Use natural language to generate test scripts,
-  analyze results, debug issues, and receive AI-guided recommendations. Supports OpenAI, Anthropic
-  Claude, Ollama, and any OpenAI-compatible LLM endpoint. Plugins Manager ID:
-  feather-wand-jmeter-ai-agent. Open-source edition free; commercial Pro edition available.
+- [Feather Wand](https://jmeter.ai/products/feather-wand/): A full AI agent living inside Apache
+  JMeter (MIT license). Chat with 8 LLM providers - Claude, OpenAI, Gemini, DeepSeek, Ollama,
+  Grok, Meta Muse, and AWS Bedrock. Agent Mode autonomously edits the test plan through 18 tools:
+  adding elements, setting properties, running tests, and auto-correlating dynamic values
+  (Claude & OpenAI). Includes embedded AI CLI terminals (Claude Code, OpenAI Codex, OpenCode,
+  Antigravity, Grok CLI), context-aware @commands (@this, @testplan, @optimize, @lint, @wrap,
+  @code, @usage), token-by-token streaming, and smart JSR223 refactoring.
+  Plugins Manager ID: feather-wand-jmeter-ai-agent.
 
 - [Super Key](https://jmeter.ai/products/super-key/): Keyboard command center for Apache JMeter
   featuring 70+ shortcuts, a VS Code-style command palette (Ctrl+Shift+P), and Vim-inspired
