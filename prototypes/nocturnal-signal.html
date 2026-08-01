@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JMeter.ai — AI Plugins for Apache JMeter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0814;
+    --bg-alt: #0d0a14;
+    --surface: #120e1f;
+    --surface-elevated: #1a1528;
+    --border: rgba(255,255,255,0.06);
+    --border-hover: rgba(255,255,255,0.10);
+    --text-primary: #f5f2ff;
+    --text-secondary: #9e99b0;
+    --text-tertiary: #6b6580;
+    --accent-start: #8b5cf6;
+    --accent-end: #00e5ff;
+    --accent: #00e5ff;
+    --code-bg: #110d1a;
+    --radius: 12px;
+    --radius-sm: 6px;
+    --max-width: 1100px;
+    --font-sans: 'Inter', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.65;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+    mix-blend-mode: overlay;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    transition: background 200ms ease, border-color 200ms ease;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled {
+    background: rgba(10, 8, 20, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom-color: var(--border);
+  }
+  .nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    display: inline-block;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .nav-links a:hover { color: var(--text-primary); transition: color 150ms ease; }
+  .nav-cta {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: #fff;
+    border: none;
+  }
+  .nav-cta:hover { opacity: 0.9; }
+
+  /* Hero */
+  .hero {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 160px 24px 80px;
+    text-align: center;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(139, 92, 246, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero > * { position: relative; z-index: 1; }
+  h1 {
+    font-size: 56px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin: 0 auto 40px;
+  }
+  .hero-command {
+    display: inline-block;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 28px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--text-primary);
+    position: relative;
+  }
+  .hero-command::before {
+    content: '$';
+    color: var(--accent-end);
+    margin-right: 12px;
+  }
+  .cursor {
+    display: inline-block;
+    width: 8px; height: 18px;
+    background: var(--accent-end);
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  .btn {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: #fff;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--border-hover); }
+
+  /* Numbered sections */
+  section {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 100px 24px;
+  }
+  .section-alt { background: var(--bg-alt); }
+  .section-alt section { margin: 0 auto; }
+  .numbered-section {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 300ms ease, transform 300ms cubic-bezier(0.25, 0.1, 0.25, 1.0);
+  }
+  .numbered-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .section-number {
+    font-size: 72px;
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(139, 116, 200, 0.4);
+    line-height: 1;
+    font-family: var(--font-sans);
+    letter-spacing: -0.03em;
+    position: sticky;
+    top: 120px;
+  }
+  h2 {
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  p.lead {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 560px;
+    line-height: 1.65;
+  }
+  .code-snippet {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 20px;
+  }
+  .code-snippet .comment { color: var(--text-tertiary); }
+  .code-snippet .kw { color: #c7b8f5; }
+  .code-snippet .str { color: #a7eadc; }
+
+  /* Demo window */
+  .demo-window {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 40px;
+  }
+  .demo-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .demo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--surface-elevated); border: 1px solid var(--border); }
+  .demo-title { font-size: 12px; color: var(--text-tertiary); margin-left: 8px; font-family: var(--font-mono); }
+  .demo-body {
+    padding: 20px 24px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    min-height: 180px;
+  }
+  .demo-body .accent { color: var(--accent-end); }
+  .demo-body .dim { color: var(--text-tertiary); }
+  .demo-body .green { color: #76dec8; }
+
+  /* Product matrix */
+  .product-matrix {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .matrix-row {
+    display: grid;
+    grid-template-columns: 1.5fr 2.5fr 1fr 1fr;
+    gap: 16px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    align-items: center;
+  }
+  .matrix-row:last-child { border-bottom: none; }
+  .matrix-row:hover { background: var(--surface); transition: background 150ms ease; }
+  .matrix-header {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+    background: var(--surface);
+  }
+  .matrix-name { font-weight: 600; color: var(--text-primary); }
+  .matrix-desc { color: var(--text-secondary); }
+  .matrix-status { font-size: 12px; font-weight: 600; }
+  .status-ok { color: #76dec8; }
+  .status-beta { color: #f1b27e; }
+  .matrix-link { color: var(--text-tertiary); font-size: 13px; }
+  .matrix-link:hover { color: var(--text-primary); }
+
+  /* Enterprise banner */
+  .enterprise-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 48px;
+    text-align: center;
+  }
+  .enterprise-banner h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .enterprise-banner p {
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto 24px;
+  }
+  .enterprise-list {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .enterprise-item {
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .enterprise-item::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+  }
+
+  /* Stats row */
+  .stats-row {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 40px 0;
+  }
+  .stat-item { text-align: center; }
+  .stat-value {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+    margin-top: 8px;
+  }
+
+  /* Footer */
+  footer {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 60px 24px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .footer-links a:hover { color: var(--text-primary); transition: color 150ms ease; }
+  .footer-copy {
+    font-size: 13px;
+    color: var(--text-tertiary);
+  }
+
+  @media (max-width: 900px) {
+    h1 { font-size: 40px; }
+    h2 { font-size: 28px; }
+    .numbered-section { grid-template-columns: 60px 1fr; gap: 20px; }
+    .section-number { font-size: 48px; }
+    .nav-links { display: none; }
+    .matrix-row { grid-template-columns: 1fr; gap: 4px; }
+    .matrix-header { display: none; }
+  }
+  @media (max-width: 600px) {
+    .hero { padding-top: 120px; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+    .stats-row { gap: 24px; }
+    .stat-value { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo"><span class="nav-logo-dot"></span> jmeter.ai</div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#products">Products</a>
+      <a href="https://github.com/QAInsights/jmeter-ai">GitHub</a>
+      <a href="#enterprise">Enterprise</a>
+    </div>
+    <a href="#install" class="nav-cta">Install</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>AI plugins that feel<br>like they belong in JMeter</h1>
+  <p class="hero-sub">Eight open-source plugins bringing LLMs, modern UX, and automation into Apache JMeter. No wrappers. No forks. Just plugins.</p>
+  <div class="hero-command">curl -sSL https://jmeter.ai/install | bash<span class="cursor"></span></div>
+  <div class="hero-ctas">
+    <a href="#install" class="btn btn-primary">Get Started</a>
+    <a href="https://github.com/QAInsights/jmeter-ai" class="btn btn-secondary">View on GitHub</a>
+  </div>
+</div>
+
+<!-- Numbered Features -->
+<div class="section-alt" id="features">
+  <section>
+    <div class="numbered-section">
+      <div class="section-number">01</div>
+      <div>
+        <h2>AI Test Generation</h2>
+        <p class="lead">Describe the test element you need in plain English. Feather Wand generates JMeter scripts, assertions, and extractors with full context of your existing test plan.</p>
+        <div class="code-snippet">
+          <span class="comment"># Generate an HTTP sampler with auth and JSON body</span><br>
+          <span class="kw">jmeter-ai</span> feather-wand <span class="str">--generate "POST /api/v1/login with bearer token"</span>
+        </div>
+      </div>
+    </div>
+    <div class="numbered-section">
+      <div class="section-number">02</div>
+      <div>
+        <h2>Command Palette Navigation</h2>
+        <p class="lead">Super Key brings VS Code-style keyboard shortcuts to JMeter. Open the command palette, fuzzy-search any element, and jump to it in under two keystrokes.</p>
+      </div>
+    </div>
+    <div class="numbered-section">
+      <div class="section-number">03</div>
+      <div>
+        <h2>Multi-Tab Test Plans</h2>
+        <p class="lead">Prism replaces the single-document model with Chrome-style tabs. Work across multiple JMX files simultaneously without restarting JMeter.</p>
+      </div>
+    </div>
+    <div class="numbered-section">
+      <div class="section-number">04</div>
+      <div>
+        <h2>Performance Calculators</h2>
+        <p class="lead">Perftractor embeds Little's Law, concurrency, and throughput calculators directly into the IDE. No context switching to spreadsheets.</p>
+      </div>
+    </div>
+    <div class="numbered-section">
+      <div class="section-number">05</div>
+      <div>
+        <h2>Theme Engine & Documentation</h2>
+        <p class="lead">JMeter Studio provides dark, light, and high-contrast themes. README Config keeps test plan documentation version-controlled and readable inside the tree.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Interactive Playground -->
+<section>
+  <div class="demo-window">
+    <div class="demo-header">
+      <div class="demo-dot"></div>
+      <div class="demo-dot"></div>
+      <div class="demo-dot"></div>
+      <div class="demo-title">super-key-demo</div>
+    </div>
+    <div class="demo-body">
+      <span class="dim">Press</span> <span class="accent">Ctrl+Shift+P</span> <span class="dim">to open Command Palette</span><br><br>
+      <span class="accent">&gt;</span> Add Thread Group<br>
+      <span class="dim">&nbsp;&nbsp;Thread Group (5 users, 10s ramp, 60s duration)</span><br><br>
+      <span class="accent">&gt;</span> Add HTTP Request<br>
+      <span class="dim">&nbsp;&nbsp;HTTP Request to https://api.example.com/v1</span><br><br>
+      <span class="accent">&gt;</span> Add Response Assertion<br>
+      <span class="dim">&nbsp;&nbsp;Assertion: Response Code = 200</span><br><br>
+      <span class="green">[OK]</span> <span class="dim">3 elements added in 0.4s</span>
+    </div>
+  </div>
+</section>
+
+<!-- Product Matrix -->
+<section id="products">
+  <h2 style="margin-bottom: 32px;">Plugin matrix</h2>
+  <div class="product-matrix">
+    <div class="matrix-row matrix-header">
+      <div>Name</div>
+      <div>Description</div>
+      <div>Status</div>
+      <div></div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-name">Feather Wand</div>
+      <div class="matrix-desc">AI test generation from natural language</div>
+      <div class="matrix-status status-ok">Stable</div>
+      <a href="#" class="matrix-link">Docs &rarr;</a>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-name">Super Key</div>
+      <div class="matrix-desc">Command palette keyboard shortcuts</div>
+      <div class="matrix-status status-ok">Stable</div>
+      <a href="#" class="matrix-link">Docs &rarr;</a>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-name">Prism</div>
+      <div class="matrix-desc">Multi-tab test plan editor</div>
+      <div class="matrix-status status-ok">Stable</div>
+      <a href="#" class="matrix-link">Docs &rarr;</a>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-name">Perftractor</div>
+      <div class="matrix-desc">Performance testing calculators</div>
+      <div class="matrix-status status-ok">Stable</div>
+      <a href="#" class="matrix-link">Docs &rarr;</a>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-name">JMeter Studio</div>
+      <div class="matrix-desc">Theme engine with custom CSS variables</div>
+      <div class="matrix-status status-ok">Stable</div>
+      <a href="#" class="matrix-link">Docs &rarr;</a>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-name">README Config</div>
+      <div class="matrix-desc">Documentation node inside test plans</div>
+      <div class="matrix-status status-ok">Stable</div>
+      <a href="#" class="matrix-link">Docs &rarr;</a>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-name">Academy</div>
+      <div class="matrix-desc">30-day performance testing challenge</div>
+      <div class="matrix-status status-beta">Beta</div>
+      <a href="#" class="matrix-link">Docs &rarr;</a>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-name">Prompts</div>
+      <div class="matrix-desc">Curated LLM prompt library</div>
+      <div class="matrix-status status-ok">Stable</div>
+      <a href="#" class="matrix-link">Docs &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- Enterprise Banner -->
+<div class="section-alt" id="enterprise">
+  <section>
+    <div class="enterprise-banner">
+      <h3>Enterprise Edition</h3>
+      <p>For teams that need SSO, audit logging, custom model hosting, and an SLA behind the same open-source plugins.</p>
+      <div class="enterprise-list">
+        <div class="enterprise-item">SSO / SAML</div>
+        <div class="enterprise-item">Audit Logging</div>
+        <div class="enterprise-item">Custom Model Hosting</div>
+      </div>
+      <a href="#" class="btn btn-secondary">Contact Sales</a>
+    </div>
+  </section>
+</div>
+
+<!-- Stats -->
+<section>
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-value">4.2k</div>
+      <div class="stat-label">GitHub Stars</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">380</div>
+      <div class="stat-label">Forks</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">v2.4.1</div>
+      <div class="stat-label">Latest Release</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">12k</div>
+      <div class="stat-label">Monthly Downloads</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">47</div>
+      <div class="stat-label">Contributors</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-links">
+    <a href="#products">Plugins</a>
+    <a href="#">Docs</a>
+    <a href="#enterprise">Enterprise</a>
+    <a href="https://github.com/QAInsights/jmeter-ai">GitHub</a>
+    <a href="#">Changelog</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 QAInsights. Apache 2.0.</div>
+</footer>
+
+<script>
+  // Nav scroll behavior
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Intersection Observer for numbered sections
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.numbered-section').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

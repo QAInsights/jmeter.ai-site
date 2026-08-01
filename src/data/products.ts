@@ -103,13 +103,12 @@ export const products: Product[] = [
     badges: [
       { label: "AI POWERED", emoji: "🤖", variant: "filled", color: "#d500f9" },
       { label: "OPEN SOURCE", emoji: "⚡", variant: "outlined", color: "#00e676" },
-      { label: "PRO EDITION", emoji: "💎", variant: "outlined", color: "#ffab00" },
       { label: "LATEST", emoji: "💻", variant: "outlined", color: "#3d8bfd" },
     ],
     infoCards: [
       { label: "CATEGORY", value: "AI / LLM Integration", color: "#00e5ff" },
       { label: "PLATFORM", value: "Apache JMeter Plugin", color: "#00e676" },
-      { label: "LICENSE", value: "OSS + Commercial", color: "#ff5252" },
+      { label: "LICENSE", value: "Open Source", color: "#00e676" },
       { label: "STATUS", value: "Active", color: "#00e676" },
     ],
     featuresHeadingPrefix: "Intelligent",
@@ -152,7 +151,6 @@ export const products: Product[] = [
       { feature: "Context-Aware Suggestions", oss: true, pro: true },
       { feature: "Custom Prompt Templates", oss: false, pro: true },
       { feature: "Priority Support", oss: false, pro: true },
-      { feature: "Commercial License", oss: false, pro: true },
     ],
     installation: [
       {
@@ -368,12 +366,11 @@ export const products: Product[] = [
     badges: [
       { label: "THEMES", emoji: "🎨", variant: "filled", color: "#d500f9" },
       { label: "OPEN SOURCE", emoji: "⚡", variant: "outlined", color: "#00e676" },
-      { label: "PRO EDITION", emoji: "💎", variant: "outlined", color: "#ff5252" },
     ],
     infoCards: [
       { label: "CATEGORY", value: "Themes / UI Skins", color: "#d500f9" },
       { label: "PLATFORM", value: "Apache JMeter Plugin", color: "#00e676" },
-      { label: "LICENSE", value: "OSS + Commercial", color: "#ff5252" },
+      { label: "LICENSE", value: "Open Source", color: "#00e676" },
       { label: "THEMES", value: "10+ Included", color: "#00e5ff" },
     ],
     featuresHeadingPrefix: "Beautiful",
@@ -462,13 +459,12 @@ export const products: Product[] = [
     badges: [
       { label: "MULTI-TAB", emoji: "🚀", variant: "filled", color: "#00e676" },
       { label: "OPEN SOURCE", emoji: "⚡", variant: "outlined", color: "#00e5ff" },
-      { label: "PRO EDITION", emoji: "💎", variant: "outlined", color: "#ffab00" },
       { label: "GAME CHANGER", emoji: "🚀", variant: "outlined", color: "#ff5252" },
     ],
     infoCards: [
       { label: "CATEGORY", value: "Multi-Tab / UX", color: "#00e676" },
       { label: "PLATFORM", value: "Apache JMeter Plugin", color: "#00e5ff" },
-      { label: "LICENSE", value: "OSS + Commercial", color: "#ff5252" },
+      { label: "LICENSE", value: "Open Source", color: "#00e676" },
       { label: "MAX TABS (OSS)", value: "3 concurrent", color: "#ffab00" },
     ],
     featuresHeadingPrefix: "Tab",
