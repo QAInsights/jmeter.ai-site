@@ -1,7 +1,6 @@
 ---
 import { products, playlistConfig } from "../data/products";
 import PromptsPanel from "./PromptsPanel.astro";
-import BlogPanel from "./BlogPanel.astro";
 import OverviewPanel from "./panels/OverviewPanel.astro";
 import FeaturesPanel from "./panels/FeaturesPanel.astro";
 import OssProPanel from "./panels/OssProPanel.astro";
@@ -37,7 +36,7 @@ import { productEmoji } from "./panels/constants";
       {product.treeNodes.map((node, ni) => (
         <div
           class:list={[
-            (node.id === "prompts" || node.id === "blog") ? "detail-content panel-enter h-full" : "detail-content p-4 sm:p-8 panel-enter",
+            node.id === "prompts" ? "detail-content panel-enter h-full" : "detail-content p-4 sm:p-8 panel-enter",
             ni > 0 && "hidden",
           ]}
           data-detail={`${product.id}-${node.id}`}
@@ -63,8 +62,6 @@ import { productEmoji } from "./panels/constants";
           {node.id === "prompts" && <PromptsPanel />}
 
           {node.id === "metrics" && <MetricsPanel />}
-
-          {node.id === "blog" && <BlogPanel />}
 
           {node.id === "connect" && <ConnectPanel product={product} />}
         </div>

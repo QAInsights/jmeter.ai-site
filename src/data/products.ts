@@ -47,6 +47,7 @@ export interface Product {
   color: string;
   colorRgb: string;
   github: string;
+  externalUrl?: string;
   badges: Badge[];
   infoCards: InfoCard[];
   featuresHeadingPrefix: string;
@@ -67,7 +68,7 @@ export interface TreeNode {
   children?: TreeNode[];
 }
 
-const defaultSocials: Social[] = [
+export const defaultSocials: Social[] = [
   { name: "GitHub", url: "https://github.com/QAInsights", icon: "github" },
   { name: "Twitter / X", url: "https://twitter.com/QAInsights", icon: "twitter" },
   { name: "YouTube", url: "https://youtube.com/@QAInsights", icon: "youtube" },
@@ -93,7 +94,7 @@ export const products: Product[] = [
     subtitleHighlight: "APACHE JMETER",
     subtitleSuffix: "",
     description:
-      "Feather Wand brings the power of Large Language Models directly into your JMeter workflow. Generate test scripts, analyze results, and get AI-guided recommendations — all without leaving your performance testing environment.",
+      "Feather Wand brings the power of Large Language Models directly into your JMeter workflow. Generate test scripts, analyze results, and get AI-guided recommendations, all without leaving your performance testing environment.",
     icon: "wand-sparkles",
     color: "#00e5ff",
     colorRgb: "0, 229, 255",
@@ -142,7 +143,7 @@ export const products: Product[] = [
       },
       {
         title: "Context-Aware Help",
-        description: "Right-click any element to get AI help contextually. From samplers to listeners — help is one click away.",
+        description: "Right-click any element to get AI help contextually. From samplers to listeners, help is one click away.",
         icon: "⚡",
       },
     ],
@@ -184,7 +185,7 @@ export const products: Product[] = [
     subtitleHighlight: "KEYBOARD SHORTCUTS",
     subtitleSuffix: "FOR APACHE JMETER",
     description:
-      "Super Key is the missing keyboard shortcut layer for Apache JMeter. Navigate your test plan, add elements, run tests, and manage everything — all without touching the mouse.",
+      "Super Key is the missing keyboard shortcut layer for Apache JMeter. Navigate your test plan, add elements, run tests, and manage everything, all without touching the mouse.",
     icon: "keyboard",
     color: "#ffab00",
     colorRgb: "255, 171, 0",
@@ -207,7 +208,7 @@ export const products: Product[] = [
     features: [
       {
         title: "70+ Keyboard Shortcuts",
-        description: "Comprehensive shortcut set covering every JMeter action — from element creation to test execution.",
+        description: "Comprehensive shortcut set covering every JMeter action, from element creation to test execution.",
         icon: "⌨️",
       },
       {
@@ -249,7 +250,7 @@ export const products: Product[] = [
       },
       {
         title: "Restart JMeter",
-        description: "Restart JMeter — Super Key activates automatically.",
+        description: "Restart JMeter. Super Key activates automatically.",
         code: "$JMETER_HOME/bin/jmeter",
       },
       {
@@ -293,7 +294,7 @@ export const products: Product[] = [
     ],
     featuresHeadingPrefix: "Documentation",
     featuresHeadingHighlight: "Redefined",
-    featuresSubtitle: "Keep your test plan documentation where it belongs — inside your test plan.",
+    featuresSubtitle: "Keep your test plan documentation where it belongs: inside your test plan.",
     features: [
       {
         title: "Live Markdown Preview",
@@ -386,12 +387,12 @@ export const products: Product[] = [
       },
       {
         title: "10+ Built-in Themes",
-        description: "Choose from a curated collection of professionally designed themes — Dracula, Nord, Solarized, and more.",
+        description: "Choose from a curated collection of professionally designed themes: Dracula, Nord, Solarized, and more.",
         icon: "🎨",
       },
       {
         title: "Custom Theme Editor",
-        description: "Create your own themes with a visual editor — adjust colors, fonts, and spacing in real time.",
+        description: "Create your own themes with a visual editor. Adjust colors, fonts, and spacing in real time.",
         icon: "🖌️",
       },
       {
@@ -406,7 +407,7 @@ export const products: Product[] = [
       },
       {
         title: "Theme Sync",
-        description: "Automatically sync themes with your OS appearance — light during the day, dark at night.",
+        description: "Automatically sync themes with your OS appearance: light during the day, dark at night.",
         icon: "🌗",
       },
     ],
@@ -452,7 +453,7 @@ export const products: Product[] = [
     subtitleHighlight: "MULTI-TAB",
     subtitleSuffix: "SUPPORT & RESULT VISUALIZATION FOR JMETER",
     description:
-      "JMeter has no native multi-tab support — Prism solves that. Open multiple test plans simultaneously in tabs, compare results side-by-side, and navigate between test suites without constantly closing and reopening files.",
+      "JMeter has no native multi-tab support. Prism solves that. Open multiple test plans simultaneously in tabs, compare results side-by-side, and navigate between test suites without constantly closing and reopening files.",
     icon: "app-window",
     color: "#00e676",
     colorRgb: "0, 230, 118",
@@ -472,11 +473,11 @@ export const products: Product[] = [
     ],
     featuresHeadingPrefix: "Tab",
     featuresHeadingHighlight: "Revolution",
-    featuresSubtitle: "Finally, multi-tab support for JMeter — the most requested feature, delivered.",
+    featuresSubtitle: "Finally, multi-tab support for JMeter: the most requested feature, delivered.",
     features: [
       {
         title: "Multi-Tab Test Plans",
-        description: "Open multiple .jmx files in separate tabs — switch between test plans instantly without reopening.",
+        description: "Open multiple .jmx files in separate tabs. Switch between test plans instantly without reopening.",
         icon: "📑",
       },
       {
@@ -534,7 +535,7 @@ export const products: Product[] = [
       },
       {
         title: "Restart JMeter",
-        description: "Restart JMeter — Prism replaces the default single-tab interface automatically.",
+        description: "Restart JMeter. Prism replaces the default single-tab interface automatically.",
         code: "$JMETER_HOME/bin/jmeter",
       },
       {
@@ -687,38 +688,71 @@ export const products: Product[] = [
     ],
   },
   {
-    id: "blog",
-    name: "Blog",
-    tagline: "Performance Engineering Blog",
-    subtitlePrefix: "EXPERT",
-    subtitleHighlight: "INSIGHTS",
-    subtitleSuffix: "FOR PERFORMANCE ENGINEERS",
+    id: "docs",
+    name: "Docs",
+    tagline: "Official JMeter.AI Documentation Hub",
+    subtitlePrefix: "COMPREHENSIVE",
+    subtitleHighlight: "DOCUMENTATION",
+    subtitleSuffix: "FOR EVERY PLUGIN",
     description:
-      "In-depth articles, tutorials, and updates on Apache JMeter, performance testing, and AI-powered testing tools.",
+      "The official documentation hub for all JMeter.AI plugins. Browse API references, configuration guides, tutorials, and troubleshooting articles for Feather Wand, Super Key, Prism, and the entire suite.",
     icon: "book-open",
-    color: "#00bcd4",
-    colorRgb: "0, 188, 212",
+    color: "#a78bfa",
+    colorRgb: "167, 139, 250",
     github: "https://github.com/QAInsights",
+    externalUrl: "https://docs.jmeter.ai",
     badges: [
-      { label: "BLOG", emoji: "📝", variant: "filled", color: "#00bcd4" },
-      { label: "TUTORIALS", emoji: "🎓", variant: "outlined", color: "#00e5ff" },
-      { label: "INSIGHTS", emoji: "💡", variant: "outlined", color: "#ffab00" },
+      { label: "DOCS", emoji: "📖", variant: "filled", color: "#a78bfa" },
+      { label: "API REF", emoji: "🔧", variant: "outlined", color: "#00e5ff" },
     ],
     infoCards: [
-      { label: "CATEGORY", value: "Blog / Tutorials", color: "#00bcd4" },
-      { label: "TOPICS", value: "JMeter · AI · Perf", color: "#00e5ff" },
-      { label: "AUTHOR", value: "QAInsights", color: "#ffab00" },
-      { label: "ACCESS", value: "Free", color: "#00bcd4" },
+      { label: "TYPE", value: "Documentation", color: "#a78bfa" },
+      { label: "FORMAT", value: "Markdown / Web", color: "#00e5ff" },
+      { label: "ACCESS", value: "Free", color: "#00e676" },
     ],
-    featuresHeadingPrefix: "Latest",
-    featuresHeadingHighlight: "Articles",
-    featuresSubtitle: "Stay up to date with the latest in performance testing and AI.",
+    featuresHeadingPrefix: "Official",
+    featuresHeadingHighlight: "Documentation",
+    featuresSubtitle: "Everything you need to master the JMeter.AI ecosystem.",
     features: [],
     ossVsPro: [],
     installation: [],
     socials: defaultSocials,
     treeNodes: [
-      { id: "blog", label: "All Posts", icon: "book-open" },
+      { id: "overview", label: "Overview", icon: "info" },
+    ],
+  },
+  {
+    id: "plugins",
+    name: "Plugins",
+    tagline: "Browse the JMeter Plugins Directory",
+    subtitlePrefix: "DISCOVER & INSTALL",
+    subtitleHighlight: "JMETER PLUGINS",
+    subtitleSuffix: "FROM THE COMMUNITY",
+    description:
+      "The official JMeter plugins directory at plugins.jmeter.ai. Discover, download, and install plugins for Apache JMeter — including the entire JMeter.AI suite — all in one searchable registry.",
+    icon: "puzzle",
+    color: "#f472b6",
+    colorRgb: "244, 114, 182",
+    github: "https://github.com/QAInsights",
+    externalUrl: "https://plugins.jmeter.ai",
+    badges: [
+      { label: "PLUGINS", emoji: "🧩", variant: "filled", color: "#f472b6" },
+      { label: "REGISTRY", emoji: "📦", variant: "outlined", color: "#00e5ff" },
+    ],
+    infoCards: [
+      { label: "TYPE", value: "Plugin Registry", color: "#f472b6" },
+      { label: "INSTALL", value: "1-click", color: "#00e5ff" },
+      { label: "ACCESS", value: "Free", color: "#00e676" },
+    ],
+    featuresHeadingPrefix: "Plugin",
+    featuresHeadingHighlight: "Directory",
+    featuresSubtitle: "Find and install JMeter plugins from a single searchable registry.",
+    features: [],
+    ossVsPro: [],
+    installation: [],
+    socials: defaultSocials,
+    treeNodes: [
+      { id: "overview", label: "Overview", icon: "info" },
     ],
   },
 ];
@@ -1096,3 +1130,65 @@ export const siteConfig = {
   authorUrl: "https://qainsights.com",
   menuItems: ["File", "Edit", "Search", "Run", "Options", "Tools", "Help"],
 };
+
+/* ===== Graphify homepage data ===== */
+
+export interface InstallCodeBlock {
+  title: string;
+  code: string;
+}
+
+export interface InstallMethod {
+  id: string;
+  label: string;
+  description: string;
+  blocks: InstallCodeBlock[];
+}
+
+export const installMethods: InstallMethod[] = [
+  {
+    id: "jar",
+    label: "Direct JAR",
+    description: "Drop the latest release JAR into JMeter's lib/ext directory.",
+    blocks: [
+      {
+        title: "Download the latest release",
+        code: "curl -L -o jmeter-ai.jar https://github.com/QAInsights/jmeter-ai/releases/latest",
+      },
+      {
+        title: "Copy into JMeter & restart",
+        code: "cp jmeter-ai.jar $JMETER_HOME/lib/ext/\n$JMETER_HOME/bin/jmeter",
+      },
+    ],
+  },
+  {
+    id: "plugins-manager",
+    label: "Plugins Manager",
+    description: "Install straight from the JMeter Plugins Manager UI.",
+    blocks: [
+      {
+        title: "Open Plugins Manager",
+        code: "# JMeter → Options → Plugins Manager → Available Plugins",
+      },
+      {
+        title: "Search & install",
+        code: '# Search "Feather Wand" → Apply Changes and Restart JMeter',
+      },
+    ],
+  },
+  {
+    id: "cli",
+    label: "CLI",
+    description: "Install via the JMeter Plugins Manager command line (headless & CI friendly).",
+    blocks: [
+      {
+        title: "Linux / macOS",
+        code: "bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent",
+      },
+      {
+        title: "Windows",
+        code: "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-agent",
+      },
+    ],
+  },
+];

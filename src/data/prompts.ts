@@ -173,9 +173,9 @@ Provide:
 Base URL: [https://api.example.com]
 Authentication: [Bearer token / Basic Auth / OAuth2 / API Key]
 Endpoints to test:
-  1. [GET /endpoint1] — [description]
-  2. [POST /endpoint2] — request body: [JSON body]
-  3. [PUT /endpoint3] — [description]
+  1. [GET /endpoint1]. [description]
+  2. [POST /endpoint2]. request body: [JSON body]
+  3. [PUT /endpoint3]. [description]
 
 Requirements:
 - Thread Group: [N] users, [N]s ramp-up, [N] loops
@@ -232,11 +232,11 @@ Include:
         title: "JMeter Config Element Setup",
         body: `Generate JMeter config elements for the following test plan:
 
-1. HTTP Request Defaults — Base URL: [URL], connection timeout: 5000, response timeout: 30000
-2. HTTP Cookie Manager — clear each iteration: yes
-3. HTTP Cache Manager — clear each iteration: yes
-4. User Defined Variables — define: [list variables and values]
-5. CSV Data Set Config — file: testdata.csv, variables: [names], delimiter: comma, recycle: true, stop on EOF: false
+1. HTTP Request Defaults. Base URL: [URL], connection timeout: 5000, response timeout: 30000
+2. HTTP Cookie Manager. clear each iteration: yes
+3. HTTP Cache Manager. clear each iteration: yes
+4. User Defined Variables. define: [list variables and values]
+5. CSV Data Set Config. file: testdata.csv, variables: [names], delimiter: comma, recycle: true, stop on EOF: false
 
 Output each as a valid JMX XML snippet.`,
       },
@@ -288,9 +288,9 @@ Provide:
 Base URL: [https://api.example.com]
 Authentication: [Bearer token / API Key in header]
 Scenarios to test:
-  1. [GET /endpoint] — [description]
-  2. [POST /endpoint] — body: [JSON]
-  3. [PUT /endpoint] — [description]
+  1. [GET /endpoint]. [description]
+  2. [POST /endpoint]. body: [JSON]
+  3. [PUT /endpoint]. [description]
 
 Requirements:
 - Use k6 scenarios with executor: ramping-vus
@@ -405,7 +405,7 @@ For each, provide:
 1. POST /oauth/token with client_id, client_secret, grant_type
 2. Extract access_token from response
 3. Use Bearer \${access_token} in all subsequent requests
-4. Token expires every [N] minutes — needs refresh
+4. Token expires every [N] minutes. needs refresh
 
 Implement this in JMeter:
 - Login request with token extraction
@@ -494,7 +494,7 @@ Provide XML for:
 1. Response Assertion (status code)
 2. Response Assertion (content type header)
 3. JSON Assertion (body content)
-4. Response Assertion (negative — must not contain)
+4. Response Assertion (negative. must not contain)
 5. Duration Assertion (SLA enforcement)
 6. Size Assertion
 
@@ -583,8 +583,8 @@ Include error handling for missing or empty results files.`,
 Provide:
 - Overall assessment: Pass / Fail / Warning against typical SLAs
 - Identification of slowest transactions and likely causes
-- Error rate analysis — which transactions are failing?
-- Throughput analysis — are we hitting the target?
+- Error rate analysis. which transactions are failing?
+- Throughput analysis. are we hitting the target?
 - Recommendations for optimization
 - Whether the test was resource-limited or application-limited based on these numbers`,
       },
@@ -1353,12 +1353,12 @@ Provide:
         body: `I need to establish a Core Web Vitals performance baseline for [URL / web application] under load.
 
 Metrics to capture:
-- LCP (Largest Contentful Paint) — target < 2.5s
-- FCP (First Contentful Paint) — target < 1.8s
-- CLS (Cumulative Layout Shift) — target < 0.1
-- TBT (Total Blocking Time) — target < 200ms
-- TTFB (Time to First Byte) — target < 800ms
-- INP (Interaction to Next Paint) — target < 200ms
+- LCP (Largest Contentful Paint). target < 2.5s
+- FCP (First Contentful Paint). target < 1.8s
+- CLS (Cumulative Layout Shift). target < 0.1
+- TBT (Total Blocking Time). target < 200ms
+- TTFB (Time to First Byte). target < 800ms
+- INP (Interaction to Next Paint). target < 200ms
 
 Generate:
 - k6 browser script that measures all Web Vitals via page.evaluate() and PerformanceObserver
@@ -1459,7 +1459,7 @@ Provide:
 
 Target: inject [N]ms latency on calls from [Service A] to [Service B / database / external API]
 Load: simultaneous JMeter / k6 load test at [N] VUs
-Hypothesis: application degrades gracefully — p99 increases but error rate stays < [N]%
+Hypothesis: application degrades gracefully. p99 increases but error rate stays < [N]%
 
 Provide:
 - tc (traffic control) commands to inject latency on Linux
@@ -1494,9 +1494,9 @@ For each experiment:
         id: "23-4",
         title: "Dependency Failure Resilience Test",
         body: `My application depends on the following external services:
-1. [Service A] — [REST API / gRPC / message queue]
-2. [Service B] — [Database / Cache / S3]
-3. [Service C] — [Third-party API]
+1. [Service A]. [REST API / gRPC / message queue]
+2. [Service B]. [Database / Cache / S3]
+3. [Service C]. [Third-party API]
 
 Design chaos experiments to test failure resilience under load:
 
@@ -1544,11 +1544,11 @@ Circuit breaker config:
 - Half-open permitted calls: [N]
 
 Design a performance test that validates circuit breaker behavior:
-- Phase 1: Normal load — circuit CLOSED, validate baseline
-- Phase 2: Inject failures — circuit should OPEN when threshold is breached
-- Phase 3: Wait duration — validate requests are rejected fast (fail-fast behavior)
-- Phase 4: Half-open — validate recovery probe calls
-- Phase 5: Recovery — circuit CLOSED again, validate normal behavior resumes
+- Phase 1: Normal load. circuit CLOSED, validate baseline
+- Phase 2: Inject failures. circuit should OPEN when threshold is breached
+- Phase 3: Wait duration. validate requests are rejected fast (fail-fast behavior)
+- Phase 4: Half-open. validate recovery probe calls
+- Phase 5: Recovery. circuit CLOSED again, validate normal behavior resumes
 
 Provide:
 - JMeter test plan structure for each phase (Thread Groups / Controllers)

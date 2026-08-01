@@ -39,42 +39,41 @@ compatible with Apache JMeter 5.x and later.
 
 ## Resources
 
-- [Blog](https://jmeter.ai/blog/): In-depth articles, tutorials, and updates on Apache JMeter,
-  performance testing, and AI-powered testing tools.
+- [Product Suite](https://jmeter.ai/#products): Open-source plugins, tools, and learning resources
+  for Apache JMeter: Feather Wand, Super Key, README Config, JMeter Studio, Prism, Perftractor,
+  Academy, and the LLM Hub, built for performance engineers.
 
-- [LLM Hub](https://jmeter.ai/#prompts): The hub for LLM performance engineering. Includes a curated
-  library of AI prompts for JMeter and k6, plus comprehensive LLM benchmarks and performance metrics
-  including TTFT (Time to First Token), TPOT (Time Per Output Token), and ITL (Inter-Token Latency).
+- [Architecture](https://jmeter.ai/#architecture): How Feather Wand works inside Apache JMeter.
+  Describe a test element in plain English, it calls your chosen LLM (OpenAI, Anthropic Claude,
+  local Ollama, or any OpenAI-compatible endpoint) and inserts the generated Samplers, Assertions,
+  and Extractors into the test plan. Supports local, zero-data-egress deployments via Ollama.
 
-- [Academy](https://jmeter.ai/#academy): Free YouTube video tutorial series covering Apache JMeter
-  (beginner to advanced), k6, Gatling, Locust, LoadRunner, Chrome DevTools for performance engineers,
-  regular expressions, statistics, chaos engineering, HashiCorp Vault, and JMeter plugin development.
-
-- [30-Day Performance Testing Challenge](https://jmeter.ai/#academy): A structured, hands-on 30-day
-  program for building real performance testing skills. One scenario per day across five phases:
-  Foundations (Days 1-6), Load Patterns (Days 7-12), Correlation and Realism (Days 13-18), Bottleneck
-  Hunting (Days 19-24), and Advanced and Capstone (Days 25-30). Tool-agnostic: works with JMeter, k6,
-  Gatling, Locust, or LoadRunner. Each day includes an objective, scenario, metrics to watch, an aha
-  moment, a reflection prompt, a deliverable, and a solution.
-
-- [RSS Feed](https://jmeter.ai/rss.xml): Machine-readable feed of the latest blog posts and updates.
+- [Installation](https://jmeter.ai/#installation): Quick-start guide for direct JAR download,
+  JMeter Plugins Manager, and CLI installation (curl -fsSL https://jmeter.ai/install.sh | bash).
 
 - [Settings](https://jmeter.ai/settings/): User account settings and profile management for
   authenticated users.
 
+## Product Pages
+
+Each product has a dedicated page with full details, interactive demos, and installation guides:
+
+- https://jmeter.ai/products/feather-wand/
+- https://jmeter.ai/products/super-key/
+- https://jmeter.ai/products/readme-config/
+- https://jmeter.ai/products/jmeter-studio/
+- https://jmeter.ai/products/prism/
+- https://jmeter.ai/products/perftractor/
+- https://jmeter.ai/products/academy/
+- https://jmeter.ai/products/prompts/
+
 ## Shareable URLs
 
-All tabs on jmeter.ai are directly linkable via URL hash fragment:
+Homepage sections are directly linkable via URL hash fragment:
 
-- https://jmeter.ai/#feather-wand
-- https://jmeter.ai/#super-key
-- https://jmeter.ai/#readme-config
-- https://jmeter.ai/#jmeter-studio
-- https://jmeter.ai/#prism
-- https://jmeter.ai/#perftractor
-- https://jmeter.ai/#academy
-- https://jmeter.ai/#prompts
-- https://jmeter.ai/blog/
+- https://jmeter.ai/#products
+- https://jmeter.ai/#architecture
+- https://jmeter.ai/#installation
 
 ## About
 

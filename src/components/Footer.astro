@@ -1,0 +1,31 @@
+---
+import { defaultSocials } from "../data/products";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/10 py-12 px-6 bg-black/60 relative">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-slate-400 text-sm">
+    <div class="flex items-center gap-3 flex-wrap justify-center">
+      <span class="font-bold text-white">JMeter.AI</span>
+      <span>
+        · Maintained by <a
+          href="https://qainsights.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-cyan-400 hover:underline">QAInsights</a
+        >
+      </span>
+      <span class="text-slate-600 font-mono text-xs">© {year}</span>
+    </div>
+    <nav class="flex items-center gap-6" aria-label="Social links">
+      {
+        defaultSocials.map((social) => (
+          <a href={social.url} target="_blank" rel="noopener noreferrer" class="hover:text-white transition">
+            {social.name === "Twitter / X" ? "Twitter" : social.name}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</footer>

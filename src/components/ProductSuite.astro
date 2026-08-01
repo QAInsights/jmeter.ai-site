@@ -1,0 +1,54 @@
+---
+import { products } from "../data/products";
+import { productEmoji } from "./panels/constants";
+---
+
+<section id="products" class="py-20 px-6 max-w-7xl mx-auto scroll-mt-20">
+  <div class="text-center space-y-4 mb-16">
+    <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight">
+      The <span class="text-cyan-400">JMeter.AI</span> Suite
+    </h2>
+    <p class="text-slate-400 max-w-2xl mx-auto">
+      {products.length} open-source plugins, tools, learning resources, and documentation hubs for Apache
+      JMeter, built for performance engineers. Select a product to explore its full capabilities and
+      installation guide.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+    {
+      products.map((product) => {
+        const isExternal = !!product.externalUrl;
+        return (
+          <a
+            href={isExternal ? product.externalUrl : `/products/${product.id}/`}
+            id={product.id}
+            class="glass-panel glass-panel-hover rounded-2xl p-6 text-left transition duration-300 border border-white/10 space-y-4 scroll-mt-24 group block"
+            {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            <span
+              class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
+              style={`background: rgba(${product.colorRgb}, 0.1);`}
+              aria-hidden="true"
+            >
+              {productEmoji[product.id] ?? "🚀"}
+            </span>
+            <span class="block">
+              <span class="block text-lg font-bold text-white group-hover:text-cyan-300 transition">
+                {product.name}
+              </span>
+              <span class="block text-slate-400 text-xs leading-relaxed mt-1.5">{product.tagline}</span>
+            </span>
+            <span
+              class="inline-flex items-center gap-1.5 text-xs font-mono font-medium transition"
+              style={`color: ${product.color}`}
+            >
+              {isExternal ? "Visit site" : `Explore ${product.name}`}
+              <span class="group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
+            </span>
+          </a>
+        );
+      })
+    }
+  </div>
+</section>

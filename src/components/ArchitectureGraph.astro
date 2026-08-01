@@ -1,0 +1,146 @@
+---
+const providers = [
+  { name: "OpenAI GPT", sub: "cloud api", y: 40, dot: "#22d3ee" },
+  { name: "Anthropic Claude", sub: "cloud api", y: 120, dot: "#a5b4fc" },
+  { name: "Ollama · Llama 3", sub: "local · zero egress", y: 200, dot: "#34d399" },
+  { name: "Custom Endpoint", sub: "OpenAI-compatible", y: 280, dot: "#fbbf24" },
+];
+
+const jmeterTree = [
+  { name: "Test Plan", sub: ".jmx", y: 40 },
+  { name: "Thread Group", sub: "500 RPS", y: 120 },
+  { name: "HTTP Request", sub: "sampler", y: 200 },
+  { name: "OAuth2 Assertion", sub: "validator", y: 280 },
+];
+
+const badges = ["Runs Inside JMeter GUI", "Local LLM via Ollama", "Zero Data Egress"];
+---
+
+<section id="architecture" class="py-20 px-6 max-w-7xl mx-auto scroll-mt-20">
+  <div class="text-center space-y-4 mb-12">
+    <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight">
+      How <span class="gradient-text">Feather Wand</span> Works
+    </h2>
+    <p class="text-slate-400 max-w-2xl mx-auto">
+      Feather Wand brings Large Language Models directly into your JMeter workflow. Describe the test element you
+      need in plain English. It calls your chosen LLM, cloud or local, and inserts the generated Samplers,
+      Assertions, and Extractors straight into your test plan.
+    </p>
+  </div>
+
+  <div class="glass-panel rounded-2xl border border-white/10 p-4 md:p-8 overflow-x-auto">
+    <svg
+      viewBox="0 0 960 340"
+      class="w-full min-w-[640px] h-auto font-mono"
+      role="img"
+      aria-label="Architecture graph: Feather Wand inside Apache JMeter sends natural-language prompts to cloud or local LLM providers and inserts the generated test elements into the JMeter test plan tree"
+    >
+      <!-- Provider → Router edges -->
+      {
+        providers.map((p) => (
+          <path
+            d={`M 210 ${p.y + 24} C 300 ${p.y + 24} 310 220 395 220`}
+            fill="none"
+            stroke={p.dot}
+            stroke-opacity="0.5"
+            stroke-width="1.5"
+            class="graph-edge"
+          />
+        ))
+      }
+
+      <!-- Router → Test Plan edge -->
+      <path
+        d="M 565 220 C 650 220 660 64 750 64"
+        fill="none"
+        stroke="#34d399"
+        stroke-opacity="0.6"
+        stroke-width="1.5"
+        class="graph-edge"
+      />
+      <!-- JMeter tree connectors -->
+      {
+        jmeterTree.slice(0, -1).map((node, i) => (
+          <path
+            d={`M 840 ${node.y + 48} V ${jmeterTree[i + 1].y}`}
+            fill="none"
+            stroke="#475569"
+            stroke-width="1.5"
+            class="graph-edge"
+          />
+        ))
+      }
+
+      <!-- Provider nodes -->
+      {
+        providers.map((p) => (
+          <g>
+            <rect
+              x="40"
+              y={p.y}
+              width="170"
+              height="48"
+              rx="10"
+              fill="#12151e"
+              stroke="rgba(255,255,255,0.12)"
+            />
+            <circle cx="60" cy={p.y + 24} r="4" fill={p.dot} />
+            <text x="74" y={p.y + 21} fill="#e2e8f0" font-size="12" font-weight="600">
+              {p.name}
+            </text>
+            <text x="74" y={p.y + 37} fill="#64748b" font-size="10">
+              {p.sub}
+            </text>
+          </g>
+        ))
+      }
+
+      <!-- Feather Wand router node -->
+      <g style="filter: drop-shadow(0 0 18px rgba(16, 185, 129, 0.35))">
+        <rect x="395" y="170" width="170" height="100" rx="14" fill="#12151e" stroke="#10b981" stroke-opacity="0.6" />
+        <text x="480" y="210" fill="#34d399" font-size="15" font-weight="700" text-anchor="middle">
+          Feather Wand
+        </text>
+        <text x="480" y="230" fill="#94a3b8" font-size="11" text-anchor="middle">
+          AI Test Generation
+        </text>
+        <text x="480" y="250" fill="#64748b" font-size="10" text-anchor="middle">
+          inside Apache JMeter
+        </text>
+      </g>
+
+      <!-- JMeter tree nodes -->
+      {
+        jmeterTree.map((node, i) => (
+          <g>
+            <rect
+              x="750"
+              y={node.y}
+              width="180"
+              height="48"
+              rx="10"
+              fill="#12151e"
+              stroke={i === 0 ? "rgba(0,242,254,0.5)" : "rgba(255,255,255,0.12)"}
+            />
+            <text x="766" y={node.y + 21} fill={i === 0 ? "#00f2fe" : "#e2e8f0"} font-size="12" font-weight="600">
+              {node.name}
+            </text>
+            <text x="766" y={node.y + 37} fill="#64748b" font-size="10">
+              {node.sub}
+            </text>
+          </g>
+        ))
+      }
+    </svg>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
+    {
+      badges.map((badge) => (
+        <span class="px-3 py-1.5 rounded-full glass-panel border-emerald-500/20 text-emerald-300 text-xs font-mono">
+          {badge}
+        </span>
+      ))
+    }
+  </div>
+</section>

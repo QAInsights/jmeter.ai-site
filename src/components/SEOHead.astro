@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { title = siteConfig.title, description = siteConfig.description, image = "/og.png" } = Astro.props;
-const fullTitle = title === siteConfig.title ? `${title} — AI-Powered Tools for Apache JMeter` : `${title} | ${siteConfig.title}`;
+const fullTitle = title === siteConfig.title ? `${title} | AI-Powered Tools for Apache JMeter` : `${title} | ${siteConfig.title}`;
 const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "https://jmeter.ai";
 const _rawUrl = new URL(Astro.url?.pathname ?? "/", siteUrl + "/");
 _rawUrl.search = "";
@@ -29,14 +29,6 @@ const jsonLd = {
       description: siteConfig.description,
       inLanguage: "en-US",
       publisher: { "@id": `${siteConfig.url}/#organization` },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: `${siteConfig.url}/blog/?q={search_term_string}`,
-        },
-        "query-input": "required name=search_term_string",
-      },
     },
     ...(isSettingsPage ? [{
       "@type": "WebPage",
@@ -80,7 +72,7 @@ const jsonLd = {
       applicationCategory: "DeveloperApplication",
       applicationSubCategory: "Performance Testing",
       operatingSystem: "Windows, macOS, Linux",
-      url: `${siteConfig.url}/#${p.id}`,
+      url: `${siteConfig.url}/products/${p.id}/`,
       downloadUrl: p.github,
       softwareVersion: "latest",
       author: { "@id": `${siteConfig.url}/#organization` },
@@ -134,9 +126,9 @@ const jsonLd = {
 <!-- Fonts: non-render-blocking load -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" />
-<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" />
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" /></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" />
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" /></noscript>
 <!-- Preconnect for YouTube embeds -->
 <link rel="preconnect" href="https://www.youtube-nocookie.com" />
 <link rel="dns-prefetch" href="https://www.youtube.com" />
@@ -145,8 +137,8 @@ const jsonLd = {
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
 <!-- Theme color -->
-<meta name="theme-color" content="#0a0e1a" />
-<meta name="msapplication-TileColor" content="#0a0e1a" />
+<meta name="theme-color" content="#090a0f" />
+<meta name="msapplication-TileColor" content="#090a0f" />
 <meta name="color-scheme" content="dark" />
 
 <!-- Canonical -->

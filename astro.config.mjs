@@ -1,8 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import expressiveCode from 'astro-expressive-code';
-import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
 import compress from 'astro-compress';
 import clerk from '@clerk/astro';
@@ -23,22 +21,12 @@ export default defineConfig({
         if (item.url === 'https://jmeter.ai/') {
           return { ...item, changefreq: 'daily', priority: 1.0 };
         }
-        if (item.url.startsWith('https://jmeter.ai/blog/')) {
-          return { ...item, changefreq: 'monthly', priority: 0.8 };
-        }
         if (item.url === 'https://jmeter.ai/settings/') {
           return { ...item, changefreq: 'monthly', priority: 0.5 };
         }
         return item;
       },
     }),
-    expressiveCode({
-      themes: ['github-dark'],
-      styleOverrides: {
-        codeFontFamily: '"JetBrains Mono", ui-monospace, monospace',
-      },
-    }),
-    mdx(),
     // Must be LAST so it sees the final build output.
     // Compresses HTML, CSS, JS, SVG, and raster images in dist/.
     compress({

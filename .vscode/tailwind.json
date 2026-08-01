@@ -1,0 +1,25 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@theme",
+      "description": "Tailwind CSS v4 directive that defines design tokens (custom properties) which generate utility classes."
+    },
+    {
+      "name": "@plugin",
+      "description": "Tailwind CSS v4 directive that registers a first-party or third-party Tailwind plugin."
+    },
+    {
+      "name": "@source",
+      "description": "Tailwind CSS v4 directive that registers an additional content-scanning source path."
+    },
+    {
+      "name": "@utility",
+      "description": "Tailwind CSS v4 directive that defines a custom utility class."
+    },
+    {
+      "name": "@variant",
+      "description": "Tailwind CSS v4 directive that applies a variant to a block of styles."
+    }
+  ]
+}
