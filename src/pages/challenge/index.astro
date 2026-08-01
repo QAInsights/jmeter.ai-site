@@ -1,0 +1,92 @@
+---
+import JMeterLayout from "../../layouts/JMeterLayout.astro";
+import { challengeDays, challengeMeta } from "../../data/challenge";
+import { siteConfig } from "../../data/products";
+
+const phases = challengeMeta.phases.map((phase) => ({
+  ...phase,
+  days: challengeDays.filter((day) => day.phase === phase.key),
+}));
+
+const title = "30-Day Performance Testing Challenge";
+const description = `${challengeMeta.description} ${challengeMeta.subdescription}`;
+
+const courseSchema = {
+  "@type": "Course",
+  name: title,
+  description,
+  provider: { "@id": `${siteConfig.url}/#organization` },
+  isAccessibleForFree: true,
+  hasCourseInstance: {
+    "@type": "CourseInstance",
+    courseMode: "online",
+    courseWorkload: "P30D",
+  },
+};
+
+const itemListSchema = {
+  "@type": "ItemList",
+  itemListElement: challengeDays.map((d) => ({
+    "@type": "ListItem",
+    position: d.day,
+    name: `Day ${d.day}: ${d.title}`,
+    url: `${siteConfig.url}/challenge/day-${d.day}/`,
+  })),
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+    { "@type": "ListItem", position: 2, name: "30-Day Challenge", item: `${siteConfig.url}/challenge/` },
+  ],
+};
+---
+
+<JMeterLayout title={title} description={description} jsonLdExtra={[courseSchema, itemListSchema, breadcrumbSchema]}>
+  <main class="px-6 py-12 md:py-16 relative">
+    <div class="max-w-5xl mx-auto space-y-12">
+      <a href="/products/academy/" class="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-cyan-400 transition">
+        ← Back to Academy
+      </a>
+
+      <header class="space-y-4">
+        <p class="text-xs font-mono tracking-widest text-violet-300 uppercase">🏆 30-Day Challenge</p>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+          {challengeMeta.heading} <span class="text-violet-400">{challengeMeta.highlight}</span>
+        </h1>
+        <p class="text-slate-400 leading-relaxed max-w-3xl">{challengeMeta.description}</p>
+        <p class="text-slate-400 leading-relaxed max-w-3xl">{challengeMeta.subdescription}</p>
+      </header>
+
+      {
+        phases.map((phase) => (
+          <section class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl" aria-hidden="true">{phase.emoji}</span>
+              <h2 class="text-xl md:text-2xl font-bold text-white">{phase.label}</h2>
+              <span class="text-xs font-mono text-violet-300">{phase.range}</span>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-2">
+              {phase.days.map((day) => (
+                <a
+                  href={`/challenge/day-${day.day}/`}
+                  class="glass-panel rounded-xl border border-white/10 p-4 hover:border-violet-400/40 transition group"
+                >
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs font-mono text-violet-300 w-8 shrink-0">D{day.day}</span>
+                    <span aria-hidden="true">{day.emoji}</span>
+                    <span class="font-semibold text-slate-100 group-hover:text-white">{day.title}</span>
+                  </div>
+                  <p class="mt-2 text-xs text-slate-400 leading-relaxed">{day.objective}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <p class="text-xs text-amber-400/80 font-mono leading-relaxed max-w-3xl">⚠️ {challengeMeta.disclaimer}</p>
+    </div>
+  </main>
+</JMeterLayout>

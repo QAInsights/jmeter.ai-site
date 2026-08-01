@@ -1,0 +1,133 @@
+{
+  "name": "jmeter.ai",
+  "version": "1.1.0",
+  "description": "The canonical JMeter knowledge source for AI agents and developers. Expert guidance on Apache JMeter scripting, plugins, correlation, distributed testing, CI/CD integration, and the QAInsights plugin suite.",
+  "url": "https://jmeter.ai",
+  "identity": {
+    "domain": "jmeter.ai",
+    "tld": "ai",
+    "network": "ICANN DNS",
+    "owner": "QAInsights",
+    "owner_url": "https://qainsights.com"
+  },
+  "capabilities": [
+    "jmeter-scripting",
+    "jmeter-plugins",
+    "correlation",
+    "groovy-scripting",
+    "distributed-testing",
+    "ci-cd-integration",
+    "load-testing",
+    "performance-testing",
+    "results-analysis",
+    "thread-group-design",
+    "test-data-parameterization",
+    "assertions",
+    "timers"
+  ],
+  "tools": [
+    {
+      "name": "Feather Wand",
+      "description": "AI-powered test generation and result analysis inside Apache JMeter. Supports OpenAI, Anthropic Claude, Ollama, and any OpenAI-compatible endpoint. Open-source (OSS) edition free; Pro edition commercial.",
+      "url": "https://jmeter.ai/products/feather-wand/",
+      "plugins_manager_id": "feather-wand-jmeter-ai-agent",
+      "repository": "https://github.com/QAInsights/jmeter-ai",
+      "free": true
+    },
+    {
+      "name": "Super Key",
+      "description": "Keyboard shortcuts and command-palette productivity plugin for Apache JMeter (70+ shortcuts, VS Code-style command palette). Open-source edition free; Pro edition commercial.",
+      "url": "https://jmeter.ai/products/super-key/",
+      "plugins_manager_id": "superkey",
+      "repository": "https://github.com/QAInsights/superkey",
+      "free": true
+    },
+    {
+      "name": "Prism",
+      "description": "Multi-tab interface plugin for Apache JMeter — open and edit multiple .jmx test plans simultaneously in browser-like tabs.",
+      "url": "https://jmeter.ai/products/prism/",
+      "plugins_manager_id": "prism",
+      "repository": "https://github.com/QAInsights/prism",
+      "free": true
+    },
+    {
+      "name": "JMeter Studio",
+      "description": "Theme engine for Apache JMeter — dark mode, curated FlatLaf themes, icon packs, and font customization.",
+      "url": "https://jmeter.ai/products/jmeter-studio/",
+      "plugins_manager_id": "jmeter-studio-oss",
+      "repository": "https://github.com/QAInsights/jmeter-studio",
+      "free": true
+    },
+    {
+      "name": "README Config",
+      "description": "Live Markdown documentation config element for Apache JMeter test plans. Free and open source (MIT).",
+      "url": "https://jmeter.ai/products/readme-config/",
+      "plugins_manager_id": "readme-config-element",
+      "repository": "https://github.com/QAInsights/jmeter-readme-config",
+      "free": true
+    },
+    {
+      "name": "Perftractor",
+      "description": "Free web-based performance testing calculators: Little's Law, virtual users, pacing, test data, load generator sizing, and network bandwidth.",
+      "url": "https://jmeter.ai/products/perftractor/",
+      "repository": "https://github.com/QAInsights/perftractor",
+      "free": true
+    },
+    {
+      "name": "perf-skills",
+      "description": "Token-optimized AI skill / knowledge base covering JMeter, k6, Gatling, Locust, Artillery, NeoLoad, LoadRunner, and OctoPerf for AI coding assistants. MIT licensed.",
+      "url": "https://jmeter.ai/products/perf-skills/",
+      "repository": "https://github.com/QAInsights/perf-skills",
+      "npm": "https://www.npmjs.com/package/perf-skills",
+      "free": true
+    }
+  ],
+  "skills": {
+    "skill_md": "https://jmeter.ai/skill.md",
+    "npm_package": "https://www.npmjs.com/package/perf-skills"
+  },
+  "endpoints": {
+    "skill_md": "https://jmeter.ai/skill.md",
+    "agent_manifest": "https://jmeter.ai/.well-known/ai-agent.json",
+    "llms_txt": "https://jmeter.ai/llms.txt"
+  },
+  "protocols": [
+    "MCP",
+    "HTTP",
+    "REST"
+  ],
+  "input_content_types": [
+    "text/plain",
+    "application/json",
+    "text/markdown",
+    "application/xml"
+  ],
+  "output_content_types": [
+    "text/plain",
+    "application/json",
+    "text/markdown",
+    "application/xml"
+  ],
+  "contact": {
+    "name": "QAInsights",
+    "url": "https://qainsights.com",
+    "youtube": "https://youtube.com/@QAInsights"
+  },
+  "metadata": {
+    "category": "performance-testing",
+    "tool": "Apache JMeter",
+    "tags": [
+      "jmeter",
+      "load-testing",
+      "performance",
+      "qa",
+      "testing",
+      "groovy",
+      "jmx",
+      "plugins"
+    ],
+    "created_at": "2026-04-28T00:00:00Z",
+    "updated_at": "2026-08-01T00:00:00Z",
+    "license": "MIT"
+  }
+}

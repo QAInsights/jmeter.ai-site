@@ -1,0 +1,124 @@
+---
+import JMeterLayout from "../../layouts/JMeterLayout.astro";
+import { challengeDays, challengeMeta } from "../../data/challenge";
+import type { ChallengeDay } from "../../data/challenge";
+import { siteConfig } from "../../data/products";
+
+export function getStaticPaths() {
+  return challengeDays.map((day) => ({
+    params: { day: `day-${day.day}` },
+    props: { day },
+  }));
+}
+
+interface Props {
+  day: ChallengeDay;
+}
+
+const { day } = Astro.props;
+const prev = challengeDays.find((d) => d.day === day.day - 1);
+const next = challengeDays.find((d) => d.day === day.day + 1);
+const phase = challengeMeta.phases.find((p) => p.key === day.phase);
+
+const title = `Day ${day.day}: ${day.title} — 30-Day Performance Testing Challenge`;
+const description = day.objective;
+const pageUrl = `${siteConfig.url}/challenge/day-${day.day}/`;
+
+const howToSchema = {
+  "@type": "HowTo",
+  "@id": `${pageUrl}#howto`,
+  name: title,
+  description: `${day.objective} ${day.scenario}`,
+  step: [
+    { "@type": "HowToStep", position: 1, name: "Objective", text: day.objective },
+    { "@type": "HowToStep", position: 2, name: "Scenario", text: day.scenario },
+    { "@type": "HowToStep", position: 3, name: "Solution", text: day.solution },
+    { "@type": "HowToStep", position: 4, name: "Deliverable", text: day.deliverable },
+  ],
+  isPartOf: { "@id": `${siteConfig.url}/#website` },
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+    { "@type": "ListItem", position: 2, name: "30-Day Challenge", item: `${siteConfig.url}/challenge/` },
+    { "@type": "ListItem", position: 3, name: `Day ${day.day}: ${day.title}`, item: pageUrl },
+  ],
+};
+---
+
+<JMeterLayout title={title} description={description} jsonLdExtra={[howToSchema, breadcrumbSchema]}>
+  <main class="px-6 py-12 md:py-16 relative">
+    <article class="max-w-3xl mx-auto space-y-8">
+      <a href="/challenge/" class="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-cyan-400 transition">
+        ← Back to 30-Day Challenge
+      </a>
+
+      <header class="space-y-3">
+        {phase && (
+          <p class="text-xs font-mono tracking-widest text-violet-300 uppercase">
+            {phase.emoji} {phase.label} · {phase.range}
+          </p>
+        )}
+        <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+          Day {day.day}: {day.title} <span aria-hidden="true">{day.emoji}</span>
+        </h1>
+      </header>
+
+      <section class="space-y-2">
+        <h2 class="text-sm font-mono tracking-widest text-violet-300 uppercase">Objective</h2>
+        <p class="text-slate-200 leading-relaxed">{day.objective}</p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-sm font-mono tracking-widest text-violet-300 uppercase">Scenario</h2>
+        <p class="text-slate-400 leading-relaxed">{day.scenario}</p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-sm font-mono tracking-widest text-violet-300 uppercase">Metrics to Watch</h2>
+        <div class="flex flex-wrap gap-1.5">
+          {day.metrics.map((metric) => (
+            <span class="px-2 py-0.5 rounded bg-violet-500/10 text-violet-300 text-xs font-mono">{metric}</span>
+          ))}
+        </div>
+      </section>
+
+      <section class="glass-panel rounded-xl border border-violet-400/20 p-5 space-y-1">
+        <h2 class="text-sm font-mono tracking-widest text-violet-300 uppercase">When It Clicks</h2>
+        <p class="text-slate-200 leading-relaxed">{day.aha}</p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-sm font-mono tracking-widest text-violet-300 uppercase">Solution</h2>
+        <p class="text-slate-400 leading-relaxed bg-black/40 rounded-lg border border-white/5 p-4">{day.solution}</p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-sm font-mono tracking-widest text-violet-300 uppercase">Reflection</h2>
+        <p class="text-slate-400 leading-relaxed">{day.reflection}</p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-sm font-mono tracking-widest text-violet-300 uppercase">Deliverable</h2>
+        <p class="text-slate-200 leading-relaxed">{day.deliverable}</p>
+      </section>
+
+      <nav class="flex items-center justify-between border-t border-white/10 pt-6">
+        {prev ? (
+          <a href={`/challenge/day-${prev.day}/`} class="text-sm text-slate-400 hover:text-violet-300 transition">
+            ← Day {prev.day}: {prev.title}
+          </a>
+        ) : <span />}
+        {next ? (
+          <a href={`/challenge/day-${next.day}/`} class="text-sm text-slate-400 hover:text-violet-300 transition">
+            Day {next.day}: {next.title} →
+          </a>
+        ) : <span />}
+      </nav>
+
+      <p class="text-xs text-amber-400/80 font-mono leading-relaxed">⚠️ {challengeMeta.disclaimer}</p>
+    </article>
+  </main>
+</JMeterLayout>

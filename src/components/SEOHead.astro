@@ -1,13 +1,18 @@
 ---
 import { siteConfig, products } from "../data/products";
+import type { Product } from "../data/products";
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  /** When set, emit only this product's SoftwareApplication schema + breadcrumbs instead of all products. */
+  product?: Product;
+  /** Extra schema.org nodes appended to the JSON-LD @graph. */
+  jsonLdExtra?: Record<string, unknown>[];
 }
 
-const { title = siteConfig.title, description = siteConfig.description, image = "/og.png" } = Astro.props;
+const { title = siteConfig.title, description = siteConfig.description, image = "/og.png", product, jsonLdExtra = [] } = Astro.props;
 const fullTitle = title === siteConfig.title ? `${title} | AI-Powered Tools for Apache JMeter` : `${title} | ${siteConfig.title}`;
 const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "https://jmeter.ai";
 const _rawUrl = new URL(Astro.url?.pathname ?? "/", siteUrl + "/");
@@ -17,6 +22,55 @@ const pageUrl = _rawUrl.toString();
 const ogImageUrl = image.startsWith("http") ? image : `${siteUrl}${image}`;
 
 const isSettingsPage = Astro.url?.pathname === '/settings/' || Astro.url?.pathname === '/settings';
+
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? "G-7WS8LF9649";
+
+const productSchema = (p: Product) => ({
+  "@type": "SoftwareApplication",
+  "@id": `${siteConfig.url}/#${p.id}`,
+  name: p.name,
+  description: p.description,
+  applicationCategory: "DeveloperApplication",
+  applicationSubCategory: "Performance Testing",
+  operatingSystem: "Windows, macOS, Linux",
+  url: `${siteConfig.url}/products/${p.id}/`,
+  downloadUrl: `${p.github}/releases`,
+  installUrl: `${siteConfig.url}/products/${p.id}/`,
+  author: { "@id": `${siteConfig.url}/#organization` },
+  publisher: { "@id": `${siteConfig.url}/#organization` },
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+  },
+  isPartOf: { "@id": `${siteConfig.url}/#website` },
+});
+
+const faqSchema = (p: Product) =>
+  p.faqs && p.faqs.length > 0
+    ? [{
+        "@type": "FAQPage",
+        "@id": `${siteConfig.url}/products/${p.id}/#faq`,
+        mainEntity: p.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.question,
+          acceptedAnswer: { "@type": "Answer", text: f.answer },
+        })),
+        isPartOf: { "@id": `${siteConfig.url}/#website` },
+      }]
+    : [];
+
+const breadcrumbSchema = product
+  ? [{
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+        { "@type": "ListItem", position: 2, name: "Products", item: `${siteConfig.url}/#products` },
+        { "@type": "ListItem", position: 3, name: product.name, item: `${siteConfig.url}/products/${product.id}/` },
+      ],
+    }]
+  : [];
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -64,27 +118,10 @@ const jsonLd = {
         "https://qainsights.com",
       ],
     },
-    ...products.map((p) => ({
-      "@type": "SoftwareApplication",
-      "@id": `${siteConfig.url}/#${p.id}`,
-      name: p.name,
-      description: p.description,
-      applicationCategory: "DeveloperApplication",
-      applicationSubCategory: "Performance Testing",
-      operatingSystem: "Windows, macOS, Linux",
-      url: `${siteConfig.url}/products/${p.id}/`,
-      downloadUrl: p.github,
-      softwareVersion: "latest",
-      author: { "@id": `${siteConfig.url}/#organization` },
-      publisher: { "@id": `${siteConfig.url}/#organization` },
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-        availability: "https://schema.org/InStock",
-      },
-      isPartOf: { "@id": `${siteConfig.url}/#website` },
-    })),
+    ...(product ? [productSchema(product)] : products.map(productSchema)),
+    ...(product ? faqSchema(product) : []),
+    ...breadcrumbSchema,
+    ...jsonLdExtra,
   ],
 };
 ---
@@ -135,6 +172,19 @@ const jsonLd = {
 
 <!-- Structured Data -->
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<!-- Google Analytics 4 (gtag.js) -->
+{gaMeasurementId && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
+    <script is:inline define:vars={{ gaMeasurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gaMeasurementId);
+    </script>
+  </>
+)}
 
 <!-- Theme color -->
 <meta name="theme-color" content="#090a0f" />

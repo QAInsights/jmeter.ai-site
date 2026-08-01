@@ -24,6 +24,15 @@ export default defineConfig({
         if (item.url === 'https://jmeter.ai/settings/') {
           return { ...item, changefreq: 'monthly', priority: 0.5 };
         }
+        if (/\/(challenge|calculators|prompts)\/$/.test(item.url)) {
+          return { ...item, changefreq: 'weekly', priority: 0.9 };
+        }
+        if (/\/(challenge|calculators|prompts)\/[^/]+\/$/.test(item.url)) {
+          return { ...item, changefreq: 'monthly', priority: 0.8 };
+        }
+        if (item.url.startsWith('https://jmeter.ai/products/')) {
+          return { ...item, changefreq: 'weekly', priority: 0.9 };
+        }
         return item;
       },
     }),

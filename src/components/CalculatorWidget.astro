@@ -1,0 +1,72 @@
+---
+import type { Calculator } from "../data/calculators";
+import { calcInputClass } from "./panels/constants";
+
+interface Props {
+  calculator: Calculator;
+}
+
+const { calculator: calc } = Astro.props;
+
+const formulas: Record<string, string> = {
+  "virtual-users": `
+    const tps = num('tps'), r = num('response'), t = num('think');
+    set(Math.ceil(tps * (r + t)).toLocaleString());
+  `,
+  pacing: `
+    const tph = num('tph'), users = num('users');
+    set(users > 0 ? (3600 * users / tph).toFixed(2) : '—');
+  `,
+  "test-data": `
+    const users = num('users'), iter = num('iteration'), dur = num('duration');
+    set(iter > 0 ? Math.ceil(users * (dur * 60 / iter)).toLocaleString() : '—');
+  `,
+  "load-generator": `
+    const ram = num('ram'), first = num('first'), add = num('additional'), os = num('os');
+    const vus = add > 0 ? Math.max(0, Math.floor((ram - os - first) / add) + 1) : 0;
+    set(vus.toLocaleString());
+  `,
+  bandwidth: `
+    const users = num('users'), tps = num('tps'), req = num('request'), resp = num('response'), ov = num('overhead');
+    const mbps = users * tps * (req + resp) * 8 / 1024 * (1 + ov / 100);
+    set(mbps.toFixed(2));
+  `,
+};
+
+const js = formulas[calc.id];
+---
+
+<div class="bg-jm-surface border border-jm-border rounded-lg p-5" data-calc={calc.id}>
+  <h4 class="text-base font-bold text-jm-text mb-2 flex items-center gap-2" style="font-family: 'Orbitron', sans-serif;">
+    <span>{calc.emoji}</span> {calc.name}
+  </h4>
+  <p class="text-xs text-jm-text-dim mb-4" style="font-family: 'JetBrains Mono', monospace;">{calc.tagline}</p>
+  <div class="space-y-3">
+    {calc.fields.map((f) => (
+      <div>
+        <label class="block text-xs text-jm-text-muted mb-1" style="font-family: 'JetBrains Mono', monospace;" for={`calc-${calc.id}-${f.id}`}>{f.label}</label>
+        <input type="number" id={`calc-${calc.id}-${f.id}`} value={f.value} min={f.min} max={f.max} step={f.step} class={calcInputClass} style="font-family: 'JetBrains Mono', monospace;" />
+      </div>
+    ))}
+    <div class="pt-3 border-t border-jm-border">
+      <p class="text-sm font-semibold" style="font-family: 'JetBrains Mono', monospace; color: #ff6b6b;">
+        {calc.resultTemplate.split("{result}")[0]}
+        <span id={`calc-${calc.id}-result`}></span>
+        {calc.resultTemplate.split("{result}")[1]}
+      </p>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ calcId: calc.id, calcJs: js }}>
+  (() => {
+    const root = document.querySelector(`[data-calc="${calcId}"]`);
+    if (!root) return;
+    const out = root.querySelector(`#calc-${calcId}-result`);
+    const num = (fid) => parseFloat(root.querySelector(`#calc-${calcId}-${fid}`).value) || 0;
+    const set = (v) => { out.textContent = v; };
+    const compute = () => { new Function('num', 'set', calcJs)(num, set); };
+    root.querySelectorAll('input').forEach((i) => i.addEventListener('input', compute));
+    compute();
+  })();
+</script>

@@ -5,27 +5,69 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="border-t border-white/10 py-12 px-6 bg-black/60 relative">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-slate-400 text-sm">
-    <div class="flex items-center gap-3 flex-wrap justify-center">
-      <span class="font-bold text-white">JMeter.AI</span>
-      <span>
-        · Maintained by <a
-          href="https://qainsights.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-cyan-400 hover:underline">QAInsights</a
-        >
-      </span>
-      <span class="text-slate-600 font-mono text-xs">© {year}</span>
-    </div>
-    <nav class="flex items-center gap-6" aria-label="Social links">
-      {
-        defaultSocials.map((social) => (
-          <a href={social.url} target="_blank" rel="noopener noreferrer" class="hover:text-white transition">
-            {social.name}
-          </a>
-        ))
-      }
+  <div class="max-w-7xl mx-auto space-y-8 text-slate-400 text-sm">
+    <nav class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6" aria-label="Site sections">
+      <div class="space-y-2">
+        <p class="text-xs font-mono tracking-widest text-slate-500 uppercase">Products</p>
+        <ul class="space-y-1.5">
+          <li><a href="/products/feather-wand/" class="hover:text-white transition">Feather Wand</a></li>
+          <li><a href="/products/super-key/" class="hover:text-white transition">Super Key</a></li>
+          <li><a href="/products/prism/" class="hover:text-white transition">Prism</a></li>
+          <li><a href="/products/jmeter-studio/" class="hover:text-white transition">JMeter Studio</a></li>
+          <li><a href="/products/readme-config/" class="hover:text-white transition">README Config</a></li>
+          <li><a href="/products/perf-skills/" class="hover:text-white transition">perf-skills</a></li>
+        </ul>
+      </div>
+      <div class="space-y-2">
+        <p class="text-xs font-mono tracking-widest text-slate-500 uppercase">Learn</p>
+        <ul class="space-y-1.5">
+          <li><a href="/challenge/" class="hover:text-white transition">30-Day Challenge</a></li>
+          <li><a href="/products/academy/" class="hover:text-white transition">Academy</a></li>
+          <li><a href="/prompts/" class="hover:text-white transition">LLM Prompts</a></li>
+        </ul>
+      </div>
+      <div class="space-y-2">
+        <p class="text-xs font-mono tracking-widest text-slate-500 uppercase">Tools</p>
+        <ul class="space-y-1.5">
+          <li><a href="/calculators/" class="hover:text-white transition">All Calculators</a></li>
+          <li><a href="/calculators/virtual-users/" class="hover:text-white transition">Little's Law</a></li>
+          <li><a href="/calculators/pacing/" class="hover:text-white transition">Pacing</a></li>
+          <li><a href="/calculators/load-generator/" class="hover:text-white transition">Load Generators</a></li>
+          <li><a href="/calculators/bandwidth/" class="hover:text-white transition">Bandwidth</a></li>
+        </ul>
+      </div>
+      <div class="space-y-2">
+        <p class="text-xs font-mono tracking-widest text-slate-500 uppercase">Feeds</p>
+        <ul class="space-y-1.5">
+          <li><a href="/rss.xml" class="hover:text-white transition">RSS</a></li>
+          <li><a href="/llms.txt" class="hover:text-white transition">llms.txt</a></li>
+          <li><a href="/skill.md" class="hover:text-white transition">skill.md</a></li>
+          <li><a href="/sitemap-index.xml" class="hover:text-white transition">Sitemap</a></li>
+        </ul>
+      </div>
     </nav>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-t border-white/5 pt-8">
+      <div class="flex items-center gap-3 flex-wrap justify-center">
+        <span class="font-bold text-white">JMeter.AI</span>
+        <span>
+          · Maintained by <a
+            href="https://qainsights.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-cyan-400 hover:underline">QAInsights</a
+          >
+        </span>
+        <span class="text-slate-600 font-mono text-xs">© {year}</span>
+      </div>
+      <nav class="flex items-center gap-6" aria-label="Social links">
+        {
+          defaultSocials.map((social) => (
+            <a href={social.url} target="_blank" rel="noopener noreferrer" class="hover:text-white transition">
+              {social.name}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
   </div>
 </footer>

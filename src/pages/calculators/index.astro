@@ -1,0 +1,62 @@
+---
+import JMeterLayout from "../../layouts/JMeterLayout.astro";
+import CalculatorWidget from "../../components/CalculatorWidget.astro";
+import { calculators } from "../../data/calculators";
+import { siteConfig } from "../../data/products";
+
+const title = "Performance Testing Calculators — Perftractor";
+const description =
+  "Free performance testing calculators for JMeter, k6, Gatling, and LoadRunner: Little's Law virtual users, pacing, test data sizing, load generator capacity, and network bandwidth.";
+
+const itemListSchema = {
+  "@type": "ItemList",
+  itemListElement: calculators.map((c, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: c.name,
+    url: `${siteConfig.url}/calculators/${c.id}/`,
+  })),
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+    { "@type": "ListItem", position: 2, name: "Calculators", item: `${siteConfig.url}/calculators/` },
+  ],
+};
+---
+
+<JMeterLayout title={title} description={description} jsonLdExtra={[itemListSchema, breadcrumbSchema]}>
+  <main class="px-6 py-12 md:py-16 relative">
+    <div class="max-w-7xl mx-auto space-y-10">
+      <a href="/products/perftractor/" class="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-cyan-400 transition">
+        ← Back to Perftractor
+      </a>
+
+      <header class="space-y-3">
+        <p class="text-xs font-mono tracking-widest uppercase" style="color: #ff6b6b;">🧮 PERFTRACTOR</p>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+          Performance Testing <span style="color: #ff6b6b;">Calculators</span>
+        </h1>
+        <p class="text-slate-400 leading-relaxed max-w-3xl">{description}</p>
+      </header>
+
+      <nav class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {calculators.map((c) => (
+          <a href={`/calculators/${c.id}/`} class="glass-panel rounded-xl border border-white/10 p-4 hover:border-red-400/40 transition group">
+            <div class="flex items-center gap-2">
+              <span aria-hidden="true">{c.emoji}</span>
+              <span class="font-semibold text-slate-100 group-hover:text-white text-sm">{c.name}</span>
+            </div>
+            <p class="mt-1.5 text-xs text-slate-400">{c.tagline}</p>
+          </a>
+        ))}
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {calculators.map((c) => <CalculatorWidget calculator={c} />)}
+      </div>
+    </div>
+  </main>
+</JMeterLayout>

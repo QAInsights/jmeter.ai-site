@@ -1,43 +1,44 @@
-# Astro Starter Kit: Minimal
+# JMeter.AI — Performance Intelligence Suite
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Source code for [jmeter.ai](https://jmeter.ai) — the one place for people working with Apache JMeter and related performance testing tools.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## What's here
 
-## 🚀 Project Structure
+- **Product suite** — open-source JMeter plugins by [QAInsights](https://qainsights.com):
+  - [Feather Wand](https://jmeter.ai/products/feather-wand/) — AI-powered test generation for JMeter
+  - [Super Key](https://jmeter.ai/products/super-key/) — keyboard shortcuts & command palette
+  - [Prism](https://jmeter.ai/products/prism/) — multi-tab interface for JMeter
+  - [JMeter Studio](https://jmeter.ai/products/jmeter-studio/) — themes, dark mode, icon packs
+  - [README Config](https://jmeter.ai/products/readme-config/) — live Markdown docs inside test plans
+  - [Perftractor](https://jmeter.ai/products/perftractor/) — performance testing calculators
+- **30-Day Performance Testing Challenge** — [`/challenge/`](https://jmeter.ai/challenge/)
+- **LLM Hub** — copy-ready AI prompts and inference metrics for performance engineers
+- **Academy** — curated JMeter, k6, Gatling, and performance engineering video playlists
 
-Inside of your Astro project, you'll see the following folders and files:
+## Tech stack
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+[Astro](https://astro.build) + Tailwind CSS 4, deployed on Vercel. Content is data-driven from `src/data/`.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Commands
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| Command | Action |
+| --- | --- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Dev server at `localhost:4321` |
+| `npm run build` | Production build to `./dist/` |
+| `npm run preview` | Preview the build locally |
+| `npm test` | Run vitest suite |
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Environment variables
 
-## 🧞 Commands
+See [.env.example](.env.example) — Clerk auth keys (optional for most pages) and `PUBLIC_GA_MEASUREMENT_ID` for Google Analytics 4.
 
-All commands are run from the root of the project, from a terminal:
+## AI / agent discovery
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- [`llms.txt`](https://jmeter.ai/llms.txt) — machine-readable site summary
+- [`skill.md`](https://jmeter.ai/skill.md) — canonical JMeter skill for AI agents
+- [`.well-known/ai-agent.json`](https://jmeter.ai/.well-known/ai-agent.json) — agent manifest
 
-## 👀 Want to learn more?
+## License
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+MIT © [NaveenKumar Namachivayam (QAInsights)](https://qainsights.com)

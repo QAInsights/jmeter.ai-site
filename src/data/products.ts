@@ -35,6 +35,11 @@ export interface InfoCard {
   color: string;
 }
 
+export interface Faq {
+  question: string;
+  answer: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -56,6 +61,7 @@ export interface Product {
   features: Feature[];
   ossVsPro: ComparisonRow[];
   installation: InstallStep[];
+  faqs?: Faq[];
   socials: Social[];
   treeNodes: TreeNode[];
 }
@@ -154,23 +160,45 @@ export const products: Product[] = [
     ],
     installation: [
       {
-        title: "Download the JAR",
-        description: "Grab the latest release from GitHub Releases page.",
-        code: "# Download from GitHub Releases\ncurl -L -o jmeter-ai.jar https://github.com/QAInsights/jmeter-ai/releases/latest",
+        title: "Plugins Manager (Recommended)",
+        description: "Open JMeter → Options → Plugins Manager → Available Plugins, search \"Feather Wand\", select it, then Apply Changes and Restart JMeter.",
+        code: "# JMeter → Options → Plugins Manager → Available Plugins\n# Search \"Feather Wand\" → Apply Changes and Restart JMeter",
       },
       {
-        title: "Copy to JMeter",
-        description: "Place the JAR file into your JMeter lib/ext directory.",
-        code: "cp jmeter-ai.jar $JMETER_HOME/lib/ext/",
+        title: "Plugins Manager CLI",
+        description: "Headless and CI-friendly install via the Plugins Manager command line.",
+        code: "# Linux / macOS\nbin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent\n\n# Windows\nbin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-agent",
       },
       {
-        title: "Restart JMeter",
-        description: "Restart JMeter and find Feather Wand in the Tools menu.",
-        code: "# Launch JMeter\n$JMETER_HOME/bin/jmeter",
+        title: "Manual JAR Install",
+        description: "Download the latest JAR from the GitHub Releases page, copy it into JMeter's lib/ext directory, and restart JMeter. Feather Wand appears in the Tools menu.",
+        code: "# Download from https://github.com/QAInsights/jmeter-ai/releases\ncp <downloaded>.jar $JMETER_HOME/lib/ext/\n$JMETER_HOME/bin/jmeter",
       },
       {
         title: "Configure AI Provider",
         description: "Set your API key and preferred LLM provider in Feather Wand settings.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is Feather Wand for Apache JMeter?",
+        answer: "Feather Wand is a JMeter plugin that brings Large Language Models directly into your performance testing workflow. You describe test elements in plain English and it generates samplers, assertions, and extractors, analyzes results, and suggests optimizations without leaving JMeter.",
+      },
+      {
+        question: "Which LLMs does Feather Wand support?",
+        answer: "Feather Wand supports OpenAI, Anthropic Claude, local models via Ollama, and any OpenAI-compatible endpoint. The open-source edition includes 3 providers; the Pro edition unlocks all providers.",
+      },
+      {
+        question: "How do I install Feather Wand?",
+        answer: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: PluginsManagerCMD install feather-wand-jmeter-ai-agent.",
+      },
+      {
+        question: "Is Feather Wand free?",
+        answer: "Yes. The open-source edition is free on GitHub and via the JMeter Plugins Manager. A commercial Pro edition adds custom prompt templates, all LLM providers, and priority support.",
+      },
+      {
+        question: "Does my test data leave my machine?",
+        answer: "Not if you don't want it to. Feather Wand supports fully local deployments via Ollama, so test plans and results can stay on your machine with zero data egress.",
       },
     ],
     socials: defaultSocials,
@@ -237,23 +265,41 @@ export const products: Product[] = [
     ],
     installation: [
       {
-        title: "Download the JAR",
-        description: "Grab the latest release from GitHub Releases page.",
-        code: "curl -L -o superkey.jar https://github.com/QAInsights/superkey/releases/latest",
+        title: "Plugins Manager (Recommended)",
+        description: "Open JMeter → Options → Plugins Manager → Available Plugins, search \"SuperKey\", select it, then Apply Changes and Restart JMeter.",
+        code: "# JMeter → Options → Plugins Manager → Available Plugins\n# Search \"SuperKey\" → Apply Changes and Restart JMeter",
       },
       {
-        title: "Copy to JMeter",
-        description: "Place the JAR file into your JMeter lib/ext directory.",
-        code: "cp superkey.jar $JMETER_HOME/lib/ext/",
+        title: "Plugins Manager CLI",
+        description: "Headless and CI-friendly install via the Plugins Manager command line.",
+        code: "# Linux / macOS\nbin/PluginsManagerCMD.sh install superkey\n\n# Windows\nbin\\PluginsManagerCMD.bat install superkey",
       },
       {
-        title: "Restart JMeter",
-        description: "Restart JMeter. Super Key activates automatically.",
-        code: "$JMETER_HOME/bin/jmeter",
+        title: "Manual JAR Install",
+        description: "Download the latest JAR from the GitHub Releases page, copy it into JMeter's lib/ext directory, and restart JMeter. Super Key activates automatically.",
+        code: "# Download from https://github.com/QAInsights/superkey/releases\ncp <downloaded>.jar $JMETER_HOME/lib/ext/\n$JMETER_HOME/bin/jmeter",
       },
       {
         title: "Launch Super Key",
         description: "Ctrl/Cmd + K to open the Super Key panel.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Does Apache JMeter have keyboard shortcuts?",
+        answer: "JMeter ships with only a handful of shortcuts. Super Key adds a comprehensive keyboard layer: 50+ core shortcuts in the free edition (70+ in Pro), a VS Code-style command palette, and Vim-inspired navigation so you rarely need the mouse.",
+      },
+      {
+        question: "How do I get a command palette in JMeter?",
+        answer: "Install Super Key from the JMeter Plugins Manager (search \"SuperKey\"), restart JMeter, and press Ctrl+Shift+P. Type any action name — add a sampler, run a test, clear results — and execute it instantly.",
+      },
+      {
+        question: "Is Super Key free?",
+        answer: "Yes. The open-source edition with 50+ core shortcuts, the command palette, and quick navigation is free. The Pro edition adds extended shortcuts, custom key bindings, multi-keymap profiles, and a commercial license.",
+      },
+      {
+        question: "How do I install Super Key?",
+        answer: "Via the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"SuperKey\" → Apply Changes and Restart JMeter. Or from the command line: PluginsManagerCMD install superkey.",
       },
     ],
     socials: defaultSocials,
@@ -328,23 +374,37 @@ export const products: Product[] = [
     ossVsPro: [],
     installation: [
       {
-        title: "Download the JAR",
-        description: "Grab the latest release from the GitHub Releases page.",
-        code: "curl -L -o readme-config.jar https://github.com/QAInsights/jmeter-readme-config/releases/latest",
+        title: "Plugins Manager (Recommended)",
+        description: "Open JMeter → Options → Plugins Manager → Available Plugins, search \"README Config\", select it, then Apply Changes and Restart JMeter.",
+        code: "# JMeter → Options → Plugins Manager → Available Plugins\n# Search \"README Config\" → Apply Changes and Restart JMeter",
       },
       {
-        title: "Copy to JMeter",
-        description: "Place the JAR file into your JMeter lib/ext directory.",
-        code: "cp readme-config.jar $JMETER_HOME/lib/ext/",
+        title: "Plugins Manager CLI",
+        description: "Headless and CI-friendly install via the Plugins Manager command line.",
+        code: "# Linux / macOS\nbin/PluginsManagerCMD.sh install readme-config-element\n\n# Windows\nbin\\PluginsManagerCMD.bat install readme-config-element",
       },
       {
-        title: "Restart JMeter",
-        description: "Restart JMeter to load the plugin.",
-        code: "$JMETER_HOME/bin/jmeter",
+        title: "Manual JAR Install",
+        description: "Download the latest JAR from the GitHub Releases page, copy it into JMeter's lib/ext directory, and restart JMeter.",
+        code: "# Download from https://github.com/QAInsights/jmeter-readme-config/releases\ncp <downloaded>.jar $JMETER_HOME/lib/ext/\n$JMETER_HOME/bin/jmeter",
       },
       {
         title: "Add Element",
         description: "Right-click any node → Add → Config Element → README Config Element.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Can I add documentation inside a JMeter test plan?",
+        answer: "Yes. README Config adds a Markdown documentation node to any JMeter test plan. Write notes, runbooks, and context next to the elements they describe, with a live GitHub-style preview and clickable deep-links to test plan nodes.",
+      },
+      {
+        question: "Does README Config affect test performance?",
+        answer: "No. The element is always disabled during test runs — it consumes no threads and has zero impact on metrics. It is purely a documentation node.",
+      },
+      {
+        question: "Is README Config free?",
+        answer: "Yes, always. README Config is free and open source under the MIT license, available on GitHub and via the JMeter Plugins Manager (plugin ID: readme-config-element).",
       },
     ],
     socials: defaultSocials,
@@ -421,23 +481,37 @@ export const products: Product[] = [
     ],
     installation: [
       {
-        title: "Download the JAR",
-        description: "Grab the latest release from GitHub Releases page.",
-        code: "curl -L -o jmeter-studio.jar https://github.com/QAInsights/jmeter-studio/releases/latest",
+        title: "Plugins Manager (Recommended)",
+        description: "Open JMeter → Options → Plugins Manager → Available Plugins, search \"JMeter Studio\", select it, then Apply Changes and Restart JMeter.",
+        code: "# JMeter → Options → Plugins Manager → Available Plugins\n# Search \"JMeter Studio\" → Apply Changes and Restart JMeter",
       },
       {
-        title: "Copy to JMeter",
-        description: "Place the JAR file into your JMeter lib/ext directory.",
-        code: "cp jmeter-studio.jar $JMETER_HOME/lib/ext/",
+        title: "Plugins Manager CLI",
+        description: "Headless and CI-friendly install via the Plugins Manager command line.",
+        code: "# Linux / macOS\nbin/PluginsManagerCMD.sh install jmeter-studio-oss\n\n# Windows\nbin\\PluginsManagerCMD.bat install jmeter-studio-oss",
       },
       {
-        title: "Restart JMeter",
-        description: "Restart JMeter and access themes via Options → Theme.",
-        code: "$JMETER_HOME/bin/jmeter",
+        title: "Manual JAR Install",
+        description: "Download the latest JAR from the GitHub Releases page, copy it into JMeter's lib/ext directory, and restart JMeter.",
+        code: "# Download from https://github.com/QAInsights/jmeter-studio/releases\ncp <downloaded>.jar $JMETER_HOME/lib/ext/\n$JMETER_HOME/bin/jmeter",
       },
       {
         title: "Pick a Theme",
         description: "Open Options → Themes and select your preferred theme. Changes apply instantly.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Does Apache JMeter have a dark mode?",
+        answer: "Not natively, but JMeter Studio adds a professionally designed dark mode to JMeter, along with 10+ curated themes (Dracula, Nord, Solarized, and more), icon packs, and font customization. Changes apply instantly from Options → Themes.",
+      },
+      {
+        question: "How do I change JMeter's theme?",
+        answer: "Install JMeter Studio from the JMeter Plugins Manager (plugin ID: jmeter-studio-oss), restart JMeter, then open Options → Themes to pick a theme. The Pro edition adds a custom theme editor and OS appearance sync.",
+      },
+      {
+        question: "Is JMeter Studio free?",
+        answer: "The open-source edition with dark mode and 5 built-in themes is free. A Pro edition adds 10+ premium themes, the custom theme editor, icon packs, and theme export/sharing.",
       },
     ],
     socials: defaultSocials,
@@ -520,23 +594,41 @@ export const products: Product[] = [
     ],
     installation: [
       {
-        title: "Download the JAR",
-        description: "Grab the latest release from GitHub Releases page.",
-        code: "curl -L -o prism.jar https://github.com/QAInsights/prism/releases/latest",
+        title: "Plugins Manager (Recommended)",
+        description: "Open JMeter → Options → Plugins Manager → Available Plugins, search \"Prism\", select it, then Apply Changes and Restart JMeter.",
+        code: "# JMeter → Options → Plugins Manager → Available Plugins\n# Search \"Prism\" → Apply Changes and Restart JMeter",
       },
       {
-        title: "Copy to JMeter",
-        description: "Place the JAR file into your JMeter lib/ext directory.",
-        code: "cp prism.jar $JMETER_HOME/lib/ext/",
+        title: "Plugins Manager CLI",
+        description: "Headless and CI-friendly install via the Plugins Manager command line.",
+        code: "# Linux / macOS\nbin/PluginsManagerCMD.sh install prism\n\n# Windows\nbin\\PluginsManagerCMD.bat install prism",
       },
       {
-        title: "Restart JMeter",
-        description: "Restart JMeter. Prism replaces the default single-tab interface automatically.",
-        code: "$JMETER_HOME/bin/jmeter",
+        title: "Manual JAR Install",
+        description: "Download the latest JAR from the GitHub Releases page, copy it into JMeter's lib/ext directory, and restart JMeter. Prism replaces the default single-tab interface automatically.",
+        code: "# Download from https://github.com/QAInsights/prism/releases\ncp <downloaded>.jar $JMETER_HOME/lib/ext/\n$JMETER_HOME/bin/jmeter",
       },
       {
         title: "Open Multiple Tabs",
         description: "Use File > Prism in New Tab to load another test plan.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Can Apache JMeter open multiple test plans at once?",
+        answer: "Not natively — JMeter is single-document. Prism adds browser-like tabs so you can open multiple .jmx test plans simultaneously, switch between them instantly, and compare results without closing and reopening files.",
+      },
+      {
+        question: "How many tabs can I open with Prism?",
+        answer: "The open-source edition supports up to 3 concurrent tabs. The Pro edition removes the limit entirely.",
+      },
+      {
+        question: "How do I install Prism?",
+        answer: "Via the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Prism\" → Apply Changes and Restart JMeter. Or from the command line: PluginsManagerCMD install prism.",
+      },
+      {
+        question: "Is Prism free?",
+        answer: "Yes. The open-source edition with 3 concurrent tabs is free on GitHub and via the JMeter Plugins Manager. A Pro edition adds unlimited tabs and tab color coding.",
       },
     ],
     socials: defaultSocials,
@@ -681,6 +773,97 @@ export const products: Product[] = [
     treeNodes: [
       { id: "prompts", label: "Browse Prompts", icon: "book-open" },
       { id: "metrics", label: "Performance Metrics", icon: "bar-chart" },
+    ],
+  },
+  {
+    id: "perf-skills",
+    name: "perf-skills",
+    tagline: "AI Skill for Performance Testing Engineers",
+    subtitlePrefix: "TURN YOUR AI INTO A",
+    subtitleHighlight: "SENIOR PERF ENGINEER",
+    subtitleSuffix: "",
+    description:
+      "perf-skills is a token-optimized knowledge base that gives AI coding assistants deep, expert-level performance testing context on demand. Covering JMeter, k6, Gatling, Locust, Artillery, NeoLoad, LoadRunner, and OctoPerf, it helps your AI generate correct scripts, follow best practices, and debug bottlenecks without bloating its context window.",
+    icon: "sparkles",
+    color: "#7c3aed",
+    colorRgb: "124, 58, 237",
+    github: "https://github.com/QAInsights/perf-skills",
+    externalUrl: "https://www.npmjs.com/package/perf-skills",
+    badges: [
+      { label: "AI SKILL", emoji: "⚡", variant: "filled", color: "#7c3aed" },
+      { label: "8 LOAD TOOLS", emoji: "🛠️", variant: "outlined", color: "#00e5ff" },
+      { label: "TOKEN-OPTIMIZED", emoji: "🧠", variant: "outlined", color: "#00e676" },
+    ],
+    infoCards: [
+      { label: "CATEGORY", value: "AI Skill / Knowledge Base", color: "#7c3aed" },
+      { label: "TOOLS", value: "8 Load Testing Tools", color: "#00e5ff" },
+      { label: "LICENSE", value: "MIT (Open Source)", color: "#00e676" },
+      { label: "INSTALL", value: "npx / Plugin", color: "#ffab00" },
+    ],
+    featuresHeadingPrefix: "Performance Testing",
+    featuresHeadingHighlight: "Skills",
+    featuresSubtitle: "An opinionated, on-demand brain transplant for your AI assistant across the full load testing lifecycle.",
+    features: [
+      {
+        title: "Multi-Tool Coverage",
+        description: "Expert context for Apache JMeter, k6, Gatling, Locust, Artillery, NeoLoad, LoadRunner, and OctoPerf, all routed from a single entry point.",
+        icon: "🛠️",
+      },
+      {
+        title: "Dynamic Value Correlation",
+        description: "Robust strategies for CSRF tokens, JSESSIONID, ViewState, SAML, and OAuth, with extraction rules for ASP.NET, Java, SAP, and modern SSR/SPA stacks.",
+        icon: "⛓️",
+      },
+      {
+        title: "Token-Optimized Routing",
+        description: "SKILL.md is read first, then only the relevant tool and topic files are loaded, keeping your context window lean and answers precise.",
+        icon: "🧠",
+      },
+      {
+        title: "LLM Inference Benchmarking",
+        description: "Benchmark vLLM, TRT-LLM, and SGLang endpoints with metrics like TTFT, TPOT, ITL, throughput, and goodput.",
+        icon: "🤖",
+      },
+      {
+        title: "SLO & Capacity Planning",
+        description: "Reason about error budgets, headroom, and replica counts, and gate CI on SLO compliance before shipping.",
+        icon: "📈",
+      },
+      {
+        title: "Protocol Support",
+        description: "Guidance for HTTP/REST, gRPC, GraphQL, WebSocket, SSE, JDBC, SOAP, Kafka/MQ, Citrix, and SAP protocols.",
+        icon: "🔌",
+      },
+    ],
+    ossVsPro: [],
+    installation: [
+      {
+        title: "Install via npx",
+        description: "If your tool supports npx skills, add perf-skills directly.",
+        code: "npx skills add QAInsights/perf-skills",
+      },
+      {
+        title: "Claude Code Plugin",
+        description: "Install as a native Claude Code plugin so the /perf skill auto-loads on performance questions.",
+        code: "/plugin marketplace add QAInsights/perf-skills\n/plugin install perf@qainsights\n/reload-plugins",
+      },
+      {
+        title: "Windsurf (Cascade)",
+        description: "Clone the repo and copy the skill directory into your Windsurf skills folder.",
+        code: "git clone https://github.com/QAInsights/perf-skills.git\ncp -r perf-skills/skills/perf ~/.windsurf/skills/",
+      },
+      {
+        title: "Cursor",
+        description: "Copy SKILL.md into a project rule file at .cursor/rules/perf.mdc, or index skills/perf via @Docs.",
+      },
+    ],
+    socials: defaultSocials,
+    treeNodes: [
+      { id: "overview", label: "Overview", icon: "info" },
+      { id: "features", label: "Features", icon: "zap" },
+      { id: "installation", label: "Installation", icon: "download" },
+      { id: "github", label: "GitHub", icon: "github" },
+      { id: "connect", label: "Connect", icon: "users" },
     ],
   },
   {
@@ -1143,24 +1326,9 @@ export interface InstallMethod {
 
 export const installMethods: InstallMethod[] = [
   {
-    id: "jar",
-    label: "Direct JAR",
-    description: "Drop the latest release JAR into JMeter's lib/ext directory.",
-    blocks: [
-      {
-        title: "Download the latest release",
-        code: "curl -L -o jmeter-ai.jar https://github.com/QAInsights/jmeter-ai/releases/latest",
-      },
-      {
-        title: "Copy into JMeter & restart",
-        code: "cp jmeter-ai.jar $JMETER_HOME/lib/ext/\n$JMETER_HOME/bin/jmeter",
-      },
-    ],
-  },
-  {
     id: "plugins-manager",
     label: "Plugins Manager",
-    description: "Install straight from the JMeter Plugins Manager UI.",
+    description: "The recommended way — install straight from the JMeter Plugins Manager UI.",
     blocks: [
       {
         title: "Open Plugins Manager",
@@ -1184,6 +1352,21 @@ export const installMethods: InstallMethod[] = [
       {
         title: "Windows",
         code: "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-agent",
+      },
+    ],
+  },
+  {
+    id: "jar",
+    label: "Direct JAR",
+    description: "Drop the latest release JAR into JMeter's lib/ext directory.",
+    blocks: [
+      {
+        title: "Download the latest release",
+        code: "# Grab the latest JAR from GitHub Releases\n# https://github.com/QAInsights/jmeter-ai/releases",
+      },
+      {
+        title: "Copy into JMeter & restart",
+        code: "cp <downloaded>.jar $JMETER_HOME/lib/ext/\n$JMETER_HOME/bin/jmeter",
       },
     ],
   },

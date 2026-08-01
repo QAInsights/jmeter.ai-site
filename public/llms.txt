@@ -4,76 +4,85 @@
 
 JMeter.AI is a platform built by NaveenKumar Namachivayam (QAInsights) providing AI-powered plugins,
 tools, and learning resources for Apache JMeter - one of the world's most popular open-source
-performance testing frameworks. All products are available as JMeter plugins (JAR files) and are
-compatible with Apache JMeter 5.x and later.
+performance testing frameworks. All plugins are available in the official JMeter Plugins Manager
+and as open-source projects on GitHub, compatible with Apache JMeter 5.x and later.
 
 ## Products
 
-- [Feather Wand](https://jmeter.ai/#feather-wand): AI-powered chat interface and test plan generator
-  built directly into Apache JMeter. Use natural language to generate test scripts, analyze results,
-  debug issues, and receive AI-guided recommendations. Supports OpenAI, Anthropic Claude, Ollama, and
-  any OpenAI-compatible LLM endpoint. Integrates with Claude Code for enhanced AI coding capabilities.
-  Available in open-source (OSS) and commercial Pro editions.
+- [Feather Wand](https://jmeter.ai/products/feather-wand/): AI-powered chat interface and test plan
+  generator built directly into Apache JMeter. Use natural language to generate test scripts,
+  analyze results, debug issues, and receive AI-guided recommendations. Supports OpenAI, Anthropic
+  Claude, Ollama, and any OpenAI-compatible LLM endpoint. Plugins Manager ID:
+  feather-wand-jmeter-ai-agent. Open-source edition free; commercial Pro edition available.
 
-- [Super Key](https://jmeter.ai/#super-key): Keyboard command center for Apache JMeter featuring 70+
-  shortcuts, a VS Code-style command palette (Ctrl+Shift+P), and Vim-inspired navigation. Eliminates
-  mouse dependency for power users. Available in OSS and Pro editions.
+- [Super Key](https://jmeter.ai/products/super-key/): Keyboard command center for Apache JMeter
+  featuring 70+ shortcuts, a VS Code-style command palette (Ctrl+Shift+P), and Vim-inspired
+  navigation. Plugins Manager ID: superkey. OSS and Pro editions.
 
-- [README Config](https://jmeter.ai/#readme-config): Adds a live Markdown documentation node directly
-  inside any JMeter test plan. Keep runbooks, context notes, and inline documentation right alongside
-  the test elements they describe, with zero performance impact on test execution.
+- [Prism](https://jmeter.ai/products/prism/): Multi-tab interface plugin for Apache JMeter that
+  enables simultaneous editing of multiple test plans, like browser tabs for JMeter.
+  Plugins Manager ID: prism.
 
-- [JMeter Studio](https://jmeter.ai/#jmeter-studio): Premium theme engine and custom icon pack system
-  for Apache JMeter. Enables full visual customization of the JMeter UI. One of the fastest-downloaded
-  plugins in the JMeter Plugins repository.
+- [JMeter Studio](https://jmeter.ai/products/jmeter-studio/): Theme engine for Apache JMeter with
+  dark mode, 10+ curated FlatLaf themes, icon packs, and font customization.
+  Plugins Manager ID: jmeter-studio-oss.
 
-- [Prism](https://jmeter.ai/#prism): Multi-tab interface plugin for Apache JMeter that enables
-  simultaneous editing of multiple test plans, like browser tabs for JMeter.
+- [README Config](https://jmeter.ai/products/readme-config/): Adds a live Markdown documentation
+  node directly inside any JMeter test plan, with zero performance impact on test execution.
+  Free and MIT-licensed. Plugins Manager ID: readme-config-element.
 
-- [Perftractor](https://jmeter.ai/#perftractor): Performance testing calculator suite for computing
-  throughput targets, optimal thread counts, think times, and concurrency levels.
+- [Perftractor](https://jmeter.ai/products/perftractor/): Free performance testing calculator suite
+  for computing virtual users (Little's Law), pacing, test data requirements, load generator
+  capacity, and network bandwidth.
+
+- [perf-skills](https://jmeter.ai/products/perf-skills/): Token-optimized AI skill / knowledge base
+  covering JMeter, k6, Gatling, Locust, Artillery, NeoLoad, LoadRunner, and OctoPerf.
+  Install via npm (perf-skills) or as a Claude Code plugin.
 
 - [JMeter MCP](https://github.com/QAInsights/jmeter-mcp): Model Context Protocol (MCP) server that
   integrates Apache JMeter with AI models and AI coding assistants such as Claude, Cursor, and
   Windsurf.
 
-## Resources
+## Learn
 
-- [Product Suite](https://jmeter.ai/#products): Open-source plugins, tools, and learning resources
-  for Apache JMeter: Feather Wand, Super Key, README Config, JMeter Studio, Prism, Perftractor,
-  Academy, and the LLM Hub, built for performance engineers.
+- [30-Day Performance Testing Challenge](https://jmeter.ai/challenge/): Tool-agnostic, hands-on
+  challenge - one scenario per day with objectives, metrics, solutions, and deliverables.
+  Each day has its own page: https://jmeter.ai/challenge/day-1/ through
+  https://jmeter.ai/challenge/day-30/.
 
-- [Architecture](https://jmeter.ai/#architecture): How Feather Wand works inside Apache JMeter.
-  Describe a test element in plain English, it calls your chosen LLM (OpenAI, Anthropic Claude,
-  local Ollama, or any OpenAI-compatible endpoint) and inserts the generated Samplers, Assertions,
-  and Extractors into the test plan. Supports local, zero-data-egress deployments via Ollama.
+- [Academy](https://jmeter.ai/products/academy/): Free video playlists covering JMeter, k6, Gatling,
+  Locust, LoadRunner, performance engineering, statistics, chaos engineering, Chrome DevTools,
+  and JMeter plugin development.
 
-- [Installation](https://jmeter.ai/#installation): Quick-start guide for direct JAR download,
-  JMeter Plugins Manager, and CLI installation (curl -fsSL https://jmeter.ai/install.sh | bash).
+## Calculators
 
-- [Settings](https://jmeter.ai/settings/): User account settings and profile management for
-  authenticated users.
+Free, browser-based performance testing calculators - each with formulas, explainers, and FAQs:
 
-## Product Pages
+- [Virtual Users (Little's Law)](https://jmeter.ai/calculators/virtual-users/)
+- [Pacing](https://jmeter.ai/calculators/pacing/)
+- [Test Data](https://jmeter.ai/calculators/test-data/)
+- [Load Generator Sizing](https://jmeter.ai/calculators/load-generator/)
+- [Network Bandwidth](https://jmeter.ai/calculators/bandwidth/)
 
-Each product has a dedicated page with full details, interactive demos, and installation guides:
+## AI Prompts (LLM Hub)
 
-- https://jmeter.ai/products/feather-wand/
-- https://jmeter.ai/products/super-key/
-- https://jmeter.ai/products/readme-config/
-- https://jmeter.ai/products/jmeter-studio/
-- https://jmeter.ai/products/prism/
-- https://jmeter.ai/products/perftractor/
-- https://jmeter.ai/products/academy/
-- https://jmeter.ai/products/prompts/
+Copy-ready prompt templates for performance engineers using ChatGPT, Claude, or other LLMs:
 
-## Shareable URLs
+- [All categories](https://jmeter.ai/prompts/): test planning, workload design, JMeter/k6/Gatling
+  script generation, correlation, test data, assertions, CI/CD, results analysis, observability,
+  API/database/WebSocket/gRPC testing, distributed execution, reporting, troubleshooting,
+  production testing, Groovy scripting, best practices, Kafka, browser testing, and chaos
+  engineering. Each category has its own page under https://jmeter.ai/prompts/<category>/.
 
-Homepage sections are directly linkable via URL hash fragment:
+## Machine-Readable Resources
 
-- https://jmeter.ai/#products
-- https://jmeter.ai/#architecture
-- https://jmeter.ai/#installation
+- [skill.md](https://jmeter.ai/skill.md): Canonical JMeter skill for AI agents - test plan
+  structure, thread groups, correlation, Groovy scripting, distributed testing, CI/CD, and the
+  QAInsights plugin suite with install commands.
+- [ai-agent.json](https://jmeter.ai/.well-known/ai-agent.json): Agent manifest describing
+  capabilities and the tool suite.
+- [Sitemap](https://jmeter.ai/sitemap-index.xml): Full XML sitemap for crawlers.
+- [RSS](https://jmeter.ai/rss.xml): Feed of products and challenge days.
 
 ## About
 
@@ -89,8 +98,10 @@ contributor, and content creator.
 
 ## Source Repositories
 
-- [GitHub - jmeter-ai (Feather Wand)](https://github.com/QAInsights/jmeter-ai): Source code and releases
-- [GitHub - superkey](https://github.com/QAInsights/superkey): Source code and releases
-- [GitHub - perftractor](https://github.com/QAInsights/perftractor): Source code and releases
-- [Sitemap](https://jmeter.ai/sitemap-index.xml): Full XML sitemap for crawlers
-- [llms.txt](https://jmeter.ai/llms.txt): This file - machine-readable summary for AI assistants
+- [GitHub - jmeter-ai (Feather Wand)](https://github.com/QAInsights/jmeter-ai)
+- [GitHub - superkey](https://github.com/QAInsights/superkey)
+- [GitHub - prism](https://github.com/QAInsights/prism)
+- [GitHub - jmeter-studio](https://github.com/QAInsights/jmeter-studio)
+- [GitHub - jmeter-readme-config](https://github.com/QAInsights/jmeter-readme-config)
+- [GitHub - perf-skills](https://github.com/QAInsights/perf-skills)
+- [GitHub - perftractor](https://github.com/QAInsights/perftractor)

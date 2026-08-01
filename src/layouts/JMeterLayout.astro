@@ -5,18 +5,22 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BedsheetBackground from "../components/BedsheetBackground.astro";
 
+import type { Product } from "../data/products";
+
 interface Props {
   title?: string;
   description?: string;
+  product?: Product;
+  jsonLdExtra?: Record<string, unknown>[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, product, jsonLdExtra } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" class="dark">
   <head>
-    <SEOHead title={title} description={description} />
+    <SEOHead title={title} description={description} product={product} jsonLdExtra={jsonLdExtra} />
   </head>
   <body
     class="bg-graph-bg text-slate-200 antialiased relative min-h-screen selection:bg-cyan-500 selection:text-black overflow-x-hidden"

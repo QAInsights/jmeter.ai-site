@@ -1,7 +1,7 @@
 ---
 import "../../styles/legacy-panels.css";
 import JMeterLayout from "../../layouts/JMeterLayout.astro";
-import { products } from "../../data/products";
+import { products, playlistConfig } from "../../data/products";
 import type { Product } from "../../data/products";
 import { productEmoji } from "../../components/panels/constants";
 import FeaturesPanel from "../../components/panels/FeaturesPanel.astro";
@@ -28,9 +28,26 @@ interface Props {
 
 const { product } = Astro.props;
 const hasGithubRepo = !["academy", "prompts", "docs", "plugins"].includes(product.id);
+
+const jsonLdExtra =
+  product.id === "academy"
+    ? [
+        {
+          "@type": "ItemList",
+          name: "Free Performance Engineering Video Playlists",
+          itemListElement: Object.values(playlistConfig).map((p: any, i: number) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: `${p.title}${p.highlight}`.trim(),
+            description: p.description,
+            url: `https://www.youtube.com/playlist?list=${p.playlistId}`,
+          })),
+        },
+      ]
+    : undefined;
 ---
 
-<JMeterLayout title={product.name} description={product.description}>
+<JMeterLayout title={`${product.name} — ${product.tagline}`} description={product.description} product={product} jsonLdExtra={jsonLdExtra}>
   <main class="px-6 py-12 md:py-16 relative">
     <div class="max-w-7xl mx-auto space-y-16">
       <!-- Breadcrumb -->
@@ -194,6 +211,33 @@ const hasGithubRepo = !["academy", "prompts", "docs", "plugins"].includes(produc
         product.installation.length > 0 && (
           <section>
             <InstallationPanel product={product} />
+          </section>
+        )
+      }
+
+      <!-- FAQ -->
+      {
+        product.faqs && product.faqs.length > 0 && (
+          <section>
+            <div class="space-y-6">
+              <div class="space-y-2">
+                <p class="text-xs font-mono tracking-widest text-cyan-400 uppercase">❓ FAQ</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                  Frequently Asked <span style={`color: ${product.color}`}>Questions</span>
+                </h2>
+              </div>
+              <div class="space-y-3">
+                {product.faqs.map((faq) => (
+                  <details class="glass-panel rounded-xl border border-white/10 group">
+                    <summary class="flex items-center gap-3 px-5 py-4 cursor-pointer list-none select-none text-sm font-semibold text-slate-100">
+                      {faq.question}
+                      <span class="ml-auto text-slate-500 text-xs transition-transform group-open:rotate-90" aria-hidden="true">▶</span>
+                    </summary>
+                    <p class="px-5 pb-5 text-sm text-slate-400 leading-relaxed">{faq.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
           </section>
         )
       }
