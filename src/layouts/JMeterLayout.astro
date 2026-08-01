@@ -3,6 +3,7 @@ import "../styles/global.css";
 import SEOHead from "../components/SEOHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import BedsheetBackground from "../components/BedsheetBackground.astro";
 
 interface Props {
   title?: string;
@@ -20,12 +21,13 @@ const { title, description } = Astro.props;
   <body
     class="bg-graph-bg text-slate-200 antialiased relative min-h-screen selection:bg-cyan-500 selection:text-black overflow-x-hidden"
   >
-    <!-- Glowing Background Orbs -->
-    <div class="gradient-glow w-[500px] h-[500px] bg-cyan-500 top-[-100px] left-1/2 -translate-x-1/2" aria-hidden="true"></div>
-    <div class="gradient-glow w-[400px] h-[400px] bg-indigo-600 top-[400px] left-[-100px]" aria-hidden="true"></div>
+    <!-- Site Pattern Bedsheet Settling Background -->
+    <BedsheetBackground />
 
-    <Header />
-    <slot />
-    <Footer />
+    <div class="relative z-10">
+      <Header />
+      <slot />
+      <Footer />
+    </div>
   </body>
 </html>
