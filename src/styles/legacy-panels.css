@@ -1,4 +1,4 @@
-﻿/* Legacy panel & simulator styles — scoped to /products/* pages.
+/* Legacy panel & simulator styles, scoped to /products/* pages.
    Tokens live in global.css @theme; this file holds component classes only. */
 
 /* Glow utility */
@@ -33,7 +33,7 @@
 .jm-resizer:hover {
   background: var(--color-jm-accent);
 }
-/* Hide resizer on mobile — sidebar becomes a drawer */
+/* Hide resizer on mobile: sidebar becomes a drawer */
 @media (max-width: 767px) {
   .jm-resizer {
     display: none;

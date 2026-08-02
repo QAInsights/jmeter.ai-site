@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  /* Graphify palette — dark-mode-only onyx canvas */
+  /* Graphify palette: dark-mode-only onyx canvas */
   --color-graph-bg: #090a0f;
   --color-graph-card: #12151e;
   --color-graph-border: rgba(255, 255, 255, 0.08);
@@ -11,7 +11,7 @@
   --color-brand-cyan: #00f2fe;
   --color-brand-purple: #7928ca;
 
-  /* Legacy panel tokens — used by product detail panels & simulators */
+  /* Legacy panel tokens, used by product detail panels & simulators */
   --color-jm-bg: #0a0e1a;
   --color-jm-surface: #111827;
   --color-jm-surface-alt: #1a2236;
@@ -105,7 +105,7 @@ html {
   background: var(--color-brand-cyan);
 }
 
-/* ===== Viewfinder focus — four corner brackets on hover ===== */
+/* ===== Viewfinder focus: four corner brackets on hover ===== */
 .vf-focus {
   position: relative;
   isolation: isolate;

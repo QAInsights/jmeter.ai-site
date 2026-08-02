@@ -36,7 +36,7 @@ export const calculators: Calculator[] = [
       { term: "T", meaning: "Think time in seconds" },
     ],
     explainer: [
-      "Little's Law is the fundamental queueing relationship used to size a load test: the number of concurrent users (N) equals throughput (Z) multiplied by the total time each user spends in the system — response time (R) plus think time (T).",
+      "Little's Law is the fundamental queueing relationship used to size a load test: the number of concurrent users (N) equals throughput (Z) multiplied by the total time each user spends in the system: response time (R) plus think time (T).",
       "If your target is 10 transactions per second, each transaction takes 2 seconds, and users think for 3 seconds between actions, you need 10 × (2 + 3) = 50 virtual users.",
       "Undersizing VU count is the most common reason a load test fails to reach its target throughput: the system is never given enough concurrent work to saturate it.",
     ],
@@ -147,7 +147,7 @@ export const calculators: Calculator[] = [
       { term: "Additional VU", meaning: "Memory each extra virtual user adds (MB)" },
     ],
     explainer: [
-      "A load generator that runs out of memory or CPU produces slow, unreliable VUs — and your test measures the generator's limits instead of the system's. Sizing generators correctly is a prerequisite for trustworthy results.",
+      "A load generator that runs out of memory or CPU produces slow, unreliable VUs, so your test measures the generator's limits instead of the system's. Sizing generators correctly is a prerequisite for trustworthy results.",
       "The first virtual user pays the one-time cost (JVM/runtime, loaded resources); each additional VU adds a smaller incremental footprint. Subtract OS reserve and the first VU, then divide the remainder by the per-VU increment.",
       "Always validate with a calibration run: watch generator CPU below ~70% and memory headroom at peak load. Divide your total VU count by this per-generator capacity to get the number of generators required.",
     ],
@@ -164,7 +164,7 @@ export const calculators: Calculator[] = [
       },
       {
         question: "How do I know if my load generator is overloaded?",
-        answer: "Watch for generator CPU above 70–80%, memory swapping, or VU response times climbing while server-side metrics stay flat. Overloaded generators distort results — add generators or reduce VUs per generator.",
+        answer: "Watch for generator CPU above 70–80%, memory swapping, or VU response times climbing while server-side metrics stay flat. Overloaded generators distort results: add generators or reduce VUs per generator.",
       },
       {
         question: "Do I need multiple load generators for JMeter?",
@@ -187,7 +187,7 @@ export const calculators: Calculator[] = [
     ],
     explainer: [
       "Load tests can saturate the network link of the load generator or the corporate VPN long before the target system feels any pressure. Estimating bandwidth up front prevents a whole class of misleading results.",
-      "Total throughput = concurrent users × transactions per second × average bytes per transaction (request + response), converted to megabits and inflated by protocol overhead (TCP/TLS headers, retransmissions — typically 15–25%).",
+      "Total throughput = concurrent users × transactions per second × average bytes per transaction (request + response), converted to megabits and inflated by protocol overhead (TCP/TLS headers, retransmissions, typically 15–25%).",
       "If the result approaches your link capacity, distribute the load across multiple generators in different networks, or move generation into the same data center or cloud region as the target.",
     ],
     fields: [

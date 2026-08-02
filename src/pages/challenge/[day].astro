@@ -20,7 +20,7 @@ const prev = challengeDays.find((d) => d.day === day.day - 1);
 const next = challengeDays.find((d) => d.day === day.day + 1);
 const phase = challengeMeta.phases.find((p) => p.key === day.phase);
 
-const title = `Day ${day.day}: ${day.title} — 30-Day Performance Testing Challenge`;
+const title = `Day ${day.day}: ${day.title} | 30-Day Performance Testing Challenge`;
 const description = day.objective;
 const pageUrl = `${siteConfig.url}/challenge/day-${day.day}/`;
 

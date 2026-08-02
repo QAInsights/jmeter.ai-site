@@ -57,27 +57,27 @@ const { product } = Astro.props;
     ))}
   </div>
 
-  {/* ===== SUPER KEY SIMULATOR — Super Key only ===== */}
+  {/* ===== SUPER KEY SIMULATOR: Super Key only ===== */}
   {product.id === "super-key" && (
     <SuperKeySimulator jmeterElements={jmeterElements} disclaimer={disclaimerText[product.id] ?? ""} />
   )}
 
-  {/* ===== PRISM SIMULATOR — Prism only ===== */}
+  {/* ===== PRISM SIMULATOR: Prism only ===== */}
   {product.id === "prism" && (
     <PrismSimulator disclaimer={disclaimerText[product.id] ?? ""} />
   )}
 
-  {/* ===== FEATHER WAND SIMULATOR — Feather Wand only ===== */}
+  {/* ===== FEATHER WAND SIMULATOR: Feather Wand only ===== */}
   {product.id === "feather-wand" && (
     <FeatherWandSimulator disclaimer={disclaimerText[product.id] ?? ""} />
   )}
 
-  {/* ===== README SIMULATOR — README Config only ===== */}
+  {/* ===== README SIMULATOR: README Config only ===== */}
   {product.id === "readme-config" && (
     <ReadmeSimulator disclaimer={disclaimerText[product.id] ?? ""} />
   )}
 
-  {/* ===== THEME GALLERY — JMeter Studio only ===== */}
+  {/* ===== THEME GALLERY: JMeter Studio only ===== */}
   {product.id === "jmeter-studio" && (
     <ThemeGallery themes={themes} />
   )}

@@ -120,7 +120,7 @@ export const products: Product[] = [
     subtitleHighlight: "APACHE JMETER",
     subtitleSuffix: "",
     description:
-      "Feather Wand is a full AI agent living inside Apache JMeter. Chat with 8 LLM providers — Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta Muse, and AWS Bedrock — or enable Agent Mode and let the AI autonomously edit your test plan through 18 tools: adding elements, setting properties, running tests, and auto-correlating dynamic values. Embedded AI CLI terminals, context-aware @commands, streaming responses, and smart JSR223 refactoring included.",
+      "Feather Wand is a full AI agent living inside Apache JMeter. Chat with 8 LLM providers (Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta Muse, and AWS Bedrock) or enable Agent Mode and let the AI autonomously edit your test plan through 18 tools: adding elements, setting properties, running tests, and auto-correlating dynamic values. Embedded AI CLI terminals, context-aware @commands, streaming responses, and smart JSR223 refactoring included.",
     icon: "wand-sparkles",
     color: "#00e5ff",
     colorRgb: "0, 229, 255",
@@ -150,17 +150,17 @@ export const products: Product[] = [
     features: [
       {
         title: "Agent Mode",
-        description: "AI autonomously edits your live test plan through 18 tools — add elements, set properties, run tests, and auto-correlate dynamic values, with confirmation-gated destructive ops. Claude & OpenAI.",
+        description: "AI autonomously edits your live test plan through 18 tools: add elements, set properties, run tests, and auto-correlate dynamic values, with confirmation-gated destructive ops. Claude & OpenAI.",
         icon: "🤖",
       },
       {
         title: "8 LLM Providers",
-        description: "Chat with Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok (xAI), Meta Muse, or AWS Bedrock — all inside JMeter. Model filtering hides non-chat models automatically.",
+        description: "Chat with Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok (xAI), Meta Muse, or AWS Bedrock, all inside JMeter. Model filtering hides non-chat models automatically.",
         icon: "🔗",
       },
       {
         title: "Context-Aware @Commands",
-        description: "@this, @testplan, @optimize, @lint, @wrap, @code, @usage — each command understands your currently selected test-plan element.",
+        description: "@this, @testplan, @optimize, @lint, @wrap, @code, and @usage. Each command understands your currently selected test-plan element.",
         icon: "🔍",
       },
       {
@@ -175,12 +175,12 @@ export const products: Product[] = [
       },
       {
         title: "Smart JSR223 Refactoring",
-        description: "Right-click in the JSR223 editor to refactor, format, or inject functions with AI — no copy-pasting between tools.",
+        description: "Right-click in the JSR223 editor to refactor, format, or inject functions with AI: no copy-pasting between tools.",
         icon: "🧹",
       },
       {
         title: "Local & Private via Ollama",
-        description: "Run fully offline with local models — zero data egress, with configurable thinking modes for reasoning models like DeepSeek R1.",
+        description: "Run fully offline with local models: zero data egress, with configurable thinking modes for reasoning models like DeepSeek R1.",
         icon: "🔒",
       },
       {
@@ -230,7 +230,7 @@ export const products: Product[] = [
       },
       {
         question: "Is Feather Wand free?",
-        answer: "Yes — completely. Feather Wand is open source under the MIT license, including Agent Mode, all 8 LLM providers, the CLI terminal, and every @command. You only pay for your own LLM API usage (or nothing at all with local Ollama models).",
+        answer: "Yes, completely. Feather Wand is open source under the MIT license, including Agent Mode, all 8 LLM providers, the CLI terminal, and every @command. You only pay for your own LLM API usage (or nothing at all with local Ollama models).",
       },
       {
         question: "Does my test data leave my machine?",
@@ -238,7 +238,7 @@ export const products: Product[] = [
       },
     ],
     agentMode: {
-      providersNote: "Tool calling works with Anthropic Claude and OpenAI models — the two providers with mature function-calling APIs. Other providers fall back to plain chat.",
+      providersNote: "Tool calling works with Anthropic Claude and OpenAI models, the two providers with mature function-calling APIs. Other providers fall back to plain chat.",
       enableProperty: "jmeter.ai.agent.enabled=true",
       toolGroups: [
         {
@@ -321,8 +321,8 @@ export const products: Product[] = [
       ],
       safety: [
         "Destructive operations (delete, move, open plan, apply correlation) ask for confirmation before executing.",
-        "Bounded iterations — the agent stops after 8 reason-act cycles by default, configurable via jmeter.ai.agent.max.iterations.",
-        "Graceful degradation — if the agent loop fails, you get a plain-text answer describing what it attempted.",
+        "Bounded iterations: the agent stops after 8 reason-act cycles by default, configurable via jmeter.ai.agent.max.iterations.",
+        "Graceful degradation: if the agent loop fails, you get a plain-text answer describing what it attempted.",
         "Every mutation is undoable with Ctrl+Z when undo.history.size > 0 in user.properties.",
       ],
     },
@@ -416,7 +416,7 @@ export const products: Product[] = [
       },
       {
         question: "How do I get a command palette in JMeter?",
-        answer: "Install Super Key from the JMeter Plugins Manager (search \"SuperKey\"), restart JMeter, and press Ctrl+Shift+P. Type any action name — add a sampler, run a test, clear results — and execute it instantly.",
+        answer: "Install Super Key from the JMeter Plugins Manager (search \"SuperKey\"), restart JMeter, and press Ctrl+Shift+P. Type any action name (add a sampler, run a test, clear results) and execute it instantly.",
       },
       {
         question: "Is Super Key free?",
@@ -525,7 +525,7 @@ export const products: Product[] = [
       },
       {
         question: "Does README Config affect test performance?",
-        answer: "No. The element is always disabled during test runs — it consumes no threads and has zero impact on metrics. It is purely a documentation node.",
+        answer: "No. The element is always disabled during test runs, so it consumes no threads and has zero impact on metrics. It is purely a documentation node.",
       },
       {
         question: "Is README Config free?",
@@ -697,12 +697,12 @@ export const products: Product[] = [
       // },
       // {
       //   title: "Session Restore",
-      //   description: "JMeter remembers your open tabs across restarts — pick up exactly where you left off.",
+      //   description: "JMeter remembers your open tabs across restarts, pick up exactly where you left off.",
       //   icon: "⏪",
       // },
       // {
       //   title: "Tab Search",
-      //   description: "Quickly find and switch to any open tab with fuzzy search — even with 50+ tabs open.",
+      //   description: "Quickly find and switch to any open tab with fuzzy search, even with 50+ tabs open.",
       //   icon: "🔎",
       // },
     ],
@@ -741,7 +741,7 @@ export const products: Product[] = [
     faqs: [
       {
         question: "Can Apache JMeter open multiple test plans at once?",
-        answer: "Not natively — JMeter is single-document. Prism adds browser-like tabs so you can open multiple .jmx test plans simultaneously, switch between them instantly, and compare results without closing and reopening files.",
+        answer: "Not natively. JMeter is single-document. Prism adds browser-like tabs so you can open multiple .jmx test plans simultaneously, switch between them instantly, and compare results without closing and reopening files.",
       },
       {
         question: "How many tabs can I open with Prism?",
@@ -1033,7 +1033,7 @@ export const products: Product[] = [
     subtitleHighlight: "JMETER PLUGINS",
     subtitleSuffix: "FROM THE COMMUNITY",
     description:
-      "The official JMeter plugins directory at plugins.jmeter.ai. Discover, download, and install plugins for Apache JMeter — including the entire JMeter.AI suite — all in one searchable registry.",
+      "The official JMeter plugins directory at plugins.jmeter.ai. Discover, download, and install plugins for Apache JMeter (including the entire JMeter.AI suite) in one searchable registry.",
     icon: "puzzle",
     color: "#f472b6",
     colorRgb: "244, 114, 182",
@@ -1453,7 +1453,7 @@ export const installMethods: InstallMethod[] = [
   {
     id: "plugins-manager",
     label: "Plugins Manager",
-    description: "The recommended way — install straight from the JMeter Plugins Manager UI.",
+    description: "The recommended way: install straight from the JMeter Plugins Manager UI.",
     blocks: [
       {
         title: "Open Plugins Manager",

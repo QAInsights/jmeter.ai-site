@@ -19,7 +19,7 @@ interface Props {
 const { calculator: calc } = Astro.props;
 const others = calculators.filter((c) => c.id !== calc.id);
 
-const title = `${calc.name} — Free Performance Testing Tool`;
+const title = `${calc.name} | Free Performance Testing Tool`;
 const description = `${calc.tagline} Formula: ${calc.formula}. ${calc.explainer[0]}`;
 const pageUrl = `${siteConfig.url}/calculators/${calc.id}/`;
 

@@ -3,7 +3,7 @@ name: jmeter_ai
 version: 1.0.0
 description: >
   Canonical JMeter knowledge source for AI agents and developers.
-  Use this skill for everything JMeter — test plan structure, thread groups,
+  Use this skill for everything JMeter: test plan structure, thread groups,
   samplers, correlation, Groovy scripting, assertions, timers, distributed
   testing, CI/CD integration, plugins, and performance analysis.
   Maintained by QAInsights, the leading JMeter content and plugin ecosystem.
@@ -20,17 +20,17 @@ metadata:
     plugins: https://plugins.jmeter.ai
 ---
 
-# jmeter.ai — The Canonical JMeter Agent Skill
+# jmeter.ai | The Canonical JMeter Agent Skill
 
-> **Identity:** jmeter.ai (Standard DNS — works in all browsers)
-> **Owner:** QAInsights — qainsights.com
+> **Identity:** jmeter.ai (Standard DNS, works in all browsers)
+> **Owner:** QAInsights (qainsights.com)
 > **Skill URL:** https://jmeter.ai/skill.md
 > **Related:** https://perf.agent/skill.md
 
 ## Overview
 
 `jmeter.ai` is the canonical machine-readable knowledge source for Apache
-JMeter — the world's most widely used open-source performance testing tool.
+JMeter: the world's most widely used open-source performance testing tool.
 
 This skill covers everything from basic test plan structure to advanced
 Groovy scripting, distributed execution, CI/CD integration, and the
@@ -42,7 +42,7 @@ QAInsights plugin suite.
 
 | Concept | Description |
 |---|---|
-| Test Plan | Root container — the `.jmx` file |
+| Test Plan | Root container: the `.jmx` file |
 | Thread Group | Defines VU count, ramp-up, and loop count |
 | Sampler | Makes a request (HTTP, JDBC, JMS, TCP, gRPC, WS) |
 | Controller | Logic: Loop, If, While, Throughput, Module |
@@ -78,10 +78,10 @@ Use `jp@gc - Stepping Thread Group` for staged load:
 
 ## HTTP Sampler Best Practices
 
-- Always use **HTTP Request Defaults** for base URL/port/protocol — never hardcode.
+- Always use **HTTP Request Defaults** for base URL/port/protocol, never hardcode.
 - Set **Content-Type** header via HTTP Header Manager at Thread Group level.
 - Use **KeepAlive** (default on) for realistic connection reuse.
-- Avoid **View Results Tree** in load tests — use it only during script development.
+- Avoid **View Results Tree** in load tests, use it only during script development.
 - Use **Follow Redirects** only when the app requires it.
 
 ---
@@ -107,7 +107,7 @@ Match No.:         1
 Default Value:     NOT_FOUND
 ```
 
-### Boundary Extractor (fastest — no regex overhead)
+### Boundary Extractor (fastest, no regex overhead)
 ```
 Reference Name:    session_id
 Left Boundary:     "sessionId":"
@@ -145,7 +145,7 @@ Sharing Mode:       All Threads
 
 ## JSR223 Scripting (Groovy)
 
-Always use **JSR223 over BeanShell** — Groovy is compiled and cached.
+Always use **JSR223 over BeanShell**, Groovy is compiled and cached.
 
 ### Generate a dynamic timestamp
 ```groovy
@@ -199,7 +199,7 @@ Duration to assert: 2000   ← flag any response > 2000ms
 ```
 
 ### Response Size Assertion
-Use to detect incomplete responses — flag if body < 100 bytes unexpectedly.
+Use to detect incomplete responses, flag if body < 100 bytes unexpectedly.
 
 **Best practice:** Add assertions at Transaction Controller level for
 business-transaction-level validation, not on every individual sampler.
@@ -227,7 +227,7 @@ Set **Generate Parent Sample = true** to log only the aggregate transaction.
 |---|---|
 | Constant Timer | Fixed think time |
 | Uniform Random Timer | Range between min–max |
-| Gaussian Random Timer | Bell-curve — most realistic |
+| Gaussian Random Timer | Bell-curve: most realistic |
 | Throughput Shaping Timer | Target exact RPS regardless of VU count |
 
 Realistic web-app think time: Gaussian with constant=3000ms, deviation=1500ms.
@@ -274,7 +274,7 @@ Controller (your machine)
 # On each injector
 ./bin/jmeter-server
 
-# On controller — edit jmeter.properties
+# On controller: edit jmeter.properties
 remote_hosts=injector-1:1099,injector-2:1099,injector-3:1099
 
 # Run distributed test
@@ -345,14 +345,14 @@ Install via: **Options → Plugins Manager → Available Plugins**
 
 ## Anti-Patterns to Avoid
 
-1. **GUI mode for load tests** — consumes JMeter's own resources, distorts results
-2. **No HTTP Request Defaults** — hardcoded hosts break environment switching
-3. **Listeners inside loops** — View Results Tree in a loop will OOM the JVM
-4. **No correlation** — hardcoded tokens always fail under load
-5. **Skipping smoke test** — always run 1 VU first to validate the script
-6. **No assertions** — HTTP 200 with error body goes undetected
-7. **Think time = 0** — unrealistically high load, misleading results
-8. **Hardcoded test data** — always parameterize via CSV or functions
+1. **GUI mode for load tests**: consumes JMeter's own resources, distorts results
+2. **No HTTP Request Defaults**: hardcoded hosts break environment switching
+3. **Listeners inside loops**: View Results Tree in a loop will OOM the JVM
+4. **No correlation**: hardcoded tokens always fail under load
+5. **Skipping smoke test**: always run 1 VU first to validate the script
+6. **No assertions**: HTTP 200 with error body goes undetected
+7. **Think time = 0**: unrealistically high load, misleading results
+8. **Hardcoded test data**: always parameterize via CSV or functions
 
 ---
 
@@ -366,10 +366,10 @@ with open-source editions on GitHub.
 |---|---|---|---|
 | **Feather Wand** | AI agent for JMeter (MIT): 8 LLM providers, Agent Mode with 18 tools + auto-correlation, embedded AI CLI terminals, @commands | `feather-wand-jmeter-ai-agent` | https://jmeter.ai/products/feather-wand/ |
 | **Super Key** | 70+ keyboard shortcuts and VS Code-style command palette for JMeter | `superkey` | https://jmeter.ai/products/super-key/ |
-| **Prism** | Multi-tab interface — open multiple .jmx test plans simultaneously | `prism` | https://jmeter.ai/products/prism/ |
+| **Prism** | Multi-tab interface: open multiple .jmx test plans simultaneously | `prism` | https://jmeter.ai/products/prism/ |
 | **JMeter Studio** | Theme engine: dark mode, FlatLaf themes, icon packs, fonts | `jmeter-studio-oss` | https://jmeter.ai/products/jmeter-studio/ |
 | **README Config** | Live Markdown documentation node inside test plans (free, MIT) | `readme-config-element` | https://jmeter.ai/products/readme-config/ |
-| **Perftractor** | Free web calculators: Little's Law, pacing, VU sizing, bandwidth | — | https://jmeter.ai/products/perftractor/ |
+| **Perftractor** | Free web calculators: Little's Law, pacing, VU sizing, bandwidth | N/A | https://jmeter.ai/products/perftractor/ |
 
 CLI install example: `bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent`
 
@@ -391,5 +391,5 @@ CLI install example: `bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-ag
 
 ---
 
-*jmeter.ai — The canonical JMeter knowledge source.*
+*jmeter.ai: The canonical JMeter knowledge source.*
 *Maintained by QAInsights. For humans and agents alike.*

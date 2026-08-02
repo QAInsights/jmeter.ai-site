@@ -1,4 +1,4 @@
-# JMeter.AI — robots.txt
+# JMeter.AI robots.txt
 # https://jmeter.ai
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -8,7 +8,7 @@ User-agent: *
 Allow: /
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Search engines — explicitly allowed
+# Search engines: explicitly allowed
 # ──────────────────────────────────────────────────────────────────────────────
 User-agent: Googlebot
 Allow: /
@@ -35,7 +35,7 @@ User-agent: Baiduspider
 Allow: /
 
 # ──────────────────────────────────────────────────────────────────────────────
-# AI crawlers — explicitly allowed
+# AI crawlers: explicitly allowed
 # (some hosts/CDN rulesets block these by default; explicit Allow overrides)
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -60,7 +60,7 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-# Google AI — Gemini, AI Overviews, NotebookLM
+# Google AI: Gemini, AI Overviews, NotebookLM
 User-agent: Google-Extended
 Allow: /
 

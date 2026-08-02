@@ -5,13 +5,13 @@ import { challengeDays } from "../data/challenge";
 
 export function GET(context: APIContext) {
   const productItems = products.map((p) => ({
-    title: `${p.name} — ${p.tagline}`,
+    title: `${p.name} | ${p.tagline}`,
     description: p.description,
     link: p.externalUrl ?? `/products/${p.id}/`,
   }));
 
   const challengeItems = challengeDays.map((d) => ({
-    title: `Day ${d.day}: ${d.title} — 30-Day Performance Testing Challenge`,
+    title: `Day ${d.day}: ${d.title} | 30-Day Performance Testing Challenge`,
     description: d.objective,
     link: `/challenge/day-${d.day}/`,
   }));

@@ -18,7 +18,7 @@ interface Props {
 const { category } = Astro.props;
 const others = promptCategories.filter((c) => c.id !== category.id);
 
-const title = `${category.label} — AI Prompts for Performance Engineers`;
+const title = `${category.label} | AI Prompts for Performance Engineers`;
 const description = `${category.prompts.length} copy-ready AI prompts for ${category.label.toLowerCase()} in JMeter, k6, and Gatling. Part of the JMeter.AI LLM Hub.`;
 const pageUrl = `${siteConfig.url}/prompts/${category.id}/`;
 

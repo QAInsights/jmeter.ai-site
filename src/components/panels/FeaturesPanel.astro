@@ -24,7 +24,7 @@ const { product } = Astro.props;
   </h3>
   <p class="text-base text-jm-text-dim leading-relaxed mb-8">{product.featuresSubtitle}</p>
 
-  {/* Feature cards — 3 column grid */}
+  {/* Feature cards: 3 column grid */}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
     {product.features.map((feat) => (
       <div class="feature-card">

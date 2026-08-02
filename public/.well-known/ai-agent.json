@@ -45,7 +45,7 @@
     },
     {
       "name": "Prism",
-      "description": "Multi-tab interface plugin for Apache JMeter — open and edit multiple .jmx test plans simultaneously in browser-like tabs.",
+      "description": "Multi-tab interface plugin for Apache JMeter: open and edit multiple .jmx test plans simultaneously in browser-like tabs.",
       "url": "https://jmeter.ai/products/prism/",
       "plugins_manager_id": "prism",
       "repository": "https://github.com/QAInsights/prism",
@@ -53,7 +53,7 @@
     },
     {
       "name": "JMeter Studio",
-      "description": "Theme engine for Apache JMeter — dark mode, curated FlatLaf themes, icon packs, and font customization.",
+      "description": "Theme engine for Apache JMeter: dark mode, curated FlatLaf themes, icon packs, and font customization.",
       "url": "https://jmeter.ai/products/jmeter-studio/",
       "plugins_manager_id": "jmeter-studio-oss",
       "repository": "https://github.com/QAInsights/jmeter-studio",

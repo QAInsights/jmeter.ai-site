@@ -15,11 +15,11 @@ const formulas: Record<string, string> = {
   `,
   pacing: `
     const tph = num('tph'), users = num('users');
-    set(users > 0 ? (3600 * users / tph).toFixed(2) : '—');
+    set(users > 0 ? (3600 * users / tph).toFixed(2) : '-');
   `,
   "test-data": `
     const users = num('users'), iter = num('iteration'), dur = num('duration');
-    set(iter > 0 ? Math.ceil(users * (dur * 60 / iter)).toLocaleString() : '—');
+    set(iter > 0 ? Math.ceil(users * (dur * 60 / iter)).toLocaleString() : '-');
   `,
   "load-generator": `
     const ram = num('ram'), first = num('first'), add = num('additional'), os = num('os');
