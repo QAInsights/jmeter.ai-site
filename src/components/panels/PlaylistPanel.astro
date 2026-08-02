@@ -116,3 +116,30 @@ const { pl } = Astro.props;
     Use the playlist panel inside the player to browse all videos
   </p>
 </div>
+
+<script>
+  // Lazy-load the YouTube playlist iframe when the facade is clicked.
+  document.querySelectorAll<HTMLElement>(".yt-facade").forEach((facade) => {
+    facade.addEventListener("click", () => {
+      const playlistId = facade.dataset.playlist;
+      if (!playlistId) return;
+
+      const iframe = document.createElement("iframe");
+      iframe.width = "100%";
+      iframe.height = "100%";
+      iframe.style.position = "absolute";
+      iframe.style.inset = "0";
+      iframe.style.border = "0";
+      iframe.src = `https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(playlistId)}`;
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      iframe.allowFullscreen = true;
+      iframe.title = facade.dataset.title ?? "YouTube playlist";
+
+      facade.innerHTML = "";
+      facade.style.cursor = "default";
+      facade.appendChild(iframe);
+    });
+  });
+</script>
