@@ -1463,6 +1463,10 @@ export const installMethods: InstallMethod[] = [
         title: "Search & install",
         code: '# Search "Feather Wand" → Apply Changes and Restart JMeter',
       },
+      {
+        title: "Configure your AI provider",
+        code: "# Copy the sample config into JMeter's user.properties\ncp jmeter-ai-sample.properties $JMETER_HOME/bin/user.properties\n\n# Add your LLM API key (or point at a local Ollama)\nanthropic.api.key=sk-ant-...\n\n# Restart JMeter and pick a model from the dropdown",
+      },
     ],
   },
   {
@@ -1478,6 +1482,10 @@ export const installMethods: InstallMethod[] = [
         title: "Windows",
         code: "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-agent",
       },
+      {
+        title: "Configure your AI provider",
+        code: "# Copy the sample config into JMeter's user.properties\ncp jmeter-ai-sample.properties $JMETER_HOME/bin/user.properties\n\n# Add your LLM API key (or point at a local Ollama)\nanthropic.api.key=sk-ant-...\n\n# Restart JMeter and pick a model from the dropdown",
+      },
     ],
   },
   {
@@ -1492,6 +1500,10 @@ export const installMethods: InstallMethod[] = [
       {
         title: "Copy into JMeter & restart",
         code: "cp <downloaded>.jar $JMETER_HOME/lib/ext/\n$JMETER_HOME/bin/jmeter",
+      },
+      {
+        title: "Configure your AI provider",
+        code: "# Copy the sample config into JMeter's user.properties\ncp jmeter-ai-sample.properties $JMETER_HOME/bin/user.properties\n\n# Add your LLM API key (or point at a local Ollama)\nanthropic.api.key=sk-ant-...\n\n# Restart JMeter and pick a model from the dropdown",
       },
     ],
   },

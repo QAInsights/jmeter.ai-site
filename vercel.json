@@ -5,30 +5,6 @@
       "has": [{ "type": "host", "value": "www.jmeter.ai" }],
       "destination": "https://jmeter.ai/$1",
       "permanent": true
-    },
-    {
-      "source": "/",
-      "has": [{ "type": "query", "key": "ref" }],
-      "destination": "https://jmeter.ai/",
-      "permanent": true
-    },
-    {
-      "source": "/",
-      "has": [{ "type": "query", "key": "utm_source" }],
-      "destination": "https://jmeter.ai/",
-      "permanent": true
-    },
-    {
-      "source": "/",
-      "has": [{ "type": "query", "key": "utm_campaign" }],
-      "destination": "https://jmeter.ai/",
-      "permanent": true
-    },
-    {
-      "source": "/",
-      "has": [{ "type": "query", "key": "utm_medium" }],
-      "destination": "https://jmeter.ai/",
-      "permanent": true
     }
   ],
   "headers": [

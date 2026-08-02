@@ -24,12 +24,14 @@ const installWin = "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-ag
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
       <a
         href="#installation"
+        data-cta="installation"
         class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-base shadow-lg shadow-cyan-500/25 transition transform hover:-translate-y-0.5"
       >
         Install in JMeter →
       </a>
       <a
         href="#architecture"
+        data-cta="architecture"
         class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel hover:bg-white/10 text-white font-medium text-base transition border border-white/15"
       >
         Explore Architecture
@@ -48,6 +50,7 @@ const installWin = "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-ag
         <button
           type="button"
           data-copy={installNix}
+          data-copy-method="cli_unix"
           class="copy-btn shrink-0 px-2.5 sm:px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition text-xs"
         >
           Copy
@@ -63,16 +66,30 @@ const installWin = "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-ag
         <button
           type="button"
           data-copy={installWin}
+          data-copy-method="cli_windows"
           class="copy-btn shrink-0 px-2.5 sm:px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition text-xs"
         >
           Copy
         </button>
       </div>
     </div>
+
+    <p class="text-xs text-slate-500 pt-2">
+      Runs inside Apache JMeter 5.6.3+ — <a href="https://jmeter.apache.org/download_jmeter.cgi" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">get JMeter first</a> if you don't have it.
+    </p>
   </div>
 </section>
 
 <script>
+  import { trackEvent } from "../utils/analytics";
+
+  // CTA clicks
+  document.querySelectorAll<HTMLElement>("[data-cta]").forEach((el) => {
+    el.addEventListener("click", () => {
+      trackEvent("cta_click", { target: el.dataset.cta });
+    });
+  });
+
   document.querySelectorAll<HTMLButtonElement>(".copy-btn").forEach((btn) => {
     if (btn.dataset.bound) return;
     btn.dataset.bound = "1";
@@ -90,6 +107,7 @@ const installWin = "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-ag
         document.execCommand("copy");
         ta.remove();
       }
+      trackEvent("install_command_copy", { method: btn.dataset.copyMethod, location: "hero" });
       const original = btn.textContent;
       btn.textContent = "Copied!";
       setTimeout(() => {

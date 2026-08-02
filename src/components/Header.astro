@@ -1,10 +1,11 @@
 ---
 const navLinks = [
-  { href: "/#products", label: "Products" },
-  { href: "/#architecture", label: "Architecture" },
-  { href: "/#installation", label: "Installation" },
-  { href: "https://docs.jmeter.ai", label: "Docs", external: true },
-  { href: "https://plugins.jmeter.ai", label: "Plugins", external: true },
+  { href: "/#products", label: "Products", event: "products" },
+  { href: "/#architecture", label: "Architecture", event: "architecture" },
+  { href: "/#installation", label: "Installation", event: "installation" },
+  { href: "/quickstart/", label: "Quickstart", event: "quickstart" },
+  { href: "https://docs.jmeter.ai", label: "Docs", external: true, event: "docs" },
+  { href: "https://plugins.jmeter.ai", label: "Plugins", external: true, event: "plugins" },
 ];
 ---
 
@@ -20,6 +21,7 @@ const navLinks = [
         navLinks.map((link) => (
           <a
             href={link.href}
+            data-nav-event={link.event}
             class="vf-focus px-2 py-1 -mx-2 hover:text-white transition"
             {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
@@ -32,6 +34,7 @@ const navLinks = [
     <div class="flex items-center gap-3 sm:gap-4">
       <a
         href="https://github.com/QAInsights/jmeter-ai"
+        data-nav-event="github_star"
         target="_blank"
         rel="noopener noreferrer"
         class="flex items-center gap-2 px-3 sm:px-4 py-2 text-xs font-mono font-medium rounded-lg glass-panel hover:bg-white/10 transition border border-white/10 text-slate-200"
@@ -74,6 +77,7 @@ const navLinks = [
         navLinks.map((link) => (
           <a
             href={link.href}
+            data-nav-event={link.event}
             class="mobile-nav-link text-base font-medium text-slate-300 hover:text-cyan-400 py-2 border-b border-white/5 transition flex items-center justify-between"
             {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
@@ -87,6 +91,8 @@ const navLinks = [
 </header>
 
 <script>
+  import { trackEvent } from "../utils/analytics";
+
   const toggleBtn = document.getElementById("mobile-menu-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
   const hamburgerIcon = document.getElementById("hamburger-icon");
@@ -124,4 +130,10 @@ const navLinks = [
       });
     });
   }
+
+  document.querySelectorAll<HTMLElement>("[data-nav-event]").forEach((el) => {
+    el.addEventListener("click", () => {
+      trackEvent("outbound_click", { target: el.dataset.navEvent });
+    });
+  });
 </script>

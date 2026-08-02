@@ -1,0 +1,112 @@
+---
+import JMeterLayout from "../layouts/JMeterLayout.astro";
+import { installMethods, siteConfig } from "../data/products";
+
+const steps = [
+  "Install Apache JMeter 5.6.3+ from the official download page if you don't have it yet.",
+  "Pick one of the three install methods below.",
+  "Copy jmeter-ai-sample.properties into JMeter's bin/user.properties.",
+  "Add your LLM API key (or point at a local Ollama) and restart JMeter.",
+  "Open the Feather Wand chat and pick a model from the dropdown.",
+];
+
+const jsonLdExtra = [
+  {
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "How do I install Feather Wand for JMeter?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent. Then copy jmeter-ai-sample.properties into your user.properties and add your API key.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What do I need before installing?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Apache JMeter 5.6.3+ is required. The plugin runs inside JMeter, so you need a JMeter installation first.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I configure an LLM provider?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Copy jmeter-ai-sample.properties into JMeter's bin/user.properties, add your API key (e.g. anthropic.api.key or openai.api.key), restart JMeter, and pick a model from the dropdown. For fully local use, point at an Ollama instance.",
+        },
+      },
+    ],
+  },
+];
+---
+
+<JMeterLayout
+  title="Quickstart | Install & Configure JMeter.AI"
+  description="Get Feather Wand running in Apache JMeter in five minutes: prerequisites, all install methods, and LLM provider configuration."
+  jsonLdExtra={jsonLdExtra}
+>
+  <main class="px-6 py-12 md:py-16">
+    <div class="max-w-4xl mx-auto space-y-12">
+      <section class="space-y-4">
+        <p class="text-xs font-mono tracking-widest text-cyan-400 uppercase">⚡ Quickstart</p>
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white">
+          Install <span class="gradient-text">JMeter.AI</span> in 5 minutes
+        </h1>
+        <p class="text-slate-400 leading-relaxed max-w-2xl">
+          Feather Wand is an AI agent that lives inside Apache JMeter. Everything below uses the
+          JMeter Plugins Manager, the same install path used by {siteConfig.title}.
+        </p>
+
+        <ol class="space-y-2 list-decimal list-inside text-slate-300 text-sm">
+          {
+            steps.map((step) => (
+              <li class="text-slate-400">
+                <span class="text-slate-200">{step}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-bold text-white tracking-tight">Install methods</h2>
+        {
+          installMethods.map((method) => (
+            <div class="glass-panel rounded-2xl border border-white/10 p-6 space-y-4">
+              <div>
+                <h3 class="text-lg font-bold text-white">{method.label}</h3>
+                <p class="text-sm text-slate-400">{method.description}</p>
+              </div>
+              {method.blocks.map((block) => (
+                <div class="space-y-1.5">
+                  <div class="text-xs font-mono text-slate-500 uppercase tracking-wider">{block.title}</div>
+                  <pre class="bg-black/50 rounded-xl p-4 font-mono text-xs text-slate-300 border border-white/5 whitespace-pre-wrap break-all leading-relaxed">{block.code}</pre>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-bold text-white tracking-tight">First prompt to try</h2>
+        <div class="glass-panel rounded-2xl border border-cyan-500/30 p-6">
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Open Feather Wand from the JMeter Tools menu, pick your model, and ask something like:
+          </p>
+          <blockquote class="mt-3 font-mono text-cyan-300 text-sm border-l-2 border-cyan-500/40 pl-4">
+            "Generate a JMX test plan with 50 virtual users, a ramp-up of 30 seconds, and assertions on the
+            response time."
+          </blockquote>
+          <p class="text-xs text-slate-500 mt-4">
+            Want to go deeper? Enable Agent Mode with <code class="text-cyan-300">jmeter.ai.agent.enabled=true</code> in
+            user.properties and let the AI edit the plan directly.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+</JMeterLayout>

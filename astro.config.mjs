@@ -18,11 +18,11 @@ export default defineConfig({
       priority: 0.7,
       lastmod: new Date(),
       serialize(item) {
+        if (item.url === 'https://jmeter.ai/settings/') {
+          return undefined; // thin auth page — keep it out of the index
+        }
         if (item.url === 'https://jmeter.ai/') {
           return { ...item, changefreq: 'daily', priority: 1.0 };
-        }
-        if (item.url === 'https://jmeter.ai/settings/') {
-          return { ...item, changefreq: 'monthly', priority: 0.5 };
         }
         if (/\/(challenge|calculators|prompts)\/$/.test(item.url)) {
           return { ...item, changefreq: 'weekly', priority: 0.9 };

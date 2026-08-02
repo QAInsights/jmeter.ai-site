@@ -23,6 +23,8 @@ import { productEmoji } from "./panels/constants";
           <a
             href={isExternal ? product.externalUrl : `/products/${product.id}/`}
             id={product.id}
+            data-product-card={product.id}
+            data-external={String(isExternal)}
             class="glass-panel glass-panel-hover rounded-2xl p-6 text-left transition duration-300 border border-white/10 space-y-4 scroll-mt-24 group block"
             {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
@@ -52,3 +54,16 @@ import { productEmoji } from "./panels/constants";
     }
   </div>
 </section>
+
+<script>
+  import { trackEvent } from "../utils/analytics";
+
+  document.querySelectorAll<HTMLElement>("[data-product-card]").forEach((card) => {
+    card.addEventListener("click", () => {
+      trackEvent("product_card_click", {
+        product: card.dataset.productCard,
+        external: card.dataset.external === "true",
+      });
+    });
+  });
+</script>

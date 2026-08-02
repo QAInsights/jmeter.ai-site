@@ -10,6 +10,9 @@ import { installMethods } from "../data/products";
     <p class="text-slate-400 max-w-2xl mx-auto">
       Three ways to install the JMeter.AI suite. Pick the workflow that fits your environment.
     </p>
+    <p class="text-xs text-slate-500">
+      Requires Apache JMeter 5.6.3+ — <a href="https://jmeter.apache.org/download_jmeter.cgi" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">download JMeter</a> if you don't have it yet.
+    </p>
   </div>
 
   <div class="glass-panel rounded-2xl border border-white/10 overflow-hidden">
@@ -56,6 +59,7 @@ import { installMethods } from "../data/products";
                 <button
                   type="button"
                   data-copy={block.code}
+                  data-copy-method={method.id}
                   class="copy-btn shrink-0 px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition"
                 >
                   Copy
@@ -70,6 +74,8 @@ import { installMethods } from "../data/products";
 </section>
 
 <script>
+  import { trackEvent } from "../utils/analytics";
+
   // Tab switching
   const tabs = document.querySelectorAll<HTMLButtonElement>("[data-install-tab]");
   const panels = document.querySelectorAll<HTMLElement>("[data-install-panel]");
@@ -80,6 +86,7 @@ import { installMethods } from "../data/products";
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
       const target = tab.dataset.installTab;
+      trackEvent("install_tab_view", { method: target });
       tabs.forEach((t) => {
         const isActive = t === tab;
         t.setAttribute("aria-selected", String(isActive));
@@ -110,6 +117,7 @@ import { installMethods } from "../data/products";
         document.execCommand("copy");
         ta.remove();
       }
+      trackEvent("install_command_copy", { method: btn.dataset.copyMethod ?? "install_section", location: "install_section" });
       const original = btn.textContent;
       btn.textContent = "Copied!";
       setTimeout(() => {

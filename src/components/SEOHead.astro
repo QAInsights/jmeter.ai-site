@@ -133,6 +133,10 @@ const jsonLd = {
 <meta name="description" content={description} />
 <meta name="author" content={siteConfig.author} />
 <meta name="generator" content={Astro.generator} />
+<meta name="robots" content={isSettingsPage ? "noindex, nofollow" : "index, follow"} />
+
+<!-- RSS autodiscovery -->
+<link rel="alternate" type="application/rss+xml" title="JMeter.AI" href={`${siteUrl}/rss.xml`} />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
