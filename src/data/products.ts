@@ -16,6 +16,20 @@ export interface ComparisonRow {
   pro: boolean | string;
 }
 
+export interface ToolComparisonRow {
+  feature: string;
+  values: string[];
+}
+
+export interface ToolComparison {
+  eyebrow: string;
+  headingPrefix: string;
+  headingHighlight: string;
+  subtitle: string;
+  columns: string[];
+  rows: ToolComparisonRow[];
+}
+
 export interface InstallStep {
   title: string;
   code?: string;
@@ -82,6 +96,7 @@ export interface Product {
   installation: InstallStep[];
   faqs?: Faq[];
   agentMode?: AgentMode;
+  toolComparison?: ToolComparison;
   socials: Social[];
   treeNodes: TreeNode[];
 }
@@ -324,6 +339,72 @@ export const products: Product[] = [
         "Bounded iterations: the agent stops after 8 reason-act cycles by default, configurable via jmeter.ai.agent.max.iterations.",
         "Graceful degradation: if the agent loop fails, you get a plain-text answer describing what it attempted.",
         "Every mutation is undoable with Ctrl+Z when undo.history.size > 0 in user.properties.",
+      ],
+    },
+    toolComparison: {
+      eyebrow: "⚔️ Head to Head",
+      headingPrefix: "Feather Wand vs",
+      headingHighlight: "AI Coding CLIs",
+      subtitle:
+        "Codex and Claude Code are general-purpose coding agents that edit files. Feather Wand is purpose-built to drive Apache JMeter from the inside, and it even ships both CLIs in an embedded terminal. Here is how they stack up.",
+      columns: ["Feather Wand", "Codex", "Claude Code"],
+      rows: [
+        {
+          feature: "Runs inside JMeter",
+          values: [
+            "Yes, native plugin",
+            "No (available via Feather Wand's embedded terminal)",
+            "No (available via Feather Wand's embedded terminal)",
+          ],
+        },
+        {
+          feature: "JMeter-aware correlation",
+          values: ["Yes, purpose-built tool call", "General reasoning only", "General reasoning only"],
+        },
+        {
+          feature: "Undo",
+          values: ["Ctrl+Z, native JMeter undo stack", "Git / manual backup", "Git / manual backup"],
+        },
+        {
+          feature: "Autonomous test plan edits",
+          values: [
+            "Agent Mode, 18 tools (add, update, delete, move, run, correlate)",
+            "Yes, general file edits",
+            "Yes, general file edits",
+          ],
+        },
+        {
+          feature: "Model support",
+          values: [
+            "Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta, Bedrock",
+            "GPT",
+            "Claude models",
+          ],
+        },
+        {
+          feature: "Subagents / parallel orchestration",
+          values: ["Not built in", "Yes", "Yes"],
+        },
+        {
+          feature: "Setup",
+          values: ["Install plugin, add your API key", "Install CLI, authenticate", "Install CLI, authenticate"],
+        },
+        {
+          feature: "Cost",
+          values: [
+            "Free and open source (MIT), bring your own API key",
+            "Subscription or API usage",
+            "Subscription or API usage",
+          ],
+        },
+        {
+          feature: "Best for",
+          values: [
+            "Fast, scoped JMeter edits and correlation without leaving the GUI",
+            "Deep reasoning, parallel subagent tasks across a repo",
+            "Deep reasoning across a whole codebase",
+          ],
+        },
       ],
     },
     socials: defaultSocials,
