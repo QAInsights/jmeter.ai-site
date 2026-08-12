@@ -1,0 +1,102 @@
+---
+// CreationHeroAnimation.astro
+// Creation of Adam Hero Scene: Clean Apache Feather touching I, Robot Cybernetic Arm with a simple delicate spark
+---
+
+<div
+  id="creation-hero-container"
+  class="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden glass-panel border border-white/10 shadow-2xl shadow-cyan-950/20 my-6 cursor-pointer select-none group transition-all duration-700 hover:border-cyan-500/30"
+  aria-label="Creation of JMeter AI: Apache Feather touching I, Robot cybernetic hand with simple spark"
+>
+  <!-- Dark Studio Background Canvas -->
+  <div class="absolute inset-0 bg-slate-950/95 pointer-events-none"></div>
+
+  <!-- Soft Ambient Glow behind touch point -->
+  <div
+    class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-400/20 transition-all duration-1000"
+  ></div>
+
+  <!-- Simple Spark Canvas Layer -->
+  <canvas
+    id="spark-canvas"
+    class="absolute inset-0 w-full h-full pointer-events-none z-20"
+  ></canvas>
+
+  <!-- Pure Widescreen Art Image -->
+  <div class="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden z-10">
+    <img
+      id="creation-hero-img"
+      src="/images/apache-feather-creation.jpg"
+      alt="Creation of Adam: Apache Feather touching I, Robot Cybernetic Arm"
+      class="w-full h-full object-cover select-none transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+      draggable="false"
+    />
+  </div>
+</div>
+
+<style>
+  #creation-hero-container {
+    perspective: 1000px;
+  }
+  #creation-hero-img {
+    transform-style: preserve-3d;
+  }
+</style>
+
+<script>
+  import { SimpleSparkEngine } from "../utils/creationSpark";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("creation-hero-container");
+    const canvas = document.getElementById("spark-canvas") as HTMLCanvasElement;
+    const img = document.getElementById("creation-hero-img") as HTMLImageElement;
+
+    if (!container || !canvas || !img) return;
+
+    const engine = new SimpleSparkEngine(canvas);
+
+    function updateSparkPos() {
+      const rect = container.getBoundingClientRect();
+      // Point of contact for edge-to-edge feather & robot hand: x = 50.0%, y = 49.5%
+      engine.setSparkPoint({
+        x: rect.width * 0.50,
+        y: rect.height * 0.495,
+      });
+    }
+
+    engine.resize();
+    updateSparkPos();
+    engine.start();
+
+    const resizeObserver = new ResizeObserver(() => {
+      engine.resize();
+      updateSparkPos();
+    });
+    resizeObserver.observe(container);
+
+    // Interactive 3D Parallax Tilt Effect on Mouse Move
+    container.addEventListener("mousemove", (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -3.5;
+      const rotateY = ((x - centerX) / centerX) * 3.5;
+
+      img.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+
+    container.addEventListener("mouseleave", () => {
+      img.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1.0)";
+    });
+
+    function tick() {
+      updateSparkPos();
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+</script>

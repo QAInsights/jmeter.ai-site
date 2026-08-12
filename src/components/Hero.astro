@@ -1,9 +1,11 @@
 ---
+import CreationHeroAnimation from "./CreationHeroAnimation.astro";
+
 const installNix = "bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent";
 const installWin = "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-agent";
 ---
 
-<section class="relative pt-24 pb-20 px-6 overflow-hidden">
+<section class="relative pt-16 pb-20 px-4 sm:px-6 overflow-hidden">
   <div class="max-w-5xl mx-auto text-center space-y-8">
     <div
       class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel border-cyan-500/30 text-cyan-400 text-xs font-mono"
@@ -15,6 +17,9 @@ const installWin = "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-ag
     <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-none text-white">
       Autonomous AI Intelligence for <span class="gradient-text">Apache JMeter</span>
     </h1>
+
+    <!-- Creation of Adam Inspired Hero Animation: Robot Hand & Feather Touch -->
+    <CreationHeroAnimation />
 
     <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
       Transform your performance engineering workflow. Generate JMX scripts from plain natural language, run
