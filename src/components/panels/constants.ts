@@ -13,6 +13,7 @@ export const productEmoji: Record<string, string> = {
   "perf-skills": "⚡",
   "docs": "📖",
   "plugins": "🧩",
+  "perf": "⚡",
   "blog": "📝",
 };
 

@@ -1140,6 +1140,39 @@ export const products: Product[] = [
       { id: "overview", label: "Overview", icon: "info" },
     ],
   },
+  {
+    id: "perf",
+    name: "Perf",
+    tagline: "Collection of performance testing tools",
+    subtitlePrefix: "AI-POWERED",
+    subtitleHighlight: "PERFORMANCE TESTING",
+    subtitleSuffix: "HUB",
+    description:
+      "Explore perf.jmeter.ai for AI-native performance testing tools, analytics, and performance engineering workflows.",
+    icon: "zap",
+    color: "#00f2fe",
+    colorRgb: "0, 242, 254",
+    github: "https://github.com/QAInsights",
+    externalUrl: "https://perf.jmeter.ai",
+    badges: [
+      { label: "PERF", emoji: "⚡", variant: "filled", color: "#00f2fe" },
+      { label: "PLATFORM", emoji: "🚀", variant: "outlined", color: "#7928ca" },
+    ],
+    infoCards: [
+      { label: "TYPE", value: "Performance Hub", color: "#00f2fe" },
+      { label: "ACCESS", value: "Free", color: "#00e676" },
+    ],
+    featuresHeadingPrefix: "Performance",
+    featuresHeadingHighlight: "Platform",
+    featuresSubtitle: "AI-powered performance engineering tools and analytics.",
+    features: [],
+    ossVsPro: [],
+    installation: [],
+    socials: defaultSocials,
+    treeNodes: [
+      { id: "overview", label: "Overview", icon: "info" },
+    ],
+  },
 ];
 
 export interface Theme {
