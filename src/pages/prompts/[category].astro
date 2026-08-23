@@ -72,7 +72,7 @@ const collectionSchema = {
       <nav class="border-t border-white/10 pt-6 space-y-3">
         <h2 class="text-sm font-mono tracking-widest text-slate-500 uppercase">More categories</h2>
         <div class="grid gap-2 sm:grid-cols-2">
-          {others.slice(0, 8).map((c) => (
+          {others.slice(0, 2).map((c) => (
             <a href={`/prompts/${c.id}/`} class="text-sm text-slate-400 hover:text-emerald-300 transition">
               {c.label} <span class="text-slate-600 font-mono text-xs">({c.prompts.length})</span>
             </a>
