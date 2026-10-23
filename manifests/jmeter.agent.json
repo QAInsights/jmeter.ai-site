@@ -28,7 +28,7 @@
   "tools": [
     {
       "name": "Feather Wand",
-      "description": "AI agent for Apache JMeter (MIT). Chat with 8 LLM providers (Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta Muse, AWS Bedrock), Agent Mode autonomously edits test plans via 18 tools with auto-correlation, embedded AI CLI terminals, context-aware @commands, streaming, and JSR223 refactoring.",
+      "description": "AI agent for Apache JMeter (MIT), requiring Apache JMeter 5.6.3+ on Java 17+. Chat with 9 LLM providers (Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta Muse, AWS Bedrock, and Apple Foundation Models on-device). Agent Mode is on by default and edits test plans through 21 tools with auto-correlation; tool calling works with Claude, OpenAI, Gemini, DeepSeek, Grok, and Meta Muse, plus ChatGPT/Codex and Claude Code CLI providers. Append jmeter-ai-quickstart.properties to user.properties to preserve existing settings.",
       "url": "https://jmeter.ai/products/feather-wand/",
       "plugins_manager_id": "feather-wand-jmeter-ai-agent",
       "repository": "https://github.com/QAInsights/jmeter-ai",
