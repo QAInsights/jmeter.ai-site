@@ -1579,7 +1579,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Configure your AI provider",
-        code: "# Linux / macOS: append quick-start settings and preserve existing properties\ncurl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nInvoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing | Select-Object -ExpandProperty Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
+        code: "# Linux / macOS: append quick-start settings and preserve existing properties\n{ echo; curl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties; } >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nAdd-Content \"$env:JMETER_HOME\\bin\\user.properties\" \"\"\n(Invoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing).Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
       },
     ],
   },
@@ -1598,7 +1598,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Configure your AI provider",
-        code: "# Linux / macOS: append quick-start settings and preserve existing properties\ncurl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nInvoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing | Select-Object -ExpandProperty Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
+        code: "# Linux / macOS: append quick-start settings and preserve existing properties\n{ echo; curl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties; } >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nAdd-Content \"$env:JMETER_HOME\\bin\\user.properties\" \"\"\n(Invoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing).Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
       },
     ],
   },
@@ -1617,7 +1617,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Configure your AI provider",
-        code: "# Linux / macOS: append quick-start settings and preserve existing properties\ncurl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nInvoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing | Select-Object -ExpandProperty Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
+        code: "# Linux / macOS: append quick-start settings and preserve existing properties\n{ echo; curl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties; } >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nAdd-Content \"$env:JMETER_HOME\\bin\\user.properties\" \"\"\n(Invoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing).Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
       },
     ],
   },
