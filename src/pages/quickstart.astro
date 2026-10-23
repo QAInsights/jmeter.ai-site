@@ -3,10 +3,10 @@ import JMeterLayout from "../layouts/JMeterLayout.astro";
 import { installMethods, siteConfig } from "../data/products";
 
 const steps = [
-  "Install Apache JMeter 5.6.3+ from the official download page if you don't have it yet.",
+  "Install Apache JMeter 5.6.3+ on Java 17+ from the official download page if you don't have it yet.",
   "Pick one of the three install methods below.",
-  "Copy jmeter-ai-sample.properties into JMeter's bin/user.properties.",
-  "Add your LLM API key (or point at a local Ollama) and restart JMeter.",
+  "Append jmeter-ai-quickstart.properties to JMeter's bin/user.properties, preserving any existing settings.",
+  "Uncomment one provider and add its key, then restart JMeter. Ollama and Apple on-device need no key.",
   "Open the Feather Wand chat and pick a model from the dropdown.",
 ];
 
@@ -19,7 +19,7 @@ const jsonLdExtra = [
         name: "How do I install Feather Wand for JMeter?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent. Then copy jmeter-ai-sample.properties into your user.properties and add your API key.",
+          text: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent. Append jmeter-ai-quickstart.properties to user.properties so existing settings are preserved, then uncomment one provider and add its key. Ollama and Apple on-device need no key.",
         },
       },
       {
@@ -27,7 +27,7 @@ const jsonLdExtra = [
         name: "What do I need before installing?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Apache JMeter 5.6.3+ is required. The plugin runs inside JMeter, so you need a JMeter installation first.",
+          text: "Apache JMeter 5.6.3+ on Java 17+ is required. The plugin runs inside JMeter, so you need a JMeter installation first.",
         },
       },
       {
@@ -35,7 +35,7 @@ const jsonLdExtra = [
         name: "How do I configure an LLM provider?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Copy jmeter-ai-sample.properties into JMeter's bin/user.properties, add your API key (e.g. anthropic.api.key or openai.api.key), restart JMeter, and pick a model from the dropdown. For fully local use, point at an Ollama instance.",
+          text: "Append jmeter-ai-quickstart.properties to JMeter's bin/user.properties so existing settings are preserved. Uncomment one provider and add its key, then restart JMeter and pick a model from the dropdown. Ollama and Apple on-device need no key.",
         },
       },
     ],

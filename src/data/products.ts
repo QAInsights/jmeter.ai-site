@@ -135,7 +135,7 @@ export const products: Product[] = [
     subtitleHighlight: "APACHE JMETER",
     subtitleSuffix: "",
     description:
-      "Feather Wand is a full AI agent living inside Apache JMeter. Chat with 8 LLM providers (Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta Muse, and AWS Bedrock) or enable Agent Mode and let the AI autonomously edit your test plan through 18 tools: adding elements, setting properties, running tests, and auto-correlating dynamic values. Embedded AI CLI terminals, context-aware @commands, streaming responses, and smart JSR223 refactoring included.",
+      "Feather Wand is a full AI agent living inside Apache JMeter. Chat with 9 LLM providers (Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta Muse, AWS Bedrock, and Apple on-device) or enable Agent Mode and let the AI autonomously edit your test plan through 21 tools: adding elements, setting properties, running tests, and auto-correlating dynamic values. Embedded AI CLI terminals, context-aware @commands, streaming responses, and smart JSR223 refactoring included.",
     icon: "wand-sparkles",
     color: "#00e5ff",
     colorRgb: "0, 229, 255",
@@ -151,13 +151,13 @@ export const products: Product[] = [
       { label: "AI AGENT", emoji: "🤖", variant: "filled", color: "#d500f9" },
       { label: "OPEN SOURCE · MIT", emoji: "⚡", variant: "outlined", color: "#00e676" },
       { label: "AGENT MODE", emoji: "🛠️", variant: "outlined", color: "#00e5ff" },
-      { label: "8 LLM PROVIDERS", emoji: "🔗", variant: "outlined", color: "#ffab00" },
+      { label: "9 LLM PROVIDERS", emoji: "🔗", variant: "outlined", color: "#ffab00" },
     ],
     infoCards: [
       { label: "CATEGORY", value: "AI Agent / LLM Integration", color: "#00e5ff" },
       { label: "PLATFORM", value: "Apache JMeter Plugin", color: "#00e676" },
       { label: "LICENSE", value: "MIT (Open Source)", color: "#00e676" },
-      { label: "LLM PROVIDERS", value: "8 Providers", color: "#ffab00" },
+      { label: "LLM PROVIDERS", value: "9 Providers", color: "#ffab00" },
     ],
     featuresHeadingPrefix: "Intelligent",
     featuresHeadingHighlight: "Features",
@@ -165,12 +165,12 @@ export const products: Product[] = [
     features: [
       {
         title: "Agent Mode",
-        description: "AI autonomously edits your live test plan through 18 tools: add elements, set properties, run tests, and auto-correlate dynamic values, with confirmation-gated destructive ops. Claude & OpenAI.",
+        description: "AI autonomously edits your live test plan through 21 tools: add elements, set properties, run tests, and auto-correlate dynamic values, with confirmation-gated destructive ops. Claude & OpenAI.",
         icon: "🤖",
       },
       {
-        title: "8 LLM Providers",
-        description: "Chat with Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok (xAI), Meta Muse, or AWS Bedrock, all inside JMeter. Model filtering hides non-chat models automatically.",
+        title: "9 LLM Providers",
+        description: "Chat with Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok (xAI), Meta Muse, AWS Bedrock, or Apple Foundation Models on-device. Apple requires macOS 26+ on Apple silicon, supports chat only, and needs no API key.",
         icon: "🔗",
       },
       {
@@ -223,29 +223,29 @@ export const products: Product[] = [
       },
       {
         title: "Configure AI Provider",
-        description: "Copy jmeter-ai-sample.properties into your user.properties, add your API key (e.g. anthropic.api.key or openai.api.key), and restart JMeter. Then pick a model from the dropdown.",
+        description: "Append jmeter-ai-quickstart.properties to your user.properties so existing settings are preserved. Uncomment one provider and add its key, then restart JMeter. Ollama and Apple on-device need no key.",
       },
     ],
     faqs: [
       {
         question: "What is Feather Wand for Apache JMeter?",
-        answer: "Feather Wand is a free, MIT-licensed AI agent plugin for JMeter. Chat with 8 LLM providers to generate and analyze test plans, use context-aware @commands, run embedded AI CLI terminals (Claude Code, OpenAI Codex, and more), or enable Agent Mode to let the AI autonomously edit your test plan.",
+        answer: "Feather Wand is a free, MIT-licensed AI agent plugin for JMeter. Chat with 9 LLM providers to generate and analyze test plans, use context-aware @commands, run embedded AI CLI terminals (Claude Code, OpenAI Codex, and more), or enable Agent Mode to let the AI autonomously edit your test plan.",
       },
       {
         question: "Which LLMs does Feather Wand support?",
-        answer: "Eight providers: Anthropic Claude, OpenAI, Google Gemini, DeepSeek, Ollama (local), Grok (xAI), Meta Muse, and AWS Bedrock via the Converse API. Non-chat models are filtered out of the dropdown automatically.",
+        answer: "Nine providers: Anthropic Claude, OpenAI, Google Gemini, DeepSeek, Ollama (local), Grok (xAI), Meta Muse, AWS Bedrock via the Converse API, and Apple Foundation Models on-device. Apple requires macOS 26+ on Apple silicon, supports chat only, and needs no API key.",
       },
       {
         question: "What is Agent Mode in Feather Wand?",
-        answer: "Agent Mode lets the AI autonomously edit your live test plan through 18 tools: reading the tree, adding and configuring elements, running tests, and detecting plus applying correlations. Destructive operations ask for confirmation, iterations are bounded, and everything is undoable with Ctrl+Z. It works with Claude and OpenAI models and is enabled with jmeter.ai.agent.enabled=true.",
+        answer: "Agent Mode lets the AI autonomously edit your live test plan through 21 tools: reading the tree, adding and configuring elements, running tests, and detecting plus applying correlations. Destructive operations ask for confirmation, iterations are bounded, and everything is undoable with Ctrl+Z. It works with Claude and OpenAI models and is enabled with jmeter.ai.agent.enabled=true.",
       },
       {
         question: "How do I install Feather Wand?",
-        answer: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: PluginsManagerCMD install feather-wand-jmeter-ai-agent. Then copy jmeter-ai-sample.properties into your user.properties and add your API key.",
+        answer: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: PluginsManagerCMD install feather-wand-jmeter-ai-agent. Append jmeter-ai-quickstart.properties to user.properties so existing settings are preserved, then uncomment one provider and add its key. Ollama and Apple on-device need no key.",
       },
       {
         question: "Is Feather Wand free?",
-        answer: "Yes, completely. Feather Wand is open source under the MIT license, including Agent Mode, all 8 LLM providers, the CLI terminal, and every @command. You only pay for your own LLM API usage (or nothing at all with local Ollama models).",
+        answer: "Yes, completely. Feather Wand is open source under the MIT license, including Agent Mode, all 9 LLM providers, the CLI terminal, and every @command. You only pay for your own LLM API usage (or nothing at all with local Ollama models or Apple on-device).",
       },
       {
         question: "Does my test data leave my machine?",
@@ -368,7 +368,7 @@ export const products: Product[] = [
         {
           feature: "Autonomous test plan edits",
           values: [
-            "Agent Mode, 18 tools (add, update, delete, move, run, correlate)",
+            "Agent Mode, 21 tools (add, update, delete, move, run, correlate)",
             "Yes, general file edits",
             "Yes, general file edits",
           ],
@@ -376,7 +376,7 @@ export const products: Product[] = [
         {
           feature: "Model support",
           values: [
-            "Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta, Bedrock",
+            "Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok, Meta, Bedrock, Apple Foundation Models",
             "GPT",
             "Claude models",
           ],
@@ -1579,7 +1579,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Configure your AI provider",
-        code: "# Copy the sample config into JMeter's user.properties\ncp jmeter-ai-sample.properties $JMETER_HOME/bin/user.properties\n\n# Add your LLM API key (or point at a local Ollama)\nanthropic.api.key=sk-ant-...\n\n# Restart JMeter and pick a model from the dropdown",
+        code: "# Linux / macOS: append quick-start settings and preserve existing properties\ncurl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nInvoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing | Select-Object -ExpandProperty Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
       },
     ],
   },
@@ -1598,7 +1598,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Configure your AI provider",
-        code: "# Copy the sample config into JMeter's user.properties\ncp jmeter-ai-sample.properties $JMETER_HOME/bin/user.properties\n\n# Add your LLM API key (or point at a local Ollama)\nanthropic.api.key=sk-ant-...\n\n# Restart JMeter and pick a model from the dropdown",
+        code: "# Linux / macOS: append quick-start settings and preserve existing properties\ncurl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nInvoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing | Select-Object -ExpandProperty Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
       },
     ],
   },
@@ -1617,7 +1617,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Configure your AI provider",
-        code: "# Copy the sample config into JMeter's user.properties\ncp jmeter-ai-sample.properties $JMETER_HOME/bin/user.properties\n\n# Add your LLM API key (or point at a local Ollama)\nanthropic.api.key=sk-ant-...\n\n# Restart JMeter and pick a model from the dropdown",
+        code: "# Linux / macOS: append quick-start settings and preserve existing properties\ncurl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nInvoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing | Select-Object -ExpandProperty Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
       },
     ],
   },
