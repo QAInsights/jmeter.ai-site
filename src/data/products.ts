@@ -165,7 +165,7 @@ export const products: Product[] = [
     features: [
       {
         title: "Agent Mode",
-        description: "AI autonomously edits your live test plan through 21 tools: add elements, set properties, run tests, and auto-correlate dynamic values, with confirmation-gated destructive ops. Claude & OpenAI.",
+        description: "AI autonomously edits your live test plan through 21 tools: add elements, set properties, run tests, and auto-correlate dynamic values, with confirmation-gated destructive ops. Works with Claude, OpenAI, Gemini, DeepSeek, Grok, and Meta Muse.",
         icon: "🤖",
       },
       {
@@ -237,7 +237,7 @@ export const products: Product[] = [
       },
       {
         question: "What is Agent Mode in Feather Wand?",
-        answer: "Agent Mode lets the AI autonomously edit your live test plan through 21 tools: reading the tree, adding and configuring elements, running tests, and detecting plus applying correlations. Destructive operations ask for confirmation, iterations are bounded, and everything is undoable with Ctrl+Z. It works with Claude and OpenAI models and is enabled with jmeter.ai.agent.enabled=true.",
+        answer: "Agent Mode lets the AI autonomously edit your live test plan through 21 tools: reading the tree, adding and configuring elements, running tests, and detecting plus applying correlations. Destructive operations ask for confirmation, iterations are bounded, and everything is undoable with Ctrl+Z. It works with Claude, OpenAI, Gemini, DeepSeek, Grok, and Meta Muse models and is on by default; set jmeter.ai.agent.enabled=false to keep it off.",
       },
       {
         question: "How do I install Feather Wand?",
@@ -253,8 +253,8 @@ export const products: Product[] = [
       },
     ],
     agentMode: {
-      providersNote: "Tool calling works with Anthropic Claude and OpenAI models, the two providers with mature function-calling APIs. Other providers fall back to plain chat.",
-      enableProperty: "jmeter.ai.agent.enabled=true",
+      providersNote: "Tool calling works with Anthropic Claude, OpenAI, Google Gemini, DeepSeek, Grok, and Meta Muse models, plus the ChatGPT/Codex and Claude Code CLI providers. Ollama, AWS Bedrock, and Apple on-device fall back to plain chat.",
+      enableProperty: "On by default · opt out with jmeter.ai.agent.enabled=false",
       toolGroups: [
         {
           label: "Read",
