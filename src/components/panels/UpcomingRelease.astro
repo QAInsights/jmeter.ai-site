@@ -1,0 +1,28 @@
+---
+import type { Product } from "../../data/products";
+
+interface Props {
+  release: NonNullable<Product["upcomingRelease"]>;
+}
+
+const { release } = Astro.props;
+---
+
+<section class="space-y-5 rounded-2xl border border-cyan-400/25 p-5 sm:p-7" aria-label={`Upcoming in ${release.version}`}>
+  <div class="space-y-3">
+    <p class="text-xs font-mono font-semibold tracking-widest uppercase text-cyan-400">
+      Upcoming in {release.version}
+    </p>
+    <h3 class="text-2xl sm:text-3xl font-bold text-jm-text leading-tight">{release.heading}</h3>
+    <p class="text-sm text-jm-text-dim leading-relaxed max-w-4xl">{release.description}</p>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+    {release.features.map((feature) => (
+      <div class="feature-card">
+        <h4 class="feature-card-title text-jm-text mb-3">{feature.title}</h4>
+        <p class="text-sm text-jm-text-dim leading-relaxed">{feature.description}</p>
+      </div>
+    ))}
+  </div>
+  <p class="text-sm text-jm-text-dim leading-relaxed">{release.note}</p>
+</section>

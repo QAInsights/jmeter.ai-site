@@ -21,6 +21,15 @@ and as open-source projects on GitHub, compatible with Apache JMeter 5.x and lat
   Antigravity, Grok CLI), context-aware @commands (@this, @testplan, @optimize, @lint, @wrap,
   @code, @usage), token-by-token streaming, and smart JSR223 refactoring.
   Plugins Manager ID: feather-wand-jmeter-ai-agent.
+  Upcoming in 4.0 (not yet the published release): Workload Designer accepts sample/message
+  rates, iteration rates, or concurrent users; previews load, endurance, step, spike, stress,
+  and custom shapes; estimates threads and generator needs; applies the workload; and copies
+  local or distributed JMeter commands for Bash, cmd, or PowerShell. Calibrate sizing estimates.
+  Workload Preflight flags heavy listeners, missing local CSVs, risky EOF settings, and inherited
+  timers, with navigation to affected elements. It does not run a test; remote files and generator
+  settings remain Not verified. Three plan-aware chat starters above the composer fill editable
+  drafts without sending, overwriting drafts, or changing the plan, and return on New Chat.
+  Calculations, Preflight, and suggestion generation need no AI call; Ask AI is optional.
 
 - [Super Key](https://jmeter.ai/products/super-key/): Keyboard command center for Apache JMeter
   featuring 70+ shortcuts, a VS Code-style command palette (Ctrl+Shift+P), and Vim-inspired

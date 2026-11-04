@@ -1,6 +1,7 @@
 ---
 import type { Product } from "../../data/products";
 import { productEmoji } from "./constants";
+import UpcomingRelease from "./UpcomingRelease.astro";
 
 interface Props {
   product: Product;
@@ -23,6 +24,10 @@ const { product } = Astro.props;
     <span class="product-name-gradient">{product.featuresHeadingHighlight}</span>
   </h3>
   <p class="text-base text-jm-text-dim leading-relaxed mb-8">{product.featuresSubtitle}</p>
+
+  {product.upcomingRelease && (
+    <div class="mb-8"><UpcomingRelease release={product.upcomingRelease} /></div>
+  )}
 
   {/* Feature cards: 3 column grid */}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
