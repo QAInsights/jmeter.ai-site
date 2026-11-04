@@ -7,6 +7,7 @@ import PrismSimulator from "./simulators/PrismSimulator.astro";
 import FeatherWandSimulator from "./simulators/FeatherWandSimulator.astro";
 import ReadmeSimulator from "./simulators/ReadmeSimulator.astro";
 import ThemeGallery from "./simulators/ThemeGallery.astro";
+import UpcomingRelease from "./UpcomingRelease.astro";
 
 interface Props {
   product: Product;
@@ -43,6 +44,10 @@ const { product } = Astro.props;
     {/* Description */}
     <p class="text-base text-jm-text-dim leading-relaxed" style="font-family: 'JetBrains Mono', monospace;">{product.description}</p>
   </div>
+
+  {product.upcomingRelease && (
+    <div class="mb-6"><UpcomingRelease release={product.upcomingRelease} /></div>
+  )}
 
   {/* Info cards grid */}
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">

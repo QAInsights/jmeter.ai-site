@@ -373,6 +373,15 @@ with open-source editions on GitHub.
 
 CLI install example: `bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent`
 
+Feather Wand upcoming 4.0 preview (not yet the published release): Workload Designer
+turns rate or user targets into workload shapes, thread/generator estimates, plan changes,
+and local or distributed JMeter commands. Validate estimates with a calibration run.
+Workload Preflight checks listeners, local CSV availability, EOF settings, and inherited
+timers without running a test; remote files and generator settings remain Not verified.
+Three plan-aware chat starters above the composer fill drafts without sending or
+overwriting existing text. Core calculations, Preflight, and suggestion generation
+need no AI call. Ask AI is optional. Installation links still target the published release.
+
 
 ## Learning and Upskilling
 
