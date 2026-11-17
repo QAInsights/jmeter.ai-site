@@ -268,11 +268,11 @@ export const products: Product[] = [
       },
       {
         question: "Which LLMs does Feather Wand support?",
-        answer: "Nine providers: Anthropic Claude, OpenAI, Google Gemini, DeepSeek, Ollama (local), Grok (xAI), Meta Muse, AWS Bedrock via the Converse API, and Apple Foundation Models on-device. Apple requires macOS 26+ on Apple silicon, supports chat only, and needs no API key.",
+        answer: "Eleven providers: Anthropic Claude, OpenAI, Google Gemini, DeepSeek, Ollama (local), Grok (xAI), Meta Muse, AWS Bedrock via the Converse API, OpenRouter, OpenCode (CLI), and Apple Foundation Models on-device. Apple requires macOS 26+ on Apple silicon, supports chat only, and needs no API key.",
       },
       {
         question: "What is Agent Mode in Feather Wand?",
-        answer: "Agent Mode lets the AI autonomously edit your live test plan through 21 tools: reading the tree, adding and configuring elements, running tests, and detecting plus applying correlations. Destructive operations ask for confirmation, iterations are bounded, and everything is undoable with Ctrl+Z. It works with Claude, OpenAI, Gemini, DeepSeek, Grok, and Meta Muse models and is on by default; set jmeter.ai.agent.enabled=false to keep it off.",
+        answer: "Agent Mode lets the AI autonomously edit your live test plan through 21 tools: reading the tree, adding and configuring elements, running tests, and detecting plus applying correlations. Destructive operations ask for confirmation, iterations are bounded, and everything is undoable with Ctrl+Z. It works with Claude, OpenAI, Gemini, DeepSeek, Grok, OpenRouter, and Meta Muse models, plus the ChatGPT/Codex, Claude Code, and OpenCode CLI providers, and is on by default; set jmeter.ai.agent.enabled=false to keep it off.",
       },
       {
         question: "How do I install Feather Wand?",
