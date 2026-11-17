@@ -1614,7 +1614,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Connect a provider",
-        code: "Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\nWelcome screen: Connect a provider (or ⋯ → Connect a provider…)\nPick a provider → paste API key (Get a key where available)\nTest connection → Save and connect\nOllama and Apple on-device need no key; Apple uses Use Apple on-device on supported Macs. OpenCode is a CLI option.\nSettings are saved to bin/user.properties for you. Use Chat or Agent Mode immediately—no restart needed.\nJSR223 refactoring picks up a new provider after restart.\nOptional manual configuration: append jmeter-ai-quickstart.properties to bin/user.properties, preserve existing settings, uncomment a provider and add its key, then restart JMeter. AWS Bedrock and corporate gateways are properties-only.",
+        code: "# Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\n# Click Connect a provider → pick a provider → paste its API key → Save and connect\n# No restart needed. Ollama and Apple on-device need no key.",
       },
     ],
   },
@@ -1633,7 +1633,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Connect a provider",
-        code: "Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\nWelcome screen: Connect a provider (or ⋯ → Connect a provider…)\nPick a provider → paste API key (Get a key where available)\nTest connection → Save and connect\nOllama and Apple on-device need no key; Apple uses Use Apple on-device on supported Macs. OpenCode is a CLI option.\nSettings are saved to bin/user.properties for you. Use Chat or Agent Mode immediately—no restart needed.\nJSR223 refactoring picks up a new provider after restart.\nOptional manual configuration: append jmeter-ai-quickstart.properties to bin/user.properties, preserve existing settings, uncomment a provider and add its key, then restart JMeter. AWS Bedrock and corporate gateways are properties-only.",
+        code: "# Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\n# Click Connect a provider → pick a provider → paste its API key → Save and connect\n# No restart needed. Ollama and Apple on-device need no key.",
       },
     ],
   },
@@ -1652,7 +1652,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Connect a provider",
-        code: "Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\nWelcome screen: Connect a provider (or ⋯ → Connect a provider…)\nPick a provider → paste API key (Get a key where available)\nTest connection → Save and connect\nOllama and Apple on-device need no key; Apple uses Use Apple on-device on supported Macs. OpenCode is a CLI option.\nSettings are saved to bin/user.properties for you. Use Chat or Agent Mode immediately—no restart needed.\nJSR223 refactoring picks up a new provider after restart.\nOptional manual configuration: append jmeter-ai-quickstart.properties to bin/user.properties, preserve existing settings, uncomment a provider and add its key, then restart JMeter. AWS Bedrock and corporate gateways are properties-only.",
+        code: "# Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\n# Click Connect a provider → pick a provider → paste its API key → Save and connect\n# No restart needed. Ollama and Apple on-device need no key.",
       },
     ],
   },
