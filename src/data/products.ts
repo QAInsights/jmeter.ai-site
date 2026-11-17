@@ -288,7 +288,7 @@ export const products: Product[] = [
       },
     ],
     agentMode: {
-      providersNote: "Tool calling works with Anthropic Claude, OpenAI, Google Gemini, DeepSeek, Grok, and Meta Muse models, plus the ChatGPT/Codex and Claude Code CLI providers. Ollama, AWS Bedrock, and Apple on-device fall back to plain chat.",
+      providersNote: "Tool calling works with Anthropic Claude, OpenAI, Google Gemini, DeepSeek, Grok, OpenRouter, and Meta Muse models, plus the ChatGPT/Codex, Claude Code, and OpenCode CLI providers. Ollama, AWS Bedrock, and Apple on-device fall back to plain chat.",
       enableProperty: "On by default · opt out with jmeter.ai.agent.enabled=false",
       toolGroups: [
         {
