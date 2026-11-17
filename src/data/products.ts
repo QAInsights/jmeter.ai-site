@@ -1613,8 +1613,8 @@ export const installMethods: InstallMethod[] = [
         code: '# Search "Feather Wand" → Apply Changes and Restart JMeter',
       },
       {
-        title: "Configure your AI provider",
-        code: "# Linux / macOS: append quick-start settings and preserve existing properties\n{ echo; curl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties; } >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nAdd-Content \"$env:JMETER_HOME\\bin\\user.properties\" \"\"\n(Invoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing).Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
+        title: "Connect a provider",
+        code: "Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\nWelcome screen: Connect a provider (or ⋯ → Connect a provider…)\nPick a provider → paste API key (Get a key where available)\nTest connection → Save and connect\nOllama and Apple on-device need no key; Apple uses Use Apple on-device on supported Macs. OpenCode is a CLI option.\nSettings are saved to bin/user.properties for you. Use Chat or Agent Mode immediately—no restart needed.\nJSR223 refactoring picks up a new provider after restart.\nOptional manual configuration: append jmeter-ai-quickstart.properties to bin/user.properties, preserve existing settings, uncomment a provider and add its key, then restart JMeter. AWS Bedrock and corporate gateways are properties-only.",
       },
     ],
   },
@@ -1632,8 +1632,8 @@ export const installMethods: InstallMethod[] = [
         code: "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-agent",
       },
       {
-        title: "Configure your AI provider",
-        code: "# Linux / macOS: append quick-start settings and preserve existing properties\n{ echo; curl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties; } >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nAdd-Content \"$env:JMETER_HOME\\bin\\user.properties\" \"\"\n(Invoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing).Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
+        title: "Connect a provider",
+        code: "Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\nWelcome screen: Connect a provider (or ⋯ → Connect a provider…)\nPick a provider → paste API key (Get a key where available)\nTest connection → Save and connect\nOllama and Apple on-device need no key; Apple uses Use Apple on-device on supported Macs. OpenCode is a CLI option.\nSettings are saved to bin/user.properties for you. Use Chat or Agent Mode immediately—no restart needed.\nJSR223 refactoring picks up a new provider after restart.\nOptional manual configuration: append jmeter-ai-quickstart.properties to bin/user.properties, preserve existing settings, uncomment a provider and add its key, then restart JMeter. AWS Bedrock and corporate gateways are properties-only.",
       },
     ],
   },
@@ -1651,8 +1651,8 @@ export const installMethods: InstallMethod[] = [
         code: "cp <downloaded>.jar $JMETER_HOME/lib/ext/\n$JMETER_HOME/bin/jmeter",
       },
       {
-        title: "Configure your AI provider",
-        code: "# Linux / macOS: append quick-start settings and preserve existing properties\n{ echo; curl -fsSL https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties; } >> \"$JMETER_HOME/bin/user.properties\"\n\n# Windows PowerShell\nAdd-Content \"$env:JMETER_HOME\\bin\\user.properties\" \"\"\n(Invoke-WebRequest https://raw.githubusercontent.com/QAInsights/jmeter-ai/main/jmeter-ai-quickstart.properties -UseBasicParsing).Content | Add-Content \"$env:JMETER_HOME\\bin\\user.properties\"\n\n# Uncomment one provider and add its key (Ollama and Apple on-device need none), then restart JMeter",
+        title: "Connect a provider",
+        code: "Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\nWelcome screen: Connect a provider (or ⋯ → Connect a provider…)\nPick a provider → paste API key (Get a key where available)\nTest connection → Save and connect\nOllama and Apple on-device need no key; Apple uses Use Apple on-device on supported Macs. OpenCode is a CLI option.\nSettings are saved to bin/user.properties for you. Use Chat or Agent Mode immediately—no restart needed.\nJSR223 refactoring picks up a new provider after restart.\nOptional manual configuration: append jmeter-ai-quickstart.properties to bin/user.properties, preserve existing settings, uncomment a provider and add its key, then restart JMeter. AWS Bedrock and corporate gateways are properties-only.",
       },
     ],
   },

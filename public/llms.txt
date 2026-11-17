@@ -10,8 +10,15 @@ and as open-source projects on GitHub, compatible with Apache JMeter 5.x and lat
 ## Products
 
 - [Feather Wand](https://jmeter.ai/products/feather-wand/): A full AI agent living inside Apache
-  JMeter (MIT license), requiring Apache JMeter 5.6.3+ on Java 17+. Append
-  jmeter-ai-quickstart.properties to JMeter's bin/user.properties to preserve existing settings.
+  JMeter (MIT license), requiring Apache JMeter 5.6.3+ on Java 17+. After installing, open the
+  toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI. Click Connect a provider
+  on the welcome screen (or ⋯ → Connect a provider…), pick a provider, paste its API key
+  (Get a key where available), then Test connection → Save and connect. Settings are saved
+  to bin/user.properties for you; use Chat or Agent Mode immediately without restarting.
+  Ollama and Apple on-device need no key; Apple uses Use Apple on-device on supported Macs.
+  OpenCode is a CLI option. Manual quick-start properties remain supported but need a restart;
+  AWS Bedrock and corporate gateways are properties-only. JSR223 refactoring picks up a new
+  provider after restart.
   Chat with 9 LLM providers: Claude, OpenAI, Google Gemini, DeepSeek, Ollama, Grok, Meta Muse,
   AWS Bedrock, and Apple Foundation Models on-device (macOS 26+ on Apple silicon, chat only, no key).
   Agent Mode is on by default and edits the test plan through 21 tools, including adding elements,
