@@ -137,12 +137,12 @@ export const products: Product[] = [
   {
     id: "feather-wand",
     name: "Feather Wand",
-    tagline: "AI inside JMeter. Workload design coming in 4.0.",
+    tagline: "Feather Wand 4.0: design workloads. Fix failures. Let your agent act.",
     subtitlePrefix: "AI-POWERED INTELLIGENCE FOR",
     subtitleHighlight: "APACHE JMETER",
     subtitleSuffix: "",
     description:
-      "Feather Wand brings AI chat, embedded AI CLIs, and Agent Mode into Apache JMeter. Read and edit your live test plan, correlate dynamic values, and refactor JSR223 scripts without switching tools. The upcoming 4.0 release adds Workload Designer, Workload Preflight, and plan-aware chat starters: design your workload, check your plan, and prepare commands for local or distributed execution.",
+      "Go from workload targets to a tested plan inside Apache JMeter. Feather Wand 4.0 ships Workload Designer to model your load, Make it pass to repair failures with real JMeter checks, and Agent Mode to read and edit your live test plan. Free and open source, with AI chat and embedded AI CLIs in the same workflow.",
     icon: "wand-sparkles",
     color: "#00e5ff",
     colorRgb: "0, 229, 255",
@@ -158,46 +158,46 @@ export const products: Product[] = [
       { label: "AI AGENT", emoji: "🤖", variant: "filled", color: "#d500f9" },
       { label: "OPEN SOURCE · MIT", emoji: "⚡", variant: "outlined", color: "#00e676" },
       { label: "AGENT MODE", emoji: "🛠️", variant: "outlined", color: "#00e5ff" },
-      { label: "9 LLM PROVIDERS", emoji: "🔗", variant: "outlined", color: "#ffab00" },
+      { label: "MULTI-PROVIDER AI", emoji: "🔗", variant: "outlined", color: "#ffab00" },
     ],
     infoCards: [
       { label: "CATEGORY", value: "AI Agent / LLM Integration", color: "#00e5ff" },
       { label: "PLATFORM", value: "Apache JMeter Plugin", color: "#00e676" },
       { label: "LICENSE", value: "MIT (Open Source)", color: "#00e676" },
-      { label: "LLM PROVIDERS", value: "9 Providers", color: "#ffab00" },
+      { label: "LLM PROVIDERS", value: "Cloud & Local", color: "#ffab00" },
     ],
     featuresHeadingPrefix: "Intelligent",
     featuresHeadingHighlight: "Features",
     featuresSubtitle: "Supercharge your performance testing workflow with AI-driven capabilities built natively into JMeter.",
-    upcomingRelease: {
-      version: "4.0",
-      heading: "Design your workload. Check your plan. Run it where you need.",
-      description: "Feather Wand started with chat, brought AI CLIs into JMeter, then added Agent Mode to act on your test plan. The next release brings workload design into that same workflow.",
-      features: [
-        {
-          title: "Workload Designer",
-          description: "Start with a sample or message rate, iteration rate, or concurrent user target. Preview load, endurance, step, spike, stress, or custom shapes; estimate threads and load-generator needs; then apply the workload to your plan. Copy a local or distributed JMeter command for Bash, cmd, or PowerShell. Validate sizing estimates with a calibration run.",
-        },
-        {
-          title: "Workload Preflight",
-          description: "Check the open plan for heavy listeners, missing local CSV files, risky EOF settings, and inherited timers that may affect the workload. Each finding explains why it matters and lets you select the affected element. Remote files and generator settings remain Not verified. Preflight does not execute a test or call AI.",
-        },
-        {
-          title: "Plan-aware chat starters",
-          description: "Once a provider is connected, an empty chat offers three suggestions based on the open plan and selected Thread Group, directly above the composer. Create a group, add a request or CSV data, review response checks, or plan the workload. Clicking fills an editable draft without sending, overwriting existing text, or changing the plan. Suggestions return on New Chat.",
-        },
-      ],
-      note: "Core workload calculations and suggestion generation run locally without an AI call. Ask AI is optional; sending a chat draft uses your chosen provider. These features are coming in 4.0, not the current published release.",
-    },
     features: [
       {
+        title: "Workload Designer",
+        description: "Start with a sample or message rate, iteration rate, or concurrent user target. Preview load, endurance, step, spike, stress, or custom shapes; estimate threads and load-generator needs; then apply the workload to your plan. Copy a local or distributed JMeter command for Bash, cmd, or PowerShell. Validate sizing estimates with a calibration run.",
+        icon: "📈",
+      },
+      {
+        title: "Make it pass",
+        description: "Type @fix to back up your plan and repair failures in guarded rounds, verified by real JMeter runs. Confirm target hosts before requests are sent. After a passing one-user check, a two-user check verifies concurrency by default. Review the plan diff and report, then Keep, Undo all, or Save as. Repairs cannot weaken assertions, remove requests, or change scripts; a passing result is not guaranteed.",
+        icon: "🛠️",
+      },
+      {
         title: "Agent Mode",
-        description: "AI autonomously edits your live test plan through 21 tools: add elements, set properties, run tests, and auto-correlate dynamic values, with confirmation-gated destructive ops. Works with Claude, OpenAI, Gemini, DeepSeek, Grok, and Meta Muse.",
+        description: "AI autonomously edits your live test plan through 21 tools: add elements, set properties, run tests, and auto-correlate dynamic values, with confirmation-gated destructive ops. Works with Claude, OpenAI, Gemini, DeepSeek, Grok, Meta Muse, and OpenRouter.",
         icon: "🤖",
       },
       {
-        title: "9 LLM Providers",
-        description: "Chat with Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok (xAI), Meta Muse, AWS Bedrock, or Apple Foundation Models on-device. Apple requires macOS 26+ on Apple silicon, supports chat only, and needs no API key.",
+        title: "Workload Preflight",
+        description: "Check the open plan for heavy listeners, missing local CSV files, risky EOF settings, and inherited timers that may affect the workload. Each finding explains why it matters and lets you select the affected element. Remote files and generator settings remain Not verified. Preflight does not execute a test or call AI.",
+        icon: "🔎",
+      },
+      {
+        title: "Plan-aware chat starters",
+        description: "Once a provider is connected, an empty chat offers three suggestions based on the open plan and selected Thread Group, directly above the composer. Create a group, add a request or CSV data, review response checks, or plan the workload. Clicking fills an editable draft without sending, overwriting existing text, or changing the plan. Suggestions return on New Chat.",
+        icon: "💬",
+      },
+      {
+        title: "Cloud & Local AI Providers",
+        description: "Chat with Claude, OpenAI, Gemini, DeepSeek, Ollama, Grok (xAI), Meta Muse, AWS Bedrock, OpenRouter, OpenCode, or Apple Foundation Models on-device. Apple requires macOS 26+ on Apple silicon, supports chat only, and needs no API key.",
         icon: "🔗",
       },
       {
@@ -255,16 +255,16 @@ export const products: Product[] = [
     ],
     faqs: [
       {
-        question: "What is coming in Feather Wand 4.0?",
-        answer: "The upcoming release adds Workload Designer for load targets, shapes, thread and generator sizing, and local or distributed run commands; Workload Preflight for plan-specific checks; and three contextual chat starters above the composer. Core calculations, Preflight, and suggestion generation do not require an AI call. Installation links still point to the latest published release, not an unreleased 4.0 build.",
+        question: "What ships in Feather Wand 4.0?",
+        answer: "Workload Designer models load targets and shapes, estimates threads and generator capacity, and prepares shell-specific run commands. Make it pass runs guarded repair rounds verified by real JMeter results. Agent Mode edits your live plan. Version 4.0 also adds Workload Preflight, contextual chat starters, and OpenRouter for chat and Agent Mode. Download v4.0.0 from GitHub Releases or install through JMeter Plugins Manager.",
       },
       {
         question: "Does Workload Preflight prove my plan is ready to run remotely?",
-        answer: "No. In the upcoming 4.0 release, Preflight inspects the open plan and local CSV availability without executing a test. It flags issues such as heavy listeners, CSV EOF settings, and inherited timers, but marks remote files and generator settings as Not verified. Validate remote resources separately and calibrate your workload on the intended generators.",
+        answer: "No. Preflight inspects the open plan and local CSV availability without executing a test. It flags issues such as heavy listeners, CSV EOF settings, and inherited timers, but marks remote files and generator settings as Not verified. Validate remote resources separately and calibrate your workload on the intended generators.",
       },
       {
         question: "What is Feather Wand for Apache JMeter?",
-        answer: "Feather Wand is a free, MIT-licensed AI agent plugin for JMeter. Chat with 9 LLM providers to generate and analyze test plans, use context-aware @commands, run embedded AI CLI terminals (Claude Code, OpenAI Codex, and more), or enable Agent Mode to let the AI autonomously edit your test plan.",
+        answer: "Feather Wand is a free, MIT-licensed AI agent plugin for JMeter. Chat with cloud and local LLM providers to generate and analyze test plans, use context-aware @commands, run embedded AI CLI terminals (Claude Code, OpenAI Codex, and more), or enable Agent Mode to let the AI autonomously edit your test plan.",
       },
       {
         question: "Which LLMs does Feather Wand support?",
@@ -280,7 +280,7 @@ export const products: Product[] = [
       },
       {
         question: "Is Feather Wand free?",
-        answer: "Yes, completely. Feather Wand is open source under the MIT license, including Agent Mode, all 9 LLM providers, the CLI terminal, and every @command. You only pay for your own LLM API usage (or nothing at all with local Ollama models or Apple on-device).",
+        answer: "Yes, completely. Feather Wand is open source under the MIT license, including Agent Mode, cloud and local LLM providers, the CLI terminal, and every @command. You only pay for your own LLM API usage (or nothing at all with local Ollama models or Apple on-device).",
       },
       {
         question: "Does my test data leave my machine?",
