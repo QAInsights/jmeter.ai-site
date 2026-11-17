@@ -1614,7 +1614,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Connect a provider",
-        code: "# Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\n# Click Connect a provider → pick a provider → paste its API key → Save and connect\n# No restart needed. Ollama and Apple on-device need no key.",
+        code: "# Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\n# Click Connect a provider → pick a provider → Test connection → Save and connect\n# API-key providers: paste an API key (Get a key where available) before testing.\n# Ollama and Apple on-device need no key. OpenCode uses free models or CLI-managed credentials, not a Feather Wand API key.\n# Chat works immediately; Agent Mode requires a supported provider. Ollama, AWS Bedrock, and Apple on-device are chat-only.",
       },
     ],
   },
@@ -1632,8 +1632,8 @@ export const installMethods: InstallMethod[] = [
         code: "bin\\PluginsManagerCMD.bat install feather-wand-jmeter-ai-agent",
       },
       {
-        title: "Connect a provider",
-        code: "# Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\n# Click Connect a provider → pick a provider → paste its API key → Save and connect\n# No restart needed. Ollama and Apple on-device need no key.",
+        title: "Configure a provider (headless / CI)",
+        code: "# Add to bin/user.properties before starting JMeter (example: Anthropic)\njmeter.ai.service.type=anthropic\nanthropic.api.key=YOUR_ANTHROPIC_API_KEY\n# Restart JMeter after manual edits if it is already running.",
       },
     ],
   },
@@ -1652,7 +1652,7 @@ export const installMethods: InstallMethod[] = [
       },
       {
         title: "Connect a provider",
-        code: "# Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\n# Click Connect a provider → pick a provider → paste its API key → Save and connect\n# No restart needed. Ollama and Apple on-device need no key.",
+        code: "# Open Feather Wand: toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI\n# Click Connect a provider → pick a provider → Test connection → Save and connect\n# API-key providers: paste an API key (Get a key where available) before testing.\n# Ollama and Apple on-device need no key. OpenCode uses free models or CLI-managed credentials, not a Feather Wand API key.\n# Chat works immediately; Agent Mode requires a supported provider. Ollama, AWS Bedrock, and Apple on-device are chat-only.",
       },
     ],
   },

@@ -7,8 +7,8 @@ const steps = [
   "Pick one of the three install methods below.",
   "After installation, open Feather Wand with the toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI.",
   "Click Connect a provider on the welcome screen, or ⋯ → Connect a provider….",
-  "Pick a provider and paste its API key; use Get a key where available. Ollama and Apple on-device need no key. OpenCode is available as a CLI option.",
-  "Click Test connection, then Save and connect (Use Apple on-device for Apple). Pick a model and use Chat or Agent Mode immediately—no restart needed.",
+  "Pick a provider. For API-key providers, paste an API key; use Get a key where available. Ollama and Apple on-device need no key. OpenCode is a CLI option using free models or credentials managed by its CLI, with no API-key field in Feather Wand.",
+  "Click Test connection, then Save and connect (Use Apple on-device for Apple). Pick a model and use Chat immediately—no restart needed. Agent Mode requires a supported provider; Ollama, AWS Bedrock, and Apple on-device are chat-only.",
 ];
 
 const jsonLdExtra = [
@@ -20,7 +20,7 @@ const jsonLdExtra = [
         name: "How do I install Feather Wand for JMeter?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent. Open Feather Wand with the toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI, then click Connect a provider on the welcome screen.",
+          text: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent, then configure the provider in bin/user.properties before starting JMeter. For GUI setup, open Feather Wand with the toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI, then click Connect a provider on the welcome screen.",
         },
       },
       {
@@ -36,7 +36,7 @@ const jsonLdExtra = [
         name: "How do I configure an LLM provider?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Click Connect a provider on the welcome screen or ⋯ → Connect a provider…. Pick a provider, paste its API key (Get a key where available), click Test connection, then Save and connect. Ollama and Apple on-device need no key; Apple uses Use Apple on-device on supported Macs. OpenCode is a CLI option. Settings are saved to bin/user.properties for you; Chat and Agent Mode work immediately without restarting. Manual properties remain supported but require a restart; AWS Bedrock and corporate gateways are properties-only. The JSR223 refactor menu picks up a new provider after restart.",
+          text: "Click Connect a provider on the welcome screen or ⋯ → Connect a provider…. Pick a provider; for API-key providers, paste an API key (Get a key where available), click Test connection, then Save and connect. Ollama and Apple on-device need no key; Apple uses Use Apple on-device on supported Macs. OpenCode is a CLI option using free models or credentials managed by its CLI, with no API-key field in Feather Wand. Settings are saved to bin/user.properties for you; Chat works immediately without restarting. Agent Mode requires a supported provider; Ollama, AWS Bedrock, and Apple on-device are chat-only. Manual properties remain supported but require a restart; AWS Bedrock and corporate gateways are properties-only. The JSR223 refactor menu picks up a new provider after restart.",
         },
       },
     ],
