@@ -1,30 +1,32 @@
 import { describe, expect, it } from "vitest";
 import { products } from "../data/products";
 
-describe("Feather Wand upcoming release", () => {
+describe("Feather Wand 4.0", () => {
   const product = products.find((product) => product.id === "feather-wand")!;
-  const release = product.upcomingRelease!;
+  const feature = (title: string) => product.features.find((item) => item.title === title)!;
 
-  it("keeps the 4.0 preview separate from released features", () => {
-    expect(release.version).toBe("4.0");
-    expect(product.description).toContain("upcoming 4.0");
-    expect(release.note).toContain("not the current published release");
-    expect(products.filter((product) => product.upcomingRelease)).toEqual([product]);
-    expect(release.features.map((feature) => feature.title)).toEqual([
-      "Workload Designer",
-      "Workload Preflight",
-      "Plan-aware chat starters",
-    ]);
-    for (const feature of release.features) {
-      expect(product.features.some((existing) => existing.title === feature.title)).toBe(false);
+  it("promotes shipped features rather than an upcoming release", () => {
+    expect(product.upcomingRelease).toBeUndefined();
+    expect(product.tagline).toContain("4.0");
+    expect(product.description).toContain("4.0 ships");
+    for (const title of ["Workload Designer", "Make it pass", "Agent Mode"]) {
+      expect(feature(title).description.length).toBeGreaterThan(0);
     }
+    expect(JSON.stringify(product)).not.toMatch(/upcoming|coming in 4\.0|not the current published release/i);
   });
 
-  it("preserves execution, remote verification, and draft-safety caveats", () => {
-    expect(release.features[0].description).toContain("calibration run");
-    expect(release.features[0].description).toContain("Bash, cmd, or PowerShell");
-    expect(release.features[1].description).toContain("Not verified");
-    expect(release.features[1].description).toContain("does not execute a test or call AI");
-    expect(release.features[2].description).toContain("without sending, overwriting existing text, or changing the plan");
+  it("preserves workload, remote verification, and draft-safety caveats", () => {
+    expect(feature("Workload Designer").description).toContain("calibration run");
+    expect(feature("Workload Designer").description).toContain("Bash, cmd, or PowerShell");
+    expect(feature("Workload Preflight").description).toContain("Not verified");
+    expect(feature("Workload Preflight").description).toContain("does not execute a test or call AI");
+    expect(feature("Plan-aware chat starters").description).toContain("without sending, overwriting existing text, or changing the plan");
+  });
+
+  it("sets realistic expectations for guarded repairs", () => {
+    expect(feature("Make it pass").description).toContain("Confirm target hosts");
+    expect(feature("Make it pass").description).toContain("real JMeter runs");
+    expect(feature("Make it pass").description).toContain("passing result is not guaranteed");
+    expect(feature("Make it pass").description).toContain("Undo all");
   });
 });

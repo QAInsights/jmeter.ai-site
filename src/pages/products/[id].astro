@@ -12,6 +12,7 @@ import AcademyBrowser from "../../components/AcademyBrowser.astro";
 import MetricsPanel from "../../components/panels/MetricsPanel.astro";
 import CalculatorsPanel from "../../components/panels/CalculatorsPanel.astro";
 import PromptsPanel from "../../components/PromptsPanel.astro";
+import FeatherWandInstall from "../../components/FeatherWandInstall.astro";
 
 export function getStaticPaths() {
   return products
@@ -93,6 +94,7 @@ const jsonLdExtra =
         </div>
 
         <p class="text-slate-400 leading-relaxed max-w-4xl text-base md:text-lg">{product.description}</p>
+        {product.id === "feather-wand" && <FeatherWandInstall location="hero" />}
 
         {
           product.id === "feather-wand" && (
@@ -428,6 +430,7 @@ const jsonLdExtra =
       }
 
       <!-- Connect -->
+      {product.id === "feather-wand" && <FeatherWandInstall location="bottom" />}
       <section>
         <ConnectPanel product={product} />
       </section>

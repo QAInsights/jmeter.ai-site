@@ -1,0 +1,50 @@
+---
+interface Props {
+  location: "hero" | "bottom";
+}
+const { location } = Astro.props;
+const command = "bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent";
+---
+
+<section class="glass-panel rounded-2xl border border-cyan-500/30 p-5 md:p-6 space-y-4" aria-label="Install Feather Wand 4.0">
+  <p class="text-xs font-mono tracking-widest text-cyan-400">AVAILABLE NOW · VERSION 4.0</p>
+  <h2 class="text-xl md:text-2xl font-bold text-white">
+    {location === "hero" ? "Install Feather Wand. Stay in JMeter." : "Ready to design, repair, and run?"}
+  </h2>
+  <p class="text-sm text-slate-400">In JMeter, open Options → Plugins Manager → Available Plugins, search “Feather Wand”, then Apply Changes and Restart.</p>
+  <p class="text-xs text-slate-400">Or run from your JMeter directory with Plugins Manager installed (Linux / macOS):</p>
+  <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center min-w-0">
+    <code class="text-sm text-cyan-300 break-all min-w-0 flex-1">{command}</code>
+    <button type="button" data-fw-copy={command} data-location={location} class="shrink-0 px-4 py-2 rounded-lg border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/20 text-xs font-mono" aria-label="Copy Feather Wand install command">Copy command</button>
+  </div>
+  <p data-fw-status aria-live="polite" class="text-xs text-slate-400"></p>
+  <p class="text-xs text-slate-400">Windows: use <code>bin\PluginsManagerCMD.bat</code> instead. Restart JMeter after installation, then open Tools → Feather Wand.</p>
+  <div class="flex flex-wrap gap-3">
+    <a href="https://github.com/QAInsights/jmeter-ai/releases/tag/v4.0.0" data-fw-install data-location={location} class="inline-flex px-4 py-2 rounded-lg bg-cyan-400 text-slate-950 font-bold text-sm hover:bg-cyan-300">Download v4.0.0 →</a>
+    <a href="/quickstart" data-fw-install data-location={location} class="inline-flex px-4 py-2 rounded-lg border border-white/10 text-slate-200 text-sm hover:bg-white/10">Installation &amp; provider setup →</a>
+  </div>
+</section>
+
+<script>
+  import { trackEvent } from "../utils/analytics";
+
+  document.querySelectorAll<HTMLButtonElement>("[data-fw-copy]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const status = button.closest("section")?.querySelector("[data-fw-status]");
+      try {
+        await navigator.clipboard.writeText(button.dataset.fwCopy!);
+        if (status) status.textContent = "Copied! Paste into your terminal.";
+      } catch {
+        if (status) status.textContent = "Could not copy. Select and copy the command above.";
+        return;
+      }
+      trackEvent("feather_wand_install_copy", { location: button.dataset.location });
+    });
+  });
+
+  document.querySelectorAll<HTMLAnchorElement>("[data-fw-install]").forEach((link) => {
+    link.addEventListener("click", () => {
+      trackEvent("feather_wand_install_click", { location: link.dataset.location, link_url: link.href });
+    });
+  });
+</script>
