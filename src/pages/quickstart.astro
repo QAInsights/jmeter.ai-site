@@ -1,13 +1,14 @@
 ---
 import JMeterLayout from "../layouts/JMeterLayout.astro";
-import { installMethods, siteConfig } from "../data/products";
+import { installMethods } from "../data/products";
 
 const steps = [
   "Install Apache JMeter 5.6.3+ on Java 17+ from the official download page if you don't have it yet.",
   "Pick one of the three install methods below.",
-  "Append jmeter-ai-quickstart.properties to JMeter's bin/user.properties, preserving any existing settings.",
-  "Uncomment one provider and add its key, then restart JMeter. Ollama and Apple on-device need no key.",
-  "Open the Feather Wand chat and pick a model from the dropdown.",
+  "After installation, open Feather Wand with the toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI.",
+  "Click Connect a provider on the welcome screen, or ⋯ → Connect a provider….",
+  "Pick a provider. For API-key providers, paste an API key; use Get a key where available. Ollama and Apple on-device need no key. OpenCode is a CLI option using free models or credentials managed by its CLI, with no API-key field in Feather Wand.",
+  "Click Test connection, then Save and connect (Use Apple on-device for Apple). Pick a model and use Chat immediately—no restart needed. Agent Mode requires a supported provider; Ollama, AWS Bedrock, and Apple on-device are chat-only.",
 ];
 
 const jsonLdExtra = [
@@ -19,7 +20,7 @@ const jsonLdExtra = [
         name: "How do I install Feather Wand for JMeter?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent. Append jmeter-ai-quickstart.properties to user.properties so existing settings are preserved, then uncomment one provider and add its key. Ollama and Apple on-device need no key.",
+          text: "The easiest way is the JMeter Plugins Manager: Options → Plugins Manager → Available Plugins → search \"Feather Wand\" → Apply Changes and Restart JMeter. For CI, use the Plugins Manager CLI: bin/PluginsManagerCMD.sh install feather-wand-jmeter-ai-agent, then configure the provider in bin/user.properties before starting JMeter. For GUI setup, open Feather Wand with the toolbar wand button, Ctrl+Shift+A (⌘⇧A on macOS), or Run → AI, then click Connect a provider on the welcome screen.",
         },
       },
       {
@@ -35,7 +36,7 @@ const jsonLdExtra = [
         name: "How do I configure an LLM provider?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Append jmeter-ai-quickstart.properties to JMeter's bin/user.properties so existing settings are preserved. Uncomment one provider and add its key, then restart JMeter and pick a model from the dropdown. Ollama and Apple on-device need no key.",
+          text: "Click Connect a provider on the welcome screen or ⋯ → Connect a provider…. Pick a provider; for API-key providers, paste an API key (Get a key where available), click Test connection, then Save and connect. Ollama and Apple on-device need no key; Apple uses Use Apple on-device on supported Macs. OpenCode is a CLI option using free models or credentials managed by its CLI, with no API-key field in Feather Wand. Settings are saved to bin/user.properties for you; Chat works immediately without restarting. Agent Mode requires a supported provider; Ollama, AWS Bedrock, and Apple on-device are chat-only. Manual properties remain supported but require a restart; AWS Bedrock and corporate gateways are properties-only. The JSR223 refactor menu picks up a new provider after restart.",
         },
       },
     ],
@@ -45,7 +46,7 @@ const jsonLdExtra = [
 
 <JMeterLayout
   title="Quickstart | Install & Configure JMeter.AI"
-  description="Get Feather Wand running in Apache JMeter in five minutes: prerequisites, all install methods, and LLM provider configuration."
+  description="Get Feather Wand running in Apache JMeter in five minutes: install the plugin and connect a provider in the UI, without a configuration restart."
   jsonLdExtra={jsonLdExtra}
 >
   <main class="px-6 py-12 md:py-16">
@@ -56,8 +57,8 @@ const jsonLdExtra = [
           Install <span class="gradient-text">JMeter.AI</span> in 5 minutes
         </h1>
         <p class="text-slate-400 leading-relaxed max-w-2xl">
-          Feather Wand is an AI agent that lives inside Apache JMeter. Everything below uses the
-          JMeter Plugins Manager, the same install path used by {siteConfig.title}.
+          Feather Wand is an AI agent that lives inside Apache JMeter. Install it with the
+          Plugins Manager, CLI, or a release JAR, then connect a provider in the panel.
         </p>
 
         <ol class="space-y-2 list-decimal list-inside text-slate-300 text-sm">
@@ -69,6 +70,16 @@ const jsonLdExtra = [
             ))
           }
         </ol>
+        <p class="text-slate-400 text-sm leading-relaxed mt-4">
+          Settings are saved to JMeter's bin/user.properties for you (or your configured user.properties path).
+          Apple on-device appears only on supported Macs. The JSR223 refactor menu picks up a new provider after restart.
+        </p>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          <strong class="text-slate-200">Prefer properties?</strong> Append the
+          <a class="text-cyan-300 underline" href="https://github.com/QAInsights/jmeter-ai/blob/main/jmeter-ai-quickstart.properties">quick-start file</a>
+          to bin/user.properties, preserving existing settings, then uncomment one provider and add its key.
+          Restart JMeter after manual edits. AWS Bedrock and corporate gateways are properties-only.
+        </p>
       </section>
 
       <section class="space-y-4">
@@ -95,7 +106,7 @@ const jsonLdExtra = [
         <h2 class="text-2xl font-bold text-white tracking-tight">First prompt to try</h2>
         <div class="glass-panel rounded-2xl border border-cyan-500/30 p-6">
           <p class="text-slate-400 text-sm leading-relaxed">
-            Open Feather Wand from the JMeter Tools menu, pick your model, and ask something like:
+            Once connected, pick your model in Feather Wand and ask something like:
           </p>
           <blockquote class="mt-3 font-mono text-cyan-300 text-sm border-l-2 border-cyan-500/40 pl-4">
             "Generate a JMX test plan with 50 virtual users, a ramp-up of 30 seconds, and assertions on the
